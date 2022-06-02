@@ -14,7 +14,7 @@ class JobClassController extends Controller
      */
     public function index(Request $request)
     {
-        $jobclass = \App\Models\JobClass::paginate(10);
+        $jobclass = \App\Models\JobClass::orderBy('created_at', 'desc')->paginate(10);
 
         $filterKeyword = $request->get('name');
         if ($filterKeyword) {
@@ -59,7 +59,7 @@ class JobClassController extends Controller
 
         $new_jobclass->save();
 
-        return redirect()->route('jobclass.create')->with('status', 'Job Class baru Berhasil ditambahkan');
+        return redirect()->route('jobclass.index')->with('status', 'Job Class baru Berhasil ditambahkan');
     }
 
     /**
@@ -117,7 +117,7 @@ class JobClassController extends Controller
         }
 
         $jobclass->save();
-        return redirect()->route('jobclass.edit', [$id])->with('status', 'Job Class Berhasil diupdate');
+        return redirect()->route('jobclass.show', [$id])->with('status', 'Job Class Berhasil diupdate');
     }
 
     /**
@@ -166,5 +166,12 @@ class JobClassController extends Controller
             $jobclass->forceDelete();
             return redirect()->route('jobclass.index')->with('status', 'Job Class Permanently deleted');
         }
+    }
+
+    public function ajaxSearch(Request $request){
+        $keyword = $request->get('q');
+        $jobclass = \App\Models\JobClass::where("name", "LIKE", "%$keyword%")->get();
+
+        return $jobclass;
     }
 }

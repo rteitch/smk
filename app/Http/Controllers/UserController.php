@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $users = \App\Models\User::paginate(10);
+        $users = \App\Models\User::orderBy('created_at', 'desc')->paginate(10);
         $optionFilter = $request->get('optionFilter');
         $filterKeyword = $request->get('keyword');
         // dd($filterKeyword);
@@ -82,7 +82,9 @@ class UserController extends Controller
         }
 
         $new_user->save();
-        return redirect()->route('users.create')->with('status', 'Berhasil Membuat User Baru.');
+
+        $new_user->jobclass()->attach($request->get('jobclass'));
+        return redirect()->route('users.index')->with('status', 'Berhasil Membuat User Baru.');
     }
 
     /**
@@ -149,7 +151,9 @@ class UserController extends Controller
         }
 
         $user->save();
-        return redirect()->route('users.edit', [$id])->with('status', 'User succesfully updated');
+
+        $user->jobclass()->sync($request->get('jobclass'));
+        return redirect()->route('users.show', [$id])->with('status', 'User succesfully updated');
 
     }
 

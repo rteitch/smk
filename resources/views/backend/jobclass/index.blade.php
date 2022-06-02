@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="container col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="card">
             <div class="card-header">
                 <b>List Job Class</b>
@@ -38,7 +43,7 @@
                 <hr class="my-3">
 
                 <div class="col-md-12 text-right">
-                    <a href="{{ route('jobclass.create') }}" class="btn btn-primary">Create Job Class</a>
+                    <a href="{{ route('jobclass.create') }}" class="btn btn-primary"><span class="oi oi-plus"> Tambah Job Class</a>
                 </div>
                 <div class="row">
                     <div class="table-responsive">

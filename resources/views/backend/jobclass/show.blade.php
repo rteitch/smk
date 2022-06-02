@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="container col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="row no-gutters">
             <div class="card col-md-4">
                 <img src="{{ asset('storage/' . $jobclass->image) }}" class="card-img p-2" alt="...">

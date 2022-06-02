@@ -36,4 +36,5 @@ Route::resource('users', UserController::class);
 Route::get('jobclass/trash', [JobClassController::class, 'trash'])->name('jobclass.trash');
 Route::get('/jobclass/{id}/restore', [JobClassController::class, 'restore'])->name('jobclass.restore');
 Route::delete('/jobclass/{jobclass}/delete-permanent', [JobClassController::class, 'deletePermanent'])->name('jobclass.delete-permanent');
+Route::get('/ajax/jobclass/search', [JobClassController::class, 'ajaxSearch']);
 Route::resource('jobclass', JobClassController::class);

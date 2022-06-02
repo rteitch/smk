@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right mb-2">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary">Create user</a>
+                        <a href="{{ route('users.create') }}" class="btn btn-primary"> <span class="oi oi-plus"> Tambah user</span> </a>
                     </div>
                     <hr class="my-3">
                 </div>

@@ -62,8 +62,8 @@
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label>Select</label>
                     <select class="form-control" name="gender">
-                        <option value="Laki-Laki" {{ $user->gender == 'Laki-Laki' ? 'selected' : '' }} >Laki-Laki</option>
-                        <option value="Perempuan" {{ $user->gender == 'Perempuan' ? 'selected' : '' }} >Perempuan</option>
+                        <option value="Laki-Laki" {{ $user->gender == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                        <option value="Perempuan" {{ $user->gender == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                     </select>
                     <br>
                 </div>
@@ -126,6 +126,15 @@
                     <hr class="my-3">
                 </div>
 
+                {{-- Job Class Choice --}}
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <label for="jobclass">Job Class</label><br>
+
+                    <select name="jobclass[]" multiple id="jobclass" class="form-control">
+                    </select>
+                </div>
+
                 {{-- Form Status --}}
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="">Status</label>
@@ -184,4 +193,35 @@
             <input class="btn btn-primary" type="submit" value="Save" />
         </form>
     </div>
+@endsection
+
+@section('footer-scripts')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <script>
+        $('#jobclass').select2({
+            ajax: {
+                url: 'http://127.0.0.1:8000/ajax/jobclass/search',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.name
+                            }
+                        })
+                    }
+                }
+            }
+        });
+
+        var jobclass = {!! $user->jobclass !!}
+
+        jobclass.forEach(function(jobclass) {
+            var option = new Option(jobclass.name, jobclass.id, true, true);
+            $('#jobclass').append(option).trigger('change');
+        });
+    </script>
 @endsection
