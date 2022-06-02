@@ -37,11 +37,11 @@
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p-2">
                             <input {{ Request::get('status') == 'on' ? 'checked' : '' }} value="on" name="status"
                                 type="radio" class="form-control" id="on">
-                            <label for="on">Active</label>
+                            <label for="on">Online</label>
 
                             <input {{ Request::get('status') == 'off' ? 'checked' : '' }} value="off" name="status"
                                 type="radio" class="form-control" id="off">
-                            <label for="off">Inactive</label>
+                            <label for="off">Offline</label>
                             <input type="submit" value="Filter" class="btn btn-primary pl-3 pr-3">
                         </div>
                     </div>
@@ -99,9 +99,9 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('users.show', [$user->id]) }}"
-                                            class="btn btn-primary btn-sm">Detail</a>
+                                            class="btn btn-primary btn-sm"><span class="oi oi-eye"></span></a>
                                         <a class="btn btn-info text-white btn-sm"
-                                            href="{{ route('users.edit', [$user->id]) }}">Edit</a>
+                                            href="{{ route('users.edit', [$user->id]) }}"><span class="oi oi-pencil"></span></a>
                                         <form onsubmit="return confirm('Delete this user permanently?')"
                                             class="d-inline" action="{{ route('users.destroy', [$user->id]) }}"
                                             method="POST">
@@ -109,8 +109,9 @@
                                             @csrf
 
                                             <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn- btn-danger btn-sm"><span class="oi oi-trash"></span></button>
+                                            {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm"> --}}
 
-                                            <input type="submit" value="Delete" class="btn btn-danger btn-sm">
                                         </form>
                                     </td>
                                 </tr>

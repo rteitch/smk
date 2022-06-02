@@ -36,6 +36,10 @@
                     </div>
                 </div>
                 <hr class="my-3">
+
+                <div class="col-md-12 text-right">
+                    <a href="{{ route('jobclass.create') }}" class="btn btn-primary">Create Job Class</a>
+                </div>
                 <div class="row">
                     <div class="table-responsive">
                         <div class="d-flex justify-content-end">
@@ -51,9 +55,6 @@
                             </div>
                         @endif
                         <div class="row">
-                            <div class="col-md-12 text-right">
-                                <a href="{{ route('jobclass.create') }}" class="btn btn-primary">Create Job Class</a>
-                            </div>
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-start">
                                     {!! $jobclass->appends(Request::all())->links() !!}
@@ -88,9 +89,9 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('jobclass.edit', [$jobc->id]) }}"
-                                                    class="btn btn-info btn-sm"> Edit </a>
+                                                    class="btn btn-info btn-sm"><span class="oi oi-pencil"></span></a>
                                                 <a href="{{ route('jobclass.show', [$jobc->id]) }}"
-                                                    class="btn btn-primary btn-sm"> Show </a>
+                                                    class="btn btn-primary btn-sm"> <span class="oi oi-eye"></span></a>
                                                 <form class="d-inline"
                                                     action="{{ route('jobclass.destroy', [$jobc->id]) }}" method="POST"
                                                     onsubmit="return confirm('Move Job Class {{ $jobc->name }} to trash?')">
@@ -98,8 +99,8 @@
                                                     @csrf
 
                                                     <input type="hidden" value="DELETE" name="_method">
-
-                                                    <input type="submit" class="btn btn-danger btn-sm" value="Trash">
+                                                    <button type="submit" class="btn- btn-danger btn-sm"><span class="oi oi-trash"></span></button>
+                                                    {{-- <input type="submit" class="btn btn-danger btn-sm" value="Trash"> --}}
 
                                                 </form>
                                             </td>
