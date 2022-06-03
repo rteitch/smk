@@ -14,7 +14,7 @@ class JobClassController extends Controller
      */
     public function index(Request $request)
     {
-        $jobclass = \App\Models\JobClass::orderBy('created_at', 'desc')->paginate(10);
+        $jobclass = \App\Models\JobClass::orderBy('name', 'asc')->paginate(10);
 
         $filterKeyword = $request->get('name');
         if ($filterKeyword) {

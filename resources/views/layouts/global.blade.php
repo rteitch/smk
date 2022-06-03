@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GAWEB SMKN2SKA @yield('title')</title>
+    <title    <title>GAWEB SMKN2SKA @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('polished/polished.min.css') }}">
     <link rel="stylesheet" href="{{ asset('polished/iconic/css/open-iconic-bootstrap.min.css') }}">
 
@@ -127,14 +127,6 @@
                 </div>
             </div>
             <div class="col-lg-10 col-md-9 pt-4">
-                <div class="row">
-                    <div class="col-md-12 pl-3 pt-2">
-                        <div class="pl-3">
-                            <h3>@yield('pageTitle')</h3>
-                            <br>
-                        </div>
-                    </div>
-                </div>
                 @yield('content')
             </div>
         </div>

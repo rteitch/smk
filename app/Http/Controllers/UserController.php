@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $users = \App\Models\User::orderBy('created_at', 'desc')->paginate(10);
+        $users = \App\Models\User::orderBy('name', 'asc')->paginate(10);
         $optionFilter = $request->get('optionFilter');
         $filterKeyword = $request->get('keyword');
         // dd($filterKeyword);

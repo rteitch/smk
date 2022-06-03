@@ -14,7 +14,7 @@ class SkillController extends Controller
      */
     public function index(Request $request)
     {
-        $skill = \App\Models\Skill::paginate(10);
+        $skill = \App\Models\Skill::orderBy('judul', 'asc')->paginate(10);
 
         $filterKeyword = $request->get('judul');
         if ($filterKeyword) {

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="container col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-0">
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
@@ -46,43 +46,38 @@
                     <a href="{{ route('skill.create') }}" class="btn btn-primary"><span class="oi oi-plus"> Tambah
                             Skill</a>
                 </div>
-                <div class="row">
-                    <div class="table-responsive">
-                        <div class="d-flex justify-content-end">
+
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-start">
                             {!! $skill->appends(Request::all())->links() !!}
                         </div>
-                        @if (session('status'))
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="alert alert-warning">
-                                        {{ session('status') }}
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    @if (session('status'))
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="d-flex justify-content-start">
-                                    {!! $skill->appends(Request::all())->links() !!}
+                                <div class="alert alert-warning">
+                                    {{ session('status') }}
                                 </div>
                             </div>
                         </div>
-                        <br>
-                        @foreach ($skill as $skills)
-                            <div class="card m-3" style="width: 18rem;">
-                                @if ($skills->image)
-                                    <img src="{{ asset('storage/' . $skills->image) }}" />
-                                @else
-                                    No image
-                                @endif
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $skills->judul }}</h5>
-                                        {{ Str::limit($skills->deskripsi, 70) }} <a href="{{ route('skill.show', [$skills->id]) }}">read more...</a>
-                                    </p>
+                    @endif
+                    <br>
+                    @foreach ($skill as $skills)
+                        <div class="card m-2" style="width: 16.2rem;">
+                            @if ($skills->image)
+                                <img class="img-thumbnail rounded" src="{{ asset('storage/' . $skills->image) }}" />
+                            @else
+                                No image
+                            @endif
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center mb-2">
                                     <a href="{{ route('skill.edit', [$skills->id]) }}" class="btn btn-info btn-sm"><span
-                                            class="oi oi-pencil"></span></a>
+                                            class="oi oi-pencil"></span></a>&nbsp;
                                     <a href="{{ route('skill.show', [$skills->id]) }}" class="btn btn-primary btn-sm">
-                                        <span class="oi oi-eye"></span></a>
+                                        <span class="oi oi-eye"></span></a>&nbsp;
                                     <form class="d-inline" action="{{ route('skill.destroy', [$skills->id]) }}"
                                         method="POST"
                                         onsubmit="return confirm('Move Skill {{ $skills->judul }} to trash?')">
@@ -94,11 +89,24 @@
                                                 class="oi oi-trash"></span></button>
                                         {{-- <input type="submit" class="btn btn-danger btn-sm" value="Trash"> --}}
                                 </div>
-                            </div>
-                        @endforeach
+                                <h5 class="card-title">{{ $skills->judul }}</h5>
+                                <p>{{ Str::limit($skills->deskripsi, 70) }}</p>
+                                <a href="{{ route('skill.show', [$skills->id]) }}">read more...</a>
+                                </p>
 
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-start">
+                            {!! $skill->appends(Request::all())->links() !!}
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
