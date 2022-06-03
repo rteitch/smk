@@ -110,24 +110,24 @@ class SkillController extends Controller
         $syarat_level = $request->get('syarat_lv');
         $kuota_skill = $request->get('qty');
 
-        $skill = \App\Models\Skill::findOrFail($id);
-        $skill->syarat_lv = $syarat_level;
-        $skill->qty = $kuota_skill;
-        $skill->judul = $judul;
-        $skill->deskripsi = $deskripsi;
-        $skill->slug = $slug;
+        $skills = \App\Models\Skill::findOrFail($id);
+        $skills->judul = $judul;
+        $skills->syarat_lv = $syarat_level;
+        $skills->qty = $kuota_skill;
+        $skills->deskripsi = $deskripsi;
+        $skills->slug = $slug;
 
         if ($request->file('image')) {
-            if ($skill->image && file_exists(storage_path('app/public/' . $skill->image))) {
-                \Storage::delete('public/' . $skill->image);
+            if ($skills->image && file_exists(storage_path('app/public/' . $skills->image))) {
+                \Storage::delete('public/' . $skills->image);
             }
 
             $new_image = $request->file('image')->store('skill_images', 'public');
 
-            $skill->image = $new_image;
+            $skills->image = $new_image;
         }
 
-        $skill->save();
+        $skills->save();
         return redirect()->route('skill.show', [$id])->with('status', 'Job Class Berhasil diupdate');
     }
 

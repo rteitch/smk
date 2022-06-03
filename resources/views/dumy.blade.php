@@ -71,3 +71,65 @@
     </div>
 </div>
 @endsection
+
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa quas obcaecati enim placeat amet doloribus, repellat sapiente quidem cupiditate? Quae molestiae doloremque veniam accusantium mollitia? Dignissimos cupiditate in veniam eius.
+
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col"><b>Judul</b></th>
+                {{-- <th scope="col"><b>Slug</b></th>
+                <th scope="col"><b>Deskripsi</b></th> --}}
+                <th scope="col"><b>Image</b></th>
+                <th scope="col"><b>Actions</b></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach ($skill as $skills)
+                <tr>
+                    <td>{{ $skills->judul }}</td>
+                    {{-- <td>{{ $skills->slug }}</td>
+                    <td>{{ Str::limit($skills->deskripsi, 100) }}</td> --}}
+                    <td>
+                        @if ($skills->image)
+                            <img src="{{ asset('storage/' . $skills->image) }}" width="48px" />
+                        @else
+                            No image
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('skill.edit', [$skills->id]) }}"
+                            class="btn btn-info btn-sm"><span class="oi oi-pencil"></span></a>
+                        <a href="{{ route('skill.show', [$skills->id]) }}"
+                            class="btn btn-primary btn-sm"> <span class="oi oi-eye"></span></a>
+                        <form class="d-inline"
+                            action="{{ route('skill.destroy', [$skills->id]) }}" method="POST"
+                            onsubmit="return confirm('Move Skill {{ $skills->judul }} to trash?')">
+
+                            @csrf
+
+                            <input type="hidden" value="DELETE" name="_method">
+                            <button type="submit" class="btn- btn-danger btn-sm"><span
+                                    class="oi oi-trash"></span></button>
+                            {{-- <input type="submit" class="btn btn-danger btn-sm" value="Trash"> --}}
+
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colSpan="10">
+                    <div class="d-flex justify-content-start">
+                        {!! $skill->appends(Request::all())->links() !!}
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

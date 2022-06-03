@@ -43,7 +43,8 @@
                 <hr class="my-3">
 
                 <div class="col-md-12 text-right">
-                    <a href="{{ route('skill.create') }}" class="btn btn-primary"><span class="oi oi-plus"> Tambah Skill</a>
+                    <a href="{{ route('skill.create') }}" class="btn btn-primary"><span class="oi oi-plus"> Tambah
+                            Skill</a>
                 </div>
                 <div class="row">
                     <div class="table-responsive">
@@ -67,62 +68,35 @@
                             </div>
                         </div>
                         <br>
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"><b>Judul</b></th>
-                                        {{-- <th scope="col"><b>Slug</b></th>
-                                        <th scope="col"><b>Deskripsi</b></th> --}}
-                                        <th scope="col"><b>Image</b></th>
-                                        <th scope="col"><b>Actions</b></th>
-                                    </tr>
-                                </thead>
+                        @foreach ($skill as $skills)
+                            <div class="card m-3" style="width: 18rem;">
+                                @if ($skills->image)
+                                    <img src="{{ asset('storage/' . $skills->image) }}" />
+                                @else
+                                    No image
+                                @endif
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $skills->judul }}</h5>
+                                        {{ Str::limit($skills->deskripsi, 70) }} <a href="{{ route('skill.show', [$skills->id]) }}">read more...</a>
+                                    </p>
+                                    <a href="{{ route('skill.edit', [$skills->id]) }}" class="btn btn-info btn-sm"><span
+                                            class="oi oi-pencil"></span></a>
+                                    <a href="{{ route('skill.show', [$skills->id]) }}" class="btn btn-primary btn-sm">
+                                        <span class="oi oi-eye"></span></a>
+                                    <form class="d-inline" action="{{ route('skill.destroy', [$skills->id]) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Move Skill {{ $skills->judul }} to trash?')">
 
-                                <tbody>
-                                    @foreach ($skill as $skills)
-                                        <tr>
-                                            <td>{{ $skills->judul }}</td>
-                                            {{-- <td>{{ $skills->slug }}</td>
-                                            <td>{{ Str::limit($skills->deskripsi, 100) }}</td> --}}
-                                            <td>
-                                                @if ($skills->image)
-                                                    <img src="{{ asset('storage/' . $skills->image) }}" width="48px" />
-                                                @else
-                                                    No image
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('skill.edit', [$skills->id]) }}"
-                                                    class="btn btn-info btn-sm"><span class="oi oi-pencil"></span></a>
-                                                <a href="{{ route('skill.show', [$skills->id]) }}"
-                                                    class="btn btn-primary btn-sm"> <span class="oi oi-eye"></span></a>
-                                                <form class="d-inline"
-                                                    action="{{ route('skill.destroy', [$skills->id]) }}" method="POST"
-                                                    onsubmit="return confirm('Move Skill {{ $skills->judul }} to trash?')">
+                                        @csrf
 
-                                                    @csrf
+                                        <input type="hidden" value="DELETE" name="_method">
+                                        <button type="submit" class="btn- btn-danger btn-sm"><span
+                                                class="oi oi-trash"></span></button>
+                                        {{-- <input type="submit" class="btn btn-danger btn-sm" value="Trash"> --}}
+                                </div>
+                            </div>
+                        @endforeach
 
-                                                    <input type="hidden" value="DELETE" name="_method">
-                                                    <button type="submit" class="btn- btn-danger btn-sm"><span class="oi oi-trash"></span></button>
-                                                    {{-- <input type="submit" class="btn btn-danger btn-sm" value="Trash"> --}}
-
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colSpan="10">
-                                            <div class="d-flex justify-content-start">
-                                                {!! $skill->appends(Request::all())->links() !!}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
                     </div>
                 </div>
             </div>
