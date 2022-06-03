@@ -16,8 +16,8 @@
 
             @csrf
 
-            <label>Skill name</label><br>
-            <input type="text" class="form-control" name="name" />
+            <label>Judul Skill</label><br>
+            <input type="text" class="form-control" name="judul" />
             <br>
 
             <label>Deskripsi Skill</label><br>
