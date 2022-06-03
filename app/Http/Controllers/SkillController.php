@@ -13,7 +13,9 @@ class SkillController extends Controller
      */
     public function index()
     {
-        //
+        $skills = \App\Models\Skill::paginate(10);
+
+        return view('backend.skill.index', ['skills' => $skills]);
     }
 
     /**
@@ -34,7 +36,25 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name = $request->get('name');
+        $new_skill = new \App\Models\Skill;
+        $new_skill->name = $name;
+
+        $deskripsi = $request->get('deskripsi');
+        $new_skill->deskripsi = $deskripsi;
+
+        if ($request->file('image')) {
+            $image_path = $request->file('image')->store('Skill_images', 'public');
+            $new_skill->image = $image_path;
+        }
+
+        $new_skill->created_by = \Auth::user()->id;
+
+        $new_skill->slug = Str::slug($name, '-');
+
+        $new_skill->save();
+
+        return redirect()->route('skill.index')->with('status', 'Skill baru Berhasil ditambahkan');
     }
 
     /**

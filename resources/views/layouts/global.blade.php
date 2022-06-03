@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GAWEB SMKN2SKA @yield("title")</title>
+    <title>GAWEB SMKN2SKA @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('polished/polished.min.css') }}">
     <link rel="stylesheet" href="{{ asset('polished/iconic/css/open-iconic-bootstrap.min.css') }}">
 
@@ -61,7 +61,8 @@
                 @else
                     NA
                 @endif
-                <button class="btn btn-link btn-link-primary dropdown-toggle" id="navbar-dropdown" data-toggle="dropdown">
+                <button class="btn btn-link btn-link-primary dropdown-toggle" id="navbar-dropdown"
+                    data-toggle="dropdown">
                     {{ Auth::user()->name }}
                 </button>
             @endif
@@ -94,10 +95,18 @@
                         <a href="{{ route('users.index') }}">
                             <span class="oi oi-people"> Manage Users</span>
                         </a>
-                        <li><a href="{{route('jobclass.index')}}"><span class="oi oi-tag"> Manage Job Class</span></a></li>
-                        <li><a href="{{route('skill.index')}}"><span class="oi oi-book"> Manage Skill</span></a></li>
-                        <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
-                        <li><a href="#"><span class="oi oi-clipboard"> Manage News</span></a></li>
+                    </li>
+                    <li><a href="{{ route('jobclass.index') }}"><span class="oi oi-tag"> Manage Job
+                                Class</span></a></li>
+                    <li><a href="{{ route('skill.index') }}"><span class="oi oi-book"> Manage Skill</span></a>
+                    </li>
+                    <li><a href="{{ route('skill.index') }}"><span class="oi oi-task"> Manage Quest</span></a>
+                    </li>
+
+                    <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
+                    <li><a href="#"><span class="oi oi-globe"> Manage News</span></a></li>
+                    <li><a href="#"><span class="oi oi-envelope-closed"> Manage Notifikasi</span></a></li>
+                    <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li>
                     </li>
                     {{-- Menu person responsive mobile --}}
                     <div class="d-block d-md-none">
@@ -121,12 +130,12 @@
                 <div class="row">
                     <div class="col-md-12 pl-3 pt-2">
                         <div class="pl-3">
-                            <h3>@yield("pageTitle")</h3>
+                            <h3>@yield('pageTitle')</h3>
                             <br>
                         </div>
                     </div>
                 </div>
-                @yield("content")
+                @yield('content')
             </div>
         </div>
     </div>
