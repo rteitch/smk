@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobClassController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,10 +32,15 @@ Route::any('/register', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('backend.home');
 
+//Route User
 Route::resource('users', UserController::class);
 
+//Route Job Class
 Route::get('jobclass/trash', [JobClassController::class, 'trash'])->name('jobclass.trash');
 Route::get('/jobclass/{id}/restore', [JobClassController::class, 'restore'])->name('jobclass.restore');
 Route::delete('/jobclass/{jobclass}/delete-permanent', [JobClassController::class, 'deletePermanent'])->name('jobclass.delete-permanent');
 Route::get('/ajax/jobclass/search', [JobClassController::class, 'ajaxSearch']);
 Route::resource('jobclass', JobClassController::class);
+
+//Route Skill
+Route::resource('skill', SkillController::class);

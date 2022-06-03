@@ -95,6 +95,9 @@
                             <span class="oi oi-people"> Manage Users</span>
                         </a>
                         <li><a href="{{route('jobclass.index')}}"><span class="oi oi-tag"> Manage Job Class</span></a></li>
+                        <li><a href="{{route('skill.index')}}"><span class="oi oi-book"> Manage Skill</span></a></li>
+                        <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
+                        <li><a href="#"><span class="oi oi-clipboard"> Manage News</span></a></li>
                     </li>
                     {{-- Menu person responsive mobile --}}
                     <div class="d-block d-md-none">
