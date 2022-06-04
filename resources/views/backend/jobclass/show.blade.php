@@ -20,10 +20,16 @@
                     <h5 class="card-title">{{ $jobclass->name }}</h5>
                     <p class="card-text">{{ $jobclass->deskripsi }}</p>
                     <p class="card-text"><small class="text-muted">{{ $jobclass->slug }}</small></p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <span>Jumlah Skill</span>
+                            <a href="#" class="mt-1 float-right badge badge-primary">{{ $jobclass->skill->count() }}</a>
+                        </li>
+                    </ul>
                     <b>Pergi Ke :</b>
                     <div class="row m-2">
                         <div class="col-6 mb-2">
-                            <a href="#" class="btn btn-block btn-danger" style="">Kumpulan Skill</a>
+                            <a href="{{ route('skill.index') }}" class="btn btn-block btn-danger" style="">Kumpulan Skill</a>
                         </div>
                         <div class="col-6 mb-2">
                             <a href="#" class="btn btn-block btn-primary">Quest</a>

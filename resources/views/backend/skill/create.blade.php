@@ -26,11 +26,12 @@
 
             {{-- Job Class Choice --}}
 
-            <label for="jobclass">Job Class</label><br>
-
-            <select name="jobclass[]" multiple id="jobclass" class="form-control">
-            </select>
-            <br><br>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <label for="jobclass">Job Class</label><br>
+                <select name="jobclass[]" multiple id="jobclass" class="form-control">
+                </select>
+                <br><br>
+            </div>
 
             <label>Syarat Level Player</label><br>
             <input type="number" name="syarat_lv" class="form-control">

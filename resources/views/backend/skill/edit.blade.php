@@ -31,13 +31,14 @@
             <br>
 
             {{-- Job Class Choice --}}
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <label for="jobclass">Job Class</label><br>
 
-            <label for="jobclass">Job Class</label><br>
+                <select name="jobclass[]" multiple id="jobclass" class="form-control">
+                </select>
+            </div>
 
-            <select name="jobclass[]" multiple id="jobclass" class="form-control">
-            </select>
-            <br><br>
-
+            <br>
             <label>Syarat Level Player</label> <br>
             <input type="number" class="form-control" value="{{ $skills->syarat_lv }}" name="syarat_lv">
             <br>
