@@ -46,5 +46,5 @@ Route::resource('jobclass', JobClassController::class);
 Route::get('skill/trash', [SkillController::class, 'trash'])->name('skill.trash');
 Route::get('/skill/{id}/restore', [SkillController::class, 'restore'])->name('skill.restore');
 Route::delete('/skill/{skill}/delete-permanent', [SkillController::class, 'deletePermanent'])->name('skill.delete-permanent');
-Route::get('/ajax/skill/search', [SkillController::class, 'ajaxSearch']);
+// Route::get('/ajax/skill/search', [SkillController::class, 'ajaxSearch']);
 Route::resource('skill', SkillController::class);

@@ -24,6 +24,14 @@
             <textarea name="deskripsi" class="form-control"></textarea>
             <br>
 
+            {{-- Job Class Choice --}}
+
+            <label for="jobclass">Job Class</label><br>
+
+            <select name="jobclass[]" multiple id="jobclass" class="form-control">
+            </select>
+            <br><br>
+
             <label>Syarat Level Player</label><br>
             <input type="number" name="syarat_lv" class="form-control">
             <br>
@@ -41,4 +49,27 @@
 
         </form>
     </div>
+@endsection
+
+@section('footer-scripts')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $('#jobclass').select2({
+            ajax: {
+                url: 'http://127.0.0.1:8000/ajax/jobclass/search',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.name
+                            }
+                        })
+                    }
+                }
+            }
+        });
+    </script>
 @endsection

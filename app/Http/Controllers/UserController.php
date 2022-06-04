@@ -21,15 +21,14 @@ class UserController extends Controller
         // dd($filterKeyword);
         $status = $request->get('status');
 
-        if($filterKeyword){
-            if($status && $optionFilter){
+        if ($filterKeyword) {
+            if ($status && $optionFilter) {
                 $users = \App\Models\User::where("$optionFilter", 'LIKE', "%$filterKeyword%")
                     ->where('status', $status)
                     ->paginate(10);
-            }
-            else {
+            } else {
                 $users = \App\Models\User::where("$optionFilter", 'LIKE', "%$filterKeyword%")
-                        ->paginate(10);
+                    ->paginate(10);
             }
         }
 
@@ -70,12 +69,12 @@ class UserController extends Controller
         $new_user->level = $request->get('level');
         $new_user->skor = $request->get('skor');
         $new_user->exp = $request->get('exp');
-        if($request->file('avatar')){
+        if ($request->file('avatar')) {
             $file = $request->file('avatar')->store('avatars', 'public');
 
             $new_user->avatar = $file;
         }
-        if($request->file('background')){
+        if ($request->file('background')) {
             $file = $request->file('background')->store('backgrounds', 'public');
 
             $new_user->background = $file;
@@ -135,15 +134,15 @@ class UserController extends Controller
         $user->level = $request->get('level');
         $user->skor = $request->get('skor');
         $user->exp = $request->get('exp');
-        if($request->file('avatar')){
-            if($user->avatar && file_exists(storage_path('app/public/' . $user->avatar))){
+        if ($request->file('avatar')) {
+            if ($user->avatar && file_exists(storage_path('app/public/' . $user->avatar))) {
                 \Storage::delete('public/' . $user->avatar);
             }
             $file = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $file;
         }
-        if($request->file('background')){
-            if($user->background && file_exists(storage_path('app/public/' . $user->background))){
+        if ($request->file('background')) {
+            if ($user->background && file_exists(storage_path('app/public/' . $user->background))) {
                 \Storage::delete('public/' . $user->background);
             }
             $file = $request->file('background')->store('backgrounds', 'public');
@@ -154,7 +153,6 @@ class UserController extends Controller
 
         $user->jobclass()->sync($request->get('jobclass'));
         return redirect()->route('users.show', [$id])->with('status', 'User succesfully updated');
-
     }
 
     /**
@@ -170,4 +168,9 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('status', 'User successfully deleted');
     }
+
+    // public function jumlahSkill(){
+    //     $skillCount = \App\Models\User::count();
+    //     return view('backend.jobclass.show', compact('skillCount'));
+    // }
 }

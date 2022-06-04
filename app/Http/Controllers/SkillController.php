@@ -65,6 +65,7 @@ class SkillController extends Controller
         $new_skill->slug = Str::slug($judul, '-');
 
         $new_skill->save();
+        $new_skill->jobclass()->attach($request->get('jobclass'));
 
         return redirect()->route('skill.index')->with('status', 'Skill baru Berhasil ditambahkan');
     }
@@ -128,6 +129,8 @@ class SkillController extends Controller
         }
 
         $skill->save();
+        $skill->jobclass()->sync($request->get('jobclass'));
+
         return redirect()->route('skill.show', [$id])->with('status', 'Skill Berhasil diupdate');
     }
 
@@ -168,10 +171,11 @@ class SkillController extends Controller
             ->with('status', 'Skill successfully restored');
     }
 
-    public function deletePermanent($id){
+    public function deletePermanent($id)
+    {
         $skill = \App\Models\Skill::withTrashed()->findOrFail($id);
 
-        if(!$skill->trashed()){
+        if (!$skill->trashed()) {
             return redirect()->route('skill.trash')->with('status', 'Can not delete permanent active skill');
         } else {
             $skill->forceDelete();
@@ -179,10 +183,10 @@ class SkillController extends Controller
         }
     }
 
-    public function ajaxSearch(Request $request){
-        $keyword = $request->get('q');
-        $skill = \App\Models\Skill::where("name", "LIKE", "%$keyword%")->get();
+    // public function ajaxSearch(Request $request){
+    //     $keyword = $request->get('q');
+    //     $skill = \App\Models\Skill::where("name", "LIKE", "%$keyword%")->get();
 
-        return $skill;
-    }
+    //     return $skill;
+    // }
 }

@@ -15,4 +15,8 @@ class JobClass extends Model
     public function users(){
         return $this->belongsToMany(User::class);
     }
+
+    public function skill(){
+        return $this->belongsToMany(Skill::class);
+    }
 }

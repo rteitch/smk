@@ -50,7 +50,7 @@
             <small>Skor</small>
         </div>
         <div class="col text-align">
-            <h6 class="fw-bold m-0">35</h6>
+            <h6 class="fw-bold m-0">{{ $user->jobclass->count() }}</h6>
             <small>Keahlian</small>
         </div>
     </div>
@@ -107,8 +107,7 @@
     </td>
     <td>:
         @foreach ($user->jobclass as $jobclass)
-            <a
-                href="{{ route('jobclass.show', $jobclass->id) }}">{{ $jobclass->name }}</a>,
+            <a href="{{ route('jobclass.show', $jobclass->id) }}">{{ $jobclass->name }}</a>,
         @endforeach
     </td>
 

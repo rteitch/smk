@@ -18,6 +18,12 @@
             <div class="card col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">{{ $skills->judul }}</h5>
+                    <p><strong>Job Class : </strong>
+                        @foreach ($skills->jobclass as $jobclass)
+                            <a
+                                href="{{ route('jobclass.show', $jobclass->id) }}">{{ $jobclass->name }}</a>,
+                        @endforeach
+                    </p>
                     <p class="card-text">{{ $skills->deskripsi }}</p>
                     <p class="card-text"><small class="text-muted">{{ $skills->slug }}</small></p>
                     <b>Pergi Ke :</b>
