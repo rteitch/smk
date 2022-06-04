@@ -183,10 +183,10 @@ class SkillController extends Controller
         }
     }
 
-    // public function ajaxSearch(Request $request){
-    //     $keyword = $request->get('q');
-    //     $skill = \App\Models\Skill::where("name", "LIKE", "%$keyword%")->get();
+    public function ajaxSearch(Request $request){
+        $keyword = $request->get('q');
+        $skill = \App\Models\Skill::where("judul", "LIKE", "%$keyword%")->get();
 
-    //     return $skill;
-    // }
+        return $skill;
+    }
 }

@@ -15,16 +15,20 @@ return new class extends Migration
     {
         Schema::create('quests', function (Blueprint $table) {
             $table->id();
-            $table->string("judul");
-            $table->string("deskripsi");
-            $table->string("slug")->unique();
-            $table->integer("level");
-            $table->bigInteger("skor");
-            $table->bigInteger("exp");
-            $table->string("image")->nullable()->comment("berisi nama file image saja tanpa path");
-            $table->integer("created_by");
-            $table->integer("updated_by")->nullable();
-            $table->integer("deleted_by")->nullable();
+            $table->string('judul');
+            $table->string('deskripsi');
+            $table->string('slug')->unique();
+            $table->integer('level');
+            $table->bigInteger('skor');
+            $table->bigInteger('exp');
+            $table->string('image');
+            $table->string('jawaban_pilgan')->nullable();
+            $table->string('file_pendukung')->nullable();
+            $table->enum('jenis_soal', ['PILGANDA', 'LAPORAN']);
+            $table->enum('status', ['PUBLISH', 'DRAFT']);
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

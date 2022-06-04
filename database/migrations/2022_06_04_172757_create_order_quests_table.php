@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quest_skill', function (Blueprint $table) {
+        Schema::create('order_quests', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('quest_id')->nullable();
-            $table->unsignedBigInteger('skill_id')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->string('quest_code');
+            $table->enum('status', ['BERHASIL', 'GAGAL']);
             $table->timestamps();
 
-            $table->foreign('quest_id')->references('id')->on('quests');
-            $table->foreign('skill_id')->references('id')->on('skills');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quest_skill');
+        Schema::dropIfExists('order_quests');
     }
 };
