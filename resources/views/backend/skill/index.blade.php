@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 mt-3">
                         <form action="{{ route('skill.index') }}">
 
                             <div class="input-group">
@@ -29,7 +29,7 @@
 
                         </form>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mt-3">
                         <ul class="nav nav-pills card-header-pills">
                             <li class="nav-item">
                                 <a class="nav-link active" href="{{ route('skill.index') }}">Published</a>
@@ -54,57 +54,61 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    @if (session('status'))
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="alert alert-warning">
-                                    {{ session('status') }}
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    <br>
-                    @foreach ($skill as $skills)
-                        <div class="card m-2" style="width: 16.2rem;">
-                            @if ($skills->image)
-                                <img class="img-thumbnail rounded" src="{{ asset('storage/' . $skills->image) }}" />
-                            @else
-                                No image
-                            @endif
-                            <div class="card-body">
-                                <div class="d-flex justify-content-center mb-2">
-                                    <a href="{{ route('skill.edit', [$skills->id]) }}" class="btn btn-info btn-sm"><span
-                                            class="oi oi-pencil"></span></a>&nbsp;
-                                    <a href="{{ route('skill.show', [$skills->id]) }}" class="btn btn-primary btn-sm">
-                                        <span class="oi oi-eye"></span></a>&nbsp;
-                                    <form class="d-inline" action="{{ route('skill.destroy', [$skills->id]) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Move Skill {{ $skills->judul }} to trash?')">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><b>Judul</b></th>
+                                {{-- <th scope="col"><b>Slug</b></th>
+                                <th scope="col"><b>Deskripsi</b></th> --}}
+                                <th scope="col"><b>Image</b></th>
+                                <th scope="col"><b>Actions</b></th>
+                            </tr>
+                        </thead>
 
-                                        @csrf
+                        <tbody>
+                            @foreach ($skill as $skills)
+                                <tr>
+                                    <td>{{ $skills->judul }}</td>
+                                    {{-- <td>{{ $skills->slug }}</td>
+                                    <td>{{ Str::limit($skills->deskripsi, 100) }}</td> --}}
+                                    <td>
+                                        @if ($skills->image)
+                                            <img src="{{ asset('storage/' . $skills->image) }}" width="48px" />
+                                        @else
+                                            No image
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('skill.edit', [$skills->id]) }}"
+                                            class="btn btn-info btn-sm"><span class="oi oi-pencil"></span></a>
+                                        <a href="{{ route('skill.show', [$skills->id]) }}"
+                                            class="btn btn-primary btn-sm"> <span class="oi oi-eye"></span></a>
+                                        <form class="d-inline"
+                                            action="{{ route('skill.destroy', [$skills->id]) }}" method="POST"
+                                            onsubmit="return confirm('Move Skill dengan nama {{ $skills->judul }} to trash?')">
 
-                                        <input type="hidden" value="DELETE" name="_method">
-                                        <button type="submit" class="btn- btn-danger btn-sm"><span
-                                                class="oi oi-trash"></span></button>
-                                        {{-- <input type="submit" class="btn btn-danger btn-sm" value="Trash"> --}}
-                                </div>
-                                <h5 class="card-title">{{ $skills->judul }}</h5>
-                                <p>{{ Str::limit($skills->deskripsi, 70) }}</p>
-                                <a href="{{ route('skill.show', [$skills->id]) }}">read more...</a>
-                                </p>
+                                            @csrf
 
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+                                            <input type="hidden" value="DELETE" name="_method">
+                                            <button type="submit" class="btn btn-danger btn-sm"><span class="oi oi-trash"></span></button>
+                                            {{-- <input type="submit" class="btn btn-danger btn-sm" value="Trash"> --}}
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="d-flex justify-content-start">
-                            {!! $skill->appends(Request::all())->links() !!}
-                        </div>
-                    </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colSpan="10">
+                                    <div class="d-flex justify-content-start">
+                                        {!! $skill->appends(Request::all())->links() !!}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
 
             </div>

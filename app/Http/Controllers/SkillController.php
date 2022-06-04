@@ -14,11 +14,11 @@ class SkillController extends Controller
      */
     public function index(Request $request)
     {
-        $skill = \App\Models\Skill::orderBy('judul', 'asc')->paginate(10);
+        $skill = \App\Models\Skill::orderBy('judul', 'asc')->paginate(8);
 
         $filterKeyword = $request->get('judul');
         if ($filterKeyword) {
-            $skill = \App\Models\Skill::where("judul", "LIKE", "%$filterKeyword%")->paginate(10);
+            $skill = \App\Models\Skill::where("judul", "LIKE", "%$filterKeyword%")->paginate(8);
         }
 
         return view('backend.skill.index', ['skill' => $skill]);
@@ -110,25 +110,25 @@ class SkillController extends Controller
         $syarat_level = $request->get('syarat_lv');
         $kuota_skill = $request->get('qty');
 
-        $skills = \App\Models\Skill::findOrFail($id);
-        $skills->judul = $judul;
-        $skills->syarat_lv = $syarat_level;
-        $skills->qty = $kuota_skill;
-        $skills->deskripsi = $deskripsi;
-        $skills->slug = $slug;
+        $skill = \App\Models\Skill::findOrFail($id);
+        $skill->judul = $judul;
+        $skill->syarat_lv = $syarat_level;
+        $skill->qty = $kuota_skill;
+        $skill->deskripsi = $deskripsi;
+        $skill->slug = $slug;
 
         if ($request->file('image')) {
-            if ($skills->image && file_exists(storage_path('app/public/' . $skills->image))) {
-                \Storage::delete('public/' . $skills->image);
+            if ($skill->image && file_exists(storage_path('app/public/' . $skill->image))) {
+                \Storage::delete('public/' . $skill->image);
             }
 
             $new_image = $request->file('image')->store('skill_images', 'public');
 
-            $skills->image = $new_image;
+            $skill->image = $new_image;
         }
 
-        $skills->save();
-        return redirect()->route('skill.show', [$id])->with('status', 'Job Class Berhasil diupdate');
+        $skill->save();
+        return redirect()->route('skill.show', [$id])->with('status', 'Skill Berhasil diupdate');
     }
 
     /**
@@ -139,16 +139,16 @@ class SkillController extends Controller
      */
     public function destroy($id)
     {
-        $skills = \App\Models\Skill::findOrFail($id);
+        $skill = \App\Models\Skill::findOrFail($id);
 
-        $skills->delete();
+        $skill->delete();
         return redirect()->route('skill.index')
             ->with('status', 'Skill Berhasil dipindah ke trash');
     }
 
     public function trash()
     {
-        $deleted_skill = \App\Models\Skill::onlyTrashed()->paginate(10);
+        $deleted_skill = \App\Models\Skill::onlyTrashed()->paginate(8);
 
         return view('backend.skill.trash', ['skills' => $deleted_skill]);
     }
@@ -164,7 +164,7 @@ class SkillController extends Controller
                 ->with('status', 'Skill is not in trash');
         }
 
-        return redirect()->route('Skill.index')
+        return redirect()->route('skill.index')
             ->with('status', 'Skill successfully restored');
     }
 
@@ -172,10 +172,10 @@ class SkillController extends Controller
         $skill = \App\Models\Skill::withTrashed()->findOrFail($id);
 
         if(!$skill->trashed()){
-            return redirect()->route('skill.index')->with('status', 'Can not delete permanent active skill');
+            return redirect()->route('skill.trash')->with('status', 'Can not delete permanent active skill');
         } else {
             $skill->forceDelete();
-            return redirect()->route('skill.index')->with('status', 'Skill Permanently deleted');
+            return redirect()->route('skill.trash')->with('status', 'Skill Permanently deleted');
         }
     }
 

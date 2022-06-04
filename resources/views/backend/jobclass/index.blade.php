@@ -104,7 +104,7 @@
                                                     @csrf
 
                                                     <input type="hidden" value="DELETE" name="_method">
-                                                    <button type="submit" class="btn- btn-danger btn-sm"><span class="oi oi-trash"></span></button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><span class="oi oi-trash"></span></button>
                                                     {{-- <input type="submit" class="btn btn-danger btn-sm" value="Trash"> --}}
 
                                                 </form>

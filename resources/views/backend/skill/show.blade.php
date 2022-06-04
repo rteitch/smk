@@ -17,16 +17,16 @@
             </div>
             <div class="card col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $skills->name }}</h5>
+                    <h5 class="card-title">{{ $skills->judul }}</h5>
                     <p class="card-text">{{ $skills->deskripsi }}</p>
                     <p class="card-text"><small class="text-muted">{{ $skills->slug }}</small></p>
                     <b>Pergi Ke :</b>
                     <div class="row m-2">
                         <div class="col-6 mb-2">
-                            <a href="#" class="btn btn-block btn-danger" style="">Kumpulan skills</a>
+                            <a href="#" class="btn btn-block btn-danger" style="">Quest</a>
                         </div>
                         <div class="col-6 mb-2">
-                            <a href="#" class="btn btn-block btn-primary">Quest</a>
+                            <a href="#" class="btn btn-block btn-primary">Siswa</a>
                         </div>
                         <div class="col-6 mb-2">
                             <a href="#" class="btn btn-block btn-info">Pengajar</a>

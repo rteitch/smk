@@ -102,7 +102,7 @@
                                             class="btn btn-primary btn-sm"><span class="oi oi-eye"></span></a>
                                         <a class="btn btn-info text-white btn-sm"
                                             href="{{ route('users.edit', [$user->id]) }}"><span class="oi oi-pencil"></span></a>
-                                        <form onsubmit="return confirm('Delete this user permanently?')"
+                                        <form onsubmit="return confirm('Delete this user atas nama {{ $user->name }} permanently?')"
                                             class="d-inline" action="{{ route('users.destroy', [$user->id]) }}"
                                             method="POST">
 
