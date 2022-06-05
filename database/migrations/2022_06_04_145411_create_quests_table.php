@@ -22,6 +22,9 @@ return new class extends Migration
             $table->bigInteger('skor');
             $table->bigInteger('exp');
             $table->string('image');
+            $table->string('pembuat');
+            // Event, SSS+, SSS, SS, S, A, B, C, D
+            $table->string('kesulitan');
             $table->string('jawaban_pilgan')->nullable();
             $table->string('file_pendukung')->nullable();
             $table->enum('jenis_soal', ['PILGANDA', 'LAPORAN']);

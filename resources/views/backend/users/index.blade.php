@@ -21,7 +21,7 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-2">
                             <label for="optionFilter">Pilih Sort By:</label>
                             <select class="form-control" name="optionFilter" id="optionFilter">
-                                <option disabled>== Pilih Sort By ==</option>
+                                <option class="text-center" disabled>== Pilih Sort By ==</option>
                                 <option {{ Request::get('optionFilter') == 'name' ? 'checked' : '' }} value="name">Name
                                 </option>
                                 <option {{ Request::get('optionFilter') == 'username' ? 'checked' : '' }}

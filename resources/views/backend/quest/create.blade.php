@@ -21,13 +21,13 @@
                 <input type="text" class="form-control" name="judul" placeholder="Judul Quest">
                 <br>
 
-                <label for="image">Cover</label>
+                <label for="image">Image</label>
                 <input type="file" class="form-control" name="image">
                 <br>
 
                 {{-- Skill Choice --}}
                 <label for="skill">Skill <small class="text-danger">*sesuaikan skill</small></label><br>
-                <select name="skill[]" multiple id="skill" class="form-control">
+                <select class="form-control" name="skill[]" multiple id="skill">
                 </select>
                 <br><br>
 
@@ -35,36 +35,63 @@
                 <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Berikan Deskripsi Quest"></textarea>
                 <br>
 
+                {{-- Form Tingkat Kesulitan --}}
+                <label for="tingkat_kesulitan">Tingkat Kesulitan : </label>
+                <select class="form-control" name="tingkat_kesulitan" id="tingkat_kesulitan">
+                    <option disabled class="text-center">== Pilih Tingkat Kesulitan ==</option>
+                    <option value="kesulitan_Event">Event</option>
+                    <option value="kesulitan_SSSPlus">SSS+</option>
+                    <option value="kesulitan_SSS">SSS</option>
+                    <option value="kesulitan_SS">SS</option>
+                    <option value="kesulitan_S">S</option>
+                    <option value="kesulitan_A">A</option>
+                    <option value="kesulitan_B">B</option>
+                    <option value="kesulitan_C">C</option>
+                    <option value="kesulitan_D">D</option>
+                    <option value="kesulitan_E">E</option>
+                </select>
+                <br>
+
+                <label for="file">File Pendukung <small class="text-danger">*upload file jika diperlukan</small></label>
+                <input type="file" class="form-control" name="file_pendukung">
+                <br>
+
                 {{-- Form Status --}}
                 <label for="">Jenis Soal</label>
                 <br />
-                <input value="PILGANDA" type="radio" class="form-control" id="PILGANDA" name="jenis_soal">
-                <label for="PILGANDA">Pilihan Ganda</label>
-
-                <input value="LAPORAN" type="radio" class="form-control" id="LAPORAN" name="jenis_soal">
-                <label for="LAPORAN">Laporan</label>
+                <select class="form-control" name="jenis_soal" id="jenis_soal" onchange="showDiv(this)">
+                    <option value="PILGANDA">PILGANDA</option>
+                    <option value="LAPORAN">LAPORAN</option>
+                </select>
                 <br>
 
-                <label for="jawaban_pilgan">Jawaban <small class="text-danger">*isikan jawaban jika pilihan pilgan ex: a | A / b | B / c | C / d | D / e | E</small></label><br>
-                <input type="text" class="form-control" name="jawaban_pilgan" placeholder="jawaban...">
-                <br>
-
-                <label for="file">File Pendukung <small class="text-danger">*upload jika diperlukan</small></label>
-                <input type="file" class="form-control" name="jawaban_laporan">
-                <br>
+                {{-- Form Jawaban --}}
+                <div id="hiddenDiv" style="display: block;">
+                    <label for="jawaban_pilgan">Jawaban Pilihan Ganda : </label>
+                    <select class="form-control" name="jawaban_pilgan" id="jawaban_pilgan">
+                        <option disabled class="text-center">== Pilih Jawaban ==</option>
+                        <option value="Tidak Menjawab">Tidak Menjawab</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                    <br>
+                </div>
 
                 {{-- Form Level --}}
-                <label for="level">Level</label>
+                <label for="level">Syarat Level</label>
                 <input class="form-control" placeholder="level" type="integer" name="level" id="level">
                 <br>
 
                 {{-- Form Skor --}}
-                <label for="skor">Skor</label>
+                <label for="skor">Bonus Skor</label>
                 <input class="form-control" placeholder="skor" type="float" name="skor" id="skor">
                 <br>
 
                 {{-- Form EXP --}}
-                <label for="exp">Exp</label>
+                <label for="exp">Bonus Exp</label>
                 <input class="form-control" placeholder="exp" type="float" name="exp" id="exp">
                 <br>
 
@@ -96,5 +123,13 @@
                 }
             }
         });
+
+        function showDiv(select){
+            if(select.value=='PILGANDA'){
+                document.getElementById('hiddenDiv').style.display = "block";
+            } else{
+                document.getElementById('hiddenDiv').style.display = "none";
+            }
+        }
     </script>
 @endsection
