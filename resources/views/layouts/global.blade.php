@@ -100,7 +100,7 @@
                                 Class</span></a></li>
                     <li><a href="{{ route('skill.index') }}"><span class="oi oi-book"> Manage Skill</span></a>
                     </li>
-                    <li><a href="{{ route('skill.index') }}"><span class="oi oi-task"> Manage Quest</span></a>
+                    <li><a href="{{ route('quest.index') }}"><span class="oi oi-task"> Manage Quest</span></a>
                     </li>
 
                     <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
