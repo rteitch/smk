@@ -37,22 +37,23 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('users', UserController::class);
 
 //Route Job Class
-Route::get('jobclass/trash', [JobClassController::class, 'trash'])->name('jobclass.trash');
+Route::get('/jobclass/trash', [JobClassController::class, 'trash'])->name('jobclass.trash');
 Route::get('/jobclass/{id}/restore', [JobClassController::class, 'restore'])->name('jobclass.restore');
 Route::delete('/jobclass/{jobclass}/delete-permanent', [JobClassController::class, 'deletePermanent'])->name('jobclass.delete-permanent');
 Route::get('/ajax/jobclass/search', [JobClassController::class, 'ajaxSearch']);
 Route::resource('jobclass', JobClassController::class);
 
 //Route Skill
-Route::get('skill/trash', [SkillController::class, 'trash'])->name('skill.trash');
+Route::get('/skill/trash', [SkillController::class, 'trash'])->name('skill.trash');
 Route::get('/skill/{id}/restore', [SkillController::class, 'restore'])->name('skill.restore');
 Route::delete('/skill/{skill}/delete-permanent', [SkillController::class, 'deletePermanent'])->name('skill.delete-permanent');
 Route::get('/ajax/skill/search', [SkillController::class, 'ajaxSearch']);
 Route::resource('skill', SkillController::class);
 
+Route::get('/books/trash', [BookController::class, 'trash'])->name('books.trash');
 
 //Route Quest
-Route::get('quest/trash', [QuestController::class, 'trash'])->name('quest.trash');
-Route::get('/quest/{id}/restore', [QuestController::class, 'restore'])->name('quest.restore');
+Route::get('/quest/trash', [QuestController::class, 'trash'])->name('quest.trash');
+Route::post('/quest/{quest}/restore', [QuestController::class, 'restore'])->name('quest.restore');
 Route::delete('/quest/{quest}/delete-permanent', [QuestController::class, 'deletePermanent'])->name('quest.delete-permanent');
 Route::resource('quest', QuestController::class);

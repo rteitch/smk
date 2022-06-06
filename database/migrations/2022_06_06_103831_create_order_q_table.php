@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_quests', function (Blueprint $table) {
+        Schema::create('order_q', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('quest_code');
-            $table->enum('status', ['BERHASIL', 'GAGAL']);
+            $table->enum('status', ['SUBMIT', 'PROCESS', 'FINISH', 'CANCEL']);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_quests');
+        Schema::dropIfExists('order_q');
     }
 };

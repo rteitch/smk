@@ -71,7 +71,8 @@
 
                 <!-- Trigger the modal with a button -->
 
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><span class="oi oi-eye"></span> Lihat File
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><span
+                        class="oi oi-eye"></span> Lihat File
                 </button>
 
                 <small class="text-muted" id="judul_file2"></small>
@@ -87,8 +88,11 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <iframe src="https://docs.google.com/gview?url=http://remote.url.tld/path/to/document.doc&embedded=true"></iframe>
-                                <embed src="{{ asset('storage/' . $quests->file_pendukung) }}" frameborder="0" width="100%" height="600px">
+                                {{-- <object data="{{ asset('storage/' . $quests->file_pendukung) }}" type="application/pdf"
+                                    width="300" height="200">
+                                </object> --}}
+                                <iframe src="{{ asset('storage/' . $quests->file_pendukung) }}" frameborder="0"
+                                    width="100%" height="400px"  type="application/pdf"></iframe>
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -99,7 +103,8 @@
                     </div>
                 </div>
                 <br>
-                <label for="file">File Pendukung <small class="text-danger">*upload file jika diperlukan</small></label>
+                <label for="file">File Pendukung <small class="text-danger">*upload file jika diperlukan
+                        (pdf)</small></label>
                 <input type="file" class="form-control" name="file_pendukung">
                 <small class="text-muted">Kosongkan jika tidak ingin mengubah file pendukung</small>
                 <br><br>
@@ -169,6 +174,7 @@
 @endsection
 
 @section('footer-scripts')
+    <script src="{{ asset('js/pdfobject.min.js') }}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -207,13 +213,12 @@
 
         var text = "{{ $quests->file_pendukung }}";
         const judulArray = text.split("/");
-        if (!text){
+        if (!text) {
             document.getElementById("judul_file").innerHTML = "Belum Ada File";
             document.getElementById("judul_file2").innerHTML = "Belum Ada File";
         } else {
             document.getElementById("judul_file").innerHTML = judulArray[1];
             document.getElementById("judul_file2").innerHTML = judulArray[1];
         }
-
     </script>
 @endsection
