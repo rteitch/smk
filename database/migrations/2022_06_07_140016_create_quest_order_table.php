@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('quest_order', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_q_id');
+            $table->unsignedBigInteger('order_q_s_id');
             $table->unsignedBigInteger('quest_id');
             $table->string('file_jawab')->nullable();
             $table->string('jawaban_pilgan')->nullable();
             $table->timestamps();
 
-            $table->foreign('order_q_id')->references('id')->on('order_q');
+            $table->foreign('order_q_s_id')->references('id')->on('order_q_s');
             $table->foreign('quest_id')->references('id')->on('quests');
         });
     }
