@@ -50,6 +50,7 @@ class QuestController extends Controller
         $new_quest->level = $request->get('level');
         $new_quest->skor = $request->get('skor');
         $new_quest->exp = $request->get('exp');
+        $new_quest->batas_waktu = $request->get('batas_waktu');
 
         $new_quest->kesulitan = $request->get('tingkat_kesulitan');
         $new_quest->created_by = \Auth::user()->id;
@@ -130,6 +131,8 @@ class QuestController extends Controller
         $quest->deskripsi = $request->get('deskripsi');
         $quest->level = $request->get('level');
         $quest->skor = $request->get('skor');
+
+        $quest->batas_waktu = $request->get('batas_waktu');
 
         $quest->kesulitan = $request->get('tingkat_kesulitan');
         $quest->pembuat = \Auth::user()->name;

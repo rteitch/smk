@@ -136,6 +136,11 @@
                     <br>
                 </div>
 
+                {{-- Form Batas Waktu Pengerjaan --}}
+                <label for="batas_waktu">Batas Waktu Pengerjaan</label>
+                <input class="form-control" placeholder="Batas Waktu" type="datetime-local" name="batas_waktu" id="batas_waktu" value="">
+                <br>
+
                 {{-- Form Level --}}
                 <label for="level">Syarat Level</label>
                 <input class="form-control" placeholder="level" type="integer" name="level" id="level"

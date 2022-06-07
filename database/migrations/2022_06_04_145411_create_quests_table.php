@@ -23,6 +23,7 @@ return new class extends Migration
             $table->bigInteger('exp');
             $table->string('image');
             $table->string('pembuat');
+            $table->dateTime("batas_waktu")->nullable();
             // Event, SSS+, SSS, SS, S, A, B, C, D
             $table->string('kesulitan');
             $table->string('jawaban_pilgan')->nullable();

@@ -56,6 +56,7 @@
                             <th scope="col"><b>Image</b></th>
                             <th scope="col"><b>Judul</b></th>
                             <th scope="col"><b>Pembuat</b></th>
+                            <th scope="col"><b>Batas Waktu</b></th>
                             <th scope="col"><b>Skill</b></th>
                             <th scope="col"><b>Jenis Soal</b></th>
                             <th scope="col"><b>Kesulitan</b></th>
@@ -73,6 +74,7 @@
                                 </td>
                                 <td>{{ $quest->judul }}</td>
                                 <td>{{ $quest->pembuat }}</td>
+                                <td>{{ $quest->batas_waktu }}</td>
                                 <td>
                                     <ul class="pl-3">
                                         @foreach ($quest->skill as $skill)
