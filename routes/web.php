@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobClassController;
+use App\Http\Controllers\OrderQController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
@@ -50,10 +51,11 @@ Route::delete('/skill/{skill}/delete-permanent', [SkillController::class, 'delet
 Route::get('/ajax/skill/search', [SkillController::class, 'ajaxSearch']);
 Route::resource('skill', SkillController::class);
 
-Route::get('/books/trash', [BookController::class, 'trash'])->name('books.trash');
-
 //Route Quest
 Route::get('/quest/trash', [QuestController::class, 'trash'])->name('quest.trash');
 Route::post('/quest/{quest}/restore', [QuestController::class, 'restore'])->name('quest.restore');
 Route::delete('/quest/{quest}/delete-permanent', [QuestController::class, 'deletePermanent'])->name('quest.delete-permanent');
 Route::resource('quest', QuestController::class);
+
+//Route OrderQ
+Route::resource('orderq', OrderQController::class);

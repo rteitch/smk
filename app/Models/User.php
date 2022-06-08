@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\JobClass;
+use App\Models\OrderQ;
 
 class User extends Authenticatable
 {
@@ -45,6 +46,10 @@ class User extends Authenticatable
 
     public function jobclass(){
         return $this->belongsToMany(JobClass::class);
+    }
+
+    public function orderq(){
+        return $this->hasMany(OrderQ::class);
     }
 
 }
