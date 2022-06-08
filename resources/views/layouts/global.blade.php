@@ -102,6 +102,8 @@
                     </li>
                     <li><a href="{{ route('quest.index') }}"><span class="oi oi-task"> Manage Quest</span></a>
                     </li>
+                    <li><a href="{{ route('orderq.index') }}"><span class="oi oi-paperclip"> Manage Order Quest</span></a>
+                    </li>
 
                     <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
                     <li><a href="#"><span class="oi oi-globe"> Manage News</span></a></li>

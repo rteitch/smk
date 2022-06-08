@@ -58,7 +58,14 @@ class OrderQController extends Controller
      */
     public function edit($id)
     {
-        //
+        $status = $request->get('status');
+        $user_name = $request->get('name');
+        $order_q_s = \App\Models\OrderQ::with('user')->with('quest')->whereHas('user', function($query) use ($user_name){
+            $query->where('name', 'LIKE', "%$user_name%");
+        })->where('status','LIKE', "%$status%")->paginate(10);
+
+
+        return view('frontend.orderq.edit', ['order_q_s' => $order_q_s]);
     }
 
     /**
@@ -70,7 +77,12 @@ class OrderQController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order_q_s = \App\Models\OrderQ::findOrFail($id);
+        $order_q_s->status = $request->get('status');
+
+        $order_q_s->save();
+
+        return redirect()->route('orderq.edit', [$order_q_s->id])->with('status', 'Order Quest sucessfully updated');
     }
 
     /**
