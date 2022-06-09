@@ -53,9 +53,32 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        //validator
+        $validation = \Validator::make($request->all(),[
+            "name" => "required|min:5|max:100",
+            "nomor_induk" => "required|min:8",
+            "phone" => "required|digits_between:10,12",
+            "tempat_lahir" => "required|min:2",
+            "tanggal_lahir" => "required",
+            "email" => 'required|email|unique:users',
+            "gender" => 'required',
+            "username" => "required|min:5|max:20|unique:users",
+            "password" => "required",
+            "password_confirmation" => "required|same:password",
+            "alamat" => "required|min:20|max:200",
+            "roles" => "required",
+            "level" => "required|digits_between:0,100",
+            "skor" => "required",
+            "exp" => "required",
+            "avatar" => "required",
+            "background" => "required",
+            "jobclass" => "required"
+
+        ])->validate();
         //Menangkap Inputan form Creat User
         $new_user = new \App\Models\User;
         $new_user->name = $request->get('name');
+        //siswa = nisn, guru = nip
         $new_user->nomor_induk = $request->get('nomorInduk');
         $new_user->phone = $request->get('phone');
         $new_user->tempat_lahir = $request->get('tempatLahir');

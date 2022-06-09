@@ -17,7 +17,11 @@
                 {{-- Form Name --}}
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="name">Name</label>
-                    <input class="form-control" placeholder="Nama Lengkap" type="text" name="name" id="name">
+                    <input value="{{ old('name') }}" class="form-control {{ $errors->first('name') ? 'is-invalid' : '' }}"
+                        placeholder="Nama Lengkap" type="text" name="name" id="name">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
                     <br>
                 </div>
 
