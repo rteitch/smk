@@ -11,9 +11,14 @@ class OrderQController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $order_q_s = \App\Models\OrderQ::paginate(10);
+        $status = $request->get('status');
+        $user_name = $request->get('name');
+        $order_q_s = \App\Models\OrderQ::with('user')->with('quest')->whereHas('user', function($query) use ($user_name){
+            $query->where('name', 'LIKE', "%$user_name%");
+        })->where('status','LIKE', "%$status%")->paginate(10);
+
 
         return view('frontend.orderq.index', ['order_q_s' => $order_q_s]);
     }
@@ -58,13 +63,7 @@ class OrderQController extends Controller
      */
     public function edit($id)
     {
-        $status = $request->get('status');
-        $user_name = $request->get('name');
-        $order_q_s = \App\Models\OrderQ::with('user')->with('quest')->whereHas('user', function($query) use ($user_name){
-            $query->where('name', 'LIKE', "%$user_name%");
-        })->where('status','LIKE', "%$status%")->paginate(10);
-
-
+        $order_q_s = \App\Models\OrderQ::findOrFail($id);
         return view('frontend.orderq.edit', ['order_q_s' => $order_q_s]);
     }
 
