@@ -25,9 +25,26 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('manage-users', function($user){
+        Gate::define('isAdmin', function($user){
             return count(array_intersect(["0"], json_decode($user->roles)));
         });
+        Gate::define('isPengajar', function($user){
+            return count(array_intersect(["1"], json_decode($user->roles)));
+        });
+        Gate::define('isSiswa', function($user){
+            return count(array_intersect(["2"], json_decode($user->roles)));
+        });
+
+        Gate::define('update-user', function($user){
+            return $user->id;
+        });
+
+
+
+        // Gate::define('manage-users', function($user){
+        //     return count(array_intersect(["0","1"], json_decode($user->roles)));
+        // });
+
         Gate::define('manage-job-class', function($user){
             return count(array_intersect(["0","1"], json_decode($user->roles)));
         });

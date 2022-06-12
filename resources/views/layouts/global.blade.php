@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title    <title>GAWEB SMKN2SKA @yield('title')</title>
+    <title> GAWEB SMKN2SKA @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('polished/polished.min.css') }}">
     <link rel="stylesheet" href="{{ asset('polished/iconic/css/open-iconic-bootstrap.min.css') }}">
 
@@ -91,25 +91,31 @@
                         aria-label="Search">
                     {{-- Sidebar Menu --}}
                     <li><a href="/home"><span class="oi oi-home"> Home</span></a></li>
-                    <li>
-                        <a href="{{ route('users.index') }}">
-                            <span class="oi oi-people"> Manage Users</span>
-                        </a>
-                    </li>
-                    <li><a href="{{ route('jobclass.index') }}"><span class="oi oi-tag"> Manage Job
-                                Class</span></a></li>
-                    <li><a href="{{ route('skill.index') }}"><span class="oi oi-book"> Manage Skill</span></a>
-                    </li>
-                    <li><a href="{{ route('quest.index') }}"><span class="oi oi-task"> Manage Quest</span></a>
-                    </li>
-                    <li><a href="{{ route('orderq.index') }}"><span class="oi oi-paperclip"> Manage Order Quest</span></a>
-                    </li>
+                    @if (json_decode(Auth::user()->roles) == array_intersect(['0']))
+                        <li>
+                            <a href="{{ route('users.index') }}">
+                                <span class="oi oi-people"> Manage Users</span>
+                            </a>
+                        </li>
+                    @endif
+                    @if (json_decode(Auth::user()->roles) == array_intersect(['0']) || json_decode(Auth::user()->roles) == array_intersect(['1']))
+                        <li><a href="{{ route('jobclass.index') }}"><span class="oi oi-tag"> Manage Job
+                                    Class</span></a></li>
+                        <li><a href="{{ route('skill.index') }}"><span class="oi oi-book"> Manage
+                                    Skill</span></a>
+                        </li>
+                        <li><a href="{{ route('quest.index') }}"><span class="oi oi-task"> Manage
+                                    Quest</span></a>
+                        </li>
+                        <li><a href="{{ route('orderq.index') }}"><span class="oi oi-paperclip"> Manage Order
+                                    Quest</span></a>
+                        </li>
 
-                    <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
-                    <li><a href="#"><span class="oi oi-globe"> Manage News</span></a></li>
-                    <li><a href="#"><span class="oi oi-envelope-closed"> Manage Notifikasi</span></a></li>
-                    <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li>
-                    </li>
+                        <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
+                        <li><a href="#"><span class="oi oi-globe"> Manage News</span></a></li>
+                        <li><a href="#"><span class="oi oi-envelope-closed"> Manage Notifikasi</span></a></li>
+                        <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li>
+                    @endif
                     {{-- Menu person responsive mobile --}}
                     <div class="d-block d-md-none">
                         <div class="dropdown-divider"></div>

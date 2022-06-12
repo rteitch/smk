@@ -16,12 +16,12 @@ class JobClassController extends Controller
 
     public function __construct()
     {
-        // Otorisasi Gate
-        $this->middleware(function($request, $next){
-            if(Gate::allows('manage-job-class')) return $next($request);
+        // // Otorisasi Gate
+        // $this->middleware(function($request, $next){
+        //     if(Gate::allows('manage-job-class')) return $next($request);
 
-            abort(403, 'Anda tidak memiliki cukup hak akses');
-        });
+        //     abort(403, 'Anda tidak memiliki cukup hak akses');
+        // });
     }
     public function index(Request $request)
     {

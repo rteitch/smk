@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
+use Auth;
 
 class UserController extends Controller
 {
@@ -17,33 +18,36 @@ class UserController extends Controller
     public function __construct()
     {
         // Otorisasi Gate
-        $this->middleware(function($request, $next){
-            if(Gate::allows('manage-users')) return $next($request);
+        // $this->middleware(function($request, $next){
+        //     if(Gate::allows('manage-users')) return $next($request);
 
-            abort(403, 'Anda tidak memiliki cukup hak akses');
-        });
+        //     abort(403, 'Anda tidak memiliki cukup hak akses');
+        // });
     }
     public function index(Request $request)
     {
+        if (Gate::allows('isAdmin')) {
+            $users = \App\Models\User::orderBy('name', 'asc')->paginate(10);
+            $optionFilter = $request->get('optionFilter');
+            $filterKeyword = $request->get('keyword');
+            // dd($filterKeyword);
+            $status = $request->get('status');
 
-        $users = \App\Models\User::orderBy('name', 'asc')->paginate(10);
-        $optionFilter = $request->get('optionFilter');
-        $filterKeyword = $request->get('keyword');
-        // dd($filterKeyword);
-        $status = $request->get('status');
-
-        if ($filterKeyword) {
-            if ($status && $optionFilter) {
-                $users = \App\Models\User::where("$optionFilter", 'LIKE', "%$filterKeyword%")
-                    ->where('status', $status)
-                    ->paginate(10);
-            } else {
-                $users = \App\Models\User::where("$optionFilter", 'LIKE', "%$filterKeyword%")
-                    ->paginate(10);
+            if ($filterKeyword) {
+                if ($status && $optionFilter) {
+                    $users = \App\Models\User::where("$optionFilter", 'LIKE', "%$filterKeyword%")
+                        ->where('status', $status)
+                        ->paginate(10);
+                } else {
+                    $users = \App\Models\User::where("$optionFilter", 'LIKE', "%$filterKeyword%")
+                        ->paginate(10);
+                }
             }
-        }
 
-        return view('backend.users.index', ['users' => $users]);
+            return view('backend.users.index', ['users' => $users]);
+        } else {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
     }
 
     /**
@@ -53,7 +57,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view("backend.users.create");
+        if (Gate::allows('isAdmin')) {
+            return view("backend.users.create");
+        } else {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
     }
 
     /**
@@ -65,7 +73,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //validator
-        $validation = \Validator::make($request->all(),[
+        $validation = \Validator::make($request->all(), [
             "name" => "required|min:3|max:100",
             "nomorInduk" => "required|digits_between:6,20",
             "phone" => "required|digits_between:6,20",
@@ -142,7 +150,23 @@ class UserController extends Controller
     {
         $user = \App\Models\User::findOrFail($id);
 
-        return view('backend.users.edit', ['user' => $user]);
+        if(Gate::forUser($user)->allows('update-user')){
+            return view('backend.users.edit', ['user' => $user]);
+        } else{
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+        // if ($user->isAdmin()) {
+        //     Gate::allows('isAdmin');
+        //     return view('backend.users.edit', ['user' => $user]);
+        // } elseif (json_decode(Auth::user()->roles) == array_intersect(['1'])) {
+        //     Gate::allows('isPengajar');
+        //     return view('backend.users.edit', ['user' => $user]);
+        // } elseif (json_decode(Auth::user()->roles) == array_intersect(['2'])) {
+        //     Gate::allows('isSiswa');
+        //     return view('backend.users.edit', ['user' => $user]);
+        // } else {
+        //     abort(403, 'Anda tidak memiliki cukup hak akses');
+        // }
     }
 
     /**
