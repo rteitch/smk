@@ -17,8 +17,9 @@
                 {{-- Form Name --}}
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="name">Name</label>
-                    <input value="{{ old('name') }}" class="form-control {{ $errors->first('name') ? 'is-invalid' : '' }}"
-                        placeholder="Nama Lengkap" type="text" name="name" id="name">
+                    <input value="{{ old('name') }}"
+                        class="form-control {{ $errors->first('name') ? 'is-invalid' : '' }}" placeholder="Nama Lengkap"
+                        type="text" name="name" id="name">
                     <div class="invalid-feedback">
                         {{ $errors->first('name') }}
                     </div>
@@ -28,8 +29,12 @@
                 {{-- Form Nomor Induk --}}
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="nomorInduk">Nomor Induk (NIS / NIP)</label>
-                    <input class="form-control" placeholder="Nomor Induk (NIS / NIP)" type="integer" name="nomorInduk"
-                        id="nomorInduk">
+                    <input value="{{ old('nomorInduk') }}"
+                        class="form-control {{ $errors->first('nomorInduk') ? 'is-invalid' : '' }}"
+                        placeholder="Nomor Induk (NIS / NIP)" type="integer" name="nomorInduk" id="nomorInduk">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('nomorInduk') }}
+                    </div>
                     <br>
                 </div>
 
@@ -37,33 +42,48 @@
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="phone">Phone number</label>
                     <br>
-                    <input type="integer" name="phone" class="form-control" placeholder="08...">
+                    <input value="{{ old('phone') }}" type="integer" name="phone"
+                        class="form-control {{ $errors->first('phone') ? 'is-invalid' : '' }}" placeholder="08...">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('phone') }}
+                    </div>
                     <hr class="my-3">
                 </div>
 
                 {{-- Form Tempat Lahir --}}
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="tempatLahir">Tempat Lahir</label>
-                    <input class="form-control" placeholder="Tempat Lahir" type="text" name="tempatLahir"
-                        id="tempatLahir">
+                    <input value="{{ old('tempatLahir') }}"
+                        class="form-control {{ $errors->first('tempatLahir') ? 'is-invalid' : '' }}"
+                        placeholder="Tempat Lahir" type="text" name="tempatLahir" id="tempatLahir">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('phone') }}
+                    </div>
                     <br>
                 </div>
 
                 {{-- Form Tanggal Lahir --}}
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="tanggalLahir">Tanggal Lahir</label>
-                    <input class="form-control" placeholder="Tanggal Lahir" type="date" name="tanggalLahir"
-                        id="tanggalLahir">
+                    <input value="{{ old('tanggalLahir') }}"
+                        class="form-control {{ $errors->first('tanggalLahir') ? 'is-invalid' : '' }}"
+                        placeholder="Tanggal Lahir" type="date" name="tanggalLahir" id="tanggalLahir">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('phone') }}
+                    </div>
                     <br>
                 </div>
 
                 {{-- Form Gender --}}
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label>Select</label>
-                    <select class="form-control" name="gender">
+                    <select class="form-control {{ $errors->first('gender') ? 'is-invalid' : '' }}" name="gender">
                         <option value="Laki-Laki">Laki-Laki</option>
                         <option value="Perempuan">Perempuan</option>
                     </select>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('phone') }}
+                    </div>
                     <br>
                 </div>
 
@@ -71,21 +91,36 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 
                     <label for="username">Username</label>
-                    <input class="form-control" placeholder="username" type="text" name="username" id="username" />
+                    <input value="{{ old('username') }}"
+                        class="form-control {{ $errors->first('username') ? 'is-invalid' : '' }}" placeholder="username"
+                        type="text" name="username" id="username" />
                     <br>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('username') }}
+                    </div>
                 </div>
 
                 {{-- Form Email --}}
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="email">Email</label>
-                    <input class="form-control" placeholder="user@gmail.com" type="text" name="email" id="email" />
+                    <input value="{{ old('email') }}"
+                        class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}" placeholder="user@..."
+                        type="text" name="email" id="email" />
+                    <div class="invalid-feedback">
+                        {{ $errors->first('username') }}
+                    </div>
                     <hr class="my-3">
                 </div>
 
                 {{-- Form Password --}}
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="password">Password</label>
-                    <input class="form-control" placeholder="password" type="password" name="password" id="password" />
+                    <input value="{{ old('password') }}"
+                        class="form-control {{ $errors->first('password') ? 'is-invalid' : '' }}" placeholder="password"
+                        type="password" name="password" id="password" />
+                    <div class="invalid-feedback">
+                        {{ $errors->first('password') }}
+                    </div>
                     <hr class="my-3">
                 </div>
 
@@ -93,15 +128,24 @@
                 {{-- Form Password Konfirmasi --}}
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="password_confirmation">Password Confirmation</label>
-                    <input class="form-control" placeholder="password confirmation" type="password"
-                        name="password_confirmation" id="password_confirmation" />
+                    <input value="{{ old('password_confirmation') }}"
+                        class="form-control {{ $errors->first('password_confirmation') ? 'is-invalid' : '' }}"
+                        placeholder="password confirmation" type="password" name="password_confirmation"
+                        id="password_confirmation" />
+                    <div class="invalid-feedback">
+                        {{ $errors->first('password_confirmation') }}
+                    </div>
                     <hr class="my-3">
                 </div>
 
                 {{-- Form Alamat --}}
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <label for="alamat">Alamat</label>
-                    <textarea name="alamat" id="alamat" class="form-control"></textarea>
+                    <textarea name="alamat" id="alamat"
+                        class="form-control {{ $errors->first('alamat') ? 'is-invalid' : '' }}">{{ old('alamat') }}</textarea>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('password_confirmation') }}
+                    </div>
                     <br>
                 </div>
 
@@ -109,7 +153,11 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <label for="avatar">Avatar image</label>
                     <br>
-                    <input id="avatar" name="avatar" type="file" class="form-control">
+                    <input value="{{ old('avatar') }}" id="avatar" name="avatar" type="file"
+                        class="form-control {{ $errors->first('avatar') ? 'is-invalid' : '' }}">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('avatar') }}
+                    </div>
                     <hr class="my-3">
                 </div>
 
@@ -117,7 +165,11 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <label for="background">Background image</label>
                     <br>
-                    <input id="background" name="background" type="file" class="form-control">
+                    <input value="{{ old('background') }}" id="background" name="background" type="file"
+                        class="form-control {{ $errors->first('background') ? 'is-invalid' : '' }}">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('background') }}
+                    </div>
                     <hr class="my-3">
                 </div>
 
@@ -126,43 +178,68 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <label for="jobclass">Job Class</label><br>
 
-                    <select name="jobclass[]" multiple id="jobclass" class="form-control">
+                    <select name="jobclass[]" multiple id="jobclass"
+                        class="form-control {{ $errors->first('jobclass') ? 'is-invalid' : '' }}">
                     </select>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('jobclass') }}
+                    </div>
                 </div>
 
                 {{-- Form Roles --}}
                 <div class="col-xl-3 col-lg-5 col-md-12 col-sm-12 col-12">
                     <label for="">Roles</label>
                     <br>
-                    <input type="checkbox" name="roles[]" id="0" value="0">
+                    <input class="form-control {{ $errors->first('roles') ? 'is-invalid' : '' }}" type="checkbox"
+                        name="roles[]" id="0" value="0">
                     <label for="0">Administrator</label>
 
-                    <input type="checkbox" name="roles[]" id="1" value="1">
+                    <input class="form-control {{ $errors->first('roles') ? 'is-invalid' : '' }}" type="checkbox"
+                        name="roles[]" id="1" value="1">
                     <label for="1">Pengajar</label>
 
-                    <input type="checkbox" name="roles[]" id="2" value="2">
+                    <input class="form-control {{ $errors->first('roles') ? 'is-invalid' : '' }}" type="checkbox"
+                        name="roles[]" id="2" value="2">
                     <label for="2">Siswa</label>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('roles') }}
+                    </div>
                     <br>
                 </div>
 
                 <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12">
                     {{-- Form Level --}}
                     <label for="level">Level</label>
-                    <input class="form-control" placeholder="level" type="integer" name="level" id="level">
+                    <input value="{{ old('level') }}"
+                        class="form-control {{ $errors->first('level') ? 'is-invalid' : '' }}" placeholder="level"
+                        type="integer" name="level" id="level">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('roles') }}
+                    </div>
                     <br>
                 </div>
 
                 <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12">
                     {{-- Form Skor --}}
                     <label for="skor">Skor</label>
-                    <input class="form-control" placeholder="skor" type="float" name="skor" id="skor">
+                    <input value="{{ old('skor') }}"
+                        class="form-control {{ $errors->first('skor') ? 'is-invalid' : '' }}" placeholder="skor"
+                        type="float" name="skor" id="skor">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('skor') }}
+                    </div>
                     <br>
                 </div>
 
                 <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12">
                     {{-- Form EXP --}}
                     <label for="exp">Exp</label>
-                    <input class="form-control" placeholder="exp" type="float" name="exp" id="exp">
+                    <input value="{{ old('exp') }}"
+                        class="form-control {{ $errors->first('exp') ? 'is-invalid' : '' }}" placeholder="exp"
+                        type="float" name="exp" id="exp">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('exp') }}
+                    </div>
                     <br>
                 </div>
 
