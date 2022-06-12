@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class JobClassController extends Controller
 {
@@ -12,6 +13,16 @@ class JobClassController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        // Otorisasi Gate
+        $this->middleware(function($request, $next){
+            if(Gate::allows('manage-job-class')) return $next($request);
+
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
+    }
     public function index(Request $request)
     {
         $jobclass = \App\Models\JobClass::orderBy('name', 'asc')->paginate(10);

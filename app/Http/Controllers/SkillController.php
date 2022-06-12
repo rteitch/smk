@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class SkillController extends Controller
 {
@@ -12,6 +13,16 @@ class SkillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        // Otorisasi Gate
+        $this->middleware(function($request, $next){
+            if(Gate::allows('manage-skill')) return $next($request);
+
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
+    }
     public function index(Request $request)
     {
         $skill = \App\Models\Skill::orderBy('judul', 'asc')->paginate(8);

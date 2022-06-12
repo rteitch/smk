@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use LDAP\Result;
+use Illuminate\Support\Facades\Gate;
 
 class QuestController extends Controller
 {
@@ -13,6 +14,16 @@ class QuestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        // Otorisasi Gate
+        $this->middleware(function($request, $next){
+            if(Gate::allows('manage-quest')) return $next($request);
+
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
+    }
     public function index(Request $request)
     {
         $status = $request->get('status');

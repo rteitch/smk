@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -12,6 +13,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        // Otorisasi Gate
+        $this->middleware(function($request, $next){
+            if(Gate::allows('manage-users')) return $next($request);
+
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
+    }
     public function index(Request $request)
     {
 
