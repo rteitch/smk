@@ -5,7 +5,8 @@
         <div class="col-md-6 text-center">
             <div class="alert alert-danger">
                 <h1>404</h1>
-                <h4>{{ $exception->getMessage() }}</h4>
+                {{-- <h4>{{ $exception->getMessage() }}</h4> --}}
+                <a class="btn btn-danger" href="/">Kembali</a>
             </div>
         </div>
     </div>

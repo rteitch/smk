@@ -35,9 +35,9 @@ class AuthServiceProvider extends ServiceProvider
             return count(array_intersect(["2"], json_decode($user->roles)));
         });
 
-        Gate::define('update-user', function($user){
-            return $user->id;
-        });
+        // Gate::define('update-user', function($user){
+        //     return $user->id;
+        // });
 
 
 

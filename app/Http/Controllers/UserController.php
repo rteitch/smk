@@ -148,13 +148,52 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = \App\Models\User::findOrFail($id);
+        $userDB = \App\Models\User::findOrFail($id);
+        // $userPengajar = \App\Models\User::findOrFail($id);
+        // $userSiswa = \App\Models\User::findOrFail($id);
+        // otoritas admin
 
-        if(Gate::forUser($user)->allows('update-user')){
-            return view('backend.users.edit', ['user' => $user]);
-        } else{
-            abort(403, 'Anda tidak memiliki cukup hak akses');
+        $user = json_decode($userDB->roles);
+        $userAuthRoles = json_decode(Auth::user()->roles);
+        $adminKode = array_intersect(['0']);
+        $PengajarKode = array_intersect(['1']);
+        $SiswaKode = array_intersect(['2']);
+        //jika data user id role = role kode
+        if ($user == $adminKode) {
+            Gate::allows('isAdmin');
+            if ($userAuthRoles == $adminKode) {
+                return view('backend.users.edit', ['user' => $userDB]);
+            } else {
+                abort(403, 'Anda tidak memiliki cukup hak akses');
+            }
+            // otoritas pengajar
+        } elseif ($user == $PengajarKode) {
+            Gate::allows('isPengajar');
+            if ($userAuthRoles == $PengajarKode && $userDB->id == Auth::user()->id) {
+                return view('backend.users.edit', ['user' => $userDB]);
+            } elseif ($userAuthRoles == $adminKode) {
+                Gate::allows('isAdmin');
+                return view('backend.users.edit', ['user' => $userDB]);
+            } else {
+                abort(403, 'Anda tidak memiliki cukup hak akses');
+            }
+            // otoritas siswa
+        } elseif ($user == $SiswaKode) {
+            Gate::allows('isSiswa');
+            if ($userAuthRoles == $SiswaKode && $userDB->id == Auth::user()->id) {
+                return view('backend.users.edit', ['user' => $userDB]);
+            } elseif ($userAuthRoles == $adminKode) {
+                Gate::allows('isAdmin');
+                return view('backend.users.edit', ['user' => $userDB]);
+            } else {
+                abort(403, 'Anda tidak memiliki cukup hak akses');
+            }
         }
+        // if(Gate::forUser($user)->allows('update-user')){
+        //     return view('backend.users.edit', ['user' => $user]);
+        // } else{
+        //     abort(403, 'Anda tidak memiliki cukup hak akses');
+        // }
         // if ($user->isAdmin()) {
         //     Gate::allows('isAdmin');
         //     return view('backend.users.edit', ['user' => $user]);

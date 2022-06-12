@@ -86,7 +86,7 @@
                                             N/A
                                         @endif
                                     </td>
-                                    <td align="center">
+                                    <td>
                                         @if ($user->status == 'on')
                                             <span class="badge badge-success p-2">
                                                 {{ $user->status }}
