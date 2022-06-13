@@ -1,4 +1,4 @@
-@extends('layouts.news')
+@extends('layouts.global')
 
 @section('title')
     Create Category
@@ -20,8 +20,23 @@
                                 <label for="title">Judul :</label>
                                 <input class="form-control" type="text">
                                 <br>
-                                <label for="konten">Konten :</label>
+
+                                <label for="">Konten :</label>
                                 <textarea class="ckeditor form-control" name="konten" id="konten"></textarea>
+                                <br>
+
+                                <label for="file">File Pendukung <small class="text-danger">*upload file jika
+                                        diperlukan</small></label>
+                                <input type="file" class="form-control" name="file_pendukung">
+                                <br>
+
+                                {{-- Job Class Choice --}}
+
+                                <label for="jobclass">Job Class</label><br>
+                                <select name="jobclass[]" multiple id="jobclass" class="form-control">
+                                </select>
+                                <br><br>
+
                             </div>
                         </form>
                     </div>
@@ -31,13 +46,34 @@
     </div>
 @endsection
 @section('footer-scripts')
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script type="text/javascript">
+    <script src="{{ asset('ckeditor/ckeditor.js')}}" type="text/javascript">
         CKEDITOR.replace('konten', {
             filebrowserUploadUrl: "{{ route('news.upload', ['_token' => csrf_token()]) }}",
             filebrowserUploadMethod: 'form',
-            filebrowserBrowseUrl: '/browser/browse.php',
+            // belum dibuat route ke filemanager lanjut kapan"
+            // filebrowserBrowseUrl: '/browser/browse.php',
             height: 360
+        });
+    </script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $('#jobclass').select2({
+            ajax: {
+                url: 'http://127.0.0.1:8000/ajax/jobclass/search',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.name
+                            }
+                        })
+                    }
+                }
+            }
         });
     </script>
 @endsection

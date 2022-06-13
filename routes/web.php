@@ -66,5 +66,8 @@ Route::resource('quest', QuestController::class);
 Route::resource('orderq', OrderQController::class);
 
 //Route News
+Route::get('/news/trash', [NewsController::class, 'trash'])->name('news.trash');
+Route::post('/news/{news}/restore', [NewsController::class, 'restore'])->name('news.restore');
+Route::delete('/news/{news}/delete-permanent', [NewsController::class, 'deletePermanent'])->name('news.delete-permanent');
 Route::post('news/upload', [NewsController::class, 'upload'])->name('news.upload');
 Route::resource('news', NewsController::class);
