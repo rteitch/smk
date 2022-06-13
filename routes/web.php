@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\JobClassController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrderQController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\SkillController;
@@ -63,3 +64,7 @@ Route::resource('quest', QuestController::class);
 
 //Route OrderQ
 Route::resource('orderq', OrderQController::class);
+
+//Route News
+Route::post('news/upload', [NewsController::class, 'upload'])->name('news.upload');
+Route::resource('news', NewsController::class);
