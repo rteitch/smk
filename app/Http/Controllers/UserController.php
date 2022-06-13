@@ -46,7 +46,7 @@ class UserController extends Controller
 
             return view('backend.users.index', ['users' => $users]);
         } else {
-            abort(403, 'Anda tidak memiliki cukup hak akses');
+            return view('errors.403');
         }
     }
 
@@ -60,7 +60,7 @@ class UserController extends Controller
         if (Gate::allows('isAdmin')) {
             return view("backend.users.create");
         } else {
-            abort(403, 'Anda tidak memiliki cukup hak akses');
+            return view("errors.403");
         }
     }
 
@@ -86,7 +86,7 @@ class UserController extends Controller
             "password_confirmation" => "required|same:password",
             "alamat" => "required|min:1|max:300",
             "roles" => "required",
-            "level" => "required|digits_between:0,100",
+            "level" => "required|digits_between:0,999",
             "skor" => "required",
             "exp" => "required",
             "avatar" => "required",
@@ -164,7 +164,7 @@ class UserController extends Controller
             if ($userAuthRoles == $adminKode) {
                 return view('backend.users.edit', ['user' => $userDB]);
             } else {
-                abort(403, 'Anda tidak memiliki cukup hak akses');
+                return view('errors.403');
             }
             // otoritas pengajar
         } elseif ($user == $PengajarKode) {
@@ -175,7 +175,7 @@ class UserController extends Controller
                 Gate::allows('isAdmin');
                 return view('backend.users.edit', ['user' => $userDB]);
             } else {
-                abort(403, 'Anda tidak memiliki cukup hak akses');
+                return view('errors.403');
             }
             // otoritas siswa
         } elseif ($user == $SiswaKode) {
@@ -186,7 +186,7 @@ class UserController extends Controller
                 Gate::allows('isAdmin');
                 return view('backend.users.edit', ['user' => $userDB]);
             } else {
-                abort(403, 'Anda tidak memiliki cukup hak akses');
+                return view('errors.403');
             }
         }
         // if(Gate::forUser($user)->allows('update-user')){

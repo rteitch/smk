@@ -61,16 +61,33 @@
         </div>
     </div>
     {{-- Button untuk edit dan ubah password --}}
-    <div class="row pl-3 pt-3 pb-4 pr-3 text-center">
-        <div class="col">
-            <a class="btn btn-block btn-info text-white btn-sm"
-                href="{{ route('users.edit', [$user->id]) }}">Edit</a>
-        </div>
-        <div class="col">
-            <a class="btn btn-block btn-primary text-white btn-sm"
-                href="{{ route('users.edit', [$user->id]) }}">Ubah Password</a>
-        </div>
-    </div>
+    @if (\Auth::user())
+        @if (\Auth::user()->id == $user->id)
+            <div class="row pl-3 pt-3 pb-4 pr-3 text-center">
+                <div class="col">
+                    <a class="btn btn-block btn-info text-white btn-sm"
+                        href="{{ route('users.edit', [$user->id]) }}">Edit</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-block btn-primary text-white btn-sm"
+                        href="{{ route('auth.change-password') }}">Ubah Password</a>
+                </div>
+            </div>
+        @elseif (json_decode(Auth::user()->roles) == array_intersect(['0']))
+            <div class="row pl-3 pt-3 pb-4 pr-3 text-center">
+                <div class="col">
+                    <a class="btn btn-block btn-info text-white btn-sm"
+                        href="{{ route('users.edit', [$user->id]) }}">Edit</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-block btn-primary text-white btn-sm"
+                        href="{{ route('users.edit', [$user->id]) }}">Ubah Password</a>
+                </div>
+            </div>
+        @endif
+    @else
+    @endif
+
     <div>
         <table class="table table-border">
             <tr>

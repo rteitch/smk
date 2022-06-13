@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\JobClassController;
 use App\Http\Controllers\OrderQController;
 use App\Http\Controllers\QuestController;
@@ -25,6 +26,9 @@ Route::get('/', function () {
 Route::get('/global', function () {
     return view('layouts.global');
 });
+
+Route::get('change-password', [ChangePasswordController::class, 'index']);
+Route::post('change-password', [ChangePasswordController::class, 'changePassword'])->name('auth.change-password');
 
 Auth::routes();
 
