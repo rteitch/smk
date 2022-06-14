@@ -11,7 +11,6 @@
                 {{ session('status') }}
             </div>
         @endif
-
         <a class="btn btn-info" href="{{ route('artikel.index') }}">
             < Kembali</a>
                 <br><br>
@@ -20,15 +19,16 @@
                         <div class="card bg-white border-0 shadow-sm">
                             <div class="card-header bg-white border-light">
                                 <div class="media">
-                                    <img style="width: 48px" class="mr-3 rounded-circle" src="#" alt="#">
+                                    <img style="width: 48px" class="mr-3 rounded-circle" src="{{ asset('storage/'. $artikel->user->avatar) }}" alt="#">
                                     <div class="media-body">
-                                        <h6 class="text-indigo m-0">Muhammad Azamuddin</h6>
+                                        <h6 class="text-indigo m-0">
+                                            {{ $artikel->user->name }}</h6>
                                         <small class="text-muted">Shared publicly - 7:30PM Today</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <img class="w-100 mb-2" src="assets/matthieu-a-262686-unsplash.jpg" alt="image post">
+                                <img class="w-100 mb-2" src="{{ asset('public/'. $artikel->image) }}" alt="image post">
                                 <p class="fs-smaller">
                                     Amazing isn't it?
                                 </p>
@@ -90,18 +90,18 @@
                     <br>
                     <br>
                     <div class="card col-md-4">
-                        <img src="{{ asset('storage/' . $artikels->image) }}" class="card-img p-2" alt="...">
+                        <img src="{{ asset('storage/' . $artikel->image) }}" class="card-img p-2" alt="...">
                     </div>
                     <div class="card col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{ $artikels->title }}</h5>
+                            <h5 class="card-title">{{ $artikel->title }}</h5>
                             <p><strong>Skill : </strong>
-                                @foreach ($artikels->skill as $skills)
-                                    <a href="{{ route('skill.show', $skills->id) }}">{{ $skills->name }}</a>,
+                                @foreach ($artikel->skill as $skills)
+                                    <a href="{{ route('skill.show', $skills->id) }}">{{ $skills->judul }}</a>,
                                 @endforeach
                             </p>
-                            <p class="card-text">{!! $artikels->konten !!}</p>
-                            <p class="card-text"><small class="text-muted">{{ $artikels->slug }}</small></p>
+                            <p class="card-text">{!! $artikel->konten !!}</p>
+                            <p class="card-text"><small class="text-muted">{{ $artikel->slug }}</small></p>
                             <b>Pergi Ke :</b>
                             <div class="row m-2">
                                 <div class="col-6 mb-2">
@@ -114,7 +114,7 @@
                                     <a href="#" class="btn btn-block btn-info">Pengajar</a>
                                 </div>
                                 <div class="col-6 mb-2">
-                                    <a href="#" class="btn btn-block btn-warning">artikels</a>
+                                    <a href="#" class="btn btn-block btn-warning">artikel</a>
                                 </div>
                             </div>
                         </div>

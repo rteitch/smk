@@ -45,7 +45,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-md-12 text-right">
-                    <a href="{{ route('artikel.create') }}" class="btn btn-primary">Create Quest</a>
+                    <a href="{{ route('artikel.create') }}" class="btn btn-primary">Create Artikel</a>
                 </div>
             </div>
 
@@ -62,31 +62,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($artikels as $index => $artikel)
+                        @foreach ($artikel as $index => $artikels)
                             <tr>
                                 <td>{{ $index +1 }}</td>
-                                <td>{{ $artikel->title }}</td>
+                                <td>{{ $artikels->title }}</td>
                                 <td>
-                                    @foreach ($artikel->skill as $skills)
-                                        {{ $skills->judul }}
+                                    @foreach ($artikels->skill as $skill)
+                                        {{ $skill->judul }}
                                     @endforeach
                                 </td>
-                                <td>{!! Str::words($artikel->konten, 10,'...') !!}</td>
+                                <td>{!! Str::words($artikels->konten, 10,'...') !!}</td>
                                 <td>
-                                    @if ($artikel->status == 'DRAFT')
-                                        <span class="badge bg-dark text-white">{{ $artikel->status }}</span>
+                                    @if ($artikels->status == 'DRAFT')
+                                        <span class="badge bg-dark text-white">{{ $artikels->status }}</span>
                                     @else
-                                        <span class="badge badge-success">{{ $artikel->status }}</span>
+                                        <span class="badge badge-success">{{ $artikels->status }}</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('artikel.edit', [$artikel->id]) }}" class="btn btn-info btn-sm"> Edit
+                                    <a href="{{ route('artikel.edit', [$artikels->id]) }}" class="btn btn-info btn-sm"> Edit
                                     </a>
-                                    <a href="{{ route('artikel.show', [$skills->id]) }}"
+                                    <a href="{{ route('artikel.show', [$artikels->id]) }}"
                                         class="btn btn-primary btn-sm"> <span class="oi oi-eye"></span></a>
                                     <form method="POST" class="d-inline"
-                                        onsubmit="return confirm('Move quest to trash?')"
-                                        action="{{ route('artikel.destroy', [$artikel->id]) }}">
+                                        onsubmit="return confirm('Move artikel to trash?')"
+                                        action="{{ route('artikel.destroy', [$artikels->id]) }}">
 
                                         @csrf
                                         <input type="hidden" value="DELETE" name="_method">
@@ -103,7 +103,7 @@
 
             <div class="col-md-12">
                 <div class="d-flex justify-content-start">
-                    {!! $artikels->links() !!}
+                    {!! $artikel->links() !!}
                 </div>
             </div>
 

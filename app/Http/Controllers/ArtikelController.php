@@ -111,7 +111,7 @@ class ArtikelController extends Controller
      */
     public function show($id)
     {
-        $artikel = \App\Models\Artikel::with('users')->findOrFail($id);
+        $artikel = \App\Models\Artikel::with('user')->findOrFail($id);
 
         return view('backend.artikel.show', ['artikel' => $artikel]);
     }
@@ -124,7 +124,9 @@ class ArtikelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $artikel_to_edit = \App\Models\Artikel::findOrFail($id);
+
+        return view('backend.artikel.edit', ['artikel' => $artikel_to_edit]);
     }
 
     /**
@@ -136,9 +138,10 @@ class ArtikelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
 
-        $storage = "storage/images";
+        $artikel_update = new \App\Models\Artikel;
+        //upload file gambar yang di text editor
+        $storage = "images";
         $dom = new \DOMDocument();
         libxml_use_internal_errors(true);
         $dom->loadHTML($request->konten,LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
@@ -160,10 +163,41 @@ class ArtikelController extends Controller
             }
         }
 
-        $artikel_update = new \App\Models\Artikel;
-        $artikel_update->update([
-            'konten'=>$request->$dom->saveHTML()
-        ]);
+        $getJudul = $request->get('title');
+        $artikel_baru->title = $getJudul;
+        $artikel_baru->konten = $dom->saveHTML();
+        $artikel_baru->slug = \Str::slug($request->get('title'));
+
+        // file_pendukung
+
+        $file_pendukung = $request->file('file_pendukung');
+
+        if ($file_pendukung) {
+            $filename = $file_pendukung->getClientOriginalName();
+            $file_path = $file_pendukung->storeAs('file_pendukung', $filename, 'public');
+            $artikel_baru->file_pendukung = $file_path;
+        }
+
+        //cover / image
+        $image = $request->file('image');
+
+        if ($image) {
+            $image_path = $image->store('artikel-image', 'public');
+
+            $artikel_baru->image = $image_path;
+        }
+        $artikel_baru->user_id = \Auth::user()->id;
+        $artikel_baru->created_by = \Auth::user()->id;
+        $artikel_baru->status = $request->get('save_action');
+
+        $artikel_baru->save();
+        $artikel_baru->skill()->attach($request->get('skill'));
+
+        if ($request->get('save_action') == 'PUBLISH') {
+            return redirect()->route('artikel.create')->with('status', 'artikel successfully saved and published');
+        } else {
+            return redirect()->route('artikel.create')->with('status', 'artikel saved as draft');
+        }
     }
 
     /**

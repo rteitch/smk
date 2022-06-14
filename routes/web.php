@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\JobClassController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\OrderQController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
-use App\Models\News;
+use App\Models\Artikel;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,10 +42,10 @@ Route::any('/register', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('backend.home');
 
 //Route User
-Route::get('/users/artikel/{user}', function($id){
-    $user = News::with('user')->find($id);
-    return response()->json($user, 200);
-});
+// Route::get('/users/artikel/{user}', function($id){
+//     $user = User::with('artikel')->find($id);
+//     return response()->json($user, 200);
+// });
 Route::resource('users', UserController::class);
 
 //Route Job Class
@@ -76,8 +76,13 @@ Route::resource('orderq', OrderQController::class);
 //     $news = News::with('users')->find($id);
 //     return response()->json($news, 200);
 // });
-Route::get('/news/trash', [NewsController::class, 'trash'])->name('news.trash');
-Route::post('/news/{news}/restore', [NewsController::class, 'restore'])->name('news.restore');
-Route::delete('/news/{news}/delete-permanent', [NewsController::class, 'deletePermanent'])->name('news.delete-permanent');
-// Route::post('news/upload', [NewsController::class, 'upload'])->name('news.upload');
-Route::resource('news', NewsController::class);
+
+// Route::get('/artikel/json/{user}', function($id){
+//     $user = Artikel::with('user')->find($id);
+//     return response()->json($user, 200);
+// });
+Route::get('/artikel/trash', [ArtikelController::class, 'trash'])->name('artikel.trash');
+Route::post('/artikel/{artikel}/restore', [ArtikelController::class, 'restore'])->name('artikel.restore');
+Route::delete('/artikel/{artikel}/delete-permanent', [ArtikelController::class, 'deletePermanent'])->name('artikel.delete-permanent');
+// Route::post('news/upload', [ArtikelController::class, 'upload'])->name('news.upload');
+Route::resource('artikel', ArtikelController::class);

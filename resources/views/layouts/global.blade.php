@@ -112,7 +112,7 @@
                         </li>
 
                         <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
-                        <li><a href="{{ route('news.index') }}"><span class="oi oi-globe"> Manage News</span></a></li>
+                        <li><a href="{{ route('artikel.index') }}"><span class="oi oi-globe"> Manage Artikel</span></a></li>
                         <li><a href="#"><span class="oi oi-envelope-closed"> Manage Notifikasi</span></a></li>
                         <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li>
                     @endif

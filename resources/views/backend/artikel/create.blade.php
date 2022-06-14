@@ -17,10 +17,10 @@
                 @endif
                 <div class="card">
                     <div class="card-header">
-                        Create News
+                        Create artikel
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('artikel.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 {{-- Skill Choice --}}
@@ -34,7 +34,7 @@
                                 <br>
 
                                 <label for="">Konten :</label>
-                                <textarea class="ckeditor form-control" name="konten" id="konten"></textarea>
+                                <textarea class="form-control" name="konten" id="konten"></textarea>
                                 <br>
                                 <div class="row">
                                     <div class="col">
@@ -90,7 +90,7 @@
     </script>
     <script type="text/javascript">
         CKEDITOR.replace('konten', {
-            filebrowserUploadUrl: "{{ route('news.upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadUrl: "{{ route('artikel.upload', ['_token' => csrf_token()]) }}",
             filebrowserUploadMethod: 'form',
             // belum dibuat route ke filemanager lanjut kapan"
             // filebrowserBrowseUrl: '/browser/browse.php',
