@@ -36,8 +36,9 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+        $news_baru = new \App\Models\News();
         //upload file gambar yang di text editor
-        $storage = "storage/images";
+        $storage = "images";
         $dom = new \DOMDocument();
         libxml_use_internal_errors(true);
         $dom->loadHTML($request->konten,LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
@@ -59,9 +60,41 @@ class NewsController extends Controller
             }
         }
 
-        $news_baru = new \App\Models\News;
+        $getJudul = $request->get('title');
+        $news_baru->title = $getJudul;
         $news_baru->konten = $dom->saveHTML();
+        $news_baru->slug = \Str::slug($request->get('title'));
 
+        // file_pendukung
+
+        $file_pendukung = $request->file('file_pendukung');
+
+        if ($file_pendukung) {
+            $filename = $file_pendukung->getClientOriginalName();
+            $file_path = $file_pendukung->storeAs('file_pendukung', $filename, 'public');
+            $news_baru->file_pendukung = $file_path;
+        }
+
+        //cover / image
+        $image = $request->file('image');
+
+        if ($image) {
+            $image_path = $image->store('news-image', 'public');
+
+            $news_baru->image = $image_path;
+        }
+
+        $news_baru->created_by = \Auth::user()->id;
+        $news_baru->status = $request->get('save_action');
+
+        $news_baru->save();
+        $news_baru->skill()->attach($request->get('skill'));
+
+        if ($request->get('save_action') == 'PUBLISH') {
+            return redirect()->route('news.create')->with('status', 'News successfully saved and published');
+        } else {
+            return redirect()->route('news.create')->with('status', 'News saved as draft');
+        }
     }
 
     /**

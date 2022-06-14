@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->string("konten");
+            $table->text("konten");
             $table->string("slug")->unique();
             $table->string("image")->nullable()->comment("berisi nama file image saja tanpa path");
             $table->string("file_pendukung")->nullable()->comment("berisi nama file pendukung saja tanpa path");
