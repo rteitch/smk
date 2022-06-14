@@ -102,22 +102,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
-        $('#jobclass').select2({
-            ajax: {
-                url: 'http://127.0.0.1:8000/ajax/jobclass/search',
-                processResults: function(data) {
-                    return {
-                        results: data.map(function(item) {
-                            return {
-                                id: item.id,
-                                text: item.name
-                            }
-                        })
-                    }
-                }
-            }
-        });
-
         $('#skill').select2({
             ajax: {
                 url: 'http://127.0.0.1:8000/ajax/skill/search',

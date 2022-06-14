@@ -13,9 +13,17 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $status = $request->get('status');
+        $keyword = $request->get('keyword') ?: '';
+
+        if($status){
+            $news = \App\Models\News::where('title', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
+        } else {
+            $news = \App\Models\News::where("title", "LIKE", "%$keyword%")->paginate(10);
+        }
+        return view('backend.news.index', ['news' => $news]);
     }
 
     /**
@@ -36,7 +44,7 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $news_baru = new \App\Models\News();
+        $news_baru = new \App\Models\News;
         //upload file gambar yang di text editor
         $storage = "images";
         $dom = new \DOMDocument();
