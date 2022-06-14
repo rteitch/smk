@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('artikels', function (Blueprint $table) {
             $table->id();
             $table->string("title");
             $table->text("konten");
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("image")->nullable()->comment("berisi nama file image saja tanpa path");
             $table->string("file_pendukung")->nullable()->comment("berisi nama file pendukung saja tanpa path");
             $table->enum('status', ['PUBLISH', 'DRAFT']);
+            $table->foreignId("user_id")->constrained();
             $table->integer("created_by");
             $table->integer("updated_by")->nullable();
             $table->integer("deleted_by")->nullable();
@@ -36,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('artikels');
     }
 };

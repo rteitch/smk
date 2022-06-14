@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Path\To\DOMDocument;
-use Intervention\Image\ImageManagerStatic as Image;
 
-class NewsController extends Controller
+class ArtikelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +17,11 @@ class NewsController extends Controller
         $keyword = $request->get('keyword') ?: '';
 
         if($status){
-            $news = \App\Models\News::where('title', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
+            $artikel = \App\Models\Artikel::where('title', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
         } else {
-            $news = \App\Models\News::where("title", "LIKE", "%$keyword%")->paginate(10);
+            $artikel = \App\Models\Artikel::where("title", "LIKE", "%$keyword%")->paginate(10);
         }
-        return view('backend.news.index', ['news' => $news]);
+        return view('backend.artikel.index', ['artikel' => $artikel]);
     }
 
     /**
@@ -33,7 +31,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('backend.news.create');
+        return view('backend.artikel.create');
     }
 
     /**
@@ -44,7 +42,7 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $news_baru = new \App\Models\News;
+        $artikel_baru = new \App\Models\Artikel;
         //upload file gambar yang di text editor
         $storage = "images";
         $dom = new \DOMDocument();
@@ -69,9 +67,9 @@ class NewsController extends Controller
         }
 
         $getJudul = $request->get('title');
-        $news_baru->title = $getJudul;
-        $news_baru->konten = $dom->saveHTML();
-        $news_baru->slug = \Str::slug($request->get('title'));
+        $artikel_baru->title = $getJudul;
+        $artikel_baru->konten = $dom->saveHTML();
+        $artikel_baru->slug = \Str::slug($request->get('title'));
 
         // file_pendukung
 
@@ -80,28 +78,28 @@ class NewsController extends Controller
         if ($file_pendukung) {
             $filename = $file_pendukung->getClientOriginalName();
             $file_path = $file_pendukung->storeAs('file_pendukung', $filename, 'public');
-            $news_baru->file_pendukung = $file_path;
+            $artikel_baru->file_pendukung = $file_path;
         }
 
         //cover / image
         $image = $request->file('image');
 
         if ($image) {
-            $image_path = $image->store('news-image', 'public');
+            $image_path = $image->store('artikel-image', 'public');
 
-            $news_baru->image = $image_path;
+            $artikel_baru->image = $image_path;
         }
-        $news_baru->user_id = \Auth::user()->id;
-        $news_baru->created_by = \Auth::user()->id;
-        $news_baru->status = $request->get('save_action');
+        $artikel_baru->user_id = \Auth::user()->id;
+        $artikel_baru->created_by = \Auth::user()->id;
+        $artikel_baru->status = $request->get('save_action');
 
-        $news_baru->save();
-        $news_baru->skill()->attach($request->get('skill'));
+        $artikel_baru->save();
+        $artikel_baru->skill()->attach($request->get('skill'));
 
         if ($request->get('save_action') == 'PUBLISH') {
-            return redirect()->route('news.create')->with('status', 'News successfully saved and published');
+            return redirect()->route('artikel.create')->with('status', 'artikel successfully saved and published');
         } else {
-            return redirect()->route('news.create')->with('status', 'News saved as draft');
+            return redirect()->route('artikel.create')->with('status', 'artikel saved as draft');
         }
     }
 
@@ -113,9 +111,9 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $news = \App\Models\News::with('users')->findOrFail($id);
+        $artikel = \App\Models\Artikel::with('users')->findOrFail($id);
 
-        return view('backend.news.show', ['news' => $news]);
+        return view('backend.artikel.show', ['artikel' => $artikel]);
     }
 
     /**
@@ -162,8 +160,8 @@ class NewsController extends Controller
             }
         }
 
-        $news_update = new \App\Models\News;
-        $news_update->update([
+        $artikel_update = new \App\Models\Artikel;
+        $artikel_update->update([
             'konten'=>$request->$dom->saveHTML()
         ]);
     }
@@ -178,21 +176,4 @@ class NewsController extends Controller
     {
         //
     }
-
-    // public function upload(Request $request){
-    //     if($request->hasFile('upload')){
-    //         $originName = $request->file('upload')->getClientOriginalName();
-    //         $fileName = pathinfo($originName, PATHINFO_FILENAME);
-    //         $extension = $request->file('upload')->getClientOriginalExtension();
-    //         $fileName = $fileName.'_'.time().'.'.$extension;
-    //         $request->file('upload')->move(public_path('images'), $fileName);
-    //         $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-    //         $url = asset('images/'.$fileName);
-    //         $msg = 'Image successfully uploaded';
-    //         $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
-
-    //         @header('Content-type: text/html; charset=utf-8');
-    //         echo $response;
-    //     }
-    // }
 }

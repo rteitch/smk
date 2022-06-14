@@ -8,6 +8,8 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\News;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,10 @@ Route::any('/register', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('backend.home');
 
 //Route User
+Route::get('/users/artikel/{user}', function($id){
+    $user = News::with('user')->find($id);
+    return response()->json($user, 200);
+});
 Route::resource('users', UserController::class);
 
 //Route Job Class
@@ -66,6 +72,10 @@ Route::resource('quest', QuestController::class);
 Route::resource('orderq', OrderQController::class);
 
 //Route News
+// Route::get('/news/{news}', function($id){
+//     $news = News::with('users')->find($id);
+//     return response()->json($news, 200);
+// });
 Route::get('/news/trash', [NewsController::class, 'trash'])->name('news.trash');
 Route::post('/news/{news}/restore', [NewsController::class, 'restore'])->name('news.restore');
 Route::delete('/news/{news}/delete-permanent', [NewsController::class, 'deletePermanent'])->name('news.delete-permanent');

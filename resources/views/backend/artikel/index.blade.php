@@ -10,7 +10,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <form action="{{ route('news.index') }}">
+                    <form action="{{ route('artikel.index') }}">
 
                         <div class="input-group">
                             <input name="keyword" type="text" value="{{ Request::get('keyword') }}" class="form-control"
@@ -25,27 +25,27 @@
                 <div class="col-md-6">
                     <ul class="nav nav-pills card-header-pills">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::get('status') == null && Request::path() == 'news' ? 'active' : '' }}"
-                                href="{{ route('news.index') }}">All</a>
+                            <a class="nav-link {{ Request::get('status') == null && Request::path() == 'artikel' ? 'active' : '' }}"
+                                href="{{ route('artikel.index') }}">All</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Request::get('status') == 'publish' ? 'active' : '' }}"
-                                href="{{ route('news.index', ['status' => 'publish']) }}">Publish</a>
+                                href="{{ route('artikel.index', ['status' => 'publish']) }}">Publish</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Request::get('status') == 'draft' ? 'active' : '' }}"
-                                href="{{ route('news.index', ['status' => 'draft']) }}">Draft</a>
+                                href="{{ route('artikel.index', ['status' => 'draft']) }}">Draft</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::path() == 'news/trash' ? 'active' : '' }}"
-                                href="{{ route('news.trash') }}">Trash</a>
+                            <a class="nav-link {{ Request::path() == 'artikel/trash' ? 'active' : '' }}"
+                                href="{{ route('artikel.trash') }}">Trash</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-md-12 text-right">
-                    <a href="{{ route('news.create') }}" class="btn btn-primary">Create Quest</a>
+                    <a href="{{ route('artikel.create') }}" class="btn btn-primary">Create Quest</a>
                 </div>
             </div>
 
@@ -62,31 +62,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($news as $index => $berita)
+                        @foreach ($artikels as $index => $artikel)
                             <tr>
                                 <td>{{ $index +1 }}</td>
-                                <td>{{ $berita->title }}</td>
+                                <td>{{ $artikel->title }}</td>
                                 <td>
-                                    @foreach ($berita->skill as $skills)
+                                    @foreach ($artikel->skill as $skills)
                                         {{ $skills->judul }}
                                     @endforeach
                                 </td>
-                                <td>{!! $berita->konten !!}</td>
+                                <td>{!! Str::words($artikel->konten, 10,'...') !!}</td>
                                 <td>
-                                    @if ($berita->status == 'DRAFT')
-                                        <span class="badge bg-dark text-white">{{ $berita->status }}</span>
+                                    @if ($artikel->status == 'DRAFT')
+                                        <span class="badge bg-dark text-white">{{ $artikel->status }}</span>
                                     @else
-                                        <span class="badge badge-success">{{ $berita->status }}</span>
+                                        <span class="badge badge-success">{{ $artikel->status }}</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('news.edit', [$berita->id]) }}" class="btn btn-info btn-sm"> Edit
+                                    <a href="{{ route('artikel.edit', [$artikel->id]) }}" class="btn btn-info btn-sm"> Edit
                                     </a>
-                                    <a href="{{ route('news.show', [$skills->id]) }}"
+                                    <a href="{{ route('artikel.show', [$skills->id]) }}"
                                         class="btn btn-primary btn-sm"> <span class="oi oi-eye"></span></a>
                                     <form method="POST" class="d-inline"
                                         onsubmit="return confirm('Move quest to trash?')"
-                                        action="{{ route('news.destroy', [$berita->id]) }}">
+                                        action="{{ route('artikel.destroy', [$artikel->id]) }}">
 
                                         @csrf
                                         <input type="hidden" value="DELETE" name="_method">
@@ -103,7 +103,7 @@
 
             <div class="col-md-12">
                 <div class="d-flex justify-content-start">
-                    {!! $news->links() !!}
+                    {!! $artikels->links() !!}
                 </div>
             </div>
 
