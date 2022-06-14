@@ -17,18 +17,6 @@
                         <form method="post" action="" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="title">Judul :</label>
-                                <input class="form-control" type="text">
-                                <br>
-
-                                <label for="">Konten :</label>
-                                <textarea class="ckeditor form-control" name="konten" id="konten"></textarea>
-                                <br>
-
-                                <label for="file">File Pendukung <small class="text-danger">*upload file jika
-                                        diperlukan</small></label>
-                                <input type="file" class="form-control" name="file_pendukung">
-                                <br>
 
                                 {{-- Job Class Choice --}}
 
@@ -37,6 +25,26 @@
                                 </select>
                                 <br><br>
 
+                                <label for="title">Judul :</label>
+                                <input class="form-control" type="text">
+                                <br>
+
+                                <label for="">Konten :</label>
+                                <textarea class="ckeditor form-control" name="konten" id="konten"></textarea>
+                                <br>
+
+                                <label for="image">Image</label>
+                                <input type="file" class="form-control" name="image">
+                                <br>
+
+                                <label for="file">File Pendukung <small class="text-danger">*upload file jika
+                                        diperlukan</small></label>
+                                <input type="file" class="form-control" name="file_pendukung">
+                                <br>
+
+                                <button class="btn btn-primary" name="save_action" value="PUBLISH">Publish</button>
+
+                                <button class="btn btn-secondary" name="save_action" value="DRAFT">Save as draft</button>
                             </div>
                         </form>
                     </div>
@@ -46,7 +54,35 @@
     </div>
 @endsection
 @section('footer-scripts')
-    <script src="{{ asset('ckeditor/ckeditor.js')}}" type="text/javascript">
+    {{-- Summernote css/js --}}
+    <link rel="stylesheet" href="{{ asset('summernote/summernote-bs4.min.css') }}">
+    <script src="{{ asset('summernote/summernote-bs4.min.js') }}"></script>
+
+    <script>
+        $('#konten').summernote({
+            height: 400,
+            popatmouse: true,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert', ['link', 'picture', 'video']],
+            ]
+        });
+    </script>
+    {{-- ckeditor tidak digunakan --}}
+    {{-- <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.ckeditor').CKEDITOR;
+        });
+    </script>
+    <script type="text/javascript">
         CKEDITOR.replace('konten', {
             filebrowserUploadUrl: "{{ route('news.upload', ['_token' => csrf_token()]) }}",
             filebrowserUploadMethod: 'form',
@@ -54,7 +90,7 @@
             // filebrowserBrowseUrl: '/browser/browse.php',
             height: 360
         });
-    </script>
+    </script> --}}
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
