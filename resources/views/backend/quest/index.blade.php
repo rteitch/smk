@@ -40,6 +40,8 @@
                             <a class="nav-link {{ Request::path() == 'quest/trash' ? 'active' : '' }}"
                                 href="{{ route('quest.trash') }}">Trash</a>
                         </li>
+
+
                     </ul>
                 </div>
             </div>

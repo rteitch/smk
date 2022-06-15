@@ -19,4 +19,5 @@ class Artikel extends Model
     public function skill(){
         return $this->belongsToMany(Skill::class);
     }
+
 }

@@ -47,7 +47,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     return response()->json($user, 200);
 // });
 Route::resource('users', UserController::class);
-
 //Route Job Class
 Route::get('/jobclass/trash', [JobClassController::class, 'trash'])->name('jobclass.trash');
 Route::get('/jobclass/{id}/restore', [JobClassController::class, 'restore'])->name('jobclass.restore');
@@ -81,6 +80,7 @@ Route::resource('orderq', OrderQController::class);
 //     $user = Artikel::with('user')->find($id);
 //     return response()->json($user, 200);
 // });
+
 Route::get('/artikel/trash', [ArtikelController::class, 'trash'])->name('artikel.trash');
 Route::post('/artikel/{artikel}/restore', [ArtikelController::class, 'restore'])->name('artikel.restore');
 Route::delete('/artikel/{artikel}/delete-permanent', [ArtikelController::class, 'deletePermanent'])->name('artikel.delete-permanent');

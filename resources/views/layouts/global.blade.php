@@ -41,7 +41,7 @@
     {{-- Navigasi --}}
     <nav class="navbar navbar-expand p-0">
         {{-- Judul Situs --}}
-        <a class="navbar-brand text-center col-xs-12 col-md-3 col-lg-2 mr-0" href="{{ route('backend.home') }}"> SMKN 2
+        <a class="navbar-brand text-left col-xs-12 col-md-3 col-lg-2 mr-0 pl-4" href="{{ route('backend.home') }}"> SMKN 2
             SOLO</a>
         {{-- Resnponsive Menu Mobile side-right --}}
         <button class="btn btn-link d-block d-md-none" data-toggle="collapse" data-target="#sidebar-nav" role="button">
@@ -86,7 +86,7 @@
         <div style="min-height: 100%" class="flex-row d-flex align-items-stretch m-0">
             {{-- Sidebar Menu Section --}}
             <div class="polished-sidebar bg-light col-12 col-md-3 col-lg-2 p-0 collapse d-md-inline" id="sidebar-nav">
-                <ul class="polished-sidebar-menu ml-0 pt-4 p- d-md-block">
+                <ul class="polished-sidebar-menu ml-0 pt-4 p-0 d-md-block">
                     <input class="border-dark form-control d-block d-md-none mb-4" type="text" placeholder="Search"
                         aria-label="Search">
                     {{-- Sidebar Menu --}}

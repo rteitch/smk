@@ -39,7 +39,7 @@
                             <a class="nav-link" href="{{ route('quest.index', ['status' => 'draft']) }}">Draft</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('quest.trash') }}">Trash</a>
+                            <a class="nav-link {{ Request::path() == 'quest/trash' ? 'active' : '' }}" href="{{ route('quest.trash') }}">Trash</a>
                         </li>
                     </ul>
                 </div>

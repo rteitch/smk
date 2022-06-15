@@ -65,7 +65,7 @@ class ArtikelController extends Controller
                 $new_src=asset($filepath);
                 $img->removeAttribute('src');
                 $img->setAttribute('src',$new_src);
-                $img->setAttribute('class','img-responsive');
+                $img->setAttribute('class','img-fluid');
             }
         }
 
@@ -109,9 +109,9 @@ class ArtikelController extends Controller
         $artikel_baru->skill()->attach($request->get('skill'));
 
         if ($request->get('save_action') == 'PUBLISH') {
-            return redirect()->route('artikel.create')->with('status', 'artikel successfully saved and published');
+            return redirect()->route('artikel.index')->with('status', 'artikel successfully saved and published');
         } else {
-            return redirect()->route('artikel.create')->with('status', 'artikel saved as draft');
+            return redirect()->route('artikel.index')->with('status', 'artikel saved as draft');
         }
     }
 
@@ -170,11 +170,11 @@ class ArtikelController extends Controller
                 $fileNameContent=uniqid();
                 $fileNameContentRand=substr(md5($fileNameContent),6,6).'_'.time();
                 $filepath=("$storage/$fileNameContentRand.$mimetype");
-                $image=Image::make($src)->resize(null,720, function($constraint) {$constraint->aspectRatio();})->encode($mimetype,100)->store(public_path($filepath));
+                $image=Image::make($src)->resize(null,720, function($constraint) {$constraint->aspectRatio();})->encode($mimetype,100)->save(public_path($filepath));
                 $new_src=asset($filepath);
                 $img->removeAttribute('src');
                 $img->setAttribute('src',$new_src);
-                $img->setAttribute('class','img-responsive');
+                $img->setAttribute('class','img-fluid');
             }
         }
 
@@ -219,7 +219,7 @@ class ArtikelController extends Controller
         $artikel->save();
         $artikel->skill()->sync($request->get('skill'));
 
-        return redirect()->route('artikel.edit', [$artikel->id])->with('status', 'Artikel successfully updated');
+        return redirect()->route('artikel.index', [$artikel->id])->with('status', 'Artikel successfully updated');
     }
 
     /**
@@ -230,6 +230,38 @@ class ArtikelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $artikel = \App\Models\Artikel::findOrFail($id);
+        $artikel->delete();
+
+        return redirect()->route('artikel.index')->with('status', 'Artikel moved to trash');
     }
+
+
+    public function trash(){
+        $artikels = \App\Models\Artikel::onlyTrashed()->paginate(10);
+        return view('backend.artikel.trash', ['artikel' => $artikels]);
+    }
+
+    public function deletePermanent($id){
+        $artikels = \App\Models\Artikel::withTrashed()->findOrFail($id);
+
+        if(!$artikels->trashed()){
+          return redirect()->route('artikel.trash')->with('status', 'Artikel is not in trash!')->with('status_type', 'alert');
+        } else {
+          $artikels->skill()->detach();
+          $artikels->forceDelete();
+
+          return redirect()->route('artikel.trash')->with('status', 'Artikel permanently deleted!');
+        }
+      }
+
+      public function restore($id){
+          $artikels = \App\Models\Artikel::withTrashed()->findOrFail($id);
+          if($artikels->trashed()){
+              $artikels->restore();
+              return redirect()->route('artikel.trash')->with('status', 'Artikel successfully restored');
+            } else {
+                return redirect()->route('artikel.trash')->with('status', 'Artikel is not in trash');
+            }
+        }
 }

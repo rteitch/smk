@@ -29,7 +29,7 @@ class QuestController extends Controller
         $status = $request->get('status');
         $keyword = $request->get('keyword') ?: '';
 
-        if($status){
+        if ($status) {
             $quests = \App\Models\Quest::where('judul', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
         } else {
             $quests = \App\Models\Quest::where("judul", "LIKE", "%$keyword%")->paginate(10);
@@ -204,31 +204,34 @@ class QuestController extends Controller
         return redirect()->route('quest.index')->with('status', 'Quest moved to trash');
     }
 
-    public function trash(){
+    public function trash()
+    {
         $quests = \App\Models\Quest::onlyTrashed()->paginate(10);
         return view('backend.quest.trash', ['quests' => $quests]);
     }
 
-    public function deletePermanent($id){
+    public function deletePermanent($id)
+    {
         $quests = \App\Models\Quest::withTrashed()->findOrFail($id);
 
-        if(!$quests->trashed()){
-          return redirect()->route('quest.trash')->with('status', 'Quest is not in trash!')->with('status_type', 'alert');
+        if (!$quests->trashed()) {
+            return redirect()->route('quest.trash')->with('status', 'Quest is not in trash!')->with('status_type', 'alert');
         } else {
-          $quests->skill()->detach();
-          $quests->forceDelete();
+            $quests->skill()->detach();
+            $quests->forceDelete();
 
-          return redirect()->route('quest.trash')->with('status', 'Quest permanently deleted!');
+            return redirect()->route('quest.trash')->with('status', 'Quest permanently deleted!');
         }
-      }
+    }
 
-      public function restore($id){
-          $quests = \App\Models\Quest::withTrashed()->findOrFail($id);
-          if($quests->trashed()){
-              $quests->restore();
-              return redirect()->route('quest.trash')->with('status', 'Quest successfully restored');
-            } else {
-                return redirect()->route('quest.trash')->with('status', 'Quest is not in trash');
-            }
+    public function restore($id)
+    {
+        $quests = \App\Models\Quest::withTrashed()->findOrFail($id);
+        if ($quests->trashed()) {
+            $quests->restore();
+            return redirect()->route('quest.trash')->with('status', 'Quest successfully restored');
+        } else {
+            return redirect()->route('quest.trash')->with('status', 'Quest is not in trash');
         }
+    }
 }

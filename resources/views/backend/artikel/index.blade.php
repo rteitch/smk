@@ -64,7 +64,7 @@
                     <tbody>
                         @foreach ($artikel as $index => $artikels)
                             <tr>
-                                <td>{{ $index +1 }}</td>
+                                <td>{{ $index + 1 }}</td>
                                 <td>{{ $artikels->title }}</td>
                                 <td>
                                     @foreach ($artikels->skill as $skill)
@@ -83,7 +83,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('artikel.edit', [$artikels->id]) }}" class="btn btn-info btn-sm"> Edit
+                                    <a href="{{ route('artikel.edit', [$artikels->id]) }}" class="btn btn-info btn-sm">
+                                        Edit
                                     </a>
                                     <a href="{{ route('artikel.show', [$artikels->id]) }}"
                                         class="btn btn-primary btn-sm"> <span class="oi oi-eye"></span></a>
