@@ -279,4 +279,5 @@ class UserController extends Controller
 
     //     return redirect()->route('skill.index')->with('status', 'Skill successfully ditambahkan');
     // }
+
 }

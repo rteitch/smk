@@ -48,16 +48,9 @@
             <span class="oi oi-menu"></span>
         </button>
         {{-- Search input dinavigasi --}}
-        <div class="input-group">
-            <input name="keyword" type="text" value="{{ Request::get('keyword') }}"
-                class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2"
-                placeholder="Search on page..">
-            <div class="input-group-append">
-                <button type="button" class="btn btn-primary d-none d-md-block mr-3" value="Filter">
-                    <i class="oi oi-magnifying-glass"></i>
-                </button>
-            </div>
-        </div>
+
+        <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text"
+            placeholder="Search" aria-label="Search">
         {{-- Menu Person --}}
         <div class="dropdown d-none d-md-block">
             {{-- Kondisi jika user login, muncul nama user --}}
@@ -95,15 +88,8 @@
             {{-- Sidebar Menu Section --}}
             <div class="polished-sidebar bg-light col-12 col-md-3 col-lg-2 p-0 collapse d-md-inline" id="sidebar-nav">
                 <ul class="polished-sidebar-menu ml-0 pt-4 p-0 d-md-block">
-                    <div class="input-group">
-                        <input name="keyword" type="text" value="{{ Request::get('keyword') }}"
-                            class="border-dark form-control d-block d-md-none mb-4" placeholder="Search on page..">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-primary d-block d-md-none" value="Filter">
-                                <i class="oi oi-magnifying-glass"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <input class="border-dark form-control d-block d-md-none mb-4" type="text" placeholder="Search"
+                        aria-label="Search">
                     {{-- Sidebar Menu --}}
                     <li><a href="/home"><span class="oi oi-home"> Home</span></a></li>
                     @if (json_decode(Auth::user()->roles) == array_intersect(['0']))
@@ -148,7 +134,7 @@
                         </li>
                     </div>
                 </ul>
-                <div class="pl-3 d-none d-md-block position-fixed" style="bottom: 0px">
+                <div class="pl-3 d-none d-md-block position-fixed" style="bottom: 16px">
                     <span class="oi oi-cog"></span> Setting
                 </div>
             </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\JobClassController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OrderQController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\SkillController;
@@ -46,6 +47,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     $user = User::with('artikel')->find($id);
 //     return response()->json($user, 200);
 // });
+
 Route::resource('users', UserController::class);
 //Route Job Class
 Route::get('/jobclass/trash', [JobClassController::class, 'trash'])->name('jobclass.trash');
@@ -88,3 +90,9 @@ Route::post('/artikel/{artikel}/restore', [ArtikelController::class, 'restore'])
 Route::delete('/artikel/{artikel}/delete-permanent', [ArtikelController::class, 'deletePermanent'])->name('artikel.delete-permanent');
 // Route::post('news/upload', [ArtikelController::class, 'upload'])->name('news.upload');
 Route::resource('artikel', ArtikelController::class);
+
+//Route Notifikasi
+Route::get('/notifikasi/trash', [NotifikasiController::class, 'trash'])->name('notifikasi.trash');
+Route::post('/notifikasi/{notifikasi}/restore', [NotifikasiController::class, 'restore'])->name('notifikasi.restore');
+Route::delete('/notifikasi/{notifikasi}/delete-permanent', [NotifikasiController::class, 'deletePermanent'])->name('notifikasi.delete-permanent');
+Route::resource('notifikasi', NotifikasiController::class);

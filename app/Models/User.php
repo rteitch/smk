@@ -60,4 +60,8 @@ class User extends Authenticatable
     public function skill(){
         return $this->belongsToMany(Skill::class);
     }
+
+    public function notifikasi(){
+        return $this->hasMany(Notifikasi::class);
+    }
 }

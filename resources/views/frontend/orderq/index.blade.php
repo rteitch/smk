@@ -28,17 +28,17 @@
 
     <hr class="my-3">
     <div class="row">
-        <div class="col-md-12">
+        <div class="table-responsive">
             <table class="table table-stripped table-bordered">
                 <thead>
                     <tr>
-                        <th>Quest Code</th>
-                        <th><b>Status</b></th>
-                        <th><b>Siswa</b></th>
-                        <th><b>File Jawaban</b></th>
-                        <th><b>Jawaban Pilgan</b></th>
-                        <th><b>Batas Waktu</b></th>
-                        <th><b>Actions</b></th>
+                        <th scope="col">Quest Code</th>
+                        <th scope="col"><b>Status</b></th>
+                        <th scope="col"><b>Siswa</b></th>
+                        <th scope="col"><b>File Jawaban</b></th>
+                        <th scope="col"><b>Jawaban Pilgan</b></th>
+                        <th scope="col"><b>Batas Waktu</b></th>
+                        <th scope="col"><b>Actions</b></th>
                     </tr>
                 </thead>
                 <tbody>

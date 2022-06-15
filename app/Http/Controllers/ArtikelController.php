@@ -274,7 +274,7 @@ class ArtikelController extends Controller
 
     public function published(Request $request)
     {
-        $artikel = \App\Models\Artikel::with('user')->with('skill')->orderBy('title', 'asc')->paginate(4);
+        $artikel = \App\Models\Artikel::with('user')->with('skill')->orderBy('title', 'asc')->where('status', 'PUBLISH')->paginate(4);
 
         return view('backend.artikel.published', ['artikel' => $artikel]);
     }
