@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Create book
+    Create Quest
 @endsection
 
 @section('content')

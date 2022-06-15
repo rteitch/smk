@@ -8,9 +8,12 @@ use App\Http\Controllers\OrderQController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RewardController;
+use App\Http\Controllers\OrderRController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Artikel;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +27,11 @@ use App\Models\Artikel;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    if(Auth::check()){
+        return view('backend.home');
+    } else{
+        return view('auth.login');
+    }
 });
 
 Route::get('/global', function () {
@@ -96,3 +103,13 @@ Route::get('/notifikasi/trash', [NotifikasiController::class, 'trash'])->name('n
 Route::post('/notifikasi/{notifikasi}/restore', [NotifikasiController::class, 'restore'])->name('notifikasi.restore');
 Route::delete('/notifikasi/{notifikasi}/delete-permanent', [NotifikasiController::class, 'deletePermanent'])->name('notifikasi.delete-permanent');
 Route::resource('notifikasi', NotifikasiController::class);
+
+
+//Route Quest
+Route::get('/reward/trash', [RewardController::class, 'trash'])->name('reward.trash');
+Route::post('/reward/{reward}/restore', [RewardController::class, 'restore'])->name('reward.restore');
+Route::delete('/reward/{reward}/delete-permanent', [RewardController::class, 'deletePermanent'])->name('reward.delete-permanent');
+Route::resource('reward', RewardController::class);
+
+//Route OrderR
+Route::resource('orderr', OrderRController::class);

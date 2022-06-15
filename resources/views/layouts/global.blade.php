@@ -112,7 +112,10 @@
                                     Quest</span></a>
                         </li>
 
-                        <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
+                        <li><a href="{{ route('reward.index') }}"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
+                        <li><a href="{{ route('orderr.index') }}"><span class="oi oi-paperclip"> Manage Order
+                                    Reward</span></a>
+                        </li>
                         <li><a href="{{ route('artikel.index') }}"><span class="oi oi-globe"> Manage
                                     Artikel</span></a></li>
                         <li><a href="{{ route('artikel.published') }}"><span class="oi oi-globe"> Published

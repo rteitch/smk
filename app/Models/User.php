@@ -64,4 +64,8 @@ class User extends Authenticatable
     public function notifikasi(){
         return $this->hasMany(Notifikasi::class);
     }
+
+    public function orderr(){
+        return $this->hasMany(OrderR::class);
+    }
 }
