@@ -31,6 +31,11 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('job_class_skill', function(Blueprint $table){
+            $table->dropForeign(['job_class_id']);
+            $table->dropForeign(['skill_id']);
+        });
+
         Schema::dropIfExists('job_class_skill');
     }
 };

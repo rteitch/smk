@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
+
 
 class ArtikelController extends Controller
 {
@@ -76,7 +79,16 @@ class ArtikelController extends Controller
         $file_pendukung = $request->file('file_pendukung');
 
         if ($file_pendukung) {
+
             $filename = $file_pendukung->getClientOriginalName();
+
+            if($filename && file_exists(storage_path('app/public/file_pendukung/' . $filename))){
+                $fileNameimgRand=substr(md5($fileNameContent),6,6).'_'.time();
+                $filename_new = $fileNameimgRand.$filename;
+                $file_path_new = $file_pendukung->storeAs('file_pendukung', $filename_new, 'public');
+                $artikel_baru->file_pendukung = $file_path_new;
+            }
+
             $file_path = $file_pendukung->storeAs('file_pendukung', $filename, 'public');
             $artikel_baru->file_pendukung = $file_path;
         }
@@ -139,7 +151,7 @@ class ArtikelController extends Controller
     public function update(Request $request, $id)
     {
 
-        $artikel_update = new \App\Models\Artikel;
+        $artikel = \App\Models\Artikel::findOrFail($id);
         //upload file gambar yang di text editor
         $storage = "images";
         $dom = new \DOMDocument();
@@ -149,13 +161,16 @@ class ArtikelController extends Controller
         $images=$dom->getElementsByTagName('img');
         foreach($images as $img){
             $src=$img->getAttribute('src');
+            if($src && file_exists(storage_path('app/public/images' . $src))){
+                \Storage::delete('public/images' . $src);
+            };
             if(preg_match('/data:image/', $src)){
                 preg_match('/data:image\/(?<mime>.*?)\;/',$src,$groups);
                 $mimetype=$groups['mime'];
                 $fileNameContent=uniqid();
                 $fileNameContentRand=substr(md5($fileNameContent),6,6).'_'.time();
                 $filepath=("$storage/$fileNameContentRand.$mimetype");
-                $image=Image::make($src)->resize(null,720, function($constraint) {$constraint->aspectRatio();})->encode($mimetype,100)->save(public_path($filepath));
+                $image=Image::make($src)->resize(null,720, function($constraint) {$constraint->aspectRatio();})->encode($mimetype,100)->store(public_path($filepath));
                 $new_src=asset($filepath);
                 $img->removeAttribute('src');
                 $img->setAttribute('src',$new_src);
@@ -163,41 +178,48 @@ class ArtikelController extends Controller
             }
         }
 
-        $getJudul = $request->get('title');
-        $artikel_baru->title = $getJudul;
-        $artikel_baru->konten = $dom->saveHTML();
-        $artikel_baru->slug = \Str::slug($request->get('title'));
+        $judul = $request->get('title');
+        $artikel->title = $judul;
+        $artikel->konten = $dom->saveHTML();
+        $slug = Str::slug($judul, '-');
+        $artikel->slug = $slug;
 
         // file_pendukung
 
-        $file_pendukung = $request->file('file_pendukung');
+        $new_file_pendukung = $request->file('file_pendukung');
 
-        if ($file_pendukung) {
-            $filename = $file_pendukung->getClientOriginalName();
-            $file_path = $file_pendukung->storeAs('file_pendukung', $filename, 'public');
-            $artikel_baru->file_pendukung = $file_path;
+        if ($new_file_pendukung) {
+            if ($artikel->file_pendukung && file_exists(storage_path('app/public/' . $artikel->file_pendukung))) {
+                \Storage::delete('public/' . $artikel->file_pendukung);
+            }
+
+            $filename = $new_file_pendukung->getClientOriginalName();
+            $file_path = $new_file_pendukung->storeAs('file_pendukung', $filename, 'public');
+
+            $artikel->file_pendukung = $file_path;
         }
 
         //cover / image
-        $image = $request->file('image');
+        $new_image = $request->file('image');
 
-        if ($image) {
-            $image_path = $image->store('artikel-image', 'public');
+        if ($new_image) {
+            if ($artikel->image && file_exists(storage_path('app/public/' . $artikel->image))) {
+                \Storage::delete('public/' . $artikel->image);
+            }
 
-            $artikel_baru->image = $image_path;
+            $new_image_path = $new_image->store('artikel-image', 'public');
+
+            $artikel->image = $new_image_path;
         }
-        $artikel_baru->user_id = \Auth::user()->id;
-        $artikel_baru->created_by = \Auth::user()->id;
-        $artikel_baru->status = $request->get('save_action');
+        $artikel->user_id = \Auth::user()->id;
+        $artikel->created_by = \Auth::user()->id;
 
-        $artikel_baru->save();
-        $artikel_baru->skill()->attach($request->get('skill'));
+        $artikel->status = $request->get('status');
 
-        if ($request->get('save_action') == 'PUBLISH') {
-            return redirect()->route('artikel.create')->with('status', 'artikel successfully saved and published');
-        } else {
-            return redirect()->route('artikel.create')->with('status', 'artikel saved as draft');
-        }
+        $artikel->save();
+        $artikel->skill()->sync($request->get('skill'));
+
+        return redirect()->route('artikel.edit', [$artikel->id])->with('status', 'Artikel successfully updated');
     }
 
     /**

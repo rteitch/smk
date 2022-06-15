@@ -138,7 +138,8 @@ class QuestController extends Controller
         $quest = \App\Models\Quest::findOrFail($id);
         $getJudul = $request->get('judul');
         $quest->judul = $getJudul;
-        $quest->slug = \Str::slug($getJudul);
+        $slug = Str::slug($getJudul, '-');
+        $quest->slug = $slug;
         $quest->deskripsi = $request->get('deskripsi');
         $quest->level = $request->get('level');
         $quest->skor = $request->get('skor');

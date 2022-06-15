@@ -15,6 +15,7 @@
             class="bg-white shadow-sm p-3">
 
             @csrf
+            <input type="hidden" name="_method" value="PUT">
 
             <div class="form-group">
                 {{-- Skill Choice --}}

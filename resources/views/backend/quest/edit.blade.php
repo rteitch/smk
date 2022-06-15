@@ -138,7 +138,8 @@
 
                 {{-- Form Batas Waktu Pengerjaan --}}
                 <label for="batas_waktu">Batas Waktu Pengerjaan</label>
-                <input class="form-control" placeholder="Batas Waktu" type="datetime-local" name="batas_waktu" id="batas_waktu" value="">
+
+                <input class="form-control @error('time') is-invalid @enderror" placeholder="Batas Waktu" type="datetime-local" name="batas_waktu" id="batas_waktu" value="{{old('time')?? date('Y-m-d\TH:i', strtotime($quests->batas_waktu)) }}">
                 <br>
 
                 {{-- Form Level --}}

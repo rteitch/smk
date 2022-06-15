@@ -71,7 +71,10 @@
                                         {{ $skill->judul }}
                                     @endforeach
                                 </td>
-                                <td>{!! Str::words($artikels->konten, 10,'...') !!}</td>
+                                <td>
+                                    {!! Str::words($artikels->konten, 30, '...') !!}
+                                    {{-- {!! Str::words($artikels->konten, 15,'...') !!} --}}
+                                </td>
                                 <td>
                                     @if ($artikels->status == 'DRAFT')
                                         <span class="badge bg-dark text-white">{{ $artikels->status }}</span>
