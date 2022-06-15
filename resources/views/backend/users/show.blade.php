@@ -51,7 +51,11 @@
         </div>
         <div class="col text-align">
             <h6 class="fw-bold m-0">{{ $user->jobclass->count() }}</h6>
-            <small>Keahlian</small>
+            <small>Job Class</small>
+        </div>
+        <div class="col text-align">
+            <h6 class="fw-bold m-0">{{ $user->skill->count() }}</h6>
+            <small>Skill</small>
         </div>
     </div>
     <div class="progress">
@@ -128,6 +132,14 @@
         @endforeach
     </td>
 
+</tr>
+<tr>
+    <td><b>Skill</b></td>
+    <td>:
+        @foreach ($user->skill as $skills)
+            <a href="{{ route('jobclass.show', $skills->id) }}">{{ $skills->judul }}</a>
+        @endforeach
+    </td>
 </tr>
 <tr>
     <td><b>Gender</b></td>

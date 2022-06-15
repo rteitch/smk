@@ -141,8 +141,7 @@
                 {{-- Form Alamat --}}
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <label for="alamat">Alamat</label>
-                    <textarea name="alamat" id="alamat"
-                        class="form-control {{ $errors->first('alamat') ? 'is-invalid' : '' }}">{{ old('alamat') }}</textarea>
+                    <textarea name="alamat" id="alamat" class="form-control {{ $errors->first('alamat') ? 'is-invalid' : '' }}">{{ old('alamat') }}</textarea>
                     <div class="invalid-feedback">
                         {{ $errors->first('password_confirmation') }}
                     </div>
@@ -184,6 +183,13 @@
                     <div class="invalid-feedback">
                         {{ $errors->first('jobclass') }}
                     </div>
+                </div>
+
+                {{-- Skill Choice --}}
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <label for="skill">Skill <small class="text-danger">*sesuaikan skill</small></label><br>
+                    <select class="form-control" name="skill[]" multiple id="skill">
+                    </select>
                 </div>
 
                 {{-- Form Roles --}}
@@ -270,6 +276,22 @@
                             return {
                                 id: item.id,
                                 text: item.name
+                            }
+                        })
+                    }
+                }
+            }
+        });
+
+        $('#skill').select2({
+            ajax: {
+                url: 'http://127.0.0.1:8000/ajax/skill/search',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.judul
                             }
                         })
                     }

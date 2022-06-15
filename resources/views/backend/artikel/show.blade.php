@@ -36,8 +36,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="text-center">
-                                    <img class="img-fluid mb-2 " src="{{ asset('storage/' . $artikel->image) }}"
-                                        alt="image post" width="90%"><br>
+                                    <img class="img-thumbnail mb-2 " src="{{ asset('storage/' . $artikel->image) }}"
+                                        alt="image post" width="720px"><br>
                                 </div>
                                 <p class="fs-smaller">
                                     {!! $artikel->konten !!}

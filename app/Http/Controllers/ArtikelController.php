@@ -19,7 +19,7 @@ class ArtikelController extends Controller
         $status = $request->get('status');
         $keyword = $request->get('keyword') ?: '';
 
-        if($status){
+        if ($status) {
             $artikel = \App\Models\Artikel::where('title', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
         } else {
             $artikel = \App\Models\Artikel::where("title", "LIKE", "%$keyword%")->paginate(10);
@@ -50,22 +50,24 @@ class ArtikelController extends Controller
         $storage = "images";
         $dom = new \DOMDocument();
         libxml_use_internal_errors(true);
-        $dom->loadHTML($request->konten,LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
+        $dom->loadHTML($request->konten, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
         libxml_clear_errors();
-        $images=$dom->getElementsByTagName('img');
-        foreach($images as $img){
-            $src=$img->getAttribute('src');
-            if(preg_match('/data:image/', $src)){
-                preg_match('/data:image\/(?<mime>.*?)\;/',$src,$groups);
-                $mimetype=$groups['mime'];
-                $fileNameContent=uniqid();
-                $fileNameContentRand=substr(md5($fileNameContent),6,6).'_'.time();
-                $filepath=("$storage/$fileNameContentRand.$mimetype");
-                $image=Image::make($src)->resize(null,720, function($constraint) {$constraint->aspectRatio();})->encode($mimetype,100)->save(public_path($filepath));
-                $new_src=asset($filepath);
+        $images = $dom->getElementsByTagName('img');
+        foreach ($images as $img) {
+            $src = $img->getAttribute('src');
+            if (preg_match('/data:image/', $src)) {
+                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+                $mimetype = $groups['mime'];
+                $fileNameContent = uniqid();
+                $fileNameContentRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
+                $filepath = ("$storage/$fileNameContentRand.$mimetype");
+                $image = Image::make($src)->resize(null, 720, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->encode($mimetype, 100)->save(public_path($filepath));
+                $new_src = asset($filepath);
                 $img->removeAttribute('src');
-                $img->setAttribute('src',$new_src);
-                $img->setAttribute('class','img-fluid');
+                $img->setAttribute('src', $new_src);
+                $img->setAttribute('class', 'img-fluid');
             }
         }
 
@@ -82,9 +84,9 @@ class ArtikelController extends Controller
 
             $filename = $file_pendukung->getClientOriginalName();
 
-            if($filename && file_exists(storage_path('app/public/file_pendukung/' . $filename))){
-                $fileNameimgRand=substr(md5($fileNameContent),6,6).'_'.time();
-                $filename_new = $fileNameimgRand.$filename;
+            if ($filename && file_exists(storage_path('app/public/file_pendukung/' . $filename))) {
+                $fileNameimgRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
+                $filename_new = $fileNameimgRand . $filename;
                 $file_path_new = $file_pendukung->storeAs('file_pendukung', $filename_new, 'public');
                 $artikel_baru->file_pendukung = $file_path_new;
             }
@@ -156,25 +158,27 @@ class ArtikelController extends Controller
         $storage = "images";
         $dom = new \DOMDocument();
         libxml_use_internal_errors(true);
-        $dom->loadHTML($request->konten,LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
+        $dom->loadHTML($request->konten, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
         libxml_clear_errors();
-        $images=$dom->getElementsByTagName('img');
-        foreach($images as $img){
-            $src=$img->getAttribute('src');
-            if($src && file_exists(storage_path('app/public/images' . $src))){
+        $images = $dom->getElementsByTagName('img');
+        foreach ($images as $img) {
+            $src = $img->getAttribute('src');
+            if ($src && file_exists(storage_path('app/public/images' . $src))) {
                 \Storage::delete('public/images' . $src);
             };
-            if(preg_match('/data:image/', $src)){
-                preg_match('/data:image\/(?<mime>.*?)\;/',$src,$groups);
-                $mimetype=$groups['mime'];
-                $fileNameContent=uniqid();
-                $fileNameContentRand=substr(md5($fileNameContent),6,6).'_'.time();
-                $filepath=("$storage/$fileNameContentRand.$mimetype");
-                $image=Image::make($src)->resize(null,720, function($constraint) {$constraint->aspectRatio();})->encode($mimetype,100)->save(public_path($filepath));
-                $new_src=asset($filepath);
+            if (preg_match('/data:image/', $src)) {
+                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+                $mimetype = $groups['mime'];
+                $fileNameContent = uniqid();
+                $fileNameContentRand = substr(md5($fileNameContent), 6, 6) . '_' . time();
+                $filepath = ("$storage/$fileNameContentRand.$mimetype");
+                $image = Image::make($src)->resize(null, 720, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->encode($mimetype, 100)->save(public_path($filepath));
+                $new_src = asset($filepath);
                 $img->removeAttribute('src');
-                $img->setAttribute('src',$new_src);
-                $img->setAttribute('class','img-fluid');
+                $img->setAttribute('src', $new_src);
+                $img->setAttribute('class', 'img-fluid');
             }
         }
 
@@ -237,31 +241,47 @@ class ArtikelController extends Controller
     }
 
 
-    public function trash(){
+    public function trash()
+    {
         $artikels = \App\Models\Artikel::onlyTrashed()->paginate(10);
         return view('backend.artikel.trash', ['artikel' => $artikels]);
     }
 
-    public function deletePermanent($id){
+    public function deletePermanent($id)
+    {
         $artikels = \App\Models\Artikel::withTrashed()->findOrFail($id);
 
-        if(!$artikels->trashed()){
-          return redirect()->route('artikel.trash')->with('status', 'Artikel is not in trash!')->with('status_type', 'alert');
+        if (!$artikels->trashed()) {
+            return redirect()->route('artikel.trash')->with('status', 'Artikel is not in trash!')->with('status_type', 'alert');
         } else {
-          $artikels->skill()->detach();
-          $artikels->forceDelete();
+            $artikels->skill()->detach();
+            $artikels->forceDelete();
 
-          return redirect()->route('artikel.trash')->with('status', 'Artikel permanently deleted!');
+            return redirect()->route('artikel.trash')->with('status', 'Artikel permanently deleted!');
         }
-      }
+    }
 
-      public function restore($id){
-          $artikels = \App\Models\Artikel::withTrashed()->findOrFail($id);
-          if($artikels->trashed()){
-              $artikels->restore();
-              return redirect()->route('artikel.trash')->with('status', 'Artikel successfully restored');
-            } else {
-                return redirect()->route('artikel.trash')->with('status', 'Artikel is not in trash');
-            }
+    public function restore($id)
+    {
+        $artikels = \App\Models\Artikel::withTrashed();
+        if ($artikels->trashed()) {
+            $artikels->restore();
+            return redirect()->route('artikel.trash')->with('status', 'Artikel successfully restored');
+        } else {
+            return redirect()->route('artikel.trash')->with('status', 'Artikel is not in trash');
         }
+    }
+
+    public function published(Request $request)
+    {
+        $artikel = \App\Models\Artikel::with('user')->with('skill')->orderBy('title', 'asc')->paginate(4);
+
+        return view('backend.artikel.published', ['artikel' => $artikel]);
+    }
+
+    public function lihatArtikel($slug){
+        $artikel = \App\Models\Artikel::with('user')->with('skill')->where('slug', $slug)->first();
+
+        return view('backend.artikel.lihat-artikel', ['artikel' => $artikel]);
+    }
 }

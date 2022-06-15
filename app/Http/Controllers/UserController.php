@@ -124,6 +124,7 @@ class UserController extends Controller
 
         $new_user->save();
 
+        $new_user->skill()->attach($request->get('skill'));
         $new_user->jobclass()->attach($request->get('jobclass'));
         return redirect()->route('users.index')->with('status', 'Berhasil Membuat User Baru.');
     }
@@ -248,6 +249,7 @@ class UserController extends Controller
 
         $user->save();
 
+        $user->skill()->sync($request->get('skill'));
         $user->jobclass()->sync($request->get('jobclass'));
         return redirect()->route('users.show', [$id])->with('status', 'User succesfully updated');
     }
@@ -269,5 +271,12 @@ class UserController extends Controller
     // public function jumlahSkill(){
     //     $skillCount = \App\Models\User::count();
     //     return view('backend.jobclass.show', compact('skillCount'));
+    // }
+
+    // public function tambahSkill(Request $request){
+    //     $new_skill = new \App\Models\User();
+    //     $new_skill->skill()->attach($request->get('skill'));
+
+    //     return redirect()->route('skill.index')->with('status', 'Skill successfully ditambahkan');
     // }
 }

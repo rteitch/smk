@@ -130,9 +130,17 @@
 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <label for="jobclass">Job Class</label><br>
-
                     <select name="jobclass[]" multiple id="jobclass" class="form-control">
                     </select>
+                    <br><br>
+                </div>
+
+
+                {{-- Skill Choice --}}
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <label for="skill">Skill</label>
+                    <select class="form-control" multiple class="form-control" name="skill[]" id="skill"></select>
+                    <br><br>
                 </div>
 
                 {{-- Form Status --}}
@@ -210,6 +218,22 @@
                             return {
                                 id: item.id,
                                 text: item.name
+                            }
+                        })
+                    }
+                }
+            }
+        });
+
+        $('#skill').select2({
+            ajax: {
+                url: 'http://127.0.0.1:8000/ajax/skill/search',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.judul
                             }
                         })
                     }

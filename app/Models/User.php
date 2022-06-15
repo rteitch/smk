@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\JobClass;
 use App\Models\OrderQ;
+use App\Models\Skill;
 
 class User extends Authenticatable
 {
@@ -56,4 +57,7 @@ class User extends Authenticatable
         return $this->hasMany(Artikel::class);
     }
 
+    public function skill(){
+        return $this->belongsToMany(Skill::class);
+    }
 }

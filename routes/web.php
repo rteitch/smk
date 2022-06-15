@@ -81,6 +81,8 @@ Route::resource('orderq', OrderQController::class);
 //     return response()->json($user, 200);
 // });
 
+Route::get('/artikel/published', [ArtikelController::class, 'published'])->name('artikel.published');
+Route::get('/artikel/published/{slug}', [ArtikelController::class, 'lihatArtikel'])->name('artikel.lihatArtikel');
 Route::get('/artikel/trash', [ArtikelController::class, 'trash'])->name('artikel.trash');
 Route::post('/artikel/{artikel}/restore', [ArtikelController::class, 'restore'])->name('artikel.restore');
 Route::delete('/artikel/{artikel}/delete-permanent', [ArtikelController::class, 'deletePermanent'])->name('artikel.delete-permanent');

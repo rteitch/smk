@@ -29,7 +29,6 @@
         hr+.display-2+.display-3 {
             margin-bottom: 2rem;
         }
-
     </style>
     <script type="text/javascript">
         document.documentElement.className = document.documentElement.className.replace('no-js', 'js') + (document
@@ -41,15 +40,24 @@
     {{-- Navigasi --}}
     <nav class="navbar navbar-expand p-0">
         {{-- Judul Situs --}}
-        <a class="navbar-brand text-left col-xs-12 col-md-3 col-lg-2 mr-0 pl-4" href="{{ route('backend.home') }}"> SMKN 2
+        <a class="navbar-brand text-left col-xs-12 col-md-3 col-lg-2 mr-0 pl-4" href="{{ route('backend.home') }}">
+            SMKN 2
             SOLO</a>
         {{-- Resnponsive Menu Mobile side-right --}}
         <button class="btn btn-link d-block d-md-none" data-toggle="collapse" data-target="#sidebar-nav" role="button">
             <span class="oi oi-menu"></span>
         </button>
         {{-- Search input dinavigasi --}}
-        <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text"
-            placeholder="Search" aria-label="Search">
+        <div class="input-group">
+            <input name="keyword" type="text" value="{{ Request::get('keyword') }}"
+                class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2"
+                placeholder="Search on page..">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-primary d-none d-md-block mr-3" value="Filter">
+                    <i class="oi oi-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
         {{-- Menu Person --}}
         <div class="dropdown d-none d-md-block">
             {{-- Kondisi jika user login, muncul nama user --}}
@@ -87,8 +95,15 @@
             {{-- Sidebar Menu Section --}}
             <div class="polished-sidebar bg-light col-12 col-md-3 col-lg-2 p-0 collapse d-md-inline" id="sidebar-nav">
                 <ul class="polished-sidebar-menu ml-0 pt-4 p-0 d-md-block">
-                    <input class="border-dark form-control d-block d-md-none mb-4" type="text" placeholder="Search"
-                        aria-label="Search">
+                    <div class="input-group">
+                        <input name="keyword" type="text" value="{{ Request::get('keyword') }}"
+                            class="border-dark form-control d-block d-md-none mb-4" placeholder="Search on page..">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-primary d-block d-md-none" value="Filter">
+                                <i class="oi oi-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </div>
                     {{-- Sidebar Menu --}}
                     <li><a href="/home"><span class="oi oi-home"> Home</span></a></li>
                     @if (json_decode(Auth::user()->roles) == array_intersect(['0']))
@@ -112,7 +127,10 @@
                         </li>
 
                         <li><a href="#"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
-                        <li><a href="{{ route('artikel.index') }}"><span class="oi oi-globe"> Manage Artikel</span></a></li>
+                        <li><a href="{{ route('artikel.index') }}"><span class="oi oi-globe"> Manage
+                                    Artikel</span></a></li>
+                        <li><a href="{{ route('artikel.published') }}"><span class="oi oi-globe"> Published
+                                    Artikel</span></a></li>
                         <li><a href="#"><span class="oi oi-envelope-closed"> Manage Notifikasi</span></a></li>
                         <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li>
                     @endif
