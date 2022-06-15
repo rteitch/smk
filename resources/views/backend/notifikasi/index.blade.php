@@ -25,7 +25,7 @@
                 <div class="col-md-6">
                     <ul class="nav nav-pills card-header-pills">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::get('status') == null && Request::path() == 'quest' ? 'active' : '' }}"
+                            <a class="nav-link {{ Request::get('status') == null && Request::path() == 'artikel' ? 'active' : '' }}"
                                 href="{{ route('notifikasi.index') }}">All</a>
                         </li>
                         <li class="nav-item">

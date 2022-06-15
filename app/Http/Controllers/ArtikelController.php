@@ -263,7 +263,7 @@ class ArtikelController extends Controller
 
     public function restore($id)
     {
-        $artikels = \App\Models\Artikel::withTrashed();
+        $artikels = \App\Models\Artikel::withTrashed()->findOrFail($id);
         if ($artikels->trashed()) {
             $artikels->restore();
             return redirect()->route('artikel.trash')->with('status', 'Artikel successfully restored');
