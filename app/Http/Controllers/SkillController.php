@@ -68,9 +68,6 @@ class SkillController extends Controller
         $syarat_level = $request->get('syarat_lv');
         $new_skill->syarat_lv = $syarat_level;
 
-        $kuota_skill = $request->get('qty');
-        $new_skill->qty = $kuota_skill;
-
         $new_skill->created_by = \Auth::user()->id;
 
         $new_skill->slug = Str::slug($judul, '-');

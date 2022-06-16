@@ -42,9 +42,6 @@
             <label>Syarat Level Player</label> <br>
             <input type="number" class="form-control" value="{{ $skills->syarat_lv }}" name="syarat_lv">
             <br>
-            <label>Jumlah Kuota Skill</label> <br>
-            <input type="number" class="form-control" value="{{ $skills->qty }}" name="qty">
-            <br>
 
             <label>Skill Image</label><br>
             @if ($skills->image)

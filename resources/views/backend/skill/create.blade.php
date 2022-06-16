@@ -37,10 +37,6 @@
             <input type="number" name="syarat_lv" class="form-control">
             <br>
 
-            <label>Jumlah Kuota Skill</label><br>
-            <input type="number" name="qty" class="form-control">
-            <br>
-
             <label>Skill image</label>
             <input type="file" class="form-control" name="image" />
 
