@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("slug")->unique();
             $table->integer("syarat_lv");
             $table->integer("qty");
-            $table->string("image");
+            $table->string("image")->nullable();
             $table->integer("created_by");
             $table->integer("updated_by")->nullable();
             $table->integer("deleted_by")->nullable();

@@ -121,7 +121,7 @@
                         <li><a href="{{ route('artikel.published') }}"><span class="oi oi-globe"> Published
                                     Artikel</span></a></li>
                         <li><a href="{{ route('notifikasi.index') }}"><span class="oi oi-envelope-closed"> Manage Notifikasi</span></a></li>
-                        <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li>
+                        {{-- <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li> --}}
                     @endif
                     {{-- Menu person responsive mobile --}}
                     <div class="d-block d-md-none">

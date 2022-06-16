@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('level');
             $table->bigInteger('skor');
             $table->bigInteger('exp');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('pembuat');
             $table->dateTime("batas_waktu")->nullable();
             // Event, SSS+, SSS, SS, S, A, B, C, D

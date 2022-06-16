@@ -18,7 +18,7 @@
                 @csrf
 
                 <label for="title">Judul Reward</label> <br>
-                <input type="text" class="form-control" name="judul" placeholder="Judul Reward">
+                <input type="text" class="form-control" name="title" placeholder="Judul Reward">
                 <br>
 
                 <label for="image">Image</label>
@@ -31,7 +31,7 @@
 
                 {{-- Form Skor --}}
                 <label for="syarat_skor">Syarat Skor</label>
-                <input class="form-control" placeholder="skor" type="float" name="skor" id="skor">
+                <input class="form-control" placeholder="syarat skor" type="float" name="syarat_skor" id="skor">
                 <br>
 
 

@@ -13,7 +13,13 @@ class OrderRController extends Controller
      */
     public function index(Request $request)
     {
-        $order_r_s = \App\Models\OrderR::paginate(10);
+        $status = $request->get('status');
+        $user_name = $request->get('name');
+        $order_r_s = \App\Models\OrderR::with('user')->whereHas('user', function($query) use ($user_name){
+            $query->where('name', 'LIKE', "%$user_name%");
+        })->where('status','LIKE', "%$status%")->paginate(10);
+
+
         return view('frontend.orderr.index', ['order_r_s' => $order_r_s]);
     }
 
@@ -57,7 +63,8 @@ class OrderRController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order_r_s = \App\Models\OrderR::findOrFail($id);
+        return view('frontend.orderr.edit', ['order_r_s' => $order_r_s]);
     }
 
     /**
@@ -69,7 +76,12 @@ class OrderRController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order_r_s = \App\Models\OrderR::findOrFail($id);
+        $order_r_s->status = $request->get('status');
+
+        $order_r_s->save();
+
+        return redirect()->route('orderr.edit', [$order_r_s->id])->with('status', 'Order Reward sucessfully updated');
     }
 
     /**

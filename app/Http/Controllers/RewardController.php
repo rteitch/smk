@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RewardController extends Controller
 {
@@ -89,7 +90,8 @@ class RewardController extends Controller
      */
     public function edit($id)
     {
-        //
+        $reward_to_edit = \App\Models\Reward::findOrFail($id);
+        return view('backend.reward.edit', ['reward' => $reward_to_edit]);
     }
 
     /**
@@ -101,7 +103,36 @@ class RewardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $reward = \App\Models\Reward::findOrFail($id);
+        $getTitle = $request->get('title');
+        $reward->title = $getTitle;
+        $slug = Str::slug($getTitle, '-');
+        $reward->slug = $slug;
+        $reward->deskripsi = $request->get('deskripsi');
+        $reward->syarat_skor = $request->get('syarat_skor');
+
+        $reward->pembuat = \Auth::user()->name;
+
+        // file image
+        $new_image = $request->file('image');
+
+        if ($new_image) {
+            if ($reward->image && file_exists(storage_path('app/public/' . $reward->image))) {
+                \Storage::delete('public/' . $reward->image);
+            }
+
+            $new_image_path = $new_image->store('reward-image', 'public');
+
+            $reward->image = $new_image_path;
+        }
+
+        $reward->updated_by = \Auth::user()->id;
+
+        $reward->status = $request->get('status');
+
+        $reward->save();
+
+        return redirect()->route('reward.edit', [$reward->id])->with('status', 'Reward successfully updated');
     }
 
     /**
@@ -112,6 +143,39 @@ class RewardController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reward = \App\Models\Reward::findOrFail($id);
+        $reward->delete();
+
+        return redirect()->route('reward.index')->with('status', 'Reward moved to trash');
+    }
+
+    public function trash()
+    {
+        $reward = \App\Models\Reward::onlyTrashed()->paginate(10);
+        return view('backend.reward.trash', ['reward' => $reward]);
+    }
+
+    public function deletePermanent($id)
+    {
+        $reward = \App\Models\Reward::withTrashed()->findOrFail($id);
+
+        if (!$reward->trashed()) {
+            return redirect()->route('reward.trash')->with('status', 'Reward is not in trash!')->with('status_type', 'alert');
+        } else {
+            $reward->forceDelete();
+
+            return redirect()->route('reward.trash')->with('status', 'Reward permanently deleted!');
+        }
+    }
+
+    public function restore($id)
+    {
+        $reward = \App\Models\Reward::withTrashed()->findOrFail($id);
+        if ($reward->trashed()) {
+            $reward->restore();
+            return redirect()->route('reward.trash')->with('status', 'Reward successfully restored');
+        } else {
+            return redirect()->route('reward.trash')->with('status', 'Reward is not in trash');
+        }
     }
 }

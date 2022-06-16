@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Edit order
+    Edit order Quest
 @endsection
 
 @section('content')
