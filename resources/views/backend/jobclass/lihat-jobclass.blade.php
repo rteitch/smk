@@ -44,19 +44,6 @@
                                 {!! $artikel->konten !!}
                             </p>
                         </div>
-                        <div class="card-footer">
-                            @if ($artikel->file_pendukung == null)
-                                <div>
-                                    tidak ada file pendukung...
-                                </div>
-                            @else
-                                <div>
-                                    Download File Pendukung :
-                                    <a class="btn btn-success btn-sm"
-                                        href="{{ asset('storage/' . $artikel->file_pendukung) }}" download>Download</a>
-                                </div>
-                            @endif
-                        </div>
                     </div>
                 </div>
     </div>

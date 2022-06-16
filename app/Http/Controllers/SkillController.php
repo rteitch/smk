@@ -197,4 +197,10 @@ class SkillController extends Controller
 
         return $skill;
     }
+
+    public function skill($slug)
+    {
+        $skill = \App\Models\Skill::with('artikel')->where('slug', $slug)->paginate(4);
+        return view('backend.artikel.skill', ['skill' => $skill]);
+    }
 }

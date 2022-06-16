@@ -279,7 +279,8 @@ class ArtikelController extends Controller
         return view('backend.artikel.published', ['artikel' => $artikel]);
     }
 
-    public function lihatArtikel($slug){
+    public function lihatArtikel($slug)
+    {
         $artikel = \App\Models\Artikel::with('user')->with('skill')->where('slug', $slug)->first();
 
         return view('backend.artikel.lihat-artikel', ['artikel' => $artikel]);

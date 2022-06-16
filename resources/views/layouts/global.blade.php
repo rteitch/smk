@@ -112,7 +112,8 @@
                                     Quest</span></a>
                         </li>
 
-                        <li><a href="{{ route('reward.index') }}"><span class="oi oi-clipboard"> Manage Reward</span></a></li>
+                        <li><a href="{{ route('reward.index') }}"><span class="oi oi-clipboard"> Manage
+                                    Reward</span></a></li>
                         <li><a href="{{ route('orderr.index') }}"><span class="oi oi-paperclip"> Manage Order
                                     Reward</span></a>
                         </li>
@@ -120,9 +121,14 @@
                                     Artikel</span></a></li>
                         <li><a href="{{ route('artikel.published') }}"><span class="oi oi-globe"> Published
                                     Artikel</span></a></li>
-                        <li><a href="{{ route('notifikasi.index') }}"><span class="oi oi-envelope-closed"> Manage Notifikasi</span></a></li>
+                        <li><a href="{{ route('notifikasi.index') }}"><span class="oi oi-envelope-closed"> Manage
+                                    Notifikasi</span></a></li>
                         {{-- <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li> --}}
                     @endif
+
+
+                    <li><a href="{{ route('jobclass.published') }}"><span class="oi oi-globe"> Manage
+                        Job Class Publish</span></a></li>
                     {{-- Menu person responsive mobile --}}
                     <div class="d-block d-md-none">
                         <div class="dropdown-divider"></div>

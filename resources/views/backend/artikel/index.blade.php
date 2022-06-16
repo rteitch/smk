@@ -86,7 +86,7 @@
                                     <a href="{{ route('artikel.edit', [$artikels->id]) }}" class="btn btn-info btn-sm">
                                         Edit
                                     </a>
-                                    <a href="{{ route('artikel.show', [$artikels->id]) }}"
+                                    <a href="{{ route('artikel.lihatArtikel', [$artikels->slug]) }}"
                                         class="btn btn-primary btn-sm"> <span class="oi oi-eye"></span></a>
                                     <form method="POST" class="d-inline"
                                         onsubmit="return confirm('Move artikel to trash?')"

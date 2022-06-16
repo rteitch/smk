@@ -89,9 +89,9 @@ class UserController extends Controller
             "level" => "required|digits_between:0,999",
             "skor" => "required",
             "exp" => "required",
-            "avatar" => "required",
-            "background" => "required",
-            "jobclass" => "required"
+            // "avatar" => "required",
+            // "background" => "required",
+            // "jobclass" => "required"
 
         ])->validate();
         //Menangkap Inputan form Creat User
