@@ -55,6 +55,7 @@ class JobClassController extends Controller
         $name = $request->get('name');
         $new_jobclass = new \App\Models\JobClass;
         $new_jobclass->name = $name;
+        $new_jobclass->pembuat = \Auth::user()->name;
 
         $deskripsi = $request->get('deskripsi');
         $new_jobclass->deskripsi = $deskripsi;
@@ -114,6 +115,7 @@ class JobClassController extends Controller
 
         $jobclass = \App\Models\JobClass::findOrFail($id);
         $jobclass->name = $name;
+        $jobclass->pembuat = \Auth::user()->name;
         $jobclass->deskripsi = $deskripsi;
         $jobclass->slug = $slug;
 
@@ -188,21 +190,15 @@ class JobClassController extends Controller
 
     public function published(Request $request)
     {
-        $jobclass = \App\Models\JobClass::with('users')->with('skill')->orderBy('name', 'asc')->paginate(4);
+        $jobclass = \App\Models\JobClass::with('user', 'user.skill')->orderBy('name', 'asc')->paginate(4);
 
         return view('backend.jobclass.published', ['jobclass' => $jobclass]);
     }
 
     public function lihatJobClass($slug)
     {
-        $jobclass = \App\Models\JobClass::with('users')->with('skill')->where('slug', $slug)->first();
-
-        return view('backend.jobclass.lihat-jobclass', ['jobclass' => $jobclass]);
-    }
-
-    public function tambahJobClass(Request $request, $id){
-        $tambah_job_class = \App\Models\JobClass::findOrFail($id);
-        $tambah_job_class->attach();
-        return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
+        $jobclass = \App\Models\JobClass::with('user', 'user.skill')->where('slug', $slug)->first();
+        // dd($jobclass);
+        return view('backend.jobclass.lihat-jobclass', ['jobclasses' => $jobclass]);
     }
 }

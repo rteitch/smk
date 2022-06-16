@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("slug")->unique();
             $table->string("image")->nullable()->comment("berisi nama file image saja tanpa path");
             $table->integer("created_by");
+            $table->string('pembuat');
             $table->integer("updated_by")->nullable();
             $table->integer("deleted_by")->nullable();
             $table->softDeletes();

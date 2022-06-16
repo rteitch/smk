@@ -56,6 +56,7 @@
                     <thead>
                         <tr>
                             <th scope="col"><b>#</b></th>
+                            <th scope="col"><b>Image</b></th>
                             <th scope="col"><b>Judul</b></th>
                             <th scope="col"><b>Pembuat</b></th>
                             <th scope="col"><b>Syarat Skor</b></th>
@@ -67,12 +68,12 @@
                         @foreach ($reward as $index => $rewards)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $rewards->title }}</td>
                                 <td>
                                     @if ($rewards->image)
                                         <img src="{{ asset('storage/' . $rewards->image) }}" width="96px" />
                                     @endif
                                 </td>
+                                <td>{{ $rewards->title }}</td>
                                 <td>{{ $rewards->pembuat }}</td>
                                 <td>{{ $rewards->syarat_skor }}</td>
                                 <td>

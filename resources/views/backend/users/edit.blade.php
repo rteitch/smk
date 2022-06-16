@@ -247,5 +247,13 @@
             var option = new Option(jobclass.name, jobclass.id, true, true);
             $('#jobclass').append(option).trigger('change');
         });
+
+        var skill = {!! $user->skill !!}
+
+        skill.forEach(function(skill) {
+            var option = new Option(skill.judul, skill.id, true, true);
+            $('#skill').append(option).trigger('change');
+        });
+
     </script>
 @endsection

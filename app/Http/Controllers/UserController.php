@@ -280,4 +280,8 @@ class UserController extends Controller
     //     return redirect()->route('skill.index')->with('status', 'Skill successfully ditambahkan');
     // }
 
+    public function tambahJobClass(Request $request, $id){
+        Auth::user()->jobclass()->attach($id);
+        return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
+    }
 }

@@ -55,12 +55,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     return response()->json($user, 200);
 // });
 
+Route::post('/jobclass/published/{id}/tambah', [UserController::class, 'tambahJobClass'])->name('user.tambahJobClass');
 Route::resource('users', UserController::class);
 
 
 //Route Job Class
 
-Route::get('/jobclass/published/{id}/tambah', [JobClassController::class, 'tambahJobClass'])->name('jobclass.tambahJobClass');
+Route::get('/jobclass/skill/{skill:slug}', [SkillController::class, 'skillJobClass'])->name('jobclass.skillJobClass');
+
 Route::get('/jobclass/published', [JobClassController::class, 'published'])->name('jobclass.published');
 Route::get('/jobclass/published/{artikel:slug}', [JobClassController::class, 'lihatJobClass'])->name('jobclass.lihatJobClass');
 Route::get('/jobclass/trash', [JobClassController::class, 'trash'])->name('jobclass.trash');

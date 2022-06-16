@@ -12,8 +12,8 @@ class JobClass extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public function users(){
-        return $this->belongsToMany(User::class);
+    public function user(){
+        return $this->belongsToMany(User::class)->withPivot('user_id', 'job_class_id');
     }
 
     public function skill(){

@@ -59,6 +59,7 @@ class SkillController extends Controller
 
         $deskripsi = $request->get('deskripsi');
         $new_skill->deskripsi = $deskripsi;
+        $new_skill->pembuat = \Auth::user()->name;
 
         if ($request->file('image')) {
             $image_path = $request->file('image')->store('Skill_images', 'public');
@@ -121,6 +122,7 @@ class SkillController extends Controller
 
         $skill = \App\Models\Skill::findOrFail($id);
         $skill->judul = $judul;
+        $skill->pembuat = \Auth::user()->name;
         $skill->syarat_lv = $syarat_level;
         $skill->qty = $kuota_skill;
         $skill->deskripsi = $deskripsi;
@@ -202,5 +204,11 @@ class SkillController extends Controller
     {
         $skill = \App\Models\Skill::with('artikel')->where('slug', $slug)->paginate(4);
         return view('backend.artikel.skill', ['skill' => $skill]);
+    }
+
+    public function skillJobClass($slug)
+    {
+        $skill_jobclass = \App\Models\Skill::with('user', 'user.jobclass')->where('slug', $slug)->paginate(4);
+        return view('backend.jobclass.skill', ['skill_jobclass' => $skill_jobclass]);
     }
 }
