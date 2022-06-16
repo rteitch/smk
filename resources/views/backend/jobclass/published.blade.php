@@ -19,12 +19,11 @@
                 </div>
             </div>
             <div class="row-fluid">
-
                 @foreach ($jobclass as $jobclasses)
                     <div class="card mb-3" style="max-width: 1080px;">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="{{ asset('storage/' . $jobclasses->avatar) }}" class="card-img"
+                                <img src="{{ asset('storage/' . $jobclasses->image) }}" class="card-img"
                                     alt="{{ $jobclasses->name }}">
                             </div>
                             <div class="col-md-8">
@@ -32,7 +31,8 @@
                                     <h5 class="card-title"><a
                                             href="{{ route('jobclass.lihatJobClass', [$jobclasses->slug]) }}">{{ $jobclasses->name }}</a>
                                     </h5>
-                                    <p class="card-text"><small class="text-muted">Published By : - {{ $jobclasses->pembuat }}
+                                    <p class="card-text"><small class="text-muted">Published By : -
+                                            {{ $jobclasses->pembuat }}
                                         </small></p>
                                     <p class="card-text">{!! Str::words($jobclasses->deskripsi, 30, '...') !!}</p>
                                     <p class="card-text"><small class="text-muted">Posted at
@@ -40,20 +40,19 @@
                                     </p>
                                 </div>
                                 <div class="card-footer">
-                                    {{-- @if ()
+                                    @foreach (\Auth::user()->jobclass as $job)
+                                        <form
+                                            onsubmit="return confirm('Tambah this jobclass  {{ $jobclasses->name }} ke user?')"
+                                            method="POST" action="{{ route('user.tambahJobClass', [$jobclasses->id]) }}"
+                                            class="d-inline">
 
-                                    @else
+                                            @csrf
 
-                                    @endif --}}
-                                    <form
-                                        onsubmit="return confirm('Tambah this jobclass  {{ $jobclasses->name }} ke user?')"
-                                        method="POST" action="{{ route('user.tambahJobClass', [$jobclasses->id]) }}"
-                                        class="d-inline">
-
-                                        @csrf
-
-                                        <input type="submit" value="Tambah" class="btn btn-primary" />
-                                    </form>
+                                            <input
+                                                type="{{ $job->pivot->job_class_id !== $jobclasses->id ? 'submit' : 'hidden' }}"
+                                                value="Tambah" class="btn btn-primary" />
+                                        </form>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

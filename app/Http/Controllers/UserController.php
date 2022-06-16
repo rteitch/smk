@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JobClass;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
@@ -280,8 +281,15 @@ class UserController extends Controller
     //     return redirect()->route('skill.index')->with('status', 'Skill successfully ditambahkan');
     // }
 
-    public function tambahJobClass(Request $request, $id){
-        Auth::user()->jobclass()->attach($id);
-        return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
+    public function tambahJobClass(Request $request, $id)
+    {
+
+        $user_id = \Auth::user()->jobclass;
+        foreach ($user_id as $job) {
+            if ($job->id !== $id) {
+                Auth::user()->jobclass()->attach($id);
+                return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
+            }
+        }
     }
 }

@@ -30,13 +30,7 @@
                                             <h6 class="text-indigo m-0">
                                                 {{ $users->name }}
                                             </h6>
-                                            <small class="text-muted">Posted at {{ $jobclasses->created_at }}
-                                                |</small>
-                                            <small>Tags :
-                                                @foreach ($jobclasses->skill as $skills)
-                                                    <a
-                                                        href="{{ route('jobclass.skillJobClass', $skills->slug) }}">{{ $skills->judul }}</a>,
-                                                @endforeach
+                                            <small class="text-muted">Diresmikan pada {{ $jobclasses->created_at }}
                                             </small>
                                         </div>
                                 </div>
@@ -53,6 +47,14 @@
                             <p class="fs-smaller">
                                 {!! $jobclasses->deskripsi !!}
                             </p>
+                            <div class="card-footer">
+                                Skill Tersedia :
+                                    @foreach ($jobclasses->skill as $skills)
+                                        <a
+                                            href="{{ route('jobclass.skillJobClass', $skills->slug) }}">{{ $skills->judul }}</a>,
+                                    @endforeach
+
+                            </div>
                         </div>
                     </div>
                 </div>

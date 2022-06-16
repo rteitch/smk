@@ -208,7 +208,7 @@ class SkillController extends Controller
 
     public function skillJobClass($slug)
     {
-        $skill_jobclass = \App\Models\Skill::with('user', 'user.jobclass')->where('slug', $slug)->paginate(4);
+        $skill_jobclass = \App\Models\Skill::with('jobclass')->where('slug', $slug)->paginate(4);
         return view('backend.jobclass.skill', ['skill_jobclass' => $skill_jobclass]);
     }
 }
