@@ -129,6 +129,8 @@
 
                     <li><a href="{{ route('jobclass.published') }}"><span class="oi oi-globe"> Publish
                         Job Class</span></a></li>
+                    <li><a href="{{ route('quest.published') }}"><span class="oi oi-globe"> Publish
+                        Quest</span></a></li>
                     {{-- Menu person responsive mobile --}}
                     <div class="d-block d-md-none">
                         <div class="dropdown-divider"></div>

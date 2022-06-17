@@ -18,6 +18,6 @@ class Quest extends Model
     }
 
     public function orderq(){
-        return $this->belongsToMany(OrderQ::class);
+        return $this->belongsToMany(OrderQ::class)->withPivot('file_jawab', 'jawaban_pilgan');
     }
 }

@@ -234,4 +234,12 @@ class QuestController extends Controller
             return redirect()->route('quest.trash')->with('status', 'Quest is not in trash');
         }
     }
+
+    public function published(Request $request)
+    {
+        $quest = \App\Models\Quest::with('skill')->orderBy('judul', 'asc')->where('status', 'PUBLISH')->paginate(4);
+        $user = \App\Models\User::with('orderq')->get();
+
+        return view('backend.quest.published', ['quest' => $quest, 'user' => $user]);
+    }
 }

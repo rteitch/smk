@@ -81,6 +81,8 @@ Route::get('/ajax/skill/search', [SkillController::class, 'ajaxSearch']);
 Route::resource('skill', SkillController::class);
 
 //Route Quest
+Route::get('/quest/published', [QuestController::class, 'published'])->name('quest.published');
+
 Route::get('/quest/trash', [QuestController::class, 'trash'])->name('quest.trash');
 Route::post('/quest/{quest}/restore', [QuestController::class, 'restore'])->name('quest.restore');
 Route::delete('/quest/{quest}/delete-permanent', [QuestController::class, 'deletePermanent'])->name('quest.delete-permanent');

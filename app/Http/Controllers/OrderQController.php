@@ -111,4 +111,19 @@ class OrderQController extends Controller
     //     $
     //     return $
     // }
+
+    public function tambahOrderQuest(Request $request, $id)
+    {
+        $auth_user = \Auth::user();
+        $orderq_auth = $auth_user->orderq;
+        foreach($orderq_auth as $order){
+            if($order->id == $id){
+                return redirect()->route('jobclass.published')->with('info', 'Sudah ada di daftar Job Class');
+            } else{
+                $orderq_auth->orderq()->create($id);
+                $orderq_auth->quest()->attach($id);
+                return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
+            }
+        }
+    }
 }
