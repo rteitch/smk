@@ -10,6 +10,10 @@
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
+        @elseif (session('info'))
+            <div class="alert alert-info">
+                {{ session('info') }}
+            </div>
         @endif
         <div>
             <div class="col-12 col-sm-12">
@@ -40,19 +44,16 @@
                                     </p>
                                 </div>
                                 <div class="card-footer">
-                                    @foreach (\Auth::user()->jobclass as $job)
-                                        <form
-                                            onsubmit="return confirm('Tambah this jobclass  {{ $jobclasses->name }} ke user?')"
-                                            method="POST" action="{{ route('user.tambahJobClass', [$jobclasses->id]) }}"
-                                            class="d-inline">
+                                    <form
+                                        onsubmit="return confirm('Tambah this jobclass  {{ $jobclasses->name }} ke user?')"
+                                        method="POST" action="{{ route('user.tambahJobClass', [$jobclasses->id]) }}"
+                                        class="d-inline">
 
-                                            @csrf
+                                        @csrf
 
-                                            <input
-                                                type="{{ $job->pivot->job_class_id !== $jobclasses->id ? 'submit' : 'hidden' }}"
-                                                value="Tambah" class="btn btn-primary" />
-                                        </form>
-                                    @endforeach
+                                        <input type="submit" value="Tambah" class="btn btn-primary" />
+                                    </form>
+
                                 </div>
                             </div>
                         </div>

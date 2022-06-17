@@ -46,7 +46,7 @@ class User extends Authenticatable
     ];
 
     public function jobclass(){
-        return $this->belongsToMany(JobClass::class);
+        return $this->belongsToMany(JobClass::class)->withPivot('user_id', 'job_class_id');
     }
 
     public function orderq(){

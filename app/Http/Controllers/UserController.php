@@ -283,11 +283,13 @@ class UserController extends Controller
 
     public function tambahJobClass(Request $request, $id)
     {
-
-        $user_id = \Auth::user()->jobclass;
-        foreach ($user_id as $job) {
-            if ($job->id !== $id) {
-                Auth::user()->jobclass()->attach($id);
+        $auth_user = \Auth::user();
+        $jobclass_auth = $auth_user->jobclass;
+        foreach($jobclass_auth as $job){
+            if($job->id == $id){
+                return redirect()->route('jobclass.published')->with('info', 'Sudah ada di daftar Job Class');
+            } else{
+                $auth_user->jobclass()->attach($id);
                 return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
             }
         }

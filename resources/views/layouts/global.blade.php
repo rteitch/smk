@@ -127,8 +127,8 @@
                     @endif
 
 
-                    <li><a href="{{ route('jobclass.published') }}"><span class="oi oi-globe"> Manage
-                        Job Class Publish</span></a></li>
+                    <li><a href="{{ route('jobclass.published') }}"><span class="oi oi-globe"> Publish
+                        Job Class</span></a></li>
                     {{-- Menu person responsive mobile --}}
                     <div class="d-block d-md-none">
                         <div class="dropdown-divider"></div>

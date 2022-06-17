@@ -190,14 +190,16 @@ class JobClassController extends Controller
 
     public function published(Request $request)
     {
-        $jobclass = \App\Models\JobClass::with('user', 'user.skill')->orderBy('name', 'asc')->paginate(4);
-
-        return view('backend.jobclass.published', ['jobclass' => $jobclass]);
+        $id_user = \Auth::user()->id;
+        $jobclass = \App\Models\JobClass::with('user', 'user.skill')->paginate(4);
+        $user =\App\Models\User::findOrFail($id_user);
+        return view('backend.jobclass.published', ['jobclass' => $jobclass, 'user' => $user]);
     }
 
     public function lihatJobClass($slug)
     {
         $jobclass = \App\Models\JobClass::with('user', 'user.skill')->where('slug', $slug)->first();
+
         // dd($jobclass);
         return view('backend.jobclass.lihat-jobclass', ['jobclasses' => $jobclass]);
     }
