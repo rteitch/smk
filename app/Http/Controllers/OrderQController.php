@@ -115,19 +115,19 @@ class OrderQController extends Controller
     public function tambahOrderQuest(Request $request, $id)
     {
         $quest_order = new \App\Models\OrderQ();
+        // $quest = new \App\Models\Quest();
+        // dd($quest->orderq());
         $quest_order->user_id = \Auth::user()->id;
+        $quest_order->status = 'SUBMIT';
+        $quest_order->file_jawab = null;
+        $quest_order->jawaban_pilgan = null;
         $quest_order->status = 'SUBMIT';
         $CodeQuest = uniqid();
         $quest_order->quest_code = substr(md5($CodeQuest), 6, 6);
         $quest_order->save();
-
-        $quest_id = \App\Models\OrderQ::findOrFail(\Auth::user()->id);
-        $quest_order->quest()->attach([
-            1 => ['order_q_s_id' => $quest_id],
-            2 => ['user_id' => $$quest_order->user_id],
-            3 => ['file_jawab' => null],
-            4 => ['jawaban_pilgan' => null],
-        ]);
+        $quest_order->quest()->attach($id);
+        // $quest_id = \App\Models\OrderQ::findOrFail(\Auth::user()->id);
+        // $hasQuest = $
         return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di quest order');
 
     }

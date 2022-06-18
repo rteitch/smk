@@ -13,7 +13,7 @@ class JobClass extends Model
     use SoftDeletes;
 
     public function user(){
-        return $this->belongsToMany(User::class)->withPivot('user_id', 'job_class_id');
+        return $this->belongsToMany(User::class)->withPivot('user_id', 'job_class_id')->withTimestamps();
     }
 
     public function skill(){

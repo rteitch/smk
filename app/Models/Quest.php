@@ -18,7 +18,7 @@ class Quest extends Model
     }
 
     public function orderq(){
-        return $this->belongsToMany(OrderQ::class)->withPivot('order_q_id', 'quest_id', 'file_jawab', 'jawaban_pilgan');
+        return $this->belongsToMany(OrderQ::class)->withPivot('order_q_id', 'quest_id')->withTimestamps();
     }
 
 }

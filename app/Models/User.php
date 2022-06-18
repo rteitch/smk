@@ -46,7 +46,7 @@ class User extends Authenticatable
     ];
 
     public function jobclass(){
-        return $this->belongsToMany(JobClass::class)->withPivot('user_id', 'job_class_id');
+        return $this->belongsToMany(JobClass::class)->withPivot('user_id', 'job_class_id')->withTimestamps();
     }
 
     public function orderq(){
@@ -58,7 +58,7 @@ class User extends Authenticatable
     }
 
     public function skill(){
-        return $this->belongsToMany(Skill::class)->withPivot('user_id', 'skill_id');
+        return $this->belongsToMany(Skill::class)->withPivot('user_id', 'skill_id')->withTimestamps();
     }
 
     public function notifikasi(){

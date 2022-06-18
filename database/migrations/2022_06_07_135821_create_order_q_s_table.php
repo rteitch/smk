@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('quest_code');
             $table->enum('status', ['SUBMIT', 'PROCESS', 'FINISH', 'CANCEL']);
+            $table->string('file_jawab')->nullable();
+            $table->string('jawaban_pilgan')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

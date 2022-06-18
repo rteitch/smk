@@ -60,8 +60,8 @@
                                 {{ $order->user->name }} <br>
                                 <small>{{ $order->user->email }}</small>
                             </td>
-                            <td>{{ $order->quest_order->file_jawab }}</td>
-                            <td>{{ $order->quest_order->jawaban_pilgan }}</td>
+                            <td>{{ $order->file_jawab }}</td>
+                            <td>{{ $order->jawaban_pilgan }}</td>
                             <td>{{ $order->quest->batas_waktu }}</td>
                             <td>
                                 <a href="{{ route('orderq.edit', [$order->id]) }}" class="btn btn-info btn-sm"> Edit</a>

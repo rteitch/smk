@@ -16,10 +16,10 @@ class OrderQ extends Model
     }
 
     public function quest(){
-        return $this->belongsToMany(Quest::class)->withPivot('order_q_id', 'quest_id', 'file_jawab', 'jawaban_pilgan');
+        return $this->belongsToMany(Quest::class)->withPivot('order_q_id', 'quest_id')->withTimestamps();
     }
 
-    public function isHasOrderQuest($id){
+    public function isHasQuest($id){
         return $this->quest()->where('quest_id', $id)->exists();
     }
 

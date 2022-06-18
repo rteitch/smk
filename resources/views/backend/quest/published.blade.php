@@ -59,7 +59,7 @@
                                 <div class="text-center">
                                     {{-- <a class="btn btn-success" href="#">Ambil Quest</a> --}}
 
-                                    {{-- @if ($orderq->isHasOrderQuest($quests->id))
+                                    {{-- @if ($orderq->isHasQuest($quests->id))
                                         <small class="text-info">Quest sudah ditambahkan</small>
                                     @else --}}
                                         <form
