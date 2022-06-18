@@ -29,11 +29,7 @@
                                 <div class="text-left w-100">
                                     <h5 class="m-0">{{ $index + 1 }}. Kesulitan : {{ $quests->kesulitan }}</h5>
                                     <small>Pembuat :
-                                        @foreach ($user as $users)
-                                            @if ($users->id == $quests->created_by)
-                                                {{ $users->name }}
-                                            @endif
-                                        @endforeach
+                                        {{ $user->where('id', $quests->created_by)->first()->name }}
                                     </small>
                                 </div>
                                 <img class="w-25 h-25 clearfix rounded-circle border border-white"

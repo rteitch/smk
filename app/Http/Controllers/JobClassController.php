@@ -70,6 +70,7 @@ class JobClassController extends Controller
         $new_jobclass->slug = Str::slug($name, '-');
 
         $new_jobclass->save();
+        dd($new_jobclass->save());
 
         return redirect()->route('jobclass.index')->with('status', 'Job Class baru Berhasil ditambahkan');
     }

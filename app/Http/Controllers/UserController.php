@@ -249,7 +249,6 @@ class UserController extends Controller
         }
 
         $user->save();
-
         $user->skill()->sync($request->get('skill'));
         $user->jobclass()->sync($request->get('jobclass'));
         return redirect()->route('users.show', [$id])->with('status', 'User succesfully updated');
