@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\JobClassController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\JobDasarController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OrderQController;
 use App\Http\Controllers\QuestController;
@@ -56,8 +57,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // });
 
 Route::post('/jobclass/published/{id}/tambah', [UserController::class, 'tambahJobClass'])->name('user.tambahJobClass');
+Route::post('/skill/published/{id}/tambah', [UserController::class, 'tambahSkill'])->name('user.tambahSkill');
 Route::resource('users', UserController::class);
-
 
 //Route Job Class
 
@@ -73,6 +74,8 @@ Route::resource('jobclass', JobClassController::class);
 
 //Route Skill
 Route::get('/artikel/skill/{skill:slug}', [SkillController::class, 'skill'])->name('artikel.skill');
+
+Route::get('/skill/published', [SkillController::class, 'published'])->name('skill.published');
 
 Route::get('/skill/trash', [SkillController::class, 'trash'])->name('skill.trash');
 Route::get('/skill/{id}/restore', [SkillController::class, 'restore'])->name('skill.restore');

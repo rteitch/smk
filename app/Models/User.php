@@ -58,7 +58,7 @@ class User extends Authenticatable
     }
 
     public function skill(){
-        return $this->belongsToMany(Skill::class);
+        return $this->belongsToMany(Skill::class)->withPivot('user_id', 'skill_id');
     }
 
     public function notifikasi(){
@@ -67,5 +67,13 @@ class User extends Authenticatable
 
     public function orderr(){
         return $this->hasMany(OrderR::class);
+    }
+
+    public function isHasJobclass($id){
+        return $this->jobclass()->where('job_class_id', $id)->exists();
+    }
+
+    public function isHasSkill($id){
+        return $this->skill()->where('skill_id', $id)->exists();
     }
 }

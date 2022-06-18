@@ -211,4 +211,12 @@ class SkillController extends Controller
         $skill_jobclass = \App\Models\Skill::with('jobclass')->where('slug', $slug)->paginate(4);
         return view('backend.jobclass.skill', ['skill_jobclass' => $skill_jobclass]);
     }
+
+    public function published(Request $request)
+    {
+        $id_user = \Auth::user()->id;
+        $skill = \App\Models\Skill::paginate(4);
+        $user =\App\Models\User::findOrFail($id_user);
+        return view('backend.skill.published', compact('skill','user'));
+    }
 }

@@ -193,7 +193,7 @@ class JobClassController extends Controller
         $id_user = \Auth::user()->id;
         $jobclass = \App\Models\JobClass::with('user', 'user.skill')->paginate(4);
         $user =\App\Models\User::findOrFail($id_user);
-        return view('backend.jobclass.published', ['jobclass' => $jobclass, 'user' => $user]);
+        return view('backend.jobclass.published', compact('jobclass','user'));
     }
 
     public function lihatJobClass($slug)

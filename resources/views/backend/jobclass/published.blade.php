@@ -44,15 +44,19 @@
                                     </p>
                                 </div>
                                 <div class="card-footer">
-                                    <form
-                                        onsubmit="return confirm('Tambah this jobclass  {{ $jobclasses->name }} ke user?')"
-                                        method="POST" action="{{ route('user.tambahJobClass', [$jobclasses->id]) }}"
-                                        class="d-inline">
+                                    @if ($user->isHasJobclass($jobclasses->id))
+                                        <small class="text-info">Job Class sudah ditambahkan</small>
+                                    @else
+                                        <form
+                                            onsubmit="return confirm('Tambah this id {{ $jobclasses->id }} jobclass  {{ $jobclasses->name }} ke user?')"
+                                            method="POST" action="{{ route('user.tambahJobClass', [$jobclasses->id]) }}"
+                                            class="d-inline">
 
-                                        @csrf
+                                            @csrf
 
-                                        <input type="submit" value="Tambah" class="btn btn-primary" />
-                                    </form>
+                                            <input type="submit" value="Tambah" class="btn btn-primary" />
+                                        </form>
+                                    @endif
 
                                 </div>
                             </div>

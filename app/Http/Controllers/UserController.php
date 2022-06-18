@@ -87,9 +87,9 @@ class UserController extends Controller
             "password_confirmation" => "required|same:password",
             "alamat" => "required|min:1|max:300",
             "roles" => "required",
-            "level" => "required|digits_between:0,999",
-            "skor" => "required",
-            "exp" => "required",
+            // "level" => "required|digits_between:0,999",
+            // "skor" => "required",
+            // "exp" => "required",
             // "avatar" => "required",
             // "background" => "required",
             // "jobclass" => "required"
@@ -284,14 +284,23 @@ class UserController extends Controller
     public function tambahJobClass(Request $request, $id)
     {
         $auth_user = \Auth::user();
-        $jobclass_auth = $auth_user->jobclass;
-        foreach($jobclass_auth as $job){
-            if($job->id == $id){
-                return redirect()->route('jobclass.published')->with('info', 'Sudah ada di daftar Job Class');
-            } else{
-                $auth_user->jobclass()->attach($id);
-                return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
-            }
+        $hasJobclass = $auth_user->jobclass()->where('job_class_id', $id)->exists();
+        if ($hasJobclass) {
+            return redirect()->route('jobclass.published')->with('info', 'Sudah ada di daftar Job Class');
+        } else {
+            $auth_user->jobclass()->attach($id);
+            return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
         }
+    }
+    public function tambahSkill(Request $request, $id)
+    {
+        $auth_user = \Auth::user();
+        $hasSkill = $auth_user->skill()->where('skill_id', $id)->exists();
+            if ( $hasSkill) {
+                return redirect()->route('skill.published')->with('info', 'Sudah ada di daftar Skill');
+            } else {
+                $auth_user->skill()->attach($id);
+                return redirect()->route('skill.published')->with('status', 'Berhasil mendaftarkan Skill');
+            }
     }
 }

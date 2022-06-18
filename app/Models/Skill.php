@@ -27,7 +27,7 @@ class Skill extends Model
     }
 
     public function user(){
-        return $this->belongsToMany(Skill::class);
+        return $this->belongsToMany(User::class)->withPivot('user_id', 'skill_id');
     }
 
 }

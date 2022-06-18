@@ -137,7 +137,7 @@
     <td><b>Skill</b></td>
     <td>:
         @foreach ($user->skill as $skills)
-            <a href="{{ route('jobclass.show', $skills->id) }}">{{ $skills->judul }}</a>
+            <a href="{{ route('jobclass.show', $skills->id) }}">{{ $skills->judul }}</a>,
         @endforeach
     </td>
 </tr>
