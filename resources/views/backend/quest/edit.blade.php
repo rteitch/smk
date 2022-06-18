@@ -92,7 +92,7 @@
                                     width="300" height="200">
                                 </object> --}}
                                 <iframe src="{{ asset('storage/' . $quests->file_pendukung) }}" frameborder="0"
-                                    width="100%" height="400px"  type="application/pdf"></iframe>
+                                    width="100%" height="400px" type="application/pdf"></iframe>
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -139,7 +139,9 @@
                 {{-- Form Batas Waktu Pengerjaan --}}
                 <label for="batas_waktu">Batas Waktu Pengerjaan</label>
 
-                <input class="form-control @error('time') is-invalid @enderror" placeholder="Batas Waktu" type="datetime-local" name="batas_waktu" id="batas_waktu" value="{{old('time')?? date('Y-m-d\TH:i', strtotime($quests->batas_waktu)) }}">
+                <input class="form-control @error('time') is-invalid @enderror" placeholder="Batas Waktu"
+                    type="datetime-local" name="batas_waktu" id="batas_waktu"
+                    value="{{ old('time') ?? date('Y-m-d\TH:i', strtotime($quests->batas_waktu)) }}">
                 <br>
 
                 {{-- Form Level --}}
@@ -161,8 +163,8 @@
                 <br>
 
                 <label for="pembuat">Pembuat <small>(tidak perlu diedit)</small></label>
-                <input placeholder="pembuat" value="{{ $quests->pembuat }}" type="text" id="pembuat" name="pembuat"
-                    class="form-control">
+                <input placeholder="pembuat" value="{{ $quests->pembuat }}" type="text" id="pembuat"
+                    name="pembuat" class="form-control">
                 <br>
 
                 <label for="">Status</label>

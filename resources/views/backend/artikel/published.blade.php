@@ -29,7 +29,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><a href="{{ route('artikel.lihatArtikel', [$artikels->slug]) }}">{{ $artikels->title }}</a></h5>
                                     <p class="card-text"><small class="text-muted">Published By {{ $artikels->user->name }}</small></p>
-                                    <p class="card-text">{!! Str::words($artikels->konten, 30, '...') !!}</p>
+                                    {{-- <p class="card-text">{!! Str::words($artikels->konten, 30, '...') !!}</p> --}}
                                     <p class="card-text"><small class="text-muted">Posted at {{ $artikels->created_at }}</small>
                                     </p>
                                 </div>

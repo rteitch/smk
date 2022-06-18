@@ -96,7 +96,7 @@ Route::resource('quest', QuestController::class);
 //Route OrderQ
 // order quest ke user
 Route::get('/quest/siswa/{id}/order', [OrderQController::class, 'siswa'])->name('orderq.siswa');
-
+Route::get('/quest/siswa/{id}/upload', [OrderQController::class, 'upload'])->name('orderq.upload');
 Route::post('/quest/published/orderq/{id}/tambah', [OrderQController::class, 'tambahOrderQuest'])->name('orderq.tambahOrderQuest');
 Route::resource('orderq', OrderQController::class);
 

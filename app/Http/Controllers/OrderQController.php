@@ -28,13 +28,13 @@ class OrderQController extends Controller
         // $orderq = \App\Models\OrderQ::with('user')->with('quest')->whereHas('user', function($query) use ($user_name){
         //     $query->where('name', 'LIKE', "%$user_name%");
         // })->where('status','LIKE', "%$status%")->paginate(10);
-        $orderq = \App\Models\OrderQ::with(
-            'user'
-        )->with(
+        $orderq = \App\Models\OrderQ::with('user')->with(
             ['quest' => function ($query) {
                 $query->select('batas_waktu');
             }]
-        )->paginate(4);
+        )->whereHas('user', function ($query) use ($user_name) {
+            $query->where('name', 'LIKE', "%$user_name%");
+        })->where('status', 'LIKE', "%$status%")->paginate(4);
         return view('frontend.orderq.index', compact('orderq'));
     }
 
@@ -136,8 +136,18 @@ class OrderQController extends Controller
         return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di quest order');
     }
 
-    public function siswa($id)
+    public function siswa(Request $request, $id)
     {
+        $status = $request->get('status');
+        $user_name = \Auth::user()->name;
+        $orderq = \App\Models\OrderQ::with('user')->with(
+            ['quest' => function ($query) {
+                $query->select('batas_waktu','judul', 'deskripsi', 'level', 'skor', 'exp', 'image', 'file_pendukung', 'jenis_soal');
+            }]
+        )->whereHas('user', function ($query) use ($user_name) {
+            $query->where('name', 'LIKE', "%$user_name%");
+        })->where('status', 'LIKE', "%$status%")->where('user_id', 'LIKE', $id)->paginate(4);
+        $quest = \App\Models\Quest::select('id', 'judul', 'deskripsi', 'level', 'skor', 'exp', 'image', 'batas_waktu', 'kesulitan', 'file_pendukung', 'jenis_soal')->get();
 
         // $orderq = \App\Models\OrderQ::with(
         //     'user'
@@ -148,7 +158,7 @@ class OrderQController extends Controller
         // )->paginate(4);
         // dd($orderq);
         // $auth_user = \Auth::user()->id;
-        $orderq = \App\Models\OrderQ::where('user_id', $id)->paginate(4);
-        return view('frontend.orderq.siswa', compact('orderq'));
+        // $orderq = \App\Models\OrderQ::where('user_id', $id)->paginate(4);
+        return view('frontend.orderq.siswa', compact('orderq', 'quest'));
     }
 }
