@@ -85,28 +85,7 @@
                                     </ul>
                                 </td>
                                 <td>{{ $quest->jenis_soal }}</td>
-                                <td>
-                                    @if ($quest->kesulitan == 'kesulitan_Event')
-                                        Event
-                                    @elseif ($quest->kesulitan == 'kesulitan_SSSPlus')
-                                        SSS+
-                                    @elseif ($quest->kesulitan == 'kesulitan_SSS')
-                                        SSS
-                                    @elseif ($quest->kesulitan == 'kesulitan_SS')
-                                        SS
-                                    @elseif ($quest->kesulitan == 'kesulitan_S')
-                                        S
-                                    @elseif ($quest->kesulitan == 'kesulitan_A')
-                                        A
-                                    @elseif ($quest->kesulitan == 'kesulitan_B')
-                                        B
-                                    @elseif ($quest->kesulitan == 'kesulitan_C')
-                                        C
-                                    @elseif ($quest->kesulitan == 'kesulitan_D')
-                                        D
-                                    @elseif ($quest->kesulitan == 'kesulitan_E')
-                                        E
-                                    @endif
+                                <td>{{ $quest->kesulitan }}
                                 </td>
                                 <td>
                                     @if ($quest->status == 'DRAFT')

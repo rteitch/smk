@@ -237,9 +237,13 @@ class QuestController extends Controller
 
     public function published(Request $request)
     {
-        $quest = \App\Models\Quest::with('skill')->orderBy('judul', 'asc')->where('status', 'PUBLISH')->paginate(4);
-        $user = \App\Models\User::with('orderq')->get();
 
-        return view('backend.quest.published', ['quest' => $quest, 'user' => $user]);
+        $quest = \App\Models\Quest::with('skill')->orderBy('judul', 'asc')->where('status', 'PUBLISH')->paginate(4);
+
+        $id_user = \Auth::user()->id;
+        $orderq = \App\Models\OrderQ::get();
+        $user =\App\Models\User::get();
+
+        return view('backend.quest.published', compact('quest', 'user', 'orderq'));
     }
 }

@@ -52,20 +52,20 @@
                 <label for="tingkat_kesulitan">Tingkat Kesulitan : </label>
                 <select class="form-control" name="tingkat_kesulitan" id="tingkat_kesulitan">
                     <option disabled class="text-center">== Pilih Tingkat Kesulitan ==</option>
-                    <option {{ $quests->kesulitan == 'kesulitan_Event' ? 'selected' : '' }} value="kesulitan_Event">Event
+                    <option {{ $quests->kesulitan == 'Event' ? 'selected' : '' }} value="Event">Event
                     </option>
-                    <option {{ $quests->kesulitan == 'kesulitan_SSSPlus' ? 'selected' : '' }} value="kesulitan_SSSPlus">
+                    <option {{ $quests->kesulitan == 'SSSPlus' ? 'selected' : '' }} value="SSSPlus">
                         SSS+</option>
-                    <option {{ $quests->kesulitan == 'kesulitan_SSS' ? 'selected' : '' }} value="kesulitan_SSS">SSS
+                    <option {{ $quests->kesulitan == 'SSS' ? 'selected' : '' }} value="SSS">SSS
                     </option>
-                    <option {{ $quests->kesulitan == 'kesulitan_SS' ? 'selected' : '' }} value="kesulitan_SS">SS</option>
-                    <option {{ $quests->kesulitan == 'kesulitan_S' ? 'selected' : '' }} value="kesulitan_S">
+                    <option {{ $quests->kesulitan == 'SS' ? 'selected' : '' }} value="SS">SS</option>
+                    <option {{ $quests->kesulitan == 'S' ? 'selected' : '' }} value="S">
                         S</option>
-                    <option {{ $quests->kesulitan == 'kesulitan_A' ? 'selected' : '' }} value="kesulitan_A">A</option>
-                    <option {{ $quests->kesulitan == 'kesulitan_B' ? 'selected' : '' }} value="kesulitan_B">B</option>
-                    <option {{ $quests->kesulitan == 'kesulitan_C' ? 'selected' : '' }} value="kesulitan_C">C</option>
-                    <option {{ $quests->kesulitan == 'kesulitan_D' ? 'selected' : '' }} value="kesulitan_D">D</option>
-                    <option {{ $quests->kesulitan == 'kesulitan_E' ? 'selected' : '' }} value="kesulitan_E">E</option>
+                    <option {{ $quests->kesulitan == 'A' ? 'selected' : '' }} value="A">A</option>
+                    <option {{ $quests->kesulitan == 'B' ? 'selected' : '' }} value="B">B</option>
+                    <option {{ $quests->kesulitan == 'C' ? 'selected' : '' }} value="C">C</option>
+                    <option {{ $quests->kesulitan == 'D' ? 'selected' : '' }} value="D">D</option>
+                    <option {{ $quests->kesulitan == 'E' ? 'selected' : '' }} value="E">E</option>
                 </select>
                 <br>
 

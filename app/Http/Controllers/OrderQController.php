@@ -114,16 +114,21 @@ class OrderQController extends Controller
 
     public function tambahOrderQuest(Request $request, $id)
     {
-        $auth_user = \Auth::user();
-        $orderq_auth = $auth_user->orderq;
-        foreach($orderq_auth as $order){
-            if($order->id == $id){
-                return redirect()->route('jobclass.published')->with('info', 'Sudah ada di daftar Job Class');
-            } else{
-                $orderq_auth->orderq()->create($id);
-                $orderq_auth->quest()->attach($id);
-                return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
-            }
-        }
+        $quest_order = new \App\Models\OrderQ();
+        $quest_order->user_id = \Auth::user()->id;
+        $quest_order->status = 'SUBMIT';
+        $CodeQuest = uniqid();
+        $quest_order->quest_code = substr(md5($CodeQuest), 6, 6);
+        $quest_order->save();
+
+        $quest_id = \App\Models\OrderQ::findOrFail(\Auth::user()->id);
+        $quest_order->quest()->attach([
+            1 => ['order_q_s_id' => $quest_id],
+            2 => ['user_id' => $$quest_order->user_id],
+            3 => ['file_jawab' => null],
+            4 => ['jawaban_pilgan' => null],
+        ]);
+        return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di quest order');
+
     }
 }

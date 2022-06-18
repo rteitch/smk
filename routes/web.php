@@ -56,6 +56,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     return response()->json($user, 200);
 // });
 
+Route::post('/quest/published/{id}/tambah', [UserController::class, 'tambahOrderQuest'])->name('user.tambahOrderQuest');
 Route::post('/jobclass/published/{id}/tambah', [UserController::class, 'tambahJobClass'])->name('user.tambahJobClass');
 Route::post('/skill/published/{id}/tambah', [UserController::class, 'tambahSkill'])->name('user.tambahSkill');
 Route::resource('users', UserController::class);
@@ -92,6 +93,9 @@ Route::delete('/quest/{quest}/delete-permanent', [QuestController::class, 'delet
 Route::resource('quest', QuestController::class);
 
 //Route OrderQ
+// order quest ke user
+Route::post('/quest/published/orderq/{id}/tambah', [OrderQController::class, 'tambahOrderQuest'])->name('orderq.tambahOrderQuest');
+
 Route::resource('orderq', OrderQController::class);
 
 //Route News

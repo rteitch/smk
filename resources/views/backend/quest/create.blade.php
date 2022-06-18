@@ -39,16 +39,16 @@
                 <label for="tingkat_kesulitan">Tingkat Kesulitan : </label>
                 <select class="form-control" name="tingkat_kesulitan" id="tingkat_kesulitan">
                     <option disabled class="text-center">== Pilih Tingkat Kesulitan ==</option>
-                    <option value="kesulitan_Event">Event</option>
-                    <option value="kesulitan_SSSPlus">SSS+</option>
-                    <option value="kesulitan_SSS">SSS</option>
-                    <option value="kesulitan_SS">SS</option>
-                    <option value="kesulitan_S">S</option>
-                    <option value="kesulitan_A">A</option>
-                    <option value="kesulitan_B">B</option>
-                    <option value="kesulitan_C">C</option>
-                    <option value="kesulitan_D">D</option>
-                    <option value="kesulitan_E">E</option>
+                    <option value="Event">Event</option>
+                    <option value="SSSPlus">SSS+</option>
+                    <option value="SSS">SSS</option>
+                    <option value="SS">SS</option>
+                    <option value="S">S</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
                 </select>
                 <br>
 

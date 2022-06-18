@@ -76,4 +76,12 @@ class User extends Authenticatable
     public function isHasSkill($id){
         return $this->skill()->where('skill_id', $id)->exists();
     }
+
+    // public function isHasOrderQ($id){
+    //     return $this->orderq()->where('user_id', $id)->exists();
+    // }
+
+    // public function isHasOrderQuest($id){
+    //     return $this->orderq()->
+    // }
 }

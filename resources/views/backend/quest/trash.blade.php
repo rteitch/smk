@@ -32,14 +32,14 @@
                             <a class="nav-link" href="{{ route('quest.index') }}">All</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"
-                                href="{{ route('quest.index', ['status' => 'publish']) }}">Publish</a>
+                            <a class="nav-link" href="{{ route('quest.index', ['status' => 'publish']) }}">Publish</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('quest.index', ['status' => 'draft']) }}">Draft</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::path() == 'quest/trash' ? 'active' : '' }}" href="{{ route('quest.trash') }}">Trash</a>
+                            <a class="nav-link {{ Request::path() == 'quest/trash' ? 'active' : '' }}"
+                                href="{{ route('quest.trash') }}">Trash</a>
                         </li>
                     </ul>
                 </div>
@@ -83,28 +83,7 @@
                                     </ul>
                                 </td>
                                 <td>{{ $quest->jenis_soal }}</td>
-                                <td>
-                                    @if ($quest->kesulitan == 'kesulitan_Event')
-                                        Event
-                                    @elseif ($quest->kesulitan == 'kesulitan_SSSPlus')
-                                        SSS+
-                                    @elseif ($quest->kesulitan == 'kesulitan_SSS')
-                                        SSS
-                                    @elseif ($quest->kesulitan == 'kesulitan_SS')
-                                        SS
-                                    @elseif ($quest->kesulitan == 'kesulitan_S')
-                                        S
-                                    @elseif ($quest->kesulitan == 'kesulitan_A')
-                                        A
-                                    @elseif ($quest->kesulitan == 'kesulitan_B')
-                                        B
-                                    @elseif ($quest->kesulitan == 'kesulitan_C')
-                                        C
-                                    @elseif ($quest->kesulitan == 'kesulitan_D')
-                                        D
-                                    @elseif ($quest->kesulitan == 'kesulitan_E')
-                                        E
-                                    @endif
+                                <td>{{ $quest->kesulitan }}
                                 </td>
                                 <td>
                                     @if ($quest->status == 'DRAFT')

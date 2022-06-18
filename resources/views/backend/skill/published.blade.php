@@ -36,10 +36,30 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>
+                                    <img src="{{ asset('storage/' . $skills->image) }}" class="card-img"
+                                        alt="{{ $skills->judul }}">
+                                    <p><strong>JobClass : </strong>
+                                    </p>
+                                    <p><strong>Syarat Lv : </strong> {{ $skills->syarat_lv }}
+                                    </p>
+                                    <p><strong>Deskripsi : </strong>
+                                        <br>
                                         {{ $skills->deskripsi }}
                                     </p>
                                     <div class="modal-footer">
+                                        @if ($user->isHasSkill($skills->id))
+                                            <small class="text-info">Skill sudah ditambahkan</small>
+                                        @else
+                                            <form
+                                                onsubmit="return confirm('Tambah this id {{ $skills->id }} Skill  {{ $skills->name }} ke user?')"
+                                                method="POST" action="{{ route('user.tambahSkill', [$skills->id]) }}"
+                                                class="d-inline">
+
+                                                @csrf
+
+                                                <input type="submit" value="Tambah" class="btn btn-primary" />
+                                            </form>
+                                        @endif
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>

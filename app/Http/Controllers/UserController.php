@@ -296,11 +296,23 @@ class UserController extends Controller
     {
         $auth_user = \Auth::user();
         $hasSkill = $auth_user->skill()->where('skill_id', $id)->exists();
-            if ( $hasSkill) {
-                return redirect()->route('skill.published')->with('info', 'Sudah ada di daftar Skill');
-            } else {
-                $auth_user->skill()->attach($id);
-                return redirect()->route('skill.published')->with('status', 'Berhasil mendaftarkan Skill');
-            }
+        if ($hasSkill) {
+            return redirect()->route('skill.published')->with('info', 'Sudah ada di daftar Skill');
+        } else {
+            $auth_user->skill()->attach($id);
+            return redirect()->route('skill.published')->with('status', 'Berhasil mendaftarkan Skill');
+        }
     }
+
+    // public function tambahOrderQuest(Request $request, $id)
+    // {
+    //     $auth_user = \Auth::user();
+    //     $hasOrderQuest = $auth_user->orderq()->where('quest_id', $id)->exists();
+    //     if ($hasOrderQuest) {
+    //         return redirect()->route('quest.published')->with('info', 'Sudah ada di daftar Order Quest');
+    //     } else {
+    //         $auth_user->skill()->attach($id);
+    //         return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di Order');
+    //     }
+    // }
 }
