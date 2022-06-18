@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderRController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Artikel;
+use App\Models\OrderQ;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -94,8 +95,9 @@ Route::resource('quest', QuestController::class);
 
 //Route OrderQ
 // order quest ke user
-Route::post('/quest/published/orderq/{id}/tambah', [OrderQController::class, 'tambahOrderQuest'])->name('orderq.tambahOrderQuest');
+Route::get('/quest/siswa/{id}/order', [OrderQController::class, 'siswa'])->name('orderq.siswa');
 
+Route::post('/quest/published/orderq/{id}/tambah', [OrderQController::class, 'tambahOrderQuest'])->name('orderq.tambahOrderQuest');
 Route::resource('orderq', OrderQController::class);
 
 //Route News

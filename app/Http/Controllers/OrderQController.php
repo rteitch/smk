@@ -28,8 +28,13 @@ class OrderQController extends Controller
         // $orderq = \App\Models\OrderQ::with('user')->with('quest')->whereHas('user', function($query) use ($user_name){
         //     $query->where('name', 'LIKE', "%$user_name%");
         // })->where('status','LIKE', "%$status%")->paginate(10);
-        $orderq = \App\Models\OrderQ::with('user')->with('quest')->paginate(4);
-
+        $orderq = \App\Models\OrderQ::with(
+            'user'
+        )->with(
+            ['quest' => function ($query) {
+                $query->select('batas_waktu');
+            }]
+        )->paginate(4);
         return view('frontend.orderq.index', compact('orderq'));
     }
 
@@ -129,6 +134,21 @@ class OrderQController extends Controller
         // $quest_id = \App\Models\OrderQ::findOrFail(\Auth::user()->id);
         // $hasQuest = $
         return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di quest order');
+    }
 
+    public function siswa($id)
+    {
+
+        // $orderq = \App\Models\OrderQ::with(
+        //     'user'
+        // )->with(
+        //     ['quest' => function ($query) {
+        //         $query->select('batas_waktu');
+        //     }]
+        // )->paginate(4);
+        // dd($orderq);
+        // $auth_user = \Auth::user()->id;
+        $orderq = \App\Models\OrderQ::where('user_id', $id)->paginate(4);
+        return view('frontend.orderq.siswa', compact('orderq'));
     }
 }
