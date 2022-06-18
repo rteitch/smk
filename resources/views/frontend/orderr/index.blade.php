@@ -65,7 +65,7 @@
                             <td>{{ $order->user->phone }}</td>
                             <td>
                                 <a href="{{ route('orderr.edit', [$order->id]) }}" class="btn btn-info btn-sm"> Edit</a>
-                                <a href="{{ route('orderr.view', [$order->id]) }}" class="btn btn-info btn-sm"> View</a>
+                                <a href="{{ route('orderr.show', [$order->id]) }}" class="btn btn-info btn-sm"> View</a>
                             </td>
                         </tr>
                     @endforeach

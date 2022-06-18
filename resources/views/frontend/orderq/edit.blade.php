@@ -26,13 +26,41 @@
                 <label for="">Siswa</label><br>
                 <input disabled class="form-control" type="text" value="{{ $order_q_s->user->name }}">
                 <br>
-
                 <label for="created_at">Batas Waktu</label><br>
-                <input type="text" class="form-control" value="{{ $order_q_s->quest->batas_waktu }}" disabled>
+                <input type="text" class="form-control"
+                    value="@foreach ($order_q_s->quest as $quests) {{ $quests->batas_waktu }} @endforeach " disabled>
                 <br>
+                <!-- Trigger the modal with a button -->
 
-                <label for="">Lihat File</label>
-                <a class="btn btn-success" href="#">Lihat File</a>
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><span
+                        class="oi oi-eye"></span> Lihat File Jawaban
+                </button>
+
+                <small class="text-muted" id="judul_file2"></small>
+                <br>
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="judul_file">{{ $order_q_s->file_jawaban }}</h3>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <iframe src="{{ asset('storage/' . $order_q_s->file_jawaban) }}" frameborder="0"
+                                    width="100%" height="400px" type="application/pdf"></iframe>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <br>
 
                 <label for="">File Jawaban</label><br>
                 <input class="form-control" type="text" value="{{ $order_q_s->file_jawaban }}" disabled>

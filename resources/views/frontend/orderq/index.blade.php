@@ -42,7 +42,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($order_q_s as $order)
+                    @foreach ($orderq as $order)
                         <tr>
                             <td>{{ $order->quest_code }}</td>
                             <td>
@@ -62,10 +62,14 @@
                             </td>
                             <td>{{ $order->file_jawab }}</td>
                             <td>{{ $order->jawaban_pilgan }}</td>
-                            <td>{{ $order->quest->batas_waktu }}</td>
+                            <td>
+                                @foreach ($order->quest as $q)
+                                    {{ $q->batas_waktu }}
+                                @endforeach()
+                            </td>
                             <td>
                                 <a href="{{ route('orderq.edit', [$order->id]) }}" class="btn btn-info btn-sm"> Edit</a>
-                                <a href="{{ route('orderq.view', [$order->id]) }}" class="btn btn-info btn-sm"> View</a>
+                                <a href="{{ route('orderq.show', [$order->id]) }}" class="btn btn-info btn-sm"> View</a>
                             </td>
                         </tr>
                     @endforeach
@@ -74,7 +78,7 @@
                     <tr>
                         <td colspan="10">
                             <div class="d-flex justify-content-start">
-                                {!! $order_q_s->links() !!}
+                                {!! $orderq->links() !!}
                             </div>
                         </td>
                     </tr>

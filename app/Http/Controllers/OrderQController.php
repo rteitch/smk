@@ -25,12 +25,12 @@ class OrderQController extends Controller
     {
         $status = $request->get('status');
         $user_name = $request->get('name');
-        $order_q_s = \App\Models\OrderQ::with('user')->with('quest')->whereHas('user', function($query) use ($user_name){
-            $query->where('name', 'LIKE', "%$user_name%");
-        })->where('status','LIKE', "%$status%")->paginate(10);
+        // $orderq = \App\Models\OrderQ::with('user')->with('quest')->whereHas('user', function($query) use ($user_name){
+        //     $query->where('name', 'LIKE', "%$user_name%");
+        // })->where('status','LIKE', "%$status%")->paginate(10);
+        $orderq = \App\Models\OrderQ::with('user')->with('quest')->paginate(4);
 
-
-        return view('frontend.orderq.index', ['order_q_s' => $order_q_s]);
+        return view('frontend.orderq.index', compact('orderq'));
     }
 
     /**
