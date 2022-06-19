@@ -119,8 +119,6 @@
                         </li>
                         <li><a href="{{ route('artikel.index') }}"><span class="oi oi-globe"> Manage
                                     Artikel</span></a></li>
-                        <li><a href="{{ route('artikel.published') }}"><span class="oi oi-globe"> Published
-                                    Artikel</span></a></li>
                         <li><a href="{{ route('notifikasi.index') }}"><span class="oi oi-envelope-closed"> Manage
                                     Notifikasi</span></a></li>
                         {{-- <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li> --}}
@@ -133,8 +131,11 @@
                                 Skill</span></a></li>
                     <li><a href="{{ route('quest.published') }}"><span class="oi oi-globe"> Publish
                                 Quest</span></a></li>
-                    <li><a href="{{ route('orderq.siswa', \Auth::user()->id) }}"><span class="oi oi-globe"> Siswa Order
+                    <li><a href="{{ route('orderq.siswa', \Auth::user()->id) }}"><span class="oi oi-globe"> Siswa
+                                Order
                                 Quest</span></a></li>
+                    <li><a href="{{ route('artikel.published') }}"><span class="oi oi-globe"> Published
+                                Artikel</span></a></li>
                     {{-- Menu person responsive mobile --}}
                     <div class="d-block d-md-none">
                         <div class="dropdown-divider"></div>
