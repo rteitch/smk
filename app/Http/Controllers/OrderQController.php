@@ -183,6 +183,8 @@ class OrderQController extends Controller
 
     public function updateJawaban(Request $request, $id, $quest_id)
     {
+        $a = $request->file('file_jawaban_siswa');
+        dd($a);
         $order_q_s = \App\Models\OrderQ::findOrFail($id);
         $quest = \App\Models\Quest::where('id', 'LIKE', $quest_id)->get();
         foreach($quest as $quests){
@@ -207,13 +209,13 @@ class OrderQController extends Controller
                 $user_login->exp = $hitung_exp;
                 $order_q_s->status = "FINISH";
 
-            }else{
+            }elseif($jawaban_user !== $quest_kunci){
                 $order_q_s->status = "CANCEL";
             }
         }
 
-
-        $file_pendukung = $request->file('file_jawab');
+        $file_pendukung = $request->file('file_jawaban_siswa');
+        dd($file_pendukung);
         if ($file_pendukung) {
             $filename = $file_pendukung->getClientOriginalName();
             $file_path = $file_pendukung->storeAs('file_jawab', $filename, 'public');
