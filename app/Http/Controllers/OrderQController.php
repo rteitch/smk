@@ -161,4 +161,46 @@ class OrderQController extends Controller
         // $orderq = \App\Models\OrderQ::where('user_id', $id)->paginate(4);
         return view('frontend.orderq.siswa', compact('orderq', 'quest'));
     }
+
+
+    public function updateJawaban(Request $request, $id, $quest_id)
+    {
+        $order_q_s = \App\Models\OrderQ::findOrFail($id);
+        $quest_kunci = \App\Models\Quest::where('id', 'LIKE', $quest_id)->first()->jawaban_pilgan;
+        $quest_kunci_file_jawab = \App\Models\Quest::where('id', 'LIKE', $quest_id)->first()->file_jawab;
+        $quest_skor = \App\Models\Quest::where('id', 'LIKE', $quest_id)->first()->skor;
+        $quest_exp = \App\Models\Quest::where('id', 'LIKE', $quest_id)->first()->exp;
+        $user_login = \App\Models\User::findOrFail(\Auth::user()->id);
+        $cekJawabanPilgan = $request->get('jawaban_pilgan');
+        $cekJawabanFile = $request->get('file_jawab');
+        dd($cekJawabanPilgan);
+        if(!$cekJawabanPilgan->isEmpty()){
+            $order_q_s->jawaban_pilgan = $cekJawabanPilgan;
+            if($order_q_s->jawaban_pilgan == $quest_kunci){
+                $order_q_s->status = "FINISH";
+                $skor_lama = $user_login->skor;
+                $hitung_skor = $skor_lama + $quest_skor;
+
+                $exp_lama = $user_login->exp;
+                $hitung_exp = $exp_lama + $quest_exp;
+
+                //simpan ke field
+                $user_login->skor = $hitung_skor;
+                $user_login->exp = $hitung_exp;
+
+            }else{
+                $order_q_s->status = "CANCEL";
+            }
+        }
+
+        if(!$cekJawabanFile->isEmpty()){
+            $order_q_s->file_jawab = $cekJawabanFile;
+            $order_q_s->status = "PROCESS";
+        }
+
+        $user_login->save();
+        $order_q_s->save();
+
+        return redirect()->route('orderq.siswa', [$order_q_s->id, ])->with('status', 'Berhasil Upload tugas sucessfully updated');
+    }
 }

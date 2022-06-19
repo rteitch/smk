@@ -66,26 +66,26 @@
                                                 <strong>{{ $nama_quest = $quest->where('id', $quests->pivot->quest_id)->first()->judul }}</strong>
                                                 <br>
                                                 <div class="container">
-                                                    {{ $quest->where('id', $quests->pivot->quest_id)->first()->deskripsi }}
+                                                    {{$quest->where('id', $quests->pivot->quest_id)->first()->deskripsi }}
                                                     <br>
                                                     <br>
                                                     <label for="jawaban_pilgan">Pilih Jawaban Anda : </label>
                                                     <select class="form-control" name="jawaban_pilgan" id="jawaban_pilgan">
                                                         <option disabled class="text-center">== Pilih Jawaban ==</option>
                                                         <option value="Tidak Menjawab">Tidak Menjawab</option>
-                                                        <option value="pil_A">A.
+                                                        <option value="A">A.
                                                             {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_A }}
                                                         </option>
-                                                        <option value="pil_B">B.
+                                                        <option value="B">B.
                                                             {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_B }}
                                                         </option>
-                                                        <option value="pil_C">C.
+                                                        <option value="C">C.
                                                             {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_D }}
                                                         </option>
-                                                        <option value="pil_D">D.
+                                                        <option value="D">D.
                                                             {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_D }}
                                                         </option>
-                                                        <option value="pil_E">E.
+                                                        <option value="E">E.
                                                             {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_E }}
                                                         </option>
                                                     </select>
@@ -117,7 +117,7 @@
                                                 <form
                                                     onsubmit="return confirm('Tambah this id {{ $order->id }} Skill  {{ $nama_quest }} ke user?')"
                                                     method="POST"
-                                                    action="{{ route('orderq.tambahOrderQuest', [$order->id]) }}"
+                                                    action="{{ route('orderq.updateJawaban', [$order->id, $quest->where('id', $quests->pivot->quest_id)->first()->id]) }}"
                                                     class="d-inline">
 
                                                     @csrf
