@@ -86,8 +86,7 @@
                                                         <div>
                                                             <hr class="my-3">
                                                         </div>
-                                                        <p>Jawaban mu sedang dikirim ke pembuat quest, harap ditunggu
-                                                            beberapa waktu.</p>
+                                                        <p>Jawaban mu telah terkirim, tunggu beberapa waktu untuk penilaian dari pembuat quest</p>
                                                     @elseif ($order->status == 'FINISH')
                                                         <div>
                                                             <hr class="my-3">
@@ -130,7 +129,7 @@
                                                         <input type="hidden" value="PUT" name="_method">
 
                                                         @if ($quest->where('id', $quests->pivot->quest_id)->first()->jenis_soal == 'PILGANDA')
-                                                            @if ($order->status == "FINISH")
+                                                            @if ($order->status == 'SUBMIT')
                                                                 <label for="jawaban_pilgan">Pilih Jawaban Anda : </label>
                                                                 <select class="form-control" name="jawaban_pilgan"
                                                                     id="jawaban_pilgan">
@@ -156,10 +155,12 @@
                                                             @endif
                                                         @endif
                                                         @if ($quest->where('id', $quests->pivot->quest_id)->first()->jenis_soal == 'LAPORAN')
-                                                            <label for="file">File Jawab</label>
-                                                            <input type="file" class="form-control"
-                                                                name="file_jawaban_siswa">
-                                                            <br><br>
+                                                            @if ($order->status == 'SUBMIT')
+                                                                <label for="file">File Jawab</label>
+                                                                <input type="file" class="form-control"
+                                                                    name="file_jawaban_siswa">
+                                                                <br><br>
+                                                            @endif
                                                         @endif
 
 

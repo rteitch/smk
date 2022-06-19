@@ -44,11 +44,11 @@
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h3 class="modal-title" id="judul_file">{{ $order_q_s->file_jawaban }}</h3>
+                                <h3 class="modal-title" id="judul_file">{{ $order_q_s->file_jawab }}</h3>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <iframe src="{{ asset('storage/' . $order_q_s->file_jawaban) }}" frameborder="0"
+                                <iframe src="{{ asset('storage/' . $order_q_s->file_jawab) }}" frameborder="0"
                                     width="100%" height="400px" type="application/pdf"></iframe>
 
                                 <div class="modal-footer">
