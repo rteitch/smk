@@ -62,6 +62,11 @@ class QuestController extends Controller
         $new_quest->skor = $request->get('skor');
         $new_quest->exp = $request->get('exp');
         $new_quest->batas_waktu = $request->get('batas_waktu');
+        $new_quest->pil_A = $request->get('pil_A');
+        $new_quest->pil_B = $request->get('pil_B');
+        $new_quest->pil_C = $request->get('pil_C');
+        $new_quest->pil_D = $request->get('pil_D');
+        $new_quest->pil_E = $request->get('pil_E');
 
         $new_quest->kesulitan = $request->get('tingkat_kesulitan');
         $new_quest->created_by = \Auth::user()->id;
@@ -143,6 +148,11 @@ class QuestController extends Controller
         $quest->deskripsi = $request->get('deskripsi');
         $quest->level = $request->get('level');
         $quest->skor = $request->get('skor');
+        $quest->pil_A = $request->get('pil_A');
+        $quest->pil_B = $request->get('pil_B');
+        $quest->pil_C = $request->get('pil_C');
+        $quest->pil_D = $request->get('pil_D');
+        $quest->pil_E = $request->get('pil_E');
 
         $quest->batas_waktu = $request->get('batas_waktu');
 

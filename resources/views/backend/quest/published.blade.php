@@ -27,14 +27,14 @@
                             <div class="card-header bg-info text-center text-light border-0"
                                 style="background-image: url(assets/matthieu-a-262686-unsplash.jpg); background-size: 100%">
                                 <div class="text-left w-100">
-                                    <h5 class="m-0">{{ $index + 1 }}. Kesulitan : {{ $quests->kesulitan }}</h5>
+                                    <h5 class="m-0">{{ $index + 1 }}. {{ $quests->judul }}</h5>
                                     <small>Pembuat :
                                         {{ $user->where('id', $quests->created_by)->first()->name }}
                                     </small>
                                 </div>
                                 <img class="w-25 h-25 clearfix rounded-circle border border-white"
                                     style="border-width: 3px !important;margin-bottom: -3rem;clear: both;"
-                                    src="{{ asset('storage/' . $quests->image) }}" alt="users">
+                                    src="{{ asset('storage/' . $user->where('id', $quests->created_by)->first()->avatar) }}" alt="users">
                             </div>
                             <div class="card-body text-center d-flex flex-row justify-content-between pt-4 mt-4">
                                 <div class="col text-align border-right border-left">
@@ -47,11 +47,22 @@
                                 </div>
                             </div>
                             <div class="card-body">
+
+                                <small>Tingkat Kesulitan :
+                                    {{ $quests->kesulitan }}
+                                </small>
+                                <br>
+                                <small>Jenis Quest :
+                                    @if ( $quests->jenis_soal == "PILGANDA")
+                                        Uji Pengetahuan
+                                    @elseif ( $quests->jenis_soal == "LAPORAN")
+                                        Laporan Dokumentasi
+                                    @endif
+                                </small>
+                                <br>
                                 <small>Quest akan berakhir : {{ $quests->batas_waktu }}</small>
                             </div>
                             <div class="card-footer">
-                                <small></small>
-                                <br>
                                 <div class="text-center">
                                     {{-- <a class="btn btn-success" href="#">Ambil Quest</a> --}}
 

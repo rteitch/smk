@@ -46,7 +46,7 @@
 
                         @foreach ($orderq as $order)
                             <!-- Modal -->
-                            <div id="myModal" class="modal fade" role="dialog">
+                            <div id="myModal{{ $order->id }}" class="modal fade" role="dialog">
                                 <div class="modal-dialog modal-lg">
 
                                     <!-- Modal content-->
@@ -62,78 +62,134 @@
                                                     {{ $quests->judul }}
                                                 @endif
                                             @endforeach --}}
+                                            @foreach ($order->quest as $quests)
+                                                <strong>{{ $nama_quest = $quest->where('id', $quests->pivot->quest_id)->first()->judul }}</strong>
+                                                <br>
+                                                <div class="container">
+                                                    {{ $quest->where('id', $quests->pivot->quest_id)->first()->deskripsi }}
+                                                    <br>
+                                                    <br>
+                                                    <label for="jawaban_pilgan">Pilih Jawaban Anda : </label>
+                                                    <select class="form-control" name="jawaban_pilgan" id="jawaban_pilgan">
+                                                        <option disabled class="text-center">== Pilih Jawaban ==</option>
+                                                        <option value="Tidak Menjawab">Tidak Menjawab</option>
+                                                        <option value="pil_A">A.
+                                                            {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_A }}
+                                                        </option>
+                                                        <option value="pil_B">B.
+                                                            {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_B }}
+                                                        </option>
+                                                        <option value="pil_C">C.
+                                                            {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_D }}
+                                                        </option>
+                                                        <option value="pil_D">D.
+                                                            {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_D }}
+                                                        </option>
+                                                        <option value="pil_E">E.
+                                                            {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_E }}
+                                                        </option>
+                                                    </select>
+                                            @endforeach
+                                            <br>
+                                            @if ($order->status == 'SUBMIT')
+                                                <span class="badge bg-warning text-light">{{ $order->status }}</span>
+                                            @elseif($order->status == 'PROCESS')
+                                                <span class="badge bg-info text-light">{{ $order->status }}</span>
+                                            @elseif($order->status == 'FINISH')
+                                                <span class="badge bg-success text-light">{{ $order->status }}</span>
+                                            @elseif($order->status == 'CANCEL')
+                                                <span class="badge bg-dark text-light">{{ $order->status }}</span>
+                                            @endif
                                             <br>
                                             @if (!$order->file_pendukung == null)
                                                 <iframe src="{{ asset('storage/' . $order->file_pendukung) }}"
                                                     frameborder="0" width="100%" height="400px"
                                                     type="application/pdf"></iframe>
                                             @else
-                                                {{-- {{ $quest->where('id', $order->id)->first()->judul }} --}}
-                                                tidak ada file upload
+                                                <small>tidak ada file upload</small>
                                             @endif
 
 
                                             <div class="modal-footer">
+
+                                                <small>Jenis Soal:
+                                                    {{ $quest->where('id', $quests->pivot->quest_id)->first()->jenis_soal }}</small>
+                                                <form
+                                                    onsubmit="return confirm('Tambah this id {{ $order->id }} Skill  {{ $nama_quest }} ke user?')"
+                                                    method="POST"
+                                                    action="{{ route('orderq.tambahOrderQuest', [$order->id]) }}"
+                                                    class="d-inline">
+
+                                                    @csrf
+
+                                                    <input type="submit" value="Kirim Jawaban" class="btn btn-success" />
+                                                </form>
                                                 <button type="button" class="btn btn-default"
                                                     data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
-
                                     </div>
+
                                 </div>
                             </div>
-                            <tr>
-                                <td>{{ $order->quest_code }}</td>
-                                <td>
-                                    @if ($order->status == 'SUBMIT')
-                                        <span class="badge bg-warning text-light">{{ $order->status }}</span>
-                                    @elseif($order->status == 'PROCESS')
-                                        <span class="badge bg-info text-light">{{ $order->status }}</span>
-                                    @elseif($order->status == 'FINISH')
-                                        <span class="badge bg-success text-light">{{ $order->status }}</span>
-                                    @elseif($order->status == 'CANCEL')
-                                        <span class="badge bg-dark text-light">{{ $order->status }}</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $order->user->name }} <br>
-                                    <small>{{ $order->user->email }}</small>
-                                </td>
-                                <td>{{ $order->file_jawab }}</td>
-                                <td>{{ $order->jawaban_pilgan }}</td>
-                                <td>
-                                    @foreach ($order->quest as $q)
-                                        {{ $q->batas_waktu }}
-                                    @endforeach()
-                                </td>
-                                <td>
-                                    {{-- <a href="{{ route('orderq.edit', [$order->id]) }}" class="btn btn-success btn-sm">
+            </div>
+            <tr>
+                <td>{{ $order->quest_code }}</td>
+                <td>
+                    @if ($order->status == 'SUBMIT')
+                        <span class="badge bg-warning text-light">{{ $order->status }}</span>
+                    @elseif($order->status == 'PROCESS')
+                        <span class="badge bg-info text-light">{{ $order->status }}</span>
+                    @elseif($order->status == 'FINISH')
+                        <span class="badge bg-success text-light">{{ $order->status }}</span>
+                    @elseif($order->status == 'CANCEL')
+                        <span class="badge bg-dark text-light">{{ $order->status }}</span>
+                    @endif
+                </td>
+                <td>
+                    {{ $order->user->name }} <br>
+                    <small>{{ $order->user->email }}</small>
+                </td>
+                <td>{{ $order->file_jawab }}</td>
+                <td>{{ $order->jawaban_pilgan }}</td>
+                <td>
+                    @foreach ($order->quest as $q)
+                        {{ $q->batas_waktu }}
+                    @endforeach()
+                </td>
+                <td>
+                    {{-- <a href="{{ route('orderq.edit', [$order->id]) }}" class="btn btn-success btn-sm">
                                         Upload</a>
                                     <a href="{{ route('orderq.show', [$order->id]) }}" class="btn btn-info btn-sm"> View</a> --}}
 
-                                    <!-- Trigger the modal with a button -->
+                    <!-- Trigger the modal with a button -->
 
-                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                        data-target="#myModal"><span class="oi oi-eye"></span> View
-                                    </button>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                        data-target="#myModal{{ $order->id }}"><span class="oi oi-eye"></span> View
+                    </button>
 
-                                    <small class="text-muted" id="judul_file2"></small>
-                                    <br>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="10">
-                                <div class="d-flex justify-content-start">
-                                    {!! $orderq->links() !!}
-                                </div>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+                    <small class="text-muted" id="judul_file2"></small>
+                    <br>
+                </td>
+
+            </tr>
+            @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="10">
+                        <div class="d-flex justify-content-start">
+                            {!! $orderq->links() !!}
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+            </table>
         </div>
     </div>
+    </div>
+@endsection
+
+@section('footer-scripts')
+    <script></script>
 @endsection

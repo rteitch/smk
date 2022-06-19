@@ -122,6 +122,24 @@
 
                 {{-- Form Jawaban --}}
                 <div id="hiddenDiv" style="display: none;">
+                    <label for="">Inputkan Pilihan Jawaban</label> <br>
+                    <ol type="A">
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_A" placeholder="Judul Quest" value="{{ $quests->pil_A }}">
+                        </li>
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_B" placeholder="Judul Quest" value="{{ $quests->pil_B }}">
+                        </li>
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_C" placeholder="Judul Quest" value="{{ $quests->pil_C }}">
+                        </li>
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_D" placeholder="Judul Quest" value="{{ $quests->pil_D }}">
+                        </li>
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_E" placeholder="Judul Quest" value="{{ $quests->pil_E }}">
+                        </li>
+                    </ol>
                     <label for="jawaban_pilgan">Jawaban Pilihan Ganda : </label>
                     <select class="form-control" name="jawaban_pilgan" id="jawaban_pilgan">
                         <option disabled class="text-center">== Pilih Jawaban ==</option>

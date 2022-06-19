@@ -27,6 +27,11 @@ return new class extends Migration
             // Event, SSS+, SSS, SS, S, A, B, C, D
             $table->string('kesulitan');
             $table->string('jawaban_pilgan')->nullable();
+            $table->string('pil_A')->nullable();
+            $table->string('pil_B')->nullable();
+            $table->string('pil_C')->nullable();
+            $table->string('pil_D')->nullable();
+            $table->string('pil_E')->nullable();
             $table->string('file_pendukung')->nullable();
             $table->enum('jenis_soal', ['PILGANDA', 'LAPORAN']);
             $table->enum('status', ['PUBLISH', 'DRAFT']);

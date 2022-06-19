@@ -32,7 +32,8 @@
                 <br><br>
 
                 <label for="deskripsi">Deskripsi</label><br>
-                <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Berikan Deskripsi Quest"></textarea>
+                <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Berikan Deskripsi Quest/Soal"></textarea>
+                <br>
                 <br>
 
                 {{-- Form Tingkat Kesulitan --}}
@@ -67,6 +68,26 @@
 
                 {{-- Form Jawaban --}}
                 <div id="hiddenDiv" style="display: block;">
+
+                    <label for="">Inputkan Pilihan Jawaban</label> <br>
+                    <ol type="A">
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_A" placeholder="Judul Quest">
+                        </li>
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_B" placeholder="Judul Quest">
+                        </li>
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_C" placeholder="Judul Quest">
+                        </li>
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_D" placeholder="Judul Quest">
+                        </li>
+                        <li class="mb-2">
+                            <input type="text" class="form-control" name="pil_E" placeholder="Judul Quest">
+                        </li>
+                    </ol>
+
                     <label for="jawaban_pilgan">Jawaban Pilihan Ganda : </label>
                     <select class="form-control" name="jawaban_pilgan" id="jawaban_pilgan">
                         <option disabled class="text-center">== Pilih Jawaban ==</option>
@@ -82,7 +103,8 @@
 
                 {{-- Form Batas Waktu Pengerjaan --}}
                 <label for="batas_waktu">Batas Waktu Pengerjaan</label>
-                <input class="form-control" placeholder="Batas Waktu" type="datetime-local" name="batas_waktu" id="batas_waktu">
+                <input class="form-control" placeholder="Batas Waktu" type="datetime-local" name="batas_waktu"
+                    id="batas_waktu">
                 <br>
 
                 {{-- Form Level --}}

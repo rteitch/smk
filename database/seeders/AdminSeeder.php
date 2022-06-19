@@ -27,7 +27,6 @@ class AdminSeeder extends Seeder
         $admin->alamat = "Gondangrejo, Karanganyar, Jawa Tengah";
         $admin->tempat_lahir = "Karanganyar";
         $admin->phone = 9192831;
-        $admin->nomor_induk = "1231";
         $admin->gender = "Laki-Laki";
         $admin->tanggal_lahir = Carbon::create('2000', '03', '03');
         $admin->level = 100;
