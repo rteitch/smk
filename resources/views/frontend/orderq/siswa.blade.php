@@ -97,10 +97,14 @@
                                                             </p>
                                                         @else
                                                             @if ($order->file_jawab == null)
+                                                                @if ($order->status == 'PROCESS')
+                                                                    Jawaban mu sedang dikirim ke pembuat quest, harap ditunggu beberapa waktu.
+                                                                @endif
                                                                 <hr class="my-3">
                                                                 <label for="file">Upload file jawaban dalam bentuk pdf</label>
                                                                 <input type="file" class="form-control"
                                                                     name="file_jawab">
+
                                                             @elseif ($order->jawaban_pilgan == null)
                                                                 <hr class="my-3">
                                                                 <label for="jawaban_pilgan">Pilih Jawaban Anda : </label>
