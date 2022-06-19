@@ -212,13 +212,13 @@ class OrderQController extends Controller
             }
         }
 
-        // $cekJawabanFile = $request->get('file_jawab');
-        // if($cekJawabanFile){
-        //     $order_q_s->file_jawab = $cekJawabanFile;
-        //     $order_q_s->status = "PROCESS";
-        // }else{
-        //     $order_q_s->status = "CANCEL";
-        // }
+        $cekJawabanFile = $request->file('file_jawab');
+        if ($cekJawabanFile) {
+            $filename = $cekJawabanFile->getClientOriginalName();
+            $file_path = $cekJawabanFile->storeAs('file_jawab', $filename, 'public');
+            $order_q_s->file_jawab = $file_path;
+            $order_q_s->status = "PROCESS";
+        }
 
         $user_login->save();
         $order_q_s->save();

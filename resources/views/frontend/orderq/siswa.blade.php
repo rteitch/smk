@@ -66,7 +66,8 @@
                                                 </div>
                                                 <br>
                                                 <div class="modal-body">
-                                                    <strong class="mb-2">{{ $nama_quest = $quest->where('id', $quests->pivot->quest_id)->first()->judul }}</strong>
+                                                    <strong
+                                                        class="mb-2">{{ $nama_quest = $quest->where('id', $quests->pivot->quest_id)->first()->judul }}</strong>
                                                     <br>
                                                     <div class="container">
                                                         {{ $quest->where('id', $quests->pivot->quest_id)->first()->deskripsi }}
@@ -76,42 +77,56 @@
                                                                 <hr class="my-3">
                                                             </div>
                                                             <p>
-                                                                Selamat <strong>{{ $user->where('id', $order->user_id)->first()->name }}</strong> <br>
+                                                                Selamat
+                                                                <strong>{{ $user->where('id', $order->user_id)->first()->name }}</strong>
+                                                                <br>
                                                                 <strong>{{ $quest->where('id', $quests->pivot->quest_id)->first()->pembuat }}</strong>
-                                                                Senang dengan bantuan anda!, <br>jika ada kesempatan dia
+                                                                Senang dengan bantuan anda! <br>jika ada kesempatan dia
                                                                 akan membutuhkan
-                                                                bantuanmu, terima kasih
+                                                                bantuanmu lagi, semangat petualang!
                                                             </p>
                                                         @elseif($order->status == 'CANCEL')
-                                                        <div>
-                                                            <hr class="my-3">
-                                                        </div>
-                                                            <p>Sayang sekali <strong>{{ $user->where('id', $order->user_id)->first()->name }}</strong>, jawaban anda tidak tepat, untuk quest ini akan diserahkan ke petualang lain, terima kasih sudah mencoba!
-                                                            <br>Silakan untuk mencoba quest yang lain,
-                                                        </p>
+                                                            <div>
+                                                                <hr class="my-3">
+                                                            </div>
+                                                            <p>Sayang sekali
+                                                                <strong>{{ $user->where('id', $order->user_id)->first()->name }}</strong>,
+                                                                jawaban anda tidak tepat, untuk quest ini akan diserahkan ke
+                                                                petualang lain, terima kasih sudah mencoba!
+                                                                <br>Silakan untuk mencoba quest yang lain,
+                                                            </p>
                                                         @else
-                                                            <label for="jawaban_pilgan">Pilih Jawaban Anda : </label>
-                                                            <select class="form-control" name="jawaban_pilgan"
-                                                                id="jawaban_pilgan">
-                                                                <option disabled class="text-center">== Pilih Jawaban ==
-                                                                </option>
-                                                                <option value="Tidak Menjawab">Tidak Menjawab</option>
-                                                                <option value="A">A.
-                                                                    {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_A }}
-                                                                </option>
-                                                                <option value="B">B.
-                                                                    {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_B }}
-                                                                </option>
-                                                                <option value="C">C.
-                                                                    {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_D }}
-                                                                </option>
-                                                                <option value="D">D.
-                                                                    {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_D }}
-                                                                </option>
-                                                                <option value="E">E.
-                                                                    {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_E }}
-                                                                </option>
-                                                            </select>
+                                                            @if ($order->file_jawab == null)
+                                                                <hr class="my-3">
+                                                                <label for="file">Upload file jawaban dalam bentuk pdf</label>
+                                                                <input type="file" class="form-control"
+                                                                    name="file_jawab">
+                                                            @elseif ($order->jawaban_pilgan == null)
+                                                                <hr class="my-3">
+                                                                <label for="jawaban_pilgan">Pilih Jawaban Anda : </label>
+                                                                <select class="form-control" name="jawaban_pilgan"
+                                                                    id="jawaban_pilgan">
+                                                                    <option disabled class="text-center">== Pilih Jawaban ==
+                                                                    </option>
+                                                                    <option value="Tidak Menjawab">Tidak Menjawab</option>
+                                                                    <option value="A">A.
+                                                                        {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_A }}
+                                                                    </option>
+                                                                    <option value="B">B.
+                                                                        {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_B }}
+                                                                    </option>
+                                                                    <option value="C">C.
+                                                                        {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_D }}
+                                                                    </option>
+                                                                    <option value="D">D.
+                                                                        {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_D }}
+                                                                    </option>
+                                                                    <option value="E">E.
+                                                                        {{ $quest->where('id', $quests->pivot->quest_id)->first()->pil_E }}
+                                                                    </option>
+                                                                </select>
+                                                            @endif
+                                                            <br>
                                                         @endif
                             @endforeach
                             <br>

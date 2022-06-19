@@ -20,7 +20,6 @@
             </div>
 
             <div class="row">
-
                 @foreach ($quest as $index => $quests)
                     <div class="col-md-12 col-lg-4 mb-2">
                         <div class="card">
@@ -34,7 +33,8 @@
                                 </div>
                                 <img class="w-25 h-25 clearfix rounded-circle border border-white"
                                     style="border-width: 3px !important;margin-bottom: -3rem;clear: both;"
-                                    src="{{ asset('storage/' . $user->where('id', $quests->created_by)->first()->avatar) }}" alt="users">
+                                    src="{{ asset('storage/' . $user->where('id', $quests->created_by)->first()->avatar) }}"
+                                    alt="users">
                             </div>
                             <div class="card-body text-center d-flex flex-row justify-content-between pt-4 mt-4">
                                 <div class="col text-align border-right border-left">
@@ -53,9 +53,9 @@
                                 </small>
                                 <br>
                                 <small>Jenis Quest :
-                                    @if ( $quests->jenis_soal == "PILGANDA")
+                                    @if ($quests->jenis_soal == 'PILGANDA')
                                         Uji Pengetahuan
-                                    @elseif ( $quests->jenis_soal == "LAPORAN")
+                                    @elseif ($quests->jenis_soal == 'LAPORAN')
                                         Laporan Dokumentasi
                                     @endif
                                 </small>
@@ -69,15 +69,15 @@
                                     {{-- @if ($orderq->isHasQuest($quests->id))
                                         <small class="text-info">Quest sudah ditambahkan</small>
                                     @else --}}
-                                        <form
-                                            onsubmit="return confirm('Tambah this id {{ $quests->id }} Skill  {{ $quests->name }} ke user?')"
-                                            method="POST" action="{{ route('orderq.tambahOrderQuest', [$quests->id]) }}"
-                                            class="d-inline">
+                                    <form
+                                        onsubmit="return confirm('Tambah this id {{ $quests->id }} Skill  {{ $quests->name }} ke user?')"
+                                        method="POST" action="{{ route('orderq.tambahOrderQuest', [$quests->id]) }}"
+                                        class="d-inline">
 
-                                            @csrf
+                                        @csrf
 
-                                            <input type="submit" value="Tambah" class="btn btn-primary" />
-                                        </form>
+                                        <input type="submit" value="Tambah" class="btn btn-primary" />
+                                    </form>
                                     {{-- @endif --}}
                                 </div>
                             </div>
