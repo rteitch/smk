@@ -12,7 +12,6 @@
                     {{ session('status') }}
                 </div>
             @endif
-
             <form class="shadow-sm bg-white p-3" action="{{ route('orderq.update', [$order_q_s->id]) }}" method="POST">
 
                 @csrf

@@ -61,7 +61,7 @@
     <div class="progress">
         <div style="width: 100%" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
             aria-valuemax="100">Exp :
-            {{ $user->exp }} %
+            {{ $user->exp }}
         </div>
     </div>
     {{-- Button untuk edit dan ubah password --}}

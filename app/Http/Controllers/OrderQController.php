@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+
 
 class OrderQController extends Controller
 {
@@ -78,7 +80,7 @@ class OrderQController extends Controller
      */
     public function edit($id)
     {
-        $order_q_s = \App\Models\OrderQ::findOrFail($id);
+        $order_q_s = \App\Models\OrderQ::with('quest')->findOrFail($id);
         return view('frontend.orderq.edit', ['order_q_s' => $order_q_s]);
     }
 
@@ -92,7 +94,22 @@ class OrderQController extends Controller
     public function update(Request $request, $id)
     {
         $order_q_s = \App\Models\OrderQ::findOrFail($id);
-        $order_q_s->status = $request->get('status');
+        $user_lama = $order_q_s->user;
+        foreach($order_q_s->quest as $quests){
+            $quest_skor = $quests->skor;
+            $quest_exp = $quests->exp;
+        }
+
+        $status = $order_q_s->status = $request->get('status');
+
+        $exp_lama = $user_lama->exp;
+        $skor_lama = $user_lama->skor;
+        $tambah_exp = $exp_lama + $quest_exp;
+        $tambah_skor = $skor_lama + $quest_skor;
+        if($status == 'FINISH'){
+            $order_q_s->user->exp = $tambah_exp;
+            $order_q_s->user->skor = $tambah_skor;
+        }
 
         $order_q_s->save();
 
@@ -122,7 +139,7 @@ class OrderQController extends Controller
         $quest_order = new \App\Models\OrderQ();
         // $quest = new \App\Models\Quest();
         // dd($quest->orderq());
-        $quest_order->user_id = \Auth::user()->id;
+        $quest_order->user_id = Auth::user()->id;
         $quest_order->status = 'SUBMIT';
         $quest_order->file_jawab = null;
         $quest_order->jawaban_pilgan = null;
@@ -139,7 +156,8 @@ class OrderQController extends Controller
     public function siswa(Request $request, $id)
     {
         $status = $request->get('status');
-        $user_name = \Auth::user()->name;
+        $user = \App\Models\User::with('orderq')->select('name','id')->get();
+        $user_name = Auth::user()->name;
         $orderq = \App\Models\OrderQ::with('user')->with(
             ['quest' => function ($query) {
                 $query->select('batas_waktu','judul', 'deskripsi', 'level', 'skor', 'exp', 'image', 'file_pendukung', 'jenis_soal');
@@ -147,7 +165,7 @@ class OrderQController extends Controller
         )->whereHas('user', function ($query) use ($user_name) {
             $query->where('name', 'LIKE', "%$user_name%");
         })->where('status', 'LIKE', "%$status%")->where('user_id', 'LIKE', $id)->paginate(4);
-        $quest = \App\Models\Quest::select('id', 'judul', 'deskripsi', 'level', 'skor', 'exp', 'image', 'batas_waktu', 'kesulitan', 'file_pendukung', 'jenis_soal', 'pil_A', 'pil_B', 'pil_C', 'pil_D', 'pil_E')->get();
+        $quest = \App\Models\Quest::select('id', 'judul', 'deskripsi', 'level', 'skor', 'exp', 'image', 'batas_waktu', 'kesulitan', 'file_pendukung', 'jenis_soal', 'pil_A', 'pil_B', 'pil_C', 'pil_D', 'pil_E', 'pembuat')->get();
 
         // $orderq = \App\Models\OrderQ::with(
         //     'user'
@@ -159,25 +177,25 @@ class OrderQController extends Controller
         // dd($orderq);
         // $auth_user = \Auth::user()->id;
         // $orderq = \App\Models\OrderQ::where('user_id', $id)->paginate(4);
-        return view('frontend.orderq.siswa', compact('orderq', 'quest'));
+        return view('frontend.orderq.siswa', compact('orderq', 'quest','user'));
     }
 
 
     public function updateJawaban(Request $request, $id, $quest_id)
     {
         $order_q_s = \App\Models\OrderQ::findOrFail($id);
-        $quest_kunci = \App\Models\Quest::where('id', 'LIKE', $quest_id)->first()->jawaban_pilgan;
-        $quest_kunci_file_jawab = \App\Models\Quest::where('id', 'LIKE', $quest_id)->first()->file_jawab;
-        $quest_skor = \App\Models\Quest::where('id', 'LIKE', $quest_id)->first()->skor;
-        $quest_exp = \App\Models\Quest::where('id', 'LIKE', $quest_id)->first()->exp;
-        $user_login = \App\Models\User::findOrFail(\Auth::user()->id);
+        $quest = \App\Models\Quest::where('id', 'LIKE', $quest_id)->get();
+        foreach($quest as $quests){
+            $quest_kunci = $quests->jawaban_pilgan;
+            $quest_kunci_file_jawab = $quests->file_jawab;
+            $quest_skor = $quests->skor;
+            $quest_exp = $quests->exp;
+        }
+        $user_login = \App\Models\User::findOrFail(Auth::user()->id);
         $cekJawabanPilgan = $request->get('jawaban_pilgan');
-        $cekJawabanFile = $request->get('file_jawab');
-        dd($cekJawabanPilgan);
-        if(!$cekJawabanPilgan->isEmpty()){
-            $order_q_s->jawaban_pilgan = $cekJawabanPilgan;
-            if($order_q_s->jawaban_pilgan == $quest_kunci){
-                $order_q_s->status = "FINISH";
+        $jawaban_user = $order_q_s->jawaban_pilgan = $cekJawabanPilgan;
+        if($cekJawabanPilgan){
+            if($jawaban_user == $quest_kunci){
                 $skor_lama = $user_login->skor;
                 $hitung_skor = $skor_lama + $quest_skor;
 
@@ -187,20 +205,32 @@ class OrderQController extends Controller
                 //simpan ke field
                 $user_login->skor = $hitung_skor;
                 $user_login->exp = $hitung_exp;
+                $order_q_s->status = "FINISH";
 
             }else{
                 $order_q_s->status = "CANCEL";
             }
         }
 
-        if(!$cekJawabanFile->isEmpty()){
-            $order_q_s->file_jawab = $cekJawabanFile;
-            $order_q_s->status = "PROCESS";
-        }
+        // $cekJawabanFile = $request->get('file_jawab');
+        // if($cekJawabanFile){
+        //     $order_q_s->file_jawab = $cekJawabanFile;
+        //     $order_q_s->status = "PROCESS";
+        // }else{
+        //     $order_q_s->status = "CANCEL";
+        // }
 
         $user_login->save();
         $order_q_s->save();
 
-        return redirect()->route('orderq.siswa', [$order_q_s->id, ])->with('status', 'Berhasil Upload tugas sucessfully updated');
+        return redirect()->route('orderq.siswa', Auth::user()->id)->with('status', 'Berhasil Upload tugas sucessfully updated');
     }
+
+    // public function hapusOrderQuest($id){
+    //     $orderq = \App\Models\OrderQ::findOrFail($id);
+    //     $orderq->delete();
+    //     $orderq->quest()->detach();
+
+    //     return redirect()->route('orderq.siswa')->with('status', 'Order Quest Berhasil dihapus dari daftar');
+    // }
 }
