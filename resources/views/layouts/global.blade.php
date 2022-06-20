@@ -21,6 +21,85 @@
             color: #fff;
         }
 
+        .icon {
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .icon span {
+            background: #202e78;
+            padding: 7px;
+            border-radius: 50%;
+            color: #fff;
+        }
+
+        .icon img {
+            display: inline-block;
+            width: 26px;
+            margin-top: 4px
+        }
+
+        .icon:hover {
+            opacity: .7
+        }
+
+
+        .notifications {
+            width: 300px;
+            height: 0px;
+            opacity: 0;
+            position: absolute;
+            top: 63px;
+            right: 32px;
+            border-radius: 5px 0px 5px 5px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            z-index: 1;
+        }
+
+        .notifications h2 {
+            font-size: 14px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            color: #999
+        }
+
+        .notifications h2 span {
+            color: #202e78
+        }
+
+        .notifications-item {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            padding: 6px 9px;
+            margin-bottom: 0px;
+            cursor: pointer
+        }
+
+        .notifications-item:hover {
+            background-color: #eee
+        }
+
+        .notifications-item img {
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin-right: 9px;
+            border-radius: 50%;
+            margin-top: 2px
+        }
+
+        .notifications-item .text h4 {
+            color: #777;
+            font-size: 16px;
+            margin-top: 3px
+        }
+
+        .notifications-item .text p {
+            color: #aaa;
+            font-size: 12px
+        }
+
         hr {
             margin: 6rem 0;
         }
@@ -44,6 +123,27 @@
             SMKN 2
             SOLO</a>
         {{-- Resnponsive Menu Mobile side-right --}}
+
+        {{-- Notification --}}
+        <button class="btn btn-primary icon oi oi-bell d-block d-md-none border-none rounded-circle" id="bell-m"> 3</button>
+
+        {{-- Data Notifikasi --}}
+        <div class="notifications" id="box-m">
+            <h2>Notifications - <span>2</span></h2>
+            <div class="notifications-item"> <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img">
+                <div class="text">
+                    <h4>Samso aliao</h4>
+                    <p>Samso Nagaro Like your home work</p>
+                </div>
+            </div>
+            <div class="notifications-item"> <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                    alt="img">
+                <div class="text">
+                    <h4>John Silvester</h4>
+                    <p>+20 vista badge earned</p>
+                </div>
+            </div>
+        </div>
         <button class="btn btn-link d-block d-md-none" data-toggle="collapse" data-target="#sidebar-nav" role="button">
             <span class="oi oi-menu"></span>
         </button>
@@ -51,8 +151,15 @@
 
         <input class="border-dark bg-primary-darkest form-control d-none d-md-block w-50 ml-3 mr-2" type="text"
             placeholder="Search" aria-label="Search">
+
+
+
+
         {{-- Menu Person --}}
         <div class="dropdown d-none d-md-block">
+            {{-- Notification --}}
+        <button class="btn btn-primary icon oi oi-bell border-none rounded-circle" id="bell"> 3</button>
+
             {{-- Kondisi jika user login, muncul nama user --}}
             @if (\Auth::user())
                 @if (\Auth::user()->avatar)
@@ -67,6 +174,24 @@
                     {{ Auth::user()->name }}
                 </button>
             @endif
+            {{-- Data Notifikasi --}}
+            <div class="notifications" id="box">
+                <h2>Notifications - <span>2</span></h2>
+                <div class="notifications-item"> <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img">
+                    <div class="text">
+                        <h4>Samso aliao</h4>
+                        <p>Samso Nagaro Like your home work</p>
+                    </div>
+                </div>
+                <div class="notifications-item"> <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
+                        alt="img">
+                    <div class="text">
+                        <h4>John Silvester</h4>
+                        <p>+20 vista badge earned</p>
+                    </div>
+                </div>
+            </div>
+
             {{-- Menu dropdown person --}}
             <div class="dropdown-menu dropdown-menu-right" id="navbar-dropdown">
                 <a href="{{ route('users.show', \Auth::user()->id) }}" class="dropdown-item">Profile</a>
@@ -166,6 +291,51 @@
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var down = false;
+
+            $('#bell').click(function(e) {
+
+                var color = $(this).text();
+                if (down) {
+
+                    $('#box').css('height', '0px');
+                    $('#box').css('opacity', '0');
+                    down = false;
+                } else {
+
+                    $('#box').css('height', 'auto');
+                    $('#box').css('opacity', '1');
+                    down = true;
+
+                }
+
+            });
+        });
+        $(document).ready(function() {
+            var down = false;
+
+            $('#bell-m').click(function(e) {
+
+                var color = $(this).text();
+                if (down) {
+
+                    $('#box-m').css('height', '0px');
+                    $('#box-m').css('opacity', '0');
+                    down = false;
+                } else {
+
+                    $('#box-m').css('height', 'auto');
+                    $('#box-m').css('opacity', '1');
+                    down = true;
+
+                }
+
+            });
+        });
     </script>
     @yield('footer-scripts')
 </body>
