@@ -224,6 +224,9 @@ class QuestController extends Controller
     {
         $quests = \App\Models\Quest::withTrashed()->findOrFail($id);
 
+        $orderq = \App\Models\OrderQ::findOrFail($id);
+        $orderq->delete();
+
         if (!$quests->trashed()) {
             return redirect()->route('quest.trash')->with('status', 'Quest is not in trash!')->with('status_type', 'alert');
         } else {

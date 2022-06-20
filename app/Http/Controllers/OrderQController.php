@@ -125,7 +125,11 @@ class OrderQController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $orderq = \App\Models\OrderQ::findOrFail($id);
+        $orderq->delete();
+        $orderq->quest()->detach();
+
+        return redirect()->route('orderq.siswa', \Auth::user()->id)->with('status', 'Order Quest berhasil dibatalkan');
     }
 
     // public function getBatasWaktu($id){

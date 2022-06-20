@@ -12,8 +12,8 @@
             </div>
         @endif
 
-        <form enctype="multipart/form-data" class="bg-white shadow-sm p-3"
-            action="{{ route('users.update', [$user->id]) }}" method="POST">
+        <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{ route('users.update', [$user->id]) }}"
+            method="POST">
 
             @csrf
 
@@ -22,8 +22,8 @@
                 {{-- Form Name --}}
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="name">Name</label>
-                    <input value="{{ $user->name }}" class="form-control" placeholder="Full Name" type="text" name="name"
-                        id="name" />
+                    <input value="{{ $user->name }}" class="form-control" placeholder="Full Name" type="text"
+                        name="name" id="name" />
                     <br>
                 </div>
 
@@ -45,8 +45,8 @@
                 {{-- Form Tempat Lahir --}}
                 <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
                     <label for="tempatLahir">Tempat Lahir</label>
-                    <input class="form-control" placeholder="Tempat Lahir" type="text" name="tempatLahir" id="tempatLahir"
-                        value="{{ $user->tempat_lahir }}">
+                    <input class="form-control" placeholder="Tempat Lahir" type="text" name="tempatLahir"
+                        id="tempatLahir" value="{{ $user->tempat_lahir }}">
                     <hr class="my-3">
                 </div>
 
@@ -113,7 +113,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <label for="background">Background image</label>
                     <br>
-                    Current avatar: <br>
+                    Current Background: <br>
                     @if ($user->background)
                         <img src="{{ asset('storage/' . $user->background) }}" width="120px" />
                         <br>
@@ -125,78 +125,81 @@
                     <small class="text-muted">Kosongkan jika tidak ingin mengubah background</small>
                     <hr class="my-3">
                 </div>
+                @if (json_decode(Auth::user()->roles) == array_intersect(['0']))
+                    {{-- Job Class Choice --}}
 
-                {{-- Job Class Choice --}}
-
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <label for="jobclass">Job Class</label><br>
-                    <select name="jobclass[]" multiple id="jobclass" class="form-control">
-                    </select>
-                    <br><br>
-                </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <label for="jobclass">Job Class</label><br>
+                        <select name="jobclass[]" multiple id="jobclass" class="form-control">
+                        </select>
+                        <br><br>
+                    </div>
 
 
-                {{-- Skill Choice --}}
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <label for="skill">Skill</label>
-                    <select class="form-control" multiple class="form-control" name="skill[]" id="skill"></select>
-                    <br><br>
-                </div>
+                    {{-- Skill Choice --}}
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <label for="skill">Skill</label>
+                        <select class="form-control" multiple class="form-control" name="skill[]"
+                            id="skill"></select>
+                        <br><br>
+                    </div>
 
-                {{-- Form Status --}}
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label for="">Status</label>
-                    <br />
-                    <input {{ $user->status == 'on' ? 'checked' : '' }} value="on" type="radio" class="form-control"
-                        id="on" name="status">
-                    <label for="on">Online</label>
+                    {{-- Form Status --}}
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <label for="">Status</label>
+                        <br />
+                        <input {{ $user->status == 'on' ? 'checked' : '' }} value="on" type="radio"
+                            class="form-control" id="on" name="status">
+                        <label for="on">Online</label>
 
-                    <input {{ $user->status == 'off' ? 'checked' : '' }} value="off" type="radio" class="form-control"
-                        id="off" name="status">
-                    <label for="off">Offline</label>
-                    <br>
-                </div>
+                        <input {{ $user->status == 'off' ? 'checked' : '' }} value="off" type="radio"
+                            class="form-control" id="off" name="status">
+                        <label for="off">Offline</label>
+                        <br>
+                    </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label for="">Roles</label>
-                    <br>
-                    <input type="checkbox" {{ in_array('0', json_decode($user->roles)) ? 'checked' : '' }} name="roles[]"
-                        id="0" value="0">
-                    <label for="0">Administrator</label>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <label for="">Roles</label>
+                        <br>
+                        <input type="checkbox" {{ in_array('0', json_decode($user->roles)) ? 'checked' : '' }}
+                            name="roles[]" id="0" value="0">
+                        <label for="0">Administrator</label>
 
-                    <input type="checkbox" {{ in_array('1', json_decode($user->roles)) ? 'checked' : '' }} name="roles[]"
-                        id="1" value="1">
-                    <label for="1">Pengajar</label>
+                        <input type="checkbox" {{ in_array('1', json_decode($user->roles)) ? 'checked' : '' }}
+                            name="roles[]" id="1" value="1">
+                        <label for="1">Pengajar</label>
 
-                    <input type="checkbox" {{ in_array('2', json_decode($user->roles)) ? 'checked' : '' }} name="roles[]"
-                        id="2" value="2">
-                    <label for="2">Siswa</label>
-                </div>
+                        <input type="checkbox" {{ in_array('2', json_decode($user->roles)) ? 'checked' : '' }}
+                            name="roles[]" id="2" value="2">
+                        <label for="2">Siswa</label>
+                    </div>
 
-                {{-- Form Level --}}
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                    <label for="level">Level</label>
-                    <input class="form-control" placeholder="level" type="integer" name="level" id="level"
-                        value="{{ $user->level }}">
-                    <br>
-                </div>
+                    {{-- Form Level --}}
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <label for="level">Level</label>
+                        <input class="form-control" placeholder="level" type="integer" name="level" id="level"
+                            value="{{ $user->level }}">
+                        <br>
+                    </div>
 
-                {{-- Form Skor --}}
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                    <label for="skor">Skor</label>
-                    <input class="form-control" placeholder="skor" type="float" name="skor" id="skor"
-                        value="{{ $user->skor }}">
-                    <br>
-                </div>
+                    {{-- Form Skor --}}
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <label for="skor">Skor</label>
+                        <input class="form-control" placeholder="skor" type="float" name="skor" id="skor"
+                            value="{{ $user->skor }}">
+                        <br>
+                    </div>
 
-                {{-- Form EXP --}}
-                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-                    <label for="exp">Exp</label>
-                    <input class="form-control" placeholder="exp" type="float" name="exp" id="exp"
-                        value="{{ $user->exp }}">
-                    <br>
-                </div>
+                    {{-- Form EXP --}}
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <label for="exp">Exp</label>
+                        <input class="form-control" placeholder="exp" type="float" name="exp" id="exp"
+                            value="{{ $user->exp }}">
+                        <br>
+                    </div>
             </div>
+            @endif
+
 
             <input class="btn btn-primary" type="submit" value="Save" />
         </form>
@@ -254,6 +257,5 @@
             var option = new Option(skill.judul, skill.id, true, true);
             $('#skill').append(option).trigger('change');
         });
-
     </script>
 @endsection

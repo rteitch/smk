@@ -118,13 +118,11 @@ class SkillController extends Controller
         $slug = Str::slug($judul, '-');
         $deskripsi = $request->get('deskripsi');
         $syarat_level = $request->get('syarat_lv');
-        $kuota_skill = $request->get('qty');
 
         $skill = \App\Models\Skill::findOrFail($id);
         $skill->judul = $judul;
         $skill->pembuat = \Auth::user()->name;
         $skill->syarat_lv = $syarat_level;
-        $skill->qty = $kuota_skill;
         $skill->deskripsi = $deskripsi;
         $skill->slug = $slug;
 

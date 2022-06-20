@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
                 'phone' => 8333,
                 'nomor_induk' => 33123,
                 'tanggal_lahir' => Carbon::create('2010', '04', '04'),
-                'level' => 99,
+                'level' => 1,
                 'skor' => 0,
                 'exp' => 0,
                 'created_at' => new \DateTime,

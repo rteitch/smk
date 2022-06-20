@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('quest_id');
             $table->timestamps();
 
-            $table->foreign('order_q_id')->references('id')->on('order_q_s');
-            $table->foreign('quest_id')->references('id')->on('quests');
+            $table->foreign('order_q_id')->references('id')->on('order_q_s')->onDelete('cascade');
+            $table->foreign('quest_id')->references('id')->on('quests')->onDelete('cascade');
         });
     }
 

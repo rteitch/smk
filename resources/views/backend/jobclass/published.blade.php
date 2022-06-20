@@ -46,6 +46,18 @@
                                 <div class="card-footer">
                                     @if ($user->isHasJobclass($jobclasses->id))
                                         <small class="text-info">Job Class sudah ditambahkan</small>
+                                        <form
+                                            onsubmit="return confirm('Membatalkan quest kode {{ $jobclasses->name }}?')"
+                                            class="d-inline" action="{{ route('user.hapusUserJobClass', [$jobclasses->id]) }}"
+                                            method="POST">
+
+                                            @csrf
+
+                                            <button type="submit" class="btn btn-danger btn-sm"><span
+                                                    class="oi oi-trash"></span></button>
+                                            {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm"> --}}
+
+                                        </form>
                                     @else
                                         <form
                                             onsubmit="return confirm('Tambah this id {{ $jobclasses->id }} jobclass  {{ $jobclasses->name }} ke user?')"

@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <form action="{{ route('orderq.index') }}">
         <div class="row">
             <div class="col-md-5">
@@ -86,7 +91,8 @@
                                                         <div>
                                                             <hr class="my-3">
                                                         </div>
-                                                        <p>Jawaban mu telah terkirim, tunggu beberapa waktu untuk penilaian dari pembuat quest</p>
+                                                        <p>Jawaban mu telah terkirim, tunggu beberapa waktu untuk penilaian
+                                                            dari pembuat quest</p>
                                                     @elseif ($order->status == 'FINISH')
                                                         <div>
                                                             <hr class="my-3">
@@ -230,7 +236,16 @@
                         data-target="#myModal{{ $order->id }}"><span class="oi oi-eye"></span> View
                     </button>
 
-                    <small class="text-muted" id="judul_file2"></small>
+                    <form onsubmit="return confirm('Membatalkan quest kode {{ $order->quest_code }}?')"
+                        class="d-inline" action="{{ route('orderq.destroy', [$order->id]) }}" method="POST">
+
+                        @csrf
+
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn- btn-danger btn-sm"><span class="oi oi-trash"></span></button>
+                        {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm"> --}}
+
+                    </form>
                     <br>
                 </td>
 

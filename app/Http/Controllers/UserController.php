@@ -227,12 +227,16 @@ class UserController extends Controller
         $user->tanggal_lahir = $request->get('tanggalLahir');
         $user->alamat = $request->get('alamat');
         $user->gender = $request->get('gender');
-        $user->roles = json_encode($request->get('roles'));
-        // on = online, off = offline
-        $user->status = $request->get('status');
-        $user->level = $request->get('level');
-        $user->skor = $request->get('skor');
-        $user->exp = $request->get('exp');
+        $userAuthRoles = json_decode(Auth::user()->roles);
+        $adminKode = array_intersect(['0']);
+        if ($userAuthRoles == $adminKode) {
+            $user->roles = json_encode($request->get('roles'));
+            // on = online, off = offline
+            $user->status = $request->get('status');
+            $user->level = $request->get('level');
+            $user->skor = $request->get('skor');
+            $user->exp = $request->get('exp');
+        }
         if ($request->file('avatar')) {
             if ($user->avatar && file_exists(storage_path('app/public/' . $user->avatar))) {
                 \Storage::delete('public/' . $user->avatar);
@@ -249,6 +253,11 @@ class UserController extends Controller
         }
 
         $user->save();
+
+        if ($userAuthRoles == $adminKode) {
+            $user->skill()->sync($request->get('skill'));
+            $user->jobclass()->sync($request->get('jobclass'));
+        }
         $user->skill()->sync($request->get('skill'));
         $user->jobclass()->sync($request->get('jobclass'));
         return redirect()->route('users.show', [$id])->with('status', 'User succesfully updated');
@@ -303,15 +312,12 @@ class UserController extends Controller
         }
     }
 
-    // public function tambahOrderQuest(Request $request, $id)
-    // {
-    //     $auth_user = \Auth::user();
-    //     $hasOrderQuest = $auth_user->orderq()->where('quest_id', $id)->exists();
-    //     if ($hasOrderQuest) {
-    //         return redirect()->route('quest.published')->with('info', 'Sudah ada di daftar Order Quest');
-    //     } else {
-    //         $auth_user->skill()->attach($id);
-    //         return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di Order');
-    //     }
-    // }
+    public function hapusUserJobClass($id)
+    {
+        $auth_user = \Auth::user();
+        // $hasJobClass = $auth_user->jobclass()->where('job_class_id', $id)->exists();
+        $auth_user->jobclass()->detach($id);
+
+        return redirect()->route('jobclass.published', \Auth::user()->id)->with('status', 'JobClass berhasil dibatalkan');
+    }
 }

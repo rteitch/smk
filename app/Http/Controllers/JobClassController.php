@@ -204,4 +204,6 @@ class JobClassController extends Controller
         // dd($jobclass);
         return view('backend.jobclass.lihat-jobclass', ['jobclasses' => $jobclass]);
     }
+
+
 }
