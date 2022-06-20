@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // fungsi untuk mengubah status login user ke on
+        $id = Auth::user()->id;
+        if (Auth::check()) {
+            $user = \App\Models\User::find($id);
+            $user->status = "on";
+            $user->save();
+        }
+
         return view('backend.home');
     }
 }
