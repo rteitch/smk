@@ -116,6 +116,7 @@
 </head>
 
 <body>
+
     {{-- Navigasi --}}
     <nav class="navbar navbar-expand p-0">
         {{-- Judul Situs --}}
@@ -125,7 +126,8 @@
         {{-- Resnponsive Menu Mobile side-right --}}
 
         {{-- Notification --}}
-        <button class="btn btn-primary icon oi oi-bell d-block d-md-none border-none rounded-circle" id="bell-m"> 3</button>
+        <button class="btn btn-primary icon oi oi-bell d-block d-md-none border-none rounded-circle" id="bell-m">
+            3</button>
 
         {{-- Data Notifikasi --}}
         <div class="notifications" id="box-m">
@@ -158,7 +160,7 @@
         {{-- Menu Person --}}
         <div class="dropdown d-none d-md-block">
             {{-- Notification --}}
-        <button class="btn btn-primary icon oi oi-bell border-none rounded-circle" id="bell"> 3</button>
+            <button class="btn btn-primary icon oi oi-bell border-none rounded-circle" id="bell"> 3</button>
 
             {{-- Kondisi jika user login, muncul nama user --}}
             @if (\Auth::user())
@@ -247,8 +249,11 @@
                         <li><a href="{{ route('notifikasi.index') }}"><span class="oi oi-envelope-closed"> Manage
                                     Notifikasi</span></a></li>
                         {{-- <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li> --}}
-                    @endif
+                    <div>
 
+                        <hr class="my-3">
+                    </div>
+                    @endif
 
                     <li><a href="{{ route('jobclass.published') }}"><span class="oi oi-globe"> Publish
                                 Job Class</span></a></li>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\JobClassController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\GlobalController;
 use App\Http\Controllers\JobDasarController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OrderQController;
@@ -36,9 +37,7 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/global', function () {
-    return view('layouts.global');
-});
+Route::get('/global', [GlobalController::class, 'index']);
 
 Route::get('change-password', [ChangePasswordController::class, 'index']);
 Route::post('change-password', [ChangePasswordController::class, 'changePassword'])->name('auth.change-password');
