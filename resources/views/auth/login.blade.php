@@ -9,17 +9,18 @@
                     <strong>Login</strong>
                 </div>
                 <div class="card-body">
+
                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" style="padding: 0 15%">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label for="email" class="col-sm-12 col-form-label pl-0">{{ __('E-Mail Address') }}</label>
+                                <label for="username" class="col-sm-12 col-form-label pl-0">{{ __('Username or Email') }}</label>
                                 <br>
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="username" type="username" class="form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}" name="login" value="{{ old('username') ?: old('email') }}" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('username') || $errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('username') ?: $errors->first('email') }}</strong>
                                     </span>
                                 @endif
                             </div>

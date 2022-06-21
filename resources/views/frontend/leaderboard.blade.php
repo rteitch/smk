@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Orders list
+    Leaderboard
 @endsection
 
 @section('content')
