@@ -15,9 +15,9 @@ class OrderRController extends Controller
     {
         $status = $request->get('status');
         $user_name = $request->get('name');
-        $order_r_s = \App\Models\OrderR::with('user')->whereHas('user', function($query) use ($user_name){
+        $order_r_s = \App\Models\OrderR::with('user')->whereHas('user', function ($query) use ($user_name) {
             $query->where('name', 'LIKE', "%$user_name%");
-        })->where('status','LIKE', "%$status%")->paginate(10);
+        })->where('status', 'LIKE', "%$status%")->paginate(10);
 
 
         return view('frontend.orderr.index', ['order_r_s' => $order_r_s]);
@@ -95,5 +95,22 @@ class OrderRController extends Controller
         //
     }
 
-
+    public function tambahOrderQuest(Request $request, $id)
+    {
+        $quest_order = new \App\Models\OrderQ();
+        // $quest = new \App\Models\Quest();
+        // dd($quest->orderq());
+        $quest_order->user_id = Auth::user()->id;
+        $quest_order->status = 'SUBMIT';
+        $quest_order->file_jawab = null;
+        $quest_order->jawaban_pilgan = null;
+        $quest_order->status = 'SUBMIT';
+        $CodeQuest = uniqid();
+        $quest_order->quest_code = substr(md5($CodeQuest), 6, 6);
+        $quest_order->save();
+        $quest_order->quest()->attach($id);
+        // $quest_id = \App\Models\OrderQ::findOrFail(\Auth::user()->id);
+        // $hasQuest = $
+        return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di quest order');
+    }
 }

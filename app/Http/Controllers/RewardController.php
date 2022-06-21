@@ -178,4 +178,17 @@ class RewardController extends Controller
             return redirect()->route('reward.trash')->with('status', 'Reward is not in trash');
         }
     }
+
+
+    public function published(Request $request)
+    {
+
+        $reward = \App\Models\Reward::orderBy('title', 'asc')->where('status', 'PUBLISH')->paginate(6);
+
+        $id_user = \Auth::user()->id;
+        $orderr = \App\Models\OrderR::paginate(6);
+        $user = \App\Models\User::select('id', 'name')->get();
+
+        return view('backend.reward.published', compact('reward', 'user', 'orderr'));
+    }
 }

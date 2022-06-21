@@ -269,6 +269,8 @@
                                 Quest</span></a></li>
                     <li><a href="{{ route('artikel.published') }}"><span class="oi oi-globe"> Published
                                 Artikel</span></a></li>
+                    <li><a href="{{ route('reward.published') }}"><span class="oi oi-globe"> Publish Reward</span></a>
+                    </li>
                     <li><a href="{{ route('user.leaderboard') }}"><span class="oi oi-globe"> Leaderboard</span></a>
                     </li>
                     {{-- Menu person responsive mobile --}}

@@ -132,11 +132,16 @@ Route::delete('/notifikasi/{notifikasi}/delete-permanent', [NotifikasiController
 Route::resource('notifikasi', NotifikasiController::class);
 
 
-//Route Quest
+//Route reward
+
+Route::get('/reward/published', [RewardController::class, 'published'])->name('reward.published');
+
 Route::get('/reward/trash', [RewardController::class, 'trash'])->name('reward.trash');
 Route::post('/reward/{reward}/restore', [RewardController::class, 'restore'])->name('reward.restore');
 Route::delete('/reward/{reward}/delete-permanent', [RewardController::class, 'deletePermanent'])->name('reward.delete-permanent');
 Route::resource('reward', RewardController::class);
 
 //Route OrderR
+
+Route::post('/reward/published/orderr/{id}/tukar', [OrderRController::class, 'tukarOrderReward'])->name('orderr.tukarOrderReward');
 Route::resource('orderr', OrderRController::class);
