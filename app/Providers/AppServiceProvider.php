@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
         config(['app.locale' => 'id']);
         Carbon::setLocale('id');
         date_default_timezone_set('Asia/Jakarta');
-
+        // fungsi untuk mengirim semua data dari db notifikasi ke semua view dengan memanfaatkan fitur composer
         view()->composer('*', function ($view) {
             if (Auth::check()) {
                 $userAuthRoles = json_decode(Auth::user()->roles);
@@ -49,9 +49,9 @@ class AppServiceProvider extends ServiceProvider
                 } elseif ($userAuthRoles == array_intersect(['0'])) {
                     $notifikasi = \App\Models\Notifikasi::paginate(4);
                 }
-
-
-                View::share('notifikasi', $notifikasi);
+                if ($view->getName() != 'backend.notifikasi.edit') {
+                    View::share('notifikasi', $notifikasi);
+                }
             } else {
             }
         });

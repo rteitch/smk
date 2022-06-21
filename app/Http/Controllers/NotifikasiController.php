@@ -105,7 +105,7 @@ class NotifikasiController extends Controller
     public function edit($id)
     {
         $notifikasi_to_edit = \App\Models\Notifikasi::findOrFail($id);
-        return view('backend.notifikasi.edit', ['notifikasi' => $notifikasi_to_edit]);
+        return view('backend.notifikasi.edit', ['notifikasi_to_edit' => $notifikasi_to_edit]);
     }
 
     /**

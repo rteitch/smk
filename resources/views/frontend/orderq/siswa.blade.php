@@ -51,7 +51,31 @@
 
                         @foreach ($orderq as $order)
                             @foreach ($order->quest as $quests)
-                                <!-- Modal -->
+                                <!-- Modal View file jawab -->
+                                <div id="myModalFileJawab{{ $order->id }}" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="judul_file">{{ $order->quest_code }}</h3>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <iframe src="{{ asset('storage/' . $order->file_jawab) }}" frameborder="0" width="100%"
+                                                    height="400px" type="application/pdf"></iframe>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal Penugasan -->
                                 <div id="myModal{{ $order->id }}" class="modal fade" role="dialog">
                                     <div class="modal-dialog modal-lg">
 
@@ -163,8 +187,7 @@
                                                         @if ($quest->where('id', $quests->pivot->quest_id)->first()->jenis_soal == 'LAPORAN')
                                                             @if ($quest_file = $quest->where('id', $quests->pivot->quest_id)->first()->file_pendukung)
                                                                 File pendukung dari pembuat quest : <br>
-                                                                <iframe
-                                                                    src="{{ asset('storage/' . $quest_file) }}"
+                                                                <iframe src="{{ asset('storage/' . $quest_file) }}"
                                                                     frameborder="0" width="100%" height="400px"
                                                                     type="application/pdf"></iframe>
                                                             @endif
@@ -219,9 +242,10 @@
                     <small>{{ $order->user->email }}</small>
                 </td>
                 <td>
-                    @if (!$order->file_pendukung == null)
-                        <iframe src="{{ asset('storage/' . $order->file_pendukung) }}" frameborder="0" width="100%"
-                            height="400px" type="application/pdf"></iframe>
+                    @if (!$order->file_jawab == null)
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                            data-target="#myModalFileJawab{{ $order->id }}"><span class="oi oi-eye"></span> View
+                        </button>
                     @else
                         <small>tidak ada file upload</small>
                     @endif
