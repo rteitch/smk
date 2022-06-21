@@ -196,4 +196,9 @@ class NotifikasiController extends Controller
             return redirect()->route('notifikasi.trash')->with('status', 'Notifikasi is not in trash');
         }
     }
+
+    public function showUserPesan(){
+
+        return view('backend.notifikasi.show');
+    }
 }

@@ -54,7 +54,7 @@
             border-radius: 5px 0px 5px 5px;
             background-color: #fff;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            z-index: 1;
+            z-index: ;
         }
 
         .notifications h2 {
@@ -124,27 +124,22 @@
             SMKN 2
             SOLO</a>
         {{-- Resnponsive Menu Mobile side-right --}}
-
         {{-- Notification --}}
         <button class="btn btn-primary icon oi oi-bell d-block d-md-none border-none rounded-circle" id="bell-m">
             3</button>
 
         {{-- Data Notifikasi --}}
         <div class="notifications" id="box-m">
+
             <h2>Notifications - <span>2</span></h2>
-            <div class="notifications-item"> <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img">
-                <div class="text">
-                    <h4>Samso aliao</h4>
-                    <p>Samso Nagaro Like your home work</p>
+            @foreach ($notifikasi as $notif)
+                <div class="notifications-item"> <img src="{{ asset('storage/' . $notif->image) }}" alt="img">
+                    <div class="text">
+                        <h4>{{ $notif->title }}</h4>
+                        <p>{{ $notif->pesan }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="notifications-item"> <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                    alt="img">
-                <div class="text">
-                    <h4>John Silvester</h4>
-                    <p>+20 vista badge earned</p>
-                </div>
-            </div>
+            @endforeach
         </div>
         <button class="btn btn-link d-block d-md-none" data-toggle="collapse" data-target="#sidebar-nav" role="button">
             <span class="oi oi-menu"></span>
@@ -178,20 +173,18 @@
             @endif
             {{-- Data Notifikasi --}}
             <div class="notifications" id="box">
-                <h2>Notifications - <span>2</span></h2>
-                <div class="notifications-item"> <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img">
-                    <div class="text">
-                        <h4>Samso aliao</h4>
-                        <p>Samso Nagaro Like your home work</p>
+                <h2>Notifications - <span>{{ $notifikasi->count() }}</span></h2>
+                @foreach ($notifikasi as $notif)
+                    <div class="notifications-item"> <img src="{{ asset('storage/' . $notif->image) }}"
+                            alt="img">
+                        <div class="text">
+                            <h4>{{ $notif->title }}</h4>
+                            <p>{{ $notif->pesan }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="notifications-item"> <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png"
-                        alt="img">
-                    <div class="text">
-                        <h4>John Silvester</h4>
-                        <p>+20 vista badge earned</p>
-                    </div>
-                </div>
+                @endforeach
+                <a href="{{ route('notifikasi.showUserPesan') }}">More
+                    Pesan</a>
             </div>
 
             {{-- Menu dropdown person --}}
@@ -249,10 +242,10 @@
                         <li><a href="{{ route('notifikasi.index') }}"><span class="oi oi-envelope-closed"> Manage
                                     Notifikasi</span></a></li>
                         {{-- <li><a href="#"><span class="oi oi-fork"> Manage Log</span></a></li> --}}
-                    <div>
+                        <div>
 
-                        <hr class="my-3">
-                    </div>
+                            <hr class="my-3">
+                        </div>
                     @endif
 
                     <li><a href="{{ route('jobclass.published') }}"><span class="oi oi-globe"> Publish

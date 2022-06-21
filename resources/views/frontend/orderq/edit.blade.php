@@ -22,8 +22,14 @@
                 <input type="text" class="form-control" value="{{ $order_q_s->quest_code }}" disabled>
                 <br>
 
-                <label for="">Siswa</label><br>
+                <label for="">Nama Siswa</label><br>
                 <input disabled class="form-control" type="text" value="{{ $order_q_s->user->name }}">
+                <br>
+
+                <label for="">Job Class</label><br>
+                <input disabled class="form-control" type="text"
+                    value="@foreach ($order_q_s->user->jobclass as $jobclass) {{ $jobclass->name }}, @endforeach
+                ">
                 <br>
                 <label for="created_at">Batas Waktu</label><br>
                 <input type="text" class="form-control"
@@ -31,12 +37,6 @@
                 <br>
                 <!-- Trigger the modal with a button -->
 
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><span
-                        class="oi oi-eye"></span> Lihat File Jawaban
-                </button>
-
-                <small class="text-muted" id="judul_file2"></small>
-                <br>
                 <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog modal-lg">
@@ -59,15 +59,21 @@
                         </div>
                     </div>
                 </div>
-                <br>
+                @foreach ($order_q_s->quest as $quests)
+                    @if ($quests->where('id', $quests->pivot->quest_id)->first()->jenis_soal == 'LAPORAN')
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><span
+                                class="oi oi-eye"></span> Lihat File Jawaban
+                        </button>
 
-                <label for="">File Jawaban</label><br>
-                <input class="form-control" type="text" value="{{ $order_q_s->file_jawaban }}" disabled>
-                <br>
-
-                <label for="">Jawaban Pilgan</label><br>
-                <input class="form-control" type="text" value="{{ $order_q_s->jawaban_pilgan }}" disabled>
-                <br>
+                        <br>
+                        <small class="text-muted" id="judul_file2">{{ $order_q_s->file_jawab }}</small>
+                        <br><br>
+                    @elseif ($quests->where('id', $quests->pivot->quest_id)->first()->jenis_soal == 'PILGANDA')
+                        <label for="">Jawaban Pilgan</label><br>
+                        <input class="form-control" type="text" value="{{ $order_q_s->jawaban_pilgan }}" disabled>
+                        <br>
+                    @endif
+                @endforeach
 
                 <label for="status">Status</label><br>
                 <select class="form-control" name="status" id="status">

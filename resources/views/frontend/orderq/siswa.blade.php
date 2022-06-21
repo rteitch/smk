@@ -161,8 +161,15 @@
                                                             @endif
                                                         @endif
                                                         @if ($quest->where('id', $quests->pivot->quest_id)->first()->jenis_soal == 'LAPORAN')
+                                                            @if ($quest_file = $quest->where('id', $quests->pivot->quest_id)->first()->file_pendukung)
+                                                                File pendukung dari pembuat quest : <br>
+                                                                <iframe
+                                                                    src="{{ asset('storage/' . $quest_file) }}"
+                                                                    frameborder="0" width="100%" height="400px"
+                                                                    type="application/pdf"></iframe>
+                                                            @endif
                                                             @if ($order->status == 'SUBMIT')
-                                                                <label for="file">File Jawab</label>
+                                                                <label for="file">Upload File Jawab</label>
                                                                 <input type="file" class="form-control"
                                                                     name="file_jawaban_siswa">
                                                                 <br><br>

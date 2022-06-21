@@ -37,7 +37,7 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/global', [GlobalController::class, 'index']);
+Route::get('/global', [GlobalController::class, 'index'])->name('layouts.global');
 
 Route::get('change-password', [ChangePasswordController::class, 'index']);
 Route::post('change-password', [ChangePasswordController::class, 'changePassword'])->name('auth.change-password');
@@ -123,6 +123,7 @@ Route::delete('/artikel/{artikel}/delete-permanent', [ArtikelController::class, 
 Route::resource('artikel', ArtikelController::class);
 
 //Route Notifikasi
+Route::get('/notifikasi/user/' , [NotifikasiController::class, 'showUserPesan'])->name('notifikasi.showUserPesan');
 Route::get('/notifikasi/trash', [NotifikasiController::class, 'trash'])->name('notifikasi.trash');
 Route::post('/notifikasi/{notifikasi}/restore', [NotifikasiController::class, 'restore'])->name('notifikasi.restore');
 Route::delete('/notifikasi/{notifikasi}/delete-permanent', [NotifikasiController::class, 'deletePermanent'])->name('notifikasi.delete-permanent');
