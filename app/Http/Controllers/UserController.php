@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Auth;
+use DataTables;
+
 
 class UserController extends Controller
 {
@@ -319,5 +321,15 @@ class UserController extends Controller
         $auth_user->jobclass()->detach($id);
 
         return redirect()->route('jobclass.published', \Auth::user()->id)->with('status', 'JobClass berhasil dibatalkan');
+    }
+
+    public function getLeaderboard(){
+        $user_leaderboard = \App\Models\User::select('id', 'username', 'level', 'skor', 'roles')->where('roles', 'LIKE', json_encode(["2"]))->get();
+        return DataTables::of($user_leaderboard)->make(true);
+    }
+
+    public function leaderboard(){
+
+        return view('frontend.leaderboard');
     }
 }

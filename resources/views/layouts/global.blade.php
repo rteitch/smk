@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{{ asset('polished/iconic/css/open-iconic-bootstrap.min.css') }}">
 
     <style>
+        div .dt-button {
+            margin-bottom: 10px;
+        }
+
         .grid-highlight {
             padding-top: 1rem;
             padding-bottom: 1rem;
@@ -140,6 +144,10 @@
                     </div>
                 </div>
             @endforeach
+            <div class="text-center mt-2 mb-2">
+                <a class="btn btn-info btn-sm" href="{{ route('notifikasi.showUserPesan') }}">More
+                    Pesan</a>
+            </div>
         </div>
         <button class="btn btn-link d-block d-md-none" data-toggle="collapse" data-target="#sidebar-nav" role="button">
             <span class="oi oi-menu"></span>
@@ -183,8 +191,10 @@
                         </div>
                     </div>
                 @endforeach
-                <a href="{{ route('notifikasi.showUserPesan') }}">More
-                    Pesan</a>
+                <div class="text-center mt-2 mb-2">
+                    <a class="btn btn-info btn-sm" href="{{ route('notifikasi.showUserPesan') }}">More
+                        Pesan</a>
+                </div>
             </div>
 
             {{-- Menu dropdown person --}}
@@ -259,6 +269,8 @@
                                 Quest</span></a></li>
                     <li><a href="{{ route('artikel.published') }}"><span class="oi oi-globe"> Published
                                 Artikel</span></a></li>
+                    <li><a href="{{ route('user.leaderboard') }}"><span class="oi oi-globe"> Leaderboard</span></a>
+                    </li>
                     {{-- Menu person responsive mobile --}}
                     <div class="d-block d-md-none">
                         <div class="dropdown-divider"></div>

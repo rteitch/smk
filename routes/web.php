@@ -56,6 +56,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     return response()->json($user, 200);
 // });
 
+Route::get('/get-leaderboard', [UserController::class, 'getLeaderboard']);
+Route::get('/leaderboard', [UserController::class, 'leaderboard'])->name('user.leaderboard');
 Route::post('/jobclass/published/{id}/batal', [UserController::class, 'hapusUserJobClass'])->name('user.hapusUserJobClass');
 Route::post('/quest/published/{id}/tambah', [UserController::class, 'tambahOrderQuest'])->name('user.tambahOrderQuest');
 Route::post('/jobclass/published/{id}/tambah', [UserController::class, 'tambahJobClass'])->name('user.tambahJobClass');
