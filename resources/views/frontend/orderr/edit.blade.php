@@ -43,7 +43,7 @@
                 <select class="form-control" name="status" id="status">
                     <option {{ $order_r_s->status == 'SUBMIT' ? 'selected' : '' }} value="SUBMIT">SUBMIT</option>
                     <option {{ $order_r_s->status == 'PROCESS' ? 'selected' : '' }} value="PROCESS">PROCESS</option>
-                    <option {{ $order_r_s->status == 'DITERIMA' ? 'selected' : '' }} value="FINISH">DITERIMA</option>
+                    <option {{ $order_r_s->status == 'DITERIMA' ? 'selected' : '' }} value="DITERIMA">DITERIMA</option>
                 </select>
                 <br>
 

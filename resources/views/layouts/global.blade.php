@@ -267,6 +267,9 @@
                     <li><a href="{{ route('orderq.siswa', \Auth::user()->id) }}"><span class="oi oi-globe"> Siswa
                                 Order
                                 Quest</span></a></li>
+                    <li><a href="{{ route('orderr.siswa', \Auth::user()->id) }}"><span class="oi oi-globe"> Siswa
+                                Order
+                                Reward</span></a></li>
                     <li><a href="{{ route('artikel.published') }}"><span class="oi oi-globe"> Published
                                 Artikel</span></a></li>
                     <li><a href="{{ route('reward.published') }}"><span class="oi oi-globe"> Publish Reward</span></a>

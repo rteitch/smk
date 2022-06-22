@@ -143,5 +143,6 @@ Route::resource('reward', RewardController::class);
 
 //Route OrderR
 
+Route::get('/reward/siswa/{id}/order', [OrderRController::class, 'siswa'])->name('orderr.siswa');
 Route::post('/reward/published/orderr/{id}/tukar', [OrderRController::class, 'tukarOrderReward'])->name('orderr.tukarOrderReward');
 Route::resource('orderr', OrderRController::class);

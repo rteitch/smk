@@ -85,13 +85,13 @@ class OrderRController extends Controller
 
 
         $skor_lama = $user_lama->skor;
-        $tukar_skor= $skor_lama - $reward_syarat_skor;
-
-        if ($status == "FINISH") {
+        $tukar_skor = $skor_lama - $reward_syarat_skor;
+        if ($status == "DITERIMA") {
+            $tukar_skor = $skor_lama - $reward_syarat_skor;
             \App\Models\User::where('id', $user_lama->id)->select('skor')->update(
-                ['skor' => $tukar_skor]);
-            }
-
+                ['skor' => $tukar_skor]
+            );
+        }
         $order_r_s->save();
 
         return redirect()->route('orderr.edit', [$order_r_s->id])->with('status', 'Order Reward sucessfully updated');
@@ -117,13 +117,30 @@ class OrderRController extends Controller
         $user_lama = Auth::user();
         $tukar_reward->user_id = $user_lama->id;
         $syarat_skor = $reward->syarat_skor;
-        if($user_lama->skor < $syarat_skor){
+        if ($user_lama->skor < $syarat_skor) {
             return redirect()->route('reward.published')->with('info', 'Anda tidak diizinkan menukar reward, skor tidak cukup');
-        }else{
+        } else {
             $tukar_reward->status = 'SUBMIT';
             $tukar_reward->save();
             $tukar_reward->reward()->attach($id);
             return redirect()->route('reward.published')->with('status', 'Berhasil menukar Reward, reward sedang di proses');
         }
+    }
+
+    public function siswa(Request $request, $id)
+    {
+        $status = $request->get('status');
+        $user = \App\Models\User::with('orderr')->select('name', 'id')->get();
+        $user_name = Auth::user()->name;
+        $orderq = \App\Models\OrderR::with('user')->with(
+            ['reward' => function ($query) {
+                $query->select('title', 'deskripsi', 'syarat_skor', 'image', 'pembuat', 'status');
+            }]
+        )->whereHas('user', function ($query) use ($user_name) {
+            $query->where('name', 'LIKE', "%$user_name%");
+        })->where('status', 'LIKE', "%$status%")->where('user_id', 'LIKE', $id)->paginate(4);
+        $reward = \App\Models\Reward::select('id', 'title', 'deskripsi', 'syarat_skor', 'image', 'pembuat', 'status')->get();
+
+        return view('frontend.orderr.siswa', compact('orderr', 'reward', 'user'));
     }
 }

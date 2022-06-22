@@ -49,10 +49,8 @@
                                         <span class="badge bg-warning text-light">{{ $order->status }}</span>
                                     @elseif($order->status == 'PROCESS')
                                         <span class="badge bg-info text-light">{{ $order->status }}</span>
-                                    @elseif($order->status == 'FINISH')
+                                    @elseif($order->status == 'DITERIMA')
                                         <span class="badge bg-success text-light">{{ $order->status }}</span>
-                                    @elseif($order->status == 'CANCEL')
-                                        <span class="badge bg-dark text-light">{{ $order->status }}</span>
                                     @endif
                                 </td>
                                 <td>{{ $rewards->title }}</td>
