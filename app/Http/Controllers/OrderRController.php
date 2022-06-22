@@ -132,7 +132,7 @@ class OrderRController extends Controller
         $status = $request->get('status');
         $user = \App\Models\User::with('orderr')->select('name', 'id')->get();
         $user_name = Auth::user()->name;
-        $orderq = \App\Models\OrderR::with('user')->with(
+        $orderr = \App\Models\OrderR::with('user')->with(
             ['reward' => function ($query) {
                 $query->select('title', 'deskripsi', 'syarat_skor', 'image', 'pembuat', 'status');
             }]

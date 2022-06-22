@@ -172,16 +172,6 @@ class OrderQController extends Controller
         })->where('status', 'LIKE', "%$status%")->where('user_id', 'LIKE', $id)->paginate(4);
         $quest = \App\Models\Quest::select('id', 'judul', 'deskripsi', 'level', 'skor', 'exp', 'image', 'batas_waktu', 'kesulitan', 'file_pendukung', 'jenis_soal', 'pil_A', 'pil_B', 'pil_C', 'pil_D', 'pil_E', 'pembuat')->get();
 
-        // $orderq = \App\Models\OrderQ::with(
-        //     'user'
-        // )->with(
-        //     ['quest' => function ($query) {
-        //         $query->select('batas_waktu');
-        //     }]
-        // )->paginate(4);
-        // dd($orderq);
-        // $auth_user = \Auth::user()->id;
-        // $orderq = \App\Models\OrderQ::where('user_id', $id)->paginate(4);
         return view('frontend.orderq.siswa', compact('orderq', 'quest', 'user'));
     }
 
