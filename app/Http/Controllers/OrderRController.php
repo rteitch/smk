@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderRController extends Controller
 {
@@ -19,8 +20,7 @@ class OrderRController extends Controller
             $query->where('name', 'LIKE', "%$user_name%");
         })->where('status', 'LIKE', "%$status%")->paginate(10);
 
-
-        return view('frontend.orderr.index', ['order_r_s' => $order_r_s]);
+        return view('frontend.orderr.index', compact('order_r_s'));
     }
 
     /**
@@ -64,7 +64,7 @@ class OrderRController extends Controller
     public function edit($id)
     {
         $order_r_s = \App\Models\OrderR::findOrFail($id);
-        return view('frontend.orderr.edit', ['order_r_s' => $order_r_s]);
+        return view('frontend.orderr.edit', compact('order_r_s'));
     }
 
     /**
@@ -77,7 +77,20 @@ class OrderRController extends Controller
     public function update(Request $request, $id)
     {
         $order_r_s = \App\Models\OrderR::findOrFail($id);
-        $order_r_s->status = $request->get('status');
+        $user_lama = $order_r_s->user;
+        foreach ($order_r_s->reward as $reward) {
+            $reward_syarat_skor = $reward->syarat_skor;
+        }
+        $status = $order_r_s->status = $request->get('status');
+
+
+        $skor_lama = $user_lama->skor;
+        $tukar_skor= $skor_lama - $reward_syarat_skor;
+
+        if ($status == "FINISH") {
+            \App\Models\User::where('id', $user_lama->id)->select('skor')->update(
+                ['skor' => $tukar_skor]);
+            }
 
         $order_r_s->save();
 
@@ -95,22 +108,22 @@ class OrderRController extends Controller
         //
     }
 
-    public function tambahOrderQuest(Request $request, $id)
+    public function tukarOrderReward(Request $request, $id)
     {
-        $quest_order = new \App\Models\OrderQ();
+        $tukar_reward = new \App\Models\OrderR();
+        $reward = \App\Models\Reward::findOrfail($id);
         // $quest = new \App\Models\Quest();
         // dd($quest->orderq());
-        $quest_order->user_id = Auth::user()->id;
-        $quest_order->status = 'SUBMIT';
-        $quest_order->file_jawab = null;
-        $quest_order->jawaban_pilgan = null;
-        $quest_order->status = 'SUBMIT';
-        $CodeQuest = uniqid();
-        $quest_order->quest_code = substr(md5($CodeQuest), 6, 6);
-        $quest_order->save();
-        $quest_order->quest()->attach($id);
-        // $quest_id = \App\Models\OrderQ::findOrFail(\Auth::user()->id);
-        // $hasQuest = $
-        return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di quest order');
+        $user_lama = Auth::user();
+        $tukar_reward->user_id = $user_lama->id;
+        $syarat_skor = $reward->syarat_skor;
+        if($user_lama->skor < $syarat_skor){
+            return redirect()->route('reward.published')->with('info', 'Anda tidak diizinkan menukar reward, skor tidak cukup');
+        }else{
+            $tukar_reward->status = 'SUBMIT';
+            $tukar_reward->save();
+            $tukar_reward->reward()->attach($id);
+            return redirect()->route('reward.published')->with('status', 'Berhasil menukar Reward, reward sedang di proses');
+        }
     }
 }

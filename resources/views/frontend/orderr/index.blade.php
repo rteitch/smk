@@ -17,7 +17,6 @@
                     <option {{ Request::get('status') == 'SUBMIT' ? 'selected' : '' }} value="SUBMIT">SUBMIT</option>
                     <option {{ Request::get('status') == 'PROCESS' ? 'selected' : '' }} value="PROCESS">PROCESS</option>
                     <option {{ Request::get('status') == 'FINISH' ? 'selected' : '' }} value="FINISH">FINISH</option>
-                    <option {{ Request::get('status') == 'CANCEL' ? 'selected' : '' }} value="CANCEL">CANCEL</option>
                 </select>
             </div>
             <div class="col-md-2">
@@ -33,7 +32,6 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Reward Code</th>
                         <th scope="col"><b>Status</b></th>
                         <th scope="col"><b>Nama Reward</b></th>
                         <th scope="col"><b>Siswa</b></th>
@@ -43,31 +41,34 @@
                 </thead>
                 <tbody>
                     @foreach ($order_r_s as $index => $order)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $order->reward_code }}</td>
-                            <td>
-                                @if ($order->status == 'SUBMIT')
-                                    <span class="badge bg-warning text-light">{{ $order->status }}</span>
-                                @elseif($order->status == 'PROCESS')
-                                    <span class="badge bg-info text-light">{{ $order->status }}</span>
-                                @elseif($order->status == 'FINISH')
-                                    <span class="badge bg-success text-light">{{ $order->status }}</span>
-                                @elseif($order->status == 'CANCEL')
-                                    <span class="badge bg-dark text-light">{{ $order->status }}</span>
-                                @endif
-                            </td>
-                            <td>{{ $order->reward->title }}</td>
-                            <td>
-                                {{ $order->user->name }} <br>
-                                <small>{{ $order->user->email }}</small>
-                            </td>
-                            <td>{{ $order->user->phone }}</td>
-                            <td>
-                                <a href="{{ route('orderr.edit', [$order->id]) }}" class="btn btn-info btn-sm"> Edit</a>
-                                <a href="{{ route('orderr.show', [$order->id]) }}" class="btn btn-info btn-sm"> View</a>
-                            </td>
-                        </tr>
+                        @foreach ($order->reward as $rewards)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>
+                                    @if ($order->status == 'SUBMIT')
+                                        <span class="badge bg-warning text-light">{{ $order->status }}</span>
+                                    @elseif($order->status == 'PROCESS')
+                                        <span class="badge bg-info text-light">{{ $order->status }}</span>
+                                    @elseif($order->status == 'FINISH')
+                                        <span class="badge bg-success text-light">{{ $order->status }}</span>
+                                    @elseif($order->status == 'CANCEL')
+                                        <span class="badge bg-dark text-light">{{ $order->status }}</span>
+                                    @endif
+                                </td>
+                                <td>{{ $rewards->title }}</td>
+                                <td>
+                                    {{ $order->user->name }} <br>
+                                    <small>{{ $order->user->email }}</small>
+                                </td>
+                                <td>
+                                    {{ $order->user->phone}}
+                                </td>
+                                <td>
+                                    <a href="{{ route('orderr.edit', [$order->id]) }}" class="btn btn-info btn-sm">
+                                        Edit Status</a>
+                                </td>
+                            </tr>
+                        @endforeach
                     @endforeach
                 </tbody>
                 <tfoot>

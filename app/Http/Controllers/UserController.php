@@ -78,7 +78,7 @@ class UserController extends Controller
         //validator
         $validation = \Validator::make($request->all(), [
             "name" => "required|min:3|max:100",
-            "nomorInduk" => "required|digits_between:6,20",
+            // "nomorInduk" => "required|digits_between:6,20",
             "phone" => "required|digits_between:6,20",
             "tempatLahir" => "required|min:3|max:100",
             "tanggalLahir" => "required",

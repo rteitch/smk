@@ -19,21 +19,22 @@
 
                 <input type="hidden" name="_method" value="PUT">
 
-                <label for="reward_code">Reward Code</label><br>
-                <input type="text" class="form-control" value="{{ $order_r_s->reward_code }}" disabled>
-                <br>
-
                 <label for="title">Nama Reward</label><br>
-                <input type="text" class="form-control" value="{{ $order_r_s->reward->title }}" disabled>
+                <input type="text" class="form-control"
+                    value="@foreach ($order_r_s->reward as $order) {{ $order->title }} @endforeach" disabled>
                 <br>
                 <label for="syarat_skor">Syarat Skor</label><br>
-                <input type="text" class="form-control" value="{{ $order_r_s->reward->syarat_skor }}" disabled>
+                <input type="text" class="form-control" value="@foreach ($order_r_s->reward as $order) {{ $order->syarat_skor }} @endforeach" disabled>
                 <br>
 
                 <label for="">Nama Siswa</label><br>
                 <input disabled class="form-control" type="text" value="{{ $order_r_s->user->name }}">
-                <br>
+                <small> email : {{$order_r_s->user->email}}</small>
+                <br><br>
 
+                <label for="">Skor Siswa</label>
+                <input type="text" class="form-control" disabled value="{{ $order_r_s->user->skor}}">
+                <br>
                 <label for="">Nomor HP Siswa</label><br>
                 <input disabled class="form-control" type="text" value="{{ $order_r_s->user->phone }}">
                 <br>
@@ -42,8 +43,7 @@
                 <select class="form-control" name="status" id="status">
                     <option {{ $order_r_s->status == 'SUBMIT' ? 'selected' : '' }} value="SUBMIT">SUBMIT</option>
                     <option {{ $order_r_s->status == 'PROCESS' ? 'selected' : '' }} value="PROCESS">PROCESS</option>
-                    <option {{ $order_r_s->status == 'FINISH' ? 'selected' : '' }} value="FINISH">FINISH</option>
-                    <option {{ $order_r_s->status == 'CANCEL' ? 'selected' : '' }} value="CANCEL">CANCEL</option>
+                    <option {{ $order_r_s->status == 'DITERIMA' ? 'selected' : '' }} value="FINISH">DITERIMA</option>
                 </select>
                 <br>
 

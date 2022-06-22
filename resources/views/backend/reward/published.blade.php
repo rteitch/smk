@@ -11,6 +11,11 @@
                 {{ session('status') }}
             </div>
         @endif
+        @if (session('info'))
+            <div class="alert alert-danger">
+                {{ session('info') }}
+            </div>
+        @endif
         <div>
             <div class="col-12 col-sm-12">
                 <h2>Reward Available</h2>
