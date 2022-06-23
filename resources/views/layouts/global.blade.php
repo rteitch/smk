@@ -129,11 +129,11 @@
             SOLO</a>
         {{-- Resnponsive Menu Mobile side-right --}}
         {{-- Notification --}}
-        <button class="btn btn-primary icon oi oi-bell d-block d-md-none border-none rounded-circle" id="bell-m">
-            3</button>
+        {{-- <button class="btn btn-primary icon oi oi-bell d-block d-md-none border-none rounded-circle" id="bell-m">
+            3</button> --}}
 
         {{-- Data Notifikasi --}}
-        <div class="notifications" id="box-m">
+        {{-- <div class="notifications" id="box-m">
 
             <h2>Notifications - <span>2</span></h2>
             @foreach ($notifikasi as $notif)
@@ -148,7 +148,7 @@
                 <a class="btn btn-info btn-sm" href="{{ route('notifikasi.showUserPesan') }}">More
                     Pesan</a>
             </div>
-        </div>
+        </div> --}}
         <button class="btn btn-link d-block d-md-none" data-toggle="collapse" data-target="#sidebar-nav" role="button">
             <span class="oi oi-menu"></span>
         </button>
@@ -163,7 +163,7 @@
         {{-- Menu Person --}}
         <div class="dropdown d-none d-md-block">
             {{-- Notification --}}
-            <button class="btn btn-primary icon oi oi-bell border-none rounded-circle" id="bell"> 3</button>
+            {{-- <button class="btn btn-primary icon oi oi-bell border-none rounded-circle" id="bell"> 3</button> --}}
 
             {{-- Kondisi jika user login, muncul nama user --}}
             @if (\Auth::user())
@@ -180,7 +180,7 @@
                 </button>
             @endif
             {{-- Data Notifikasi --}}
-            <div class="notifications" id="box">
+            {{-- <div class="notifications" id="box">
                 <h2>Notifications - <span>{{ $notifikasi->count() }}</span></h2>
                 @foreach ($notifikasi as $notif)
                     <div class="notifications-item"> <img src="{{ asset('storage/' . $notif->image) }}"
@@ -195,7 +195,7 @@
                     <a class="btn btn-info btn-sm" href="{{ route('notifikasi.showUserPesan') }}">More
                         Pesan</a>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Menu dropdown person --}}
             <div class="dropdown-menu dropdown-menu-right" id="navbar-dropdown">

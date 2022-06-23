@@ -36,24 +36,24 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale('id');
         date_default_timezone_set('Asia/Jakarta');
         // fungsi untuk mengirim semua data dari db notifikasi ke semua view dengan memanfaatkan fitur composer
-        view()->composer('*', function ($view) {
-            if (Auth::check()) {
-                $userAuthRoles = json_decode(Auth::user()->roles);
-                // $role_user = "";
-                if ($userAuthRoles == array_intersect(['1'])) {
-                    $role_user = "PENGAJAR";
-                    $notifikasi = \App\Models\Notifikasi::where("jenis_roles", "LIKE", "%$role_user%")->paginate(4);
-                } elseif ($userAuthRoles == array_intersect(['2'])) {
-                    $role_user = "SISWA";
-                    $notifikasi = \App\Models\Notifikasi::where("jenis_roles", "LIKE", "%$role_user%")->paginate(4);
-                } elseif ($userAuthRoles == array_intersect(['0'])) {
-                    $notifikasi = \App\Models\Notifikasi::paginate(4);
-                }
-                if ($view->getName() != 'backend.notifikasi.edit') {
-                    View::share('notifikasi', $notifikasi);
-                }
-            } else {
-            }
-        });
+        // view()->composer('*', function ($view) {
+        //     if (Auth::check()) {
+        //         $userAuthRoles = json_decode(Auth::user()->roles);
+        //         // $role_user = "";
+        //         if ($userAuthRoles == array_intersect(['1'])) {
+        //             $role_user = "PENGAJAR";
+        //             $notifikasi = \App\Models\Notifikasi::where("jenis_roles", "LIKE", "%$role_user%")->paginate(4);
+        //         } elseif ($userAuthRoles == array_intersect(['2'])) {
+        //             $role_user = "SISWA";
+        //             $notifikasi = \App\Models\Notifikasi::where("jenis_roles", "LIKE", "%$role_user%")->paginate(4);
+        //         } elseif ($userAuthRoles == array_intersect(['0'])) {
+        //             $notifikasi = \App\Models\Notifikasi::paginate(4);
+        //         }
+        //         if ($view->getName() != 'backend.notifikasi.edit') {
+        //             View::share('notifikasi', $notifikasi);
+        //         }
+        //     } else {
+        //     }
+        // });
     }
 }

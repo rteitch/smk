@@ -146,3 +146,7 @@ Route::resource('reward', RewardController::class);
 Route::get('/reward/siswa/{id}/order', [OrderRController::class, 'siswa'])->name('orderr.siswa');
 Route::post('/reward/published/orderr/{id}/tukar', [OrderRController::class, 'tukarOrderReward'])->name('orderr.tukarOrderReward');
 Route::resource('orderr', OrderRController::class);
+
+
+//route dummy template
+Route::get('/dumy', [UserController::class, 'tampilanDummy']);

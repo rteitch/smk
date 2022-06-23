@@ -332,4 +332,8 @@ class UserController extends Controller
 
         return view('frontend.leaderboard');
     }
+
+    public function tampilanDummy(){
+        return view('dumy');
+    }
 }
