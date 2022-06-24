@@ -25,7 +25,7 @@
             <div class="vertical-align-middle auth-main">
                 <div class="auth-box">
                     <div class="top">
-                        <h4 class="text-white">SMKN2 SURAKARTA</h4>
+                        <h4 class="text-white"> <strong>SMKN2 SURAKARTA</strong></h4>
                     </div>
                     <div class="card">
                         <div class="header">
@@ -41,7 +41,7 @@
                                     <input id="username" type="username"
                                         class="form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}"
                                         name="login" value="{{ old('username') ?: old('email') }}" required
-                                        autofocus>
+                                        autofocus placeholder="username / email">
                                     @if ($errors->has('username') || $errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('username') ?: $errors->first('email') }}</strong>
@@ -53,7 +53,7 @@
                                         class="control-label sr-only">{{ __('Password') }}</label>
                                     <input id="password" type="password"
                                         class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                        name="password" required>
+                                        name="password" required placeholder="password">
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
