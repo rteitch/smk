@@ -5,10 +5,10 @@ $(function() {
     toastr.options.closeButton = true;
     toastr.options.positionClass = 'toast-bottom-right';
     toastr.options.showDuration = 1000;
-    toastr['info']('Hello, welcome to Iconic, a unique admin Template.');
+    toastr['info']('Hallo, selamat datang di website penugasan smkn2 surakarta.');
 
     // Google Analytics Dashboard
-    $(document).ready(function(){
+    $(document).ready(function() {
         var chart = c3.generate({
             bindto: '#Google-Analytics-Dashboard', // id of chart wrapper
             data: {
@@ -51,7 +51,7 @@ $(function() {
     });
 
     //  Use by Device
-    $(document).ready(function(){
+    $(document).ready(function() {
         var chart = c3.generate({
             bindto: '#Use-by-Device', // id of chart wrapper
             data: {
@@ -74,8 +74,7 @@ $(function() {
                     'data3': 'Tablet',
                 }
             },
-            axis: {
-            },
+            axis: {},
             legend: {
                 show: true, //hide legend
             },
@@ -87,7 +86,7 @@ $(function() {
     });
 
     // Use by Audience
-    $(document).ready(function(){
+    $(document).ready(function() {
         var chart = c3.generate({
             bindto: '#Use-by-Audience', // id of chart wrapper
             data: {
@@ -110,8 +109,7 @@ $(function() {
                     'data3': 'Other',
                 }
             },
-            axis: {
-            },
+            axis: {},
             legend: {
                 show: true, //hide legend
             },
