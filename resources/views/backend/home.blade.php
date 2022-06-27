@@ -10,7 +10,7 @@
     <div class="row justify-content-center">
         <div class="">
             <div class="card text-center">
-                <div class="card-header bg-danger text-white pt-3 pb-3">Informasi!</div>
+                <div class="card-header bg-danger text-white pt-4 pb-3">Informasi!</div>
 
                 <div class="card-body">
                     @if (session('status'))

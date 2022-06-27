@@ -32,14 +32,14 @@
     <div id="wrapper" class="theme-cyan">
 
         <!-- Page Loader -->
-        <div class="page-loader-wrapper">
+        {{-- <div class="page-loader-wrapper">
             <div class="loader">
                 <div class="m-t-30"><img src="{{ asset('iconic/dist/assets/images/logo-icon.svg') }}" width="48"
                         height="48" alt="Iconic">
                 </div>
                 <p>Please wait...</p>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Top navbar div start -->
         <nav class="navbar navbar-fixed-top">
@@ -47,7 +47,7 @@
                 <div class="navbar-brand">
                     <button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
                     <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>
-                    <a href="{{ route('backend.home') }}">SMKN2 SURAKARTA</a>
+                    <a href="{{ route('backend.home') }}">SMKN2SKA</a>
                 </div>
 
                 <div class="navbar-right">
@@ -127,7 +127,8 @@
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <button class="dropdown-item" style="cursor: pointer;"><i class="fa fa-power-off"></i></button>
+                                    <button class="dropdown-item" style="cursor: pointer;"><i
+                                            class="fa fa-power-off"></i></button>
                                 </form>
                             </li>
                         </ul>
@@ -148,9 +149,8 @@
                         <a href="javascript:void(0);" class="dropdown-toggle user-name"
                             data-toggle="dropdown"><strong>{{ Auth::user()->name }}</strong></a>
                         <ul class="dropdown-menu dropdown-menu-right account">
-                            <li><a href="{{ route('users.show', \Auth::user()->id) }}"><i class="icon-user"></i>My Profile</a></li>
-                            <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
-                            <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
+                            <li><a href="{{ route('users.show', \Auth::user()->id) }}"><i class="icon-user"></i>My
+                                    Profile</a></li>
                             <li class="divider"></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
@@ -168,7 +168,7 @@
                         </li>
                         <li class="col-4">
                             <small>Skor</small>
-                            <h6>{{ Auth::user()->Skor }}</h6>
+                            <h6>{{ Auth::user()->skor }}</h6>
                         </li>
                         <li class="col-4">
                             <small>Exp</small>
@@ -179,12 +179,8 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
                     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu">Menu</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Chat"><i
-                                class="icon-book-open"></i></a></li>
                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i
                                 class="icon-settings"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#question"><i
-                                class="icon-question"></i></a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -192,102 +188,57 @@
                     <div class="tab-pane active" id="menu">
                         <nav id="left-sidebar-nav" class="sidebar-nav">
                             <ul id="main-menu" class="metismenu li_animation_delay">
-                                <li class="active">
+                                <li class="{{ Request::path() == 'home' ? 'active' : '' }}">
                                     <a href="{{ route('backend.home') }}"><i
                                             class="fa fa-home"></i><span>Home</span></a>
                                 </li>
-                                <li>
-                                    <a href="#Dashboard" class="has-arrow"><i
+                                <li class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi') active @else @endif">
+                                    <a href="#Dashboard"
+                                        class="has-arrow"><i
                                             class="fa fa-dashboard"></i><span>Dashboard</span></a>
-                                    <ul>
-                                        <li><a href="#">Manajemen User</a></li>
-                                        <li><a href="#">Manajemen Job Class</a></li>
-                                        <li><a href="#">Manajemen Skill</a></li>
-                                        <li><a href="#">Manajemen Quest</a></li>
-                                        <li><a href="#">Manajemen Reward</a></li>
-                                        <li><a href="#">Manajemen Artikel</a></li>
-                                        <li><a href="#">Manajemen Notifikasi</a></li>
+                                    <ul aria-expanded="false"
+                                        class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi')collapse in @else collapse @endif">
+                                        <li class="@if (Request::path() == 'users') active @endif"><a
+                                                href="{{ route('users.index') }}">Manajemen User</a></li>
+                                        <li class="@if (Request::path() == 'jobclass') active @endif"><a
+                                                href="{{ route('jobclass.index') }}">Manajemen Job Class</a></li>
+                                        <li class="@if (Request::path() == 'skill') active @endif"><a
+                                                href="{{ route('skill.index') }}">Manajemen Skill</a></li>
+                                        <li class="@if (Request::path() == 'quest') active @endif"><a
+                                                href="{{ route('quest.index') }}">Manajemen Quest</a></li>
+                                        <li class="@if (Request::path() == 'reward') active @endif"><a
+                                                href="{{ route('reward.index') }}">Manajemen Reward</a></li>
+                                        <li class="@if (Request::path() == 'artikel') active @endif"><a
+                                                href="{{ route('artikel.index') }}">Manajemen Artikel</a></li>
+                                        <li class="@if (Request::path() == 'notifikasi') active @endif"><a
+                                                href="{{ route('notifikasi.index') }}">Manajemen Notifikasi</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#GuildAdventure" class="has-arrow"><i
                                             class="fa fa-compass"></i><span>Guild Adventure</span></a>
-                                    <ul>
+                                    <ul aria-expanded="false" class="collapse">
                                         <li><a href="#">Buku Panduan</a></li>
-                                        <li><a href="#">Job Class</a></li>
-                                        <li><a href="#">Skill</a></li>
+                                        <li><a href="{{ route('jobclass.published') }}">Job Class</a></li>
+                                        <li><a href="{{ route('skill.published') }}">Skill</a></li>
+                                        <li><a href="{{ route('quest.published') }}">Quest</a></li>
                                         <li><a href="#">Quest</a></li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li class="{{ Request::path() == 'leaderboard' ? 'active' : '' }}">
+                                    <a href="{{ route('user.leaderboard') }}"><i class="fa fa-anchor"></i><span>Leaderboard</span></a>
+                                </li>
+                                <li class="{{ Request::path() == 'artikel/published' ? 'active' : '' }}">
                                     <a href="{{ route('artikel.published') }}"><i
                                             class="fa fa-rss"></i><span>Berita</span></a>
+                                </li>
+                                <li class="">
+                                    <a href="#"><i class="fa fa-bell"></i><span>Notifikasi</span></a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
-                    <div class="tab-pane" id="Chat">
-                        <form>
-                            <div class="input-group m-b-20">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="icon-magnifier"></i></span>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Search...">
-                            </div>
-                        </form>
-                        <ul class="right_chat list-unstyled li_animation_delay">
-                            <li>
-                                <a href="javascript:void(0);" class="media">
-                                    <img class="media-object" src="assets/images/xs/avatar1.jpg" alt="">
-                                    <div class="media-body">
-                                        <span class="name d-flex justify-content-between">Chris Fox <i
-                                                class="fa fa-heart-o font-12"></i></span>
-                                        <span class="message">chrisfox@gmail.com</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="media">
-                                    <img class="media-object" src="assets/images/xs/avatar2.jpg" alt="">
-                                    <div class="media-body">
-                                        <span class="name d-flex justify-content-between">Joge Lucky <i
-                                                class="fa fa-heart-o font-12"></i></span>
-                                        <span class="message">Jogelucky@gmail.com</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="media">
-                                    <img class="media-object" src="assets/images/xs/avatar3.jpg" alt="">
-                                    <div class="media-body">
-                                        <span class="name d-flex justify-content-between">Isabella <i
-                                                class="fa fa-heart-o font-12"></i></span>
-                                        <span class="message">Isabella@gmail.com</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="media">
-                                    <img class="media-object" src="assets/images/xs/avatar4.jpg" alt="">
-                                    <div class="media-body">
-                                        <span class="name d-flex justify-content-between">Folisise Chosielie <i
-                                                class="fa fa-heart font-12"></i></span>
-                                        <span class="message">FolisiseChosielie@gmail.com</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="media">
-                                    <img class="media-object" src="assets/images/xs/avatar5.jpg" alt="">
-                                    <div class="media-body">
-                                        <span class="name d-flex justify-content-between">Alexander <i
-                                                class="fa fa-heart-o font-12"></i></span>
-                                        <span class="message">Alexander@gmail.com</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+
                     <div class="tab-pane" id="setting">
                         <h6>Choose Skin</h6>
                         <ul class="choose-skin list-unstyled">
@@ -370,57 +321,6 @@
                         </ul>
 
                         <hr>
-                        <h6>General Settings</h6>
-                        <ul class="setting-list list-unstyled">
-                            <li>
-                                <label class="fancy-checkbox">
-                                    <input type="checkbox" name="checkbox" checked>
-                                    <span>Allowed Notifications</span>
-                                </label>
-                            </li>
-                            <li>
-                                <label class="fancy-checkbox">
-                                    <input type="checkbox" name="checkbox">
-                                    <span>Offline</span>
-                                </label>
-                            </li>
-                            <li>
-                                <label class="fancy-checkbox">
-                                    <input type="checkbox" name="checkbox">
-                                    <span>Location Permission</span>
-                                </label>
-                            </li>
-                        </ul>
-
-                        <a href="#" target="_blank" class="btn btn-block btn-primary">Buy this item</a>
-                        <a href="https://themeforest.net/user/wrraptheme/portfolio" target="_blank"
-                            class="btn btn-block btn-secondary">View portfolio</a>
-                    </div>
-                    <div class="tab-pane" id="question">
-                        <form>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="icon-magnifier"></i></span>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Search...">
-                            </div>
-                        </form>
-                        <ul class="list-unstyled question">
-                            <li class="menu-heading">HOW-TO</li>
-                            <li><a href="javascript:void(0);">How to Create Campaign</a></li>
-                            <li><a href="javascript:void(0);">Boost Your Sales</a></li>
-                            <li><a href="javascript:void(0);">Website Analytics</a></li>
-                            <li class="menu-heading">ACCOUNT</li>
-                            <li><a href="javascript:void(0);">Cearet New Account</a></li>
-                            <li><a href="javascript:void(0);">Change Password?</a></li>
-                            <li><a href="javascript:void(0);">Privacy &amp; Policy</a></li>
-                            <li class="menu-heading">BILLING</li>
-                            <li><a href="javascript:void(0);">Payment info</a></li>
-                            <li><a href="javascript:void(0);">Auto-Renewal</a></li>
-                            <li class="menu-button mt-3">
-                                <a href="../docs/index.html" class="btn btn-primary btn-block">Documentation</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>

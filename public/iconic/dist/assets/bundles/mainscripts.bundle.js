@@ -36,10 +36,10 @@ currentTheme && (document.documentElement.setAttribute("data-theme", currentThem
         console.log(e), $("body").removeClass(e).addClass(this.value)
     })
 }), window.Iconic = { colors: { "theme-dark1": "#343a40", "theme-dark2": "#636d76", "theme-dark3": "#939697", "theme-dark4": "#c7c7c7", "theme-dark5": "#1c1818", "theme-cyan1": "#59c4bc", "theme-cyan2": "#637aae", "theme-cyan3": "#2faaa1", "theme-cyan4": "#4cc5bc", "theme-cyan5": "#89bab7", "theme-purple1": "#7954ad", "theme-purple2": "#e76886", "theme-purple3": "#782fdf", "theme-purple4": "#a06ee8", "theme-purple5": "#a390be", "theme-orange1": "#FFA901", "theme-orange2": "#600489", "theme-orange3": "#FF7F00", "theme-orange4": "#FBC200", "theme-orange5": "#38C172" } };
-var Tawk_API = Tawk_API || {},
-    Tawk_LoadStart = new Date;
-! function() {
-    var e = document.createElement("script"),
-        t = document.getElementsByTagName("script")[0];
-    e.async = !0, e.src = "https://embed.tawk.to/5c6d4867f324050cfe342c69/default", e.charset = "UTF-8", e.setAttribute("crossorigin", "*"), t.parentNode.insertBefore(e, t)
-}();
+// var Tawk_API = Tawk_API || {},
+//     Tawk_LoadStart = new Date;
+// ! function() {
+//     var e = document.createElement("script"),
+//         t = document.getElementsByTagName("script")[0];
+//     e.async = !0, e.src = "https://embed.tawk.to/5c6d4867f324050cfe342c69/default", e.charset = "UTF-8", e.setAttribute("crossorigin", "*"), t.parentNode.insertBefore(e, t)
+// }();

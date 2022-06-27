@@ -62,11 +62,13 @@
                                 </div>
                                 <div class="form-group clearfix">
                                     <label class="fancy-checkbox element-left">
-                                        <input id="remember" name="remember" {{ old('remember') ? 'checked' : '' }} type="checkbox">
+                                        <input id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
+                                            type="checkbox">
                                         <span>Ingat Saya</span>
                                     </label>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Login') }}</button>
+                                <button type="submit"
+                                    class="btn btn-primary btn-lg btn-block">{{ __('Login') }}</button>
                                 {{-- <div class="bottom">
                                     <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a
                                             href="page-forgot-password.html">Forgot password?</a></span>
@@ -74,6 +76,9 @@
                                 </div> --}}
                             </form>
                         </div>
+                    </div>
+                    <div class="footer text-center mt-3 mb-3 text-white">
+                        Copyright © SMKN2 Surakarta. All Rights Reserved.
                     </div>
                 </div>
             </div>
