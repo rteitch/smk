@@ -32,8 +32,8 @@
             <div class="card-body">
                 <form action="{{ route('users.index') }}">
                     <div class="row">
-                        <div class="col-lg-6 col-md-12">
-                            <label>Single Selection</label>
+                        <div class="col-lg-4 col-md-12">
+                            <label>Search By</label>
                             <div class="c_multiselect">
                                 <select id="single-selection" name="optionFilter" class="multiselect multiselect-custom">
                                     <option {{ Request::get('optionFilter') == 'name' ? 'checked' : '' }} value="name">
@@ -49,7 +49,7 @@
                             <br>
                         </div>
 
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-2 col-md-12">
                             <div class="form-group">
                                 <label>Status</label>
                                 <br />
@@ -66,13 +66,14 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-4 col-md-12">
+                            <br>
                             <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control"
                                 type="text" placeholder="Masukan kata untuk filter..." />
 
-                            <br>
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-2 col-md-12">
+                            <br>
                             <input type="submit" value="Filter" class="btn btn-primary pl-3 pr-3">
                         </div>
 
@@ -133,10 +134,10 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('users.show', [$user->id]) }}"
-                                            class="btn btn-primary btn-sm"><span class="oi oi-eye"></span></a>
+                                            class="btn btn-primary btn-sm"><span class="fa fa-eye"></span></a>
                                         <a class="btn btn-info text-white btn-sm"
                                             href="{{ route('users.edit', [$user->id]) }}"><span
-                                                class="oi oi-pencil"></span></a>
+                                                class="fa fa-edit"></span></a>
                                         <form
                                             onsubmit="return confirm('Delete this user atas nama {{ $user->name }} permanently?')"
                                             class="d-inline" action="{{ route('users.destroy', [$user->id]) }}"
@@ -145,8 +146,8 @@
                                             @csrf
 
                                             <input type="hidden" name="_method" value="DELETE">
-                                            <button type="submit" class="btn- btn-danger btn-sm"><span
-                                                    class="oi oi-trash"></span></button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><span
+                                                    class="fa fa-trash-o"></span></button>
                                             {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm"> --}}
 
                                         </form>

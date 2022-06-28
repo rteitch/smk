@@ -3,6 +3,23 @@
     - Create User
 @endsection
 
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Menambah User Baru</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('users.index') }}">Manajemen User</a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
     <div class="col-md-10">
         @if (session('status'))
@@ -174,7 +191,7 @@
 
                 {{-- Job Class Choice --}}
 
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     <label for="jobclass">Job Class</label><br>
 
                     <select name="jobclass[]" multiple id="jobclass"
@@ -186,7 +203,7 @@
                 </div>
 
                 {{-- Skill Choice --}}
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     <label for="skill">Skill <small class="text-danger">*sesuaikan skill</small></label><br>
                     <select class="form-control" name="skill[]" multiple id="skill">
                     </select>

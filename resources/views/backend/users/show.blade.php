@@ -4,6 +4,23 @@
     Detail user
 @endsection
 
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Detail user</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('users.index') }}">Manajemen User</a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
     <div class="col-md-8">
         @if (session('status'))
@@ -179,9 +196,6 @@
 </table>
 </div>
 
-<div class="p-3">
-
-</div>
 
 </div>
 </div>
