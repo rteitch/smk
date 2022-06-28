@@ -4,7 +4,25 @@
     Users list
 @endsection
 
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Manajemen User</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('users.index') }}">Manajemen User</a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
+
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -12,13 +30,23 @@
     @endif
     <div class="container col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
-            <div class="card-header">
-                <b>List User</b>
-            </div>
             <div class="card-body">
                 <form action="{{ route('users.index') }}">
                     <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-2">
+                        <div class="col-6">
+                            <label>Single Selection</label>
+                            <div class="c_multiselect">
+                                <select id="single-selection" name="single_selection"
+                                    class="multiselect multiselect-custom">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+                            </div>
+
                             <label for="optionFilter">Pilih Sort By:</label>
                             <select class="form-control" name="optionFilter" id="optionFilter">
                                 <option class="text-center" disabled>== Pilih Sort By ==</option>
@@ -26,22 +54,31 @@
                                 </option>
                                 <option {{ Request::get('optionFilter') == 'username' ? 'checked' : '' }}
                                     value="username">Username</option>
-                                <option {{ Request::get('optionFilter') == 'email' ? 'checked' : '' }} value="email">Email
+                                <option {{ Request::get('optionFilter') == 'email' ? 'checked' : '' }} value="email">
+                                    Email
                                 </option>
                             </select>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 p-2">
-                            <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control" type="text"
-                                placeholder="Masukan kata untuk filter..." />
+                        <div class="col-6">
+                            <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control"
+                                type="text" placeholder="Masukan kata untuk filter..." />
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p-2">
-                            <input {{ Request::get('status') == 'on' ? 'checked' : '' }} value="on" name="status"
-                                type="radio" class="form-control" id="on">
-                            <label for="on">Online</label>
+                        <div class="">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <br />
+                                <label class="fancy-radio">
+                                    <input {{ Request::get('status') == 'on' ? 'checked' : '' }} value="on"
+                                        name="status" type="radio" class="form-control" id="on">
+                                    <span><i></i>Online</span>
+                                </label>
+                                <label class="fancy-radio">
+                                    <input {{ Request::get('status') == 'off' ? 'checked' : '' }} value="off"
+                                        name="status" type="radio" class="form-control" id="off">
+                                    <span><i></i>Offline</span>
+                                </label>
+                            </div>
 
-                            <input {{ Request::get('status') == 'off' ? 'checked' : '' }} value="off" name="status"
-                                type="radio" class="form-control" id="off">
-                            <label for="off">Offline</label>
                             <input type="submit" value="Filter" class="btn btn-primary pl-3 pr-3">
                         </div>
                     </div>
@@ -51,7 +88,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right mb-2">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary"> <span class="oi oi-plus"> Tambah user</span> </a>
+                        <a href="{{ route('users.create') }}" class="btn btn-primary"> <span class="oi oi-plus"> Tambah
+                                user</span> </a>
                     </div>
                     <hr class="my-3">
                 </div>
@@ -101,15 +139,18 @@
                                         <a href="{{ route('users.show', [$user->id]) }}"
                                             class="btn btn-primary btn-sm"><span class="oi oi-eye"></span></a>
                                         <a class="btn btn-info text-white btn-sm"
-                                            href="{{ route('users.edit', [$user->id]) }}"><span class="oi oi-pencil"></span></a>
-                                        <form onsubmit="return confirm('Delete this user atas nama {{ $user->name }} permanently?')"
+                                            href="{{ route('users.edit', [$user->id]) }}"><span
+                                                class="oi oi-pencil"></span></a>
+                                        <form
+                                            onsubmit="return confirm('Delete this user atas nama {{ $user->name }} permanently?')"
                                             class="d-inline" action="{{ route('users.destroy', [$user->id]) }}"
                                             method="POST">
 
                                             @csrf
 
                                             <input type="hidden" name="_method" value="DELETE">
-                                            <button type="submit" class="btn- btn-danger btn-sm"><span class="oi oi-trash"></span></button>
+                                            <button type="submit" class="btn- btn-danger btn-sm"><span
+                                                    class="oi oi-trash"></span></button>
                                             {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm"> --}}
 
                                         </form>

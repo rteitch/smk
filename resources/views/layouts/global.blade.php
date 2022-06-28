@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/charts-c3/plugin.css') }}" />
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css') }}" />
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/multi-select/css/multi-select.css') }}">
 
     <!-- MAIN Project CSS file -->
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/css/main.css') }}">
@@ -24,6 +28,7 @@
         document.documentElement.className = document.documentElement.className.replace('no-js', 'js') + (document
             .implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1") ? ' svg' : ' no-svg');
     </script> --}}
+    @yield("css-vendor")
 </head>
 
 <body data-theme="light" class="font-nunito">
@@ -193,11 +198,10 @@
                                             class="fa fa-home"></i><span>Home</span></a>
                                 </li>
                                 <li class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi') active @else @endif">
-                                    <a href="#Dashboard"
-                                        class="has-arrow"><i
+                                    <a href="#Dashboard" class="has-arrow"><i
                                             class="fa fa-dashboard"></i><span>Dashboard</span></a>
                                     <ul aria-expanded="false"
-                                        class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi')collapse in @else collapse @endif">
+                                        class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi') collapse in @else collapse @endif">
                                         <li class="@if (Request::path() == 'users') active @endif"><a
                                                 href="{{ route('users.index') }}">Manajemen User</a></li>
                                         <li class="@if (Request::path() == 'jobclass') active @endif"><a
@@ -226,7 +230,8 @@
                                     </ul>
                                 </li>
                                 <li class="{{ Request::path() == 'leaderboard' ? 'active' : '' }}">
-                                    <a href="{{ route('user.leaderboard') }}"><i class="fa fa-anchor"></i><span>Leaderboard</span></a>
+                                    <a href="{{ route('user.leaderboard') }}"><i
+                                            class="fa fa-anchor"></i><span>Leaderboard</span></a>
                                 </li>
                                 <li class="{{ Request::path() == 'artikel/published' ? 'active' : '' }}">
                                     <a href="{{ route('artikel.published') }}"><i
@@ -343,6 +348,7 @@
         <!-- mani page content body part -->
         <div id="main-content">
             <div class="container-fluid">
+                @yield('breadcrumb')
                 @yield('content')
             </div>
         </div>
@@ -354,6 +360,9 @@
 
     <!-- page vendor js file -->
     <script src="{{ asset('iconic/dist/assets/bundles/c3.bundle.js') }}"></script>
+
+    <script src="{{ asset('iconic/dist/assets/vendor/multi-select/js/jquery.multi-select.js') }}"></script> <!-- Multi Select Plugin Js -->
+    <script src="{{ asset('iconic/dist/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
 
     <!-- page js file -->
     <script src="{{ asset('iconic/dist/assets/bundles/mainscripts.bundle.js') }}"></script>
