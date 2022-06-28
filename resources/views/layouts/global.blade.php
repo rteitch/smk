@@ -16,10 +16,12 @@
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/charts-c3/plugin.css') }}" />
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css') }}" />
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/multi-select/css/multi-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css')}}">
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css')}}" />
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/multi-select/css/multi-select.css')}}">
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css')}}">
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/nouislider/nouislider.min.css')}}" />
 
     <!-- MAIN Project CSS file -->
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/css/main.css') }}">
@@ -28,7 +30,7 @@
         document.documentElement.className = document.documentElement.className.replace('no-js', 'js') + (document
             .implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1") ? ' svg' : ' no-svg');
     </script> --}}
-    @yield("css-vendor")
+    @yield('css-vendor')
 </head>
 
 <body data-theme="light" class="font-nunito">
@@ -360,13 +362,21 @@
 
     <!-- page vendor js file -->
     <script src="{{ asset('iconic/dist/assets/bundles/c3.bundle.js') }}"></script>
-
+    <script src="{{ asset('iconic/dist/assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script> <!-- Bootstrap Colorpicker Js -->
+    <script src="{{ asset('iconic/dist/assets/vendor/jquery-inputmask/jquery.inputmask.bundle.js') }}"></script> <!-- Input Mask Plugin Js -->
+    <script src="{{ asset('iconic/dist/assets/vendor/jquery.maskedinput/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ asset('iconic/dist/assets/vendor/multi-select/js/jquery.multi-select.js') }}"></script> <!-- Multi Select Plugin Js -->
     <script src="{{ asset('iconic/dist/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js') }}"></script>
+    <script src="{{ asset('iconic/dist/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('iconic/dist/assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script> <!-- Bootstrap Tags Input Plugin Js -->
+    <script src="{{ asset('iconic/dist/assets/vendor/nouislider/nouislider.js') }}"></script> <!-- noUISlider Plugin Js -->
+
 
     <!-- page js file -->
     <script src="{{ asset('iconic/dist/assets/bundles/mainscripts.bundle.js') }}"></script>
+    <script src=" {{ asset('iconic/js/pages/forms/advanced-form-elements.js') }}"></script>
     <script src="{{ asset('iconic/js/index.js') }}"></script>
+
 
     {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

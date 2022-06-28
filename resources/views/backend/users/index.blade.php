@@ -22,7 +22,6 @@
 @endsection
 
 @section('content')
-
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -33,37 +32,24 @@
             <div class="card-body">
                 <form action="{{ route('users.index') }}">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-lg-6 col-md-12">
                             <label>Single Selection</label>
                             <div class="c_multiselect">
-                                <select id="single-selection" name="single_selection"
-                                    class="multiselect multiselect-custom">
-                                    <option value="cheese">Cheese</option>
-                                    <option value="tomatoes">Tomatoes</option>
-                                    <option value="mozarella">Mozzarella</option>
-                                    <option value="mushrooms">Mushrooms</option>
-                                    <option value="pepperoni">Pepperoni</option>
-                                    <option value="onions">Onions</option>
+                                <select id="single-selection" name="optionFilter" class="multiselect multiselect-custom">
+                                    <option {{ Request::get('optionFilter') == 'name' ? 'checked' : '' }} value="name">
+                                        Name
+                                    </option>
+                                    <option {{ Request::get('optionFilter') == 'username' ? 'checked' : '' }}
+                                        value="username">Username</option>
+                                    <option {{ Request::get('optionFilter') == 'email' ? 'checked' : '' }} value="email">
+                                        Email
+                                    </option>
                                 </select>
                             </div>
+                            <br>
+                        </div>
 
-                            <label for="optionFilter">Pilih Sort By:</label>
-                            <select class="form-control" name="optionFilter" id="optionFilter">
-                                <option class="text-center" disabled>== Pilih Sort By ==</option>
-                                <option {{ Request::get('optionFilter') == 'name' ? 'checked' : '' }} value="name">Name
-                                </option>
-                                <option {{ Request::get('optionFilter') == 'username' ? 'checked' : '' }}
-                                    value="username">Username</option>
-                                <option {{ Request::get('optionFilter') == 'email' ? 'checked' : '' }} value="email">
-                                    Email
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-6">
-                            <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control"
-                                type="text" placeholder="Masukan kata untuk filter..." />
-                        </div>
-                        <div class="">
+                        <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label>Status</label>
                                 <br />
@@ -78,9 +64,19 @@
                                     <span><i></i>Offline</span>
                                 </label>
                             </div>
+                        </div>
 
+                        <div class="col-lg-6 col-md-12">
+                            <input value="{{ Request::get('keyword') }}" name="keyword" class="form-control"
+                                type="text" placeholder="Masukan kata untuk filter..." />
+
+                            <br>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
                             <input type="submit" value="Filter" class="btn btn-primary pl-3 pr-3">
                         </div>
+
+
                     </div>
                 </form>
                 <div>
