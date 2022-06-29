@@ -11,13 +11,19 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item active"> <a href="{{ route('users.index') }}">Manajemen User</a> </li>
+                    <li class="breadcrumb-item"> <a href="{{ route('users.index') }}">Manajemen User</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('users.create') }}">Tambah User</a> </li>
                 </ul>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
             </div>
         </div>
     </div>
+    <style>
+        .select2 {
+            width: 100% !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -32,8 +38,8 @@
             @csrf
             <div class="row">
                 {{-- Form Name --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label for="name">Name</label>
+                <div class="col-lg-4 col-md-12">
+                    <label for="name">Nama</label>
                     <input value="{{ old('name') }}"
                         class="form-control {{ $errors->first('name') ? 'is-invalid' : '' }}" placeholder="Nama Lengkap"
                         type="text" name="name" id="name">
@@ -44,7 +50,7 @@
                 </div>
 
                 {{-- Form Nomor Induk --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     <label for="nomorInduk">Nomor Induk (NIS / NIP)</label>
                     <input value="{{ old('nomorInduk') }}"
                         class="form-control {{ $errors->first('nomorInduk') ? 'is-invalid' : '' }}"
@@ -56,19 +62,19 @@
                 </div>
 
                 {{-- Form Phone --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label for="phone">Phone number</label>
+                <div class="col-lg-4 col-md-12">
+                    <label for="phone">Nomor Hp</label>
                     <br>
                     <input value="{{ old('phone') }}" type="integer" name="phone"
                         class="form-control {{ $errors->first('phone') ? 'is-invalid' : '' }}" placeholder="08...">
                     <div class="invalid-feedback">
                         {{ $errors->first('phone') }}
                     </div>
-                    <hr class="my-3">
+                    <br>
                 </div>
 
                 {{-- Form Tempat Lahir --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     <label for="tempatLahir">Tempat Lahir</label>
                     <input value="{{ old('tempatLahir') }}"
                         class="form-control {{ $errors->first('tempatLahir') ? 'is-invalid' : '' }}"
@@ -80,7 +86,7 @@
                 </div>
 
                 {{-- Form Tanggal Lahir --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     <label for="tanggalLahir">Tanggal Lahir</label>
                     <input value="{{ old('tanggalLahir') }}"
                         class="form-control {{ $errors->first('tanggalLahir') ? 'is-invalid' : '' }}"
@@ -92,8 +98,8 @@
                 </div>
 
                 {{-- Form Gender --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Select</label>
+                <div class="col-lg-4 col-md-12">
+                    <label>Jenis Kelamin</label>
                     <select class="form-control {{ $errors->first('gender') ? 'is-invalid' : '' }}" name="gender">
                         <option value="Laki-Laki">Laki-Laki</option>
                         <option value="Perempuan">Perempuan</option>
@@ -105,7 +111,7 @@
                 </div>
 
                 {{-- Form Username --}}
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
 
                     <label for="username">Username</label>
                     <input value="{{ old('username') }}"
@@ -117,20 +123,8 @@
                     </div>
                 </div>
 
-                {{-- Form Email --}}
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label for="email">Email</label>
-                    <input value="{{ old('email') }}"
-                        class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}" placeholder="user@..."
-                        type="text" name="email" id="email" />
-                    <div class="invalid-feedback">
-                        {{ $errors->first('username') }}
-                    </div>
-                    <hr class="my-3">
-                </div>
-
                 {{-- Form Password --}}
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     <label for="password">Password</label>
                     <input value="{{ old('password') }}"
                         class="form-control {{ $errors->first('password') ? 'is-invalid' : '' }}" placeholder="password"
@@ -138,13 +132,13 @@
                     <div class="invalid-feedback">
                         {{ $errors->first('password') }}
                     </div>
-                    <hr class="my-3">
+                    <br>
                 </div>
 
 
                 {{-- Form Password Konfirmasi --}}
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label for="password_confirmation">Password Confirmation</label>
+                <div class="col-lg-4 col-md-12">
+                    <label for="password_confirmation">Konfirmasi Password</label>
                     <input value="{{ old('password_confirmation') }}"
                         class="form-control {{ $errors->first('password_confirmation') ? 'is-invalid' : '' }}"
                         placeholder="password confirmation" type="password" name="password_confirmation"
@@ -152,7 +146,44 @@
                     <div class="invalid-feedback">
                         {{ $errors->first('password_confirmation') }}
                     </div>
-                    <hr class="my-3">
+                    <br>
+                </div>
+
+                {{-- Form Email --}}
+                <div class="col-lg-6 col-md-12">
+                    <label for="email">Email</label>
+                    <input value="{{ old('email') }}"
+                        class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}" placeholder="user@..."
+                        type="text" name="email" id="email" />
+                    <div class="invalid-feedback">
+                        {{ $errors->first('username') }}
+                    </div>
+                    <br>
+                </div>
+
+
+                {{-- Form Roles --}}
+                <div class="form-group col-lg-6 col-md-12">
+                    <label>Roles</label>
+                    <br>
+                    <label class="fancy-checkbox">
+                        <input class="{{ $errors->first('roles') ? 'is-invalid' : '' }}" type="checkbox"
+                            name="roles[]" value="0">
+                        <span>Administrator</span>
+                    </label>
+                    <label class="fancy-checkbox">
+                        <input class="{{ $errors->first('roles') ? 'is-invalid' : '' }}" type="checkbox"
+                            name="roles[]" value="1">
+                        <span>Pengajar</span>
+                    </label>
+                    <label class="fancy-checkbox">
+                        <input class="{{ $errors->first('roles') ? 'is-invalid' : '' }}" type="checkbox"
+                            name="roles[]" value="2">
+                        <span>Siswa</span>
+                    </label>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('roles') }}
+                    </div>
                 </div>
 
                 {{-- Form Alamat --}}
@@ -166,7 +197,7 @@
                 </div>
 
                 {{-- Form Avatar --}}
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-12">
                     <label for="avatar">Avatar image</label>
                     <br>
                     <input value="{{ old('avatar') }}" id="avatar" name="avatar" type="file"
@@ -178,7 +209,7 @@
                 </div>
 
                 {{-- Form Background --}}
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-12">
                     <label for="background">Background image</label>
                     <br>
                     <input value="{{ old('background') }}" id="background" name="background" type="file"
@@ -191,7 +222,8 @@
 
                 {{-- Job Class Choice --}}
 
-                <div class="col-lg-4 col-md-12">
+                <div class="col-lg-6 col-md-12">
+
                     <label for="jobclass">Job Class</label><br>
 
                     <select name="jobclass[]" multiple id="jobclass"
@@ -200,37 +232,19 @@
                     <div class="invalid-feedback">
                         {{ $errors->first('jobclass') }}
                     </div>
+                    <br>
+                    <br>
                 </div>
 
                 {{-- Skill Choice --}}
-                <div class="col-lg-4 col-md-12">
+                <div class="form-group col-lg-6 col-md-12">
                     <label for="skill">Skill <small class="text-danger">*sesuaikan skill</small></label><br>
                     <select class="form-control" name="skill[]" multiple id="skill">
                     </select>
-                </div>
-
-                {{-- Form Roles --}}
-                <div class="col-xl-3 col-lg-5 col-md-12 col-sm-12 col-12">
-                    <label for="">Roles</label>
-                    <br>
-                    <input class="form-control {{ $errors->first('roles') ? 'is-invalid' : '' }}" type="checkbox"
-                        name="roles[]" id="0" value="0">
-                    <label for="0">Administrator</label>
-
-                    <input class="form-control {{ $errors->first('roles') ? 'is-invalid' : '' }}" type="checkbox"
-                        name="roles[]" id="1" value="1">
-                    <label for="1">Pengajar</label>
-
-                    <input class="form-control {{ $errors->first('roles') ? 'is-invalid' : '' }}" type="checkbox"
-                        name="roles[]" id="2" value="2">
-                    <label for="2">Siswa</label>
-                    <div class="invalid-feedback">
-                        {{ $errors->first('roles') }}
-                    </div>
                     <br>
                 </div>
 
-                <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12">
+                <div class="form-group col-lg-4 col-md-12">
                     {{-- Form Level --}}
                     <label for="level">Level</label>
                     <input value="{{ old('level') }}"
@@ -242,7 +256,7 @@
                     <br>
                 </div>
 
-                <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     {{-- Form Skor --}}
                     <label for="skor">Skor</label>
                     <input value="{{ old('skor') }}"
@@ -254,7 +268,7 @@
                     <br>
                 </div>
 
-                <div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     {{-- Form EXP --}}
                     <label for="exp">Exp</label>
                     <input value="{{ old('exp') }}"

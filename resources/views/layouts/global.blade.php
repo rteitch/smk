@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -16,12 +17,16 @@
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/charts-c3/plugin.css') }}" />
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css')}}">
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css')}}" />
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/multi-select/css/multi-select.css')}}">
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css')}}">
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/nouislider/nouislider.min.css')}}" />
+    <link rel="stylesheet"
+        href="{{ asset('iconic/dist/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('iconic/dist/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('iconic/dist/assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css') }}" />
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/multi-select/css/multi-select.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('iconic/dist/assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css') }}">
+    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/nouislider/nouislider.min.css') }}" />
 
     <!-- MAIN Project CSS file -->
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/css/main.css') }}">
@@ -34,7 +39,6 @@
 </head>
 
 <body data-theme="light" class="font-nunito">
-
 
     <div id="wrapper" class="theme-cyan">
 
@@ -79,7 +83,8 @@
                                                     <i class="icon-info text-warning"></i>
                                                 </div>
                                                 <div class="media-body">
-                                                    <p class="text">Campaign <strong>Holiday Sale</strong> is nearly
+                                                    <p class="text">Campaign <strong>Holiday Sale</strong> is
+                                                        nearly
                                                         reach budget limit.</p>
                                                     <span class="timestamp">10:00 AM Today</span>
                                                 </div>
@@ -93,7 +98,8 @@
                                                     <i class="icon-like text-success"></i>
                                                 </div>
                                                 <div class="media-body">
-                                                    <p class="text">Your New Campaign <strong>Holiday Sale</strong> is
+                                                    <p class="text">Your New Campaign <strong>Holiday
+                                                            Sale</strong> is
                                                         approved.</p>
                                                     <span class="timestamp">11:30 AM Today</span>
                                                 </div>
@@ -149,43 +155,46 @@
             <button type="button" class="btn-toggle-offcanvas"><i class="fa fa-arrow-left"></i></button>
             <div class="sidebar-scroll">
                 <div class="user-account">
-                    <img src="{{ asset('storage/' . \Auth::user()->avatar) }}" class="rounded-circle user-photo"
-                        alt="User Profile Picture">
-                    <div class="dropdown">
-                        <span>Welcome,</span>
-                        <a href="javascript:void(0);" class="dropdown-toggle user-name"
-                            data-toggle="dropdown"><strong>{{ Auth::user()->name }}</strong></a>
-                        <ul class="dropdown-menu dropdown-menu-right account">
-                            <li><a href="{{ route('users.show', \Auth::user()->id) }}"><i class="icon-user"></i>My
-                                    Profile</a></li>
-                            <li class="divider"></li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button class="btn btn-danger" style="cursor: pointer;">Logout</button>
-                                </form>
+                    <img src="{{ asset('storage/'. \Auth::user()->avatar) }}" class="rounded-circle user-photo" alt="User Profile Picture">
+                    @if (Auth::check())
+                        <div class="dropdown">
+                            <span>Welcome,</span>
+                            <a href="javascript:void(0);" class="dropdown-toggle user-name"
+                                data-toggle="dropdown"><strong>{{ Auth::user()->name }}</strong></a>
+                            <ul class="dropdown-menu dropdown-menu-right account">
+                                <li><a href="{{ route('users.show', \Auth::user()->id) }}"><i
+                                            class="icon-user"></i>My
+                                        Profile</a></li>
+                                <li class="divider"></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-danger" style="cursor: pointer;">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                        <ul class="row list-unstyled">
+                            <li class="col-4">
+                                <small>Level</small>
+                                <h6>{{ Auth::user()->level }}</h6>
+                            </li>
+                            <li class="col-4">
+                                <small>Skor</small>
+                                <h6>{{ Auth::user()->skor }}</h6>
+                            </li>
+                            <li class="col-4">
+                                <small>Exp</small>
+                                <h6>{{ Auth::user()->exp }}</h6>
                             </li>
                         </ul>
-                    </div>
-                    <hr>
-                    <ul class="row list-unstyled">
-                        <li class="col-4">
-                            <small>Level</small>
-                            <h6>{{ Auth::user()->level }}</h6>
-                        </li>
-                        <li class="col-4">
-                            <small>Skor</small>
-                            <h6>{{ Auth::user()->skor }}</h6>
-                        </li>
-                        <li class="col-4">
-                            <small>Exp</small>
-                            <h6>{{ Auth::user()->exp }}</h6>
-                        </li>
-                    </ul>
+                    @endif
                 </div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu">Menu</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i
                                 class="icon-settings"></i></a></li>
                 </ul>
@@ -199,15 +208,16 @@
                                     <a href="{{ route('backend.home') }}"><i
                                             class="fa fa-home"></i><span>Home</span></a>
                                 </li>
-                                <li class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi') active @else @endif">
+                                <li class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi' || Request::path() == 'users/create') active @else @endif">
                                     <a href="#Dashboard" class="has-arrow"><i
                                             class="fa fa-dashboard"></i><span>Dashboard</span></a>
                                     <ul aria-expanded="false"
-                                        class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi') collapse in @else collapse @endif">
-                                        <li class="@if (Request::path() == 'users') active @endif"><a
+                                        class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi' || Request::path() == 'users/create') collapse in @else collapse @endif">
+                                        <li class="@if (Request::path() == 'users' || Request::path() == 'users/create') active @endif"><a
                                                 href="{{ route('users.index') }}">Manajemen User</a></li>
                                         <li class="@if (Request::path() == 'jobclass') active @endif"><a
-                                                href="{{ route('jobclass.index') }}">Manajemen Job Class</a></li>
+                                                href="{{ route('jobclass.index') }}">Manajemen Job Class</a>
+                                        </li>
                                         <li class="@if (Request::path() == 'skill') active @endif"><a
                                                 href="{{ route('skill.index') }}">Manajemen Skill</a></li>
                                         <li class="@if (Request::path() == 'quest') active @endif"><a
@@ -217,12 +227,14 @@
                                         <li class="@if (Request::path() == 'artikel') active @endif"><a
                                                 href="{{ route('artikel.index') }}">Manajemen Artikel</a></li>
                                         <li class="@if (Request::path() == 'notifikasi') active @endif"><a
-                                                href="{{ route('notifikasi.index') }}">Manajemen Notifikasi</a></li>
+                                                href="{{ route('notifikasi.index') }}">Manajemen Notifikasi</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#GuildAdventure" class="has-arrow"><i
-                                            class="fa fa-compass"></i><span>Guild Adventure</span></a>
+                                            class="fa fa-compass"></i><span>Guild
+                                            Adventure</span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li><a href="#">Buku Panduan</a></li>
                                         <li><a href="{{ route('jobclass.published') }}">Job Class</a></li>
@@ -343,7 +355,8 @@
                 <li><a href="app-contact.html"><i class="fa fa-id-card"></i></a></li>
                 <li><a href="blog-list.html"><i class="fa fa-globe"></i></a></li>
                 <li><a href="javascript:void(0);"><i class="fa fa-plus"></i></a></li>
-                <li><a href="javascript:void(0);" class="right_icon_btn"><i class="fa fa-angle-right"></i></a></li>
+                <li><a href="javascript:void(0);" class="right_icon_btn"><i class="fa fa-angle-right"></i></a>
+                </li>
             </ul>
         </div>
 

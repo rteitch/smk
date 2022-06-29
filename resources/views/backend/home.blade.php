@@ -35,7 +35,11 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <p>Selamat Datang <strong>{{ Auth::user()->name }}</strong> di Guild Adventure World! <br> Kamu
+                        <p>Selamat Datang <strong>
+                                @if (Auth::check())
+                                    {{ Auth::user()->name }}
+                                @endif
+                            </strong> di Guild Adventure World! <br> Kamu
                             Sekarang berada di ibu kota SMK Negeri 2 Surakarta.</p>
                         <img src="img/smkn2solo.png" alt="smkn2solo-logo" srcset="" width="50%">
                         <p>Silakan kunjungi <a href="#">Guild Adventure</a> Untuk mengecek progress harianmu!</p>

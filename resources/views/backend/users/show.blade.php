@@ -12,7 +12,8 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item active"> <a href="{{ route('users.index') }}">Manajemen User</a> </li>
+                    <li class="breadcrumb-item"> <a href="{{ route('users.index') }}">Manajemen User</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('users.show', [$user->id]) }}">Lihat User : {{ $user->name }}</a> </li>
                 </ul>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
