@@ -139,7 +139,7 @@ class SkillController extends Controller
         $skill->save();
         $skill->jobclass()->sync($request->get('jobclass'));
 
-        return redirect()->route('skill.show', [$id])->with('status', 'Skill Berhasil diupdate');
+        return redirect()->route('skill.index', [$id])->with('status', 'Skill Berhasil diupdate');
     }
 
     /**
@@ -154,7 +154,7 @@ class SkillController extends Controller
 
         $skill->delete();
         return redirect()->route('skill.index')
-            ->with('status', 'Skill Berhasil dipindah ke trash');
+            ->with('status-delete', 'Skill Berhasil dipindah ke trash');
     }
 
     public function trash()
@@ -186,8 +186,9 @@ class SkillController extends Controller
         if (!$skill->trashed()) {
             return redirect()->route('skill.trash')->with('status', 'Can not delete permanent active skill');
         } else {
+            $skill->jobclass()->detach();
             $skill->forceDelete();
-            return redirect()->route('skill.trash')->with('status', 'Skill Permanently deleted');
+            return redirect()->route('skill.index')->with('status', 'Skill Permanently deleted');
         }
     }
 

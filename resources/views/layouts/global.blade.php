@@ -192,66 +192,65 @@
                     @endif
                 </div>
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs">
+                {{-- <ul class="nav nav-tabs">
                     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu">Menu</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i
                                 class="icon-settings"></i></a></li>
-                </ul>
+                </ul> --}}
 
                 <!-- Tab panes -->
                 <div class="tab-content padding-0">
                     <div class="tab-pane active" id="menu">
                         <nav id="left-sidebar-nav" class="sidebar-nav">
                             <ul id="main-menu" class="metismenu li_animation_delay">
-                                <li class="{{ Request::path() == 'home' ? 'active' : '' }}">
+                                <li class="@yield('home-active')">
                                     <a href="{{ route('backend.home') }}"><i
                                             class="fa fa-home"></i><span>Home</span></a>
                                 </li>
-                                <li class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi' || Request::path() == 'users/create') active @else @endif">
+                                <li class="@yield('dashboard-active')">
                                     <a href="#Dashboard" class="has-arrow"><i
                                             class="fa fa-dashboard"></i><span>Dashboard</span></a>
                                     <ul aria-expanded="false"
-                                        class="@if (Request::path() == 'users' || Request::path() == 'jobclass' || Request::path() == 'skill' || Request::path() == 'quest' || Request::path() == 'reward' || Request::path() == 'artikel' || Request::path() == 'notifikasi' || Request::path() == 'users/create') collapse in @else collapse @endif">
-                                        <li class="@if (Request::path() == 'users' || Request::path() == 'users/create') active @endif"><a
+                                        class="collapse @yield('da-collapse-in')">
+                                        <li class="@yield('dash-user-active')"><a
                                                 href="{{ route('users.index') }}">Manajemen User</a></li>
-                                        <li class="@if (Request::path() == 'jobclass') active @endif"><a
+                                        <li class="@yield('dash-jobclass-active')"><a
                                                 href="{{ route('jobclass.index') }}">Manajemen Job Class</a>
                                         </li>
-                                        <li class="@if (Request::path() == 'skill') active @endif"><a
+                                        <li class="@yield('dash-skill-active')"><a
                                                 href="{{ route('skill.index') }}">Manajemen Skill</a></li>
-                                        <li class="@if (Request::path() == 'quest') active @endif"><a
+                                        <li class="@yield('dash-quest-active')"><a
                                                 href="{{ route('quest.index') }}">Manajemen Quest</a></li>
-                                        <li class="@if (Request::path() == 'reward') active @endif"><a
+                                        <li class="@yield('dash-reward-active')"><a
                                                 href="{{ route('reward.index') }}">Manajemen Reward</a></li>
-                                        <li class="@if (Request::path() == 'artikel') active @endif"><a
+                                        <li class="@yield('dash-artikel-active')"><a
                                                 href="{{ route('artikel.index') }}">Manajemen Artikel</a></li>
-                                        <li class="@if (Request::path() == 'notifikasi') active @endif"><a
+                                        <li class="@yield('dash-notifikasi-active')"><a
                                                 href="{{ route('notifikasi.index') }}">Manajemen Notifikasi</a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li class="@yield('ga-active')">
                                     <a href="#GuildAdventure" class="has-arrow"><i
                                             class="fa fa-compass"></i><span>Guild
                                             Adventure</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a href="#">Buku Panduan</a></li>
-                                        <li><a href="{{ route('jobclass.published') }}">Job Class</a></li>
-                                        <li><a href="{{ route('skill.published') }}">Skill</a></li>
-                                        <li><a href="{{ route('quest.published') }}">Quest</a></li>
-                                        <li><a href="#">Quest</a></li>
+                                    <ul aria-expanded="false" class="collapse @yield('ga-collapse-in')">
+                                        <li class="@yield('ga-buku-panduan-active')"><a href="#">Buku Panduan</a></li>
+                                        <li class="@yield('ga-jobclass')"><a href="{{ route('jobclass.published') }}">Job Class</a></li>
+                                        <li class="@yield('ga-skill')"><a href="{{ route('skill.published') }}">Skill</a></li>
+                                        <li class="@yield('ga-quest')"><a href="{{ route('quest.published') }}">Quest</a></li>
                                     </ul>
                                 </li>
-                                <li class="{{ Request::path() == 'leaderboard' ? 'active' : '' }}">
+                                <li class="@yield('leaderboard-active')"">
                                     <a href="{{ route('user.leaderboard') }}"><i
                                             class="fa fa-anchor"></i><span>Leaderboard</span></a>
                                 </li>
-                                <li class="{{ Request::path() == 'artikel/published' ? 'active' : '' }}">
+                                <li class="@yield('artikel-active')}">
                                     <a href="{{ route('artikel.published') }}"><i
                                             class="fa fa-rss"></i><span>Berita</span></a>
                                 </li>
-                                <li class="">
+                                <li class="@yield('notifikasi-active')}">
                                     <a href="#"><i class="fa fa-bell"></i><span>Notifikasi</span></a>
                                 </li>
                             </ul>

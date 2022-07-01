@@ -70,7 +70,6 @@ class JobClassController extends Controller
         $new_jobclass->slug = Str::slug($name, '-');
 
         $new_jobclass->save();
-        dd($new_jobclass->save());
 
         return redirect()->route('jobclass.index')->with('status', 'Job Class baru Berhasil ditambahkan');
     }
@@ -131,7 +130,7 @@ class JobClassController extends Controller
         }
 
         $jobclass->save();
-        return redirect()->route('jobclass.show', [$id])->with('status', 'Job Class Berhasil diupdate');
+        return redirect()->route('jobclass.index', [$id])->with('status', 'Job Class Berhasil diupdate');
     }
 
     /**
@@ -146,7 +145,7 @@ class JobClassController extends Controller
 
         $jobclass->delete();
         return redirect()->route('jobclass.index')
-            ->with('status', 'Job Class Berhasil dipindah ke trash');
+            ->with('status-delete', 'Job Class Berhasil dipindah ke trash');
     }
 
     public function trash()
@@ -173,7 +172,6 @@ class JobClassController extends Controller
 
     public function deletePermanent($id){
         $jobclass = \App\Models\JobClass::withTrashed()->findOrFail($id);
-
         if(!$jobclass->trashed()){
             return redirect()->route('jobclass.index')->with('status', 'Can not delete permanent active job class');
         } else {

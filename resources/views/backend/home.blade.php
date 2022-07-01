@@ -4,6 +4,10 @@
     - Home
 @endsection
 
+@section('home-active')
+    active
+@endsection
+
 @section('breadcrumb')
     <div class="block-header">
         <div class="row">

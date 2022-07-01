@@ -4,8 +4,44 @@
     Edit Artikel
 @endsection
 
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-artikel-active')
+    active
+@endsection
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Manajemen Artikel</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('quest.trash') }}">Manajemen Artikel</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('artikel.edit', [$artikel->id]) }}">Edit Artikel
+                            : {{ $artikel->title }}</a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+    <style>
+        .select2 {
+            width: 100% !important;
+        }
+    </style>
+@endsection
+
 @section('content')
-    <div class="col-md-8">
+    <div class="col-md-10">
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
@@ -35,7 +71,6 @@
                     <div class="col">
                         {{-- Image --}}
                         <!-- Trigger the modal with a button -->
-                        <br>
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
                             data-target="#myModalImage"><span class="oi oi-eye"></span> Lihat Image Utama
                         </button>
@@ -88,7 +123,6 @@
                     <div class="col">
                         {{-- File Pendukung --}}
                         <!-- Trigger the modal with a button -->
-                        <br>
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><span
                                 class="oi oi-eye"></span> Lihat File
                         </button>
@@ -131,9 +165,10 @@
                     <option {{ $artikel->status == 'PUBLISH' ? 'selected' : '' }} value="PUBLISH">PUBLISH</option>
                     <option {{ $artikel->status == 'DRAFT' ? 'selected' : '' }} value="DRAFT">DRAFT</option>
                 </select>
-                <br>
-
-                <button class="btn btn-primary" value="PUBLISH">Update</button>
+                <hr>
+                <div class="col-lg-12 col-md-12 text-right">
+                    <button class="btn btn-primary" value="PUBLISH">Update</button>
+                </div>
             </div>
         </form>
 
@@ -157,7 +192,7 @@
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']],
-                ['insert', ['link', 'picture', 'video']],
+                ['insert', ['link', 'picture']],
             ]
         });
     </script>

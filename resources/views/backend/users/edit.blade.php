@@ -4,31 +4,68 @@
     Edit User
 @endsection
 
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-user-active')
+    active
+@endsection
+
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Manajemen User</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item"> <a href="{{ route('users.index') }}">Manajemen User</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('users.edit', [$user->id]) }}">Edit User :
+                            {{ $user->name }}</a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+        <style>
+            .select2 {
+                width: 100% !important;
+            }
+        </style>
+    </div>
+@endsection
+
 @section('content')
-    <div class="col-md-8">
+    <div class="col-md-10">
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
         @endif
 
-        <form enctype="multipart/form-data" class="bg-white shadow-sm p-3" action="{{ route('users.update', [$user->id]) }}"
-            method="POST">
+        <form enctype="multipart/form-data" class="bg-white shadow-sm p-3"
+            action="{{ route('users.update', [$user->id]) }}" method="POST">
 
             @csrf
 
             <input type="hidden" value="PUT" name="_method">
             <div class="row">
                 {{-- Form Name --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label for="name">Name</label>
+                <div class="col-lg-4 col-md-12">
+                    <label for="name">Nama</label>
                     <input value="{{ $user->name }}" class="form-control" placeholder="Full Name" type="text"
                         name="name" id="name" />
                     <br>
                 </div>
 
                 {{-- Form Nomor Induk --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     <label for="nomorInduk">Nomor Induk (NIS / NIP)</label>
                     <input value="{{ $user->nomor_induk }}" class="form-control" placeholder="Nomor Induk (NIS / NIP)"
                         type="text" name="nomorInduk" id="nomorInduk" />
@@ -36,31 +73,32 @@
                 </div>
 
                 {{-- Form Phone --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label for="phone">Phone number</label>
+                <div class="col-lg-4 col-md-12">
+                    <label for="phone">Nomor Hp</label>
                     <br>
                     <input type="text" name="phone" class="form-control" value="{{ $user->phone }}">
+                    <br>
                 </div>
 
                 {{-- Form Tempat Lahir --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     <label for="tempatLahir">Tempat Lahir</label>
                     <input class="form-control" placeholder="Tempat Lahir" type="text" name="tempatLahir"
                         id="tempatLahir" value="{{ $user->tempat_lahir }}">
-                    <hr class="my-3">
+                    <br>
                 </div>
 
                 {{-- Form Tanggal Lahir --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-12">
                     <label for="tanggalLahir">Tanggal Lahir</label>
                     <input class="form-control" placeholder="Tanggal Lahir" type="date" name="tanggalLahir"
                         id="tanggalLahir" value="{{ $user->tanggal_lahir }}">
-                    <hr class="my-3">
+                    <br>
                 </div>
 
                 {{-- Form Gender --}}
-                <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Select</label>
+                <div class="col-lg-4 col-md-12">
+                    <label>Jenis Kelamin</label>
                     <select class="form-control" name="gender">
                         <option value="Laki-Laki" {{ $user->gender == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
                         <option value="Perempuan" {{ $user->gender == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
@@ -68,23 +106,24 @@
                     <br>
                 </div>
 
-                {{-- Form Email --}}
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label for="email">Email</label>
-                    <input value="{{ $user->email }}" disabled class="form-control" placeholder="user@mail.com"
-                        type="text" name="email" id="email" />
-                </div>
-
                 {{-- Form Username --}}
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-6 col-md-12">
                     <label for="username">Username</label>
                     <input value="{{ $user->username }}" disabled class="form-control" placeholder="username"
                         type="text" name="username" id="username" />
                     <br>
                 </div>
 
+                {{-- Form Email --}}
+                <div class="col-lg-6 col-md-12">
+                    <label for="email">Email</label>
+                    <input value="{{ $user->email }}" disabled class="form-control" placeholder="user@mail.com"
+                        type="text" name="email" id="email" />
+                    <br>
+                </div>
+
                 {{-- Form Alamat --}}
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-12 col-md-12">
                     <label for="alamat">Alamat</label>
                     <textarea name="alamat" id="alamat" class="form-control">{{ $user->alamat }}
                 </textarea>
@@ -93,11 +132,12 @@
 
 
                 {{-- Form Avatar --}}
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-12 col-md-12">
                     <label for="avatar">Avatar image</label>
                     <br>
-                    Current avatar: <br>
                     @if ($user->avatar)
+
+                    <small class="text-muted">Current avatar</small><br>
                         <img src="{{ asset('storage/' . $user->avatar) }}" width="120px" />
                         <br>
                     @else
@@ -110,10 +150,9 @@
                 </div>
 
                 {{-- Form Background --}}
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-12 col-md-12">
                     <label for="background">Background image</label>
                     <br>
-                    Current Background: <br>
                     @if ($user->background)
                         <img src="{{ asset('storage/' . $user->background) }}" width="120px" />
                         <br>
@@ -128,7 +167,7 @@
                 @if (json_decode(Auth::user()->roles) == array_intersect(['0']))
                     {{-- Job Class Choice --}}
 
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-6 col-md-12">
                         <label for="jobclass">Job Class</label><br>
                         <select name="jobclass[]" multiple id="jobclass" class="form-control">
                         </select>
@@ -137,7 +176,7 @@
 
 
                     {{-- Skill Choice --}}
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-6 col-md-12">
                         <label for="skill">Skill</label>
                         <select class="form-control" multiple class="form-control" name="skill[]"
                             id="skill"></select>
@@ -145,37 +184,48 @@
                     </div>
 
                     {{-- Form Status --}}
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <label for="">Status</label>
-                        <br />
-                        <input {{ $user->status == 'on' ? 'checked' : '' }} value="on" type="radio"
-                            class="form-control" id="on" name="status">
-                        <label for="on">Online</label>
 
-                        <input {{ $user->status == 'off' ? 'checked' : '' }} value="off" type="radio"
-                            class="form-control" id="off" name="status">
-                        <label for="off">Offline</label>
-                        <br>
+                    <div class="form-group col-lg-6 col-md-12">
+                        <label>Status</label>
+                        <br />
+                        <label class="fancy-radio">
+                            <input {{ $user->status == 'on' ? 'checked' : '' }} value="on" type="radio"
+                                class="form-control" id="on" name="status">
+                            <span><i></i>Online</span>
+                        </label>
+                        <label class="fancy-radio">
+                            <input {{ $user->status == 'off' ? 'checked' : '' }} value="off" type="radio"
+                                class="form-control" id="off" name="status">
+                            <span><i></i>Offline</span>
+                        </label>
                     </div>
 
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <label for="">Roles</label>
+                    {{-- Form Roles --}}
+                    <div class="form-group col-lg-6 col-md-12">
+                        <label>Roles</label>
                         <br>
-                        <input type="checkbox" {{ in_array('0', json_decode($user->roles)) ? 'checked' : '' }}
-                            name="roles[]" id="0" value="0">
-                        <label for="0">Administrator</label>
-
-                        <input type="checkbox" {{ in_array('1', json_decode($user->roles)) ? 'checked' : '' }}
-                            name="roles[]" id="1" value="1">
-                        <label for="1">Pengajar</label>
-
-                        <input type="checkbox" {{ in_array('2', json_decode($user->roles)) ? 'checked' : '' }}
-                            name="roles[]" id="2" value="2">
-                        <label for="2">Siswa</label>
+                        <label class="fancy-checkbox">
+                            <input {{ in_array('0', json_decode($user->roles)) ? 'checked' : '' }} type="checkbox"
+                                name="roles[]" value="0">
+                            <span>Administrator</span>
+                        </label>
+                        <label class="fancy-checkbox">
+                            <input {{ in_array('1', json_decode($user->roles)) ? 'checked' : '' }} type="checkbox"
+                                name="roles[]" value="1">
+                            <span>Pengajar</span>
+                        </label>
+                        <label class="fancy-checkbox">
+                            <input {{ in_array('2', json_decode($user->roles)) ? 'checked' : '' }} type="checkbox"
+                                name="roles[]" value="2">
+                            <span>Siswa</span>
+                        </label>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('roles') }}
+                        </div>
                     </div>
 
                     {{-- Form Level --}}
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-4 col-md-12">
                         <label for="level">Level</label>
                         <input class="form-control" placeholder="level" type="integer" name="level" id="level"
                             value="{{ $user->level }}">
@@ -183,7 +233,7 @@
                     </div>
 
                     {{-- Form Skor --}}
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-4 col-md-12">
                         <label for="skor">Skor</label>
                         <input class="form-control" placeholder="skor" type="float" name="skor" id="skor"
                             value="{{ $user->skor }}">
@@ -191,7 +241,7 @@
                     </div>
 
                     {{-- Form EXP --}}
-                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-4 col-md-12">
                         <label for="exp">Exp</label>
                         <input class="form-control" placeholder="exp" type="float" name="exp" id="exp"
                             value="{{ $user->exp }}">

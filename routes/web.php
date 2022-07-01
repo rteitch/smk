@@ -91,8 +91,8 @@ Route::resource('skill', SkillController::class);
 Route::get('/quest/published', [QuestController::class, 'published'])->name('quest.published');
 
 Route::get('/quest/trash', [QuestController::class, 'trash'])->name('quest.trash');
-Route::post('/quest/{quest}/restore', [QuestController::class, 'restore'])->name('quest.restore');
-Route::delete('/quest/{quest}/delete-permanent', [QuestController::class, 'deletePermanent'])->name('quest.delete-permanent');
+Route::get('/quest/{id}/restore', [QuestController::class, 'restore'])->name('quest.restore');
+Route::delete('/quest/{id}/delete-permanent', [QuestController::class, 'deletePermanent'])->name('quest.delete-permanent');
 Route::resource('quest', QuestController::class);
 
 //Route OrderQ

@@ -32,7 +32,7 @@
 
             <label>Job Class Image</label><br>
             @if ($jobclass->image)
-                <span>Current image</span><br>
+                <small class="text-muted">Current image</small><br>
                 <img src="{{ asset('storage/' . $jobclass->image) }}" width="120px">
                 <br><br>
             @endif

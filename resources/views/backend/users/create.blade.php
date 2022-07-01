@@ -3,6 +3,18 @@
     - Create User
 @endsection
 
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-user-active')
+    active
+@endsection
+
 @section('breadcrumb')
     <div class="block-header">
         <div class="row">
@@ -187,7 +199,7 @@
                 </div>
 
                 {{-- Form Alamat --}}
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-12 col-md-12">
                     <label for="alamat">Alamat</label>
                     <textarea name="alamat" id="alamat" class="form-control {{ $errors->first('alamat') ? 'is-invalid' : '' }}">{{ old('alamat') }}</textarea>
                     <div class="invalid-feedback">
@@ -280,15 +292,17 @@
                     <br>
                 </div>
 
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-lg-12 col-md-12">
                     <hr class="my-3">
                 </div>
-                {{-- Job Skill / Program Keahlian --}}
+                <div class="col-lg-12 col-md-12 text-right">
+
+                    {{-- button submit --}}
+                    <input class="btn btn-primary" type="submit" value="Save" />
+                </div>
 
             </div>
 
-            {{-- button submit --}}
-            <input class="btn btn-primary" type="submit" value="Save" />
         </form>
     </div>
 @endsection

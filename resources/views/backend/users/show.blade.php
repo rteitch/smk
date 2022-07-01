@@ -4,6 +4,18 @@
     Detail user
 @endsection
 
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-user-active')
+    active
+@endsection
+
 @section('breadcrumb')
     <div class="block-header">
         <div class="row">

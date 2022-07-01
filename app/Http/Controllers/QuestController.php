@@ -222,18 +222,18 @@ class QuestController extends Controller
 
     public function deletePermanent($id)
     {
-        $quests = \App\Models\Quest::withTrashed()->findOrFail($id);
+        $quest = \App\Models\Quest::withTrashed()->findOrFail($id);
+        // $orderq = \App\Models\OrderQ::findOrFail($id);
+        // $orderq->delete();
 
-        $orderq = \App\Models\OrderQ::findOrFail($id);
-        $orderq->delete();
-
-        if (!$quests->trashed()) {
-            return redirect()->route('quest.trash')->with('status', 'Quest is not in trash!')->with('status_type', 'alert');
+        if (!$quest->trashed()) {
+            return redirect()->route('quest.trash')->with('status', 'Can not delete permanent active quest');
         } else {
-            $quests->skill()->detach();
-            $quests->forceDelete();
+            $quest->orderq()->delete();
+            $quest->skill()->detach();
+            $quest->forceDelete();
 
-            return redirect()->route('quest.trash')->with('status', 'Quest permanently deleted!');
+            return redirect()->route('quest.trash')->with('status', 'Quest Permanently deleted');
         }
     }
 
@@ -255,7 +255,7 @@ class QuestController extends Controller
 
         $id_user = \Auth::user()->id;
         $orderq = \App\Models\OrderQ::paginate(4);
-        $user =\App\Models\User::paginate(4);
+        $user = \App\Models\User::paginate(4);
 
         return view('backend.quest.published', compact('quest', 'user', 'orderq'));
     }

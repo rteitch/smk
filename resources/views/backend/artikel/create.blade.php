@@ -4,6 +4,41 @@
     Create Category
 @endsection
 
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-artikel-active')
+    active
+@endsection
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Manajemen Artikel</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('quest.trash') }}">Manajemen Artikel</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('artikel.create') }}">Tambah Artikel</a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+    <style>
+        .select2 {
+            width: 100% !important;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -15,44 +50,47 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <div class="card">
-                    <div class="card-header">
-                        Create artikel
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('artikel.store') }}" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                {{-- Skill Choice --}}
-                                <label for="skill">Skill <small class="text-danger">*sesuaikan kategori
-                                        skill</small></label><br>
-                                <select class="form-control" name="skill[]" multiple id="skill">
-                                </select>
-                                <br><br>
-                                <label for="title">Judul :</label>
-                                <input class="form-control" type="text" name="title">
-                                <br>
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('artikel.store') }}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    {{-- Skill Choice --}}
+                                    <label for="skill">Skill <small class="text-danger">*sesuaikan kategori
+                                            skill</small></label><br>
+                                    <select class="form-control" name="skill[]" multiple id="skill">
+                                    </select>
+                                    <br><br>
+                                    <label for="title">Judul :</label>
+                                    <input class="form-control" type="text" name="title">
+                                    <br>
 
-                                <label for="">Konten :</label>
-                                <textarea class="form-control" name="konten" id="konten"></textarea>
-                                <br>
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="image">Image Utama</label>
-                                        <input type="file" class="form-control" name="image">
+                                    <label for="">Konten :</label>
+                                    <textarea class="form-control" name="konten" id="konten"></textarea>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="image">Image Utama</label>
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
+                                        <div class="col">
+                                            <label for="file">File Pendukung <small class="text-danger">*upload file
+                                                    jika
+                                                    diperlukan</small></label>
+                                            <input type="file" class="form-control" name="file_pendukung">
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <label for="file">File Pendukung <small class="text-danger">*upload file jika
-                                                diperlukan</small></label>
-                                        <input type="file" class="form-control" name="file_pendukung">
+                                    <hr>
+                                    <div class="col-lg-12 col-md-12 text-right">
+                                        <button class="btn btn-primary" name="save_action" value="PUBLISH">Publish</button>
+
+                                        <button class="btn btn-secondary" name="save_action" value="DRAFT">Save as
+                                            draft</button>
                                     </div>
                                 </div>
-                                <br>
-                                <button class="btn btn-primary" name="save_action" value="PUBLISH">Publish</button>
-
-                                <button class="btn btn-secondary" name="save_action" value="DRAFT">Save as draft</button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,7 +114,7 @@
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']],
-                ['insert', ['link', 'picture', 'video']],
+                ['insert', ['link', 'picture']],
             ]
         });
     </script>

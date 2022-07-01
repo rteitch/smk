@@ -4,6 +4,18 @@
     Users list
 @endsection
 
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-user-active')
+    active
+@endsection
+
 @section('breadcrumb')
     <div class="block-header">
         <div class="row">
@@ -85,7 +97,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-right mb-2">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary"> <span class="oi oi-plus"> Tambah
+                        <a href="{{ route('users.create') }}" class="btn btn-primary"> <span class="fa fa-plus"> Tambah
                                 user</span> </a>
                     </div>
                     <hr class="my-3">
