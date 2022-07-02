@@ -4,6 +4,37 @@
     Orders list
 @endsection
 
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-quest-saya-active')
+    active
+@endsection
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Quest Saya</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('orderq.index', \Auth::user()->id) }}">Quest
+                            Saya</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
     @if (session('status'))
         <div class="alert alert-success">
@@ -264,7 +295,7 @@
                     <!-- Trigger the modal with a button -->
 
                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                        data-target="#myModal{{ $order->id }}"><span class="oi oi-eye"></span> View
+                        data-target="#myModal{{ $order->id }}"><span class="fa fa-eye"></span> View
                     </button>
 
                     <form onsubmit="return confirm('Membatalkan quest kode {{ $order->quest_code }}?')"
@@ -273,7 +304,7 @@
                         @csrf
 
                         <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn- btn-danger btn-sm"><span class="oi oi-trash"></span></button>
+                        <button type="submit" class="btn- btn-danger btn-sm"><span class="fa fa-trash"></span></button>
                         {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm"> --}}
 
                     </form>

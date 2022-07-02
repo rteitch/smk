@@ -222,12 +222,26 @@
                                                 href="{{ route('skill.index') }}">Manajemen Skill</a></li>
                                         <li class="@yield('dash-quest-active')"><a
                                                 href="{{ route('quest.index') }}">Manajemen Quest</a></li>
+                                        <li class="@yield('dash-quest-siswa-active')"><a
+                                                href="{{ route('orderq.index') }}">Manajemen Quest Siswa</a></li>
                                         <li class="@yield('dash-reward-active')"><a
                                                 href="{{ route('reward.index') }}">Manajemen Reward</a></li>
+                                        <li class="@yield('dash-reward-siswa-active')"><a
+                                                href="{{ route('orderr.index') }}">Manajemen Reward Siswa</a></li>
                                         <li class="@yield('dash-artikel-active')"><a
                                                 href="{{ route('artikel.index') }}">Manajemen Artikel</a></li>
                                         <li class="@yield('dash-notifikasi-active')"><a
                                                 href="{{ route('notifikasi.index') }}">Manajemen Notifikasi</a>
+                                        </li>
+                                        <hr width="50%">
+                                        <li class="@yield('dash-jobclass-saya-active')">
+                                            <a href="#">JobClass Saya (progress)</a>
+                                        </li>
+                                        <li class="@yield('dash-quest-saya-active')">
+                                            <a href="{{ route('orderq.siswa', \Auth::user()->id) }}">Quest Saya</a>
+                                        </li>
+                                        <li class="@yield('dash-reward-saya-active')">
+                                            <a href="{{ route('orderr.siswa', \Auth::user()->id) }}">Reward Saya</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -250,8 +264,13 @@
                                     <a href="{{ route('artikel.published') }}"><i
                                             class="fa fa-rss"></i><span>Berita</span></a>
                                 </li>
+
                                 <li class="@yield('notifikasi-active')}">
-                                    <a href="#"><i class="fa fa-bell"></i><span>Notifikasi</span></a>
+                                    <a href="#Notifikasi" class="has-arrow"><i class="fa fa-bell"></i><span>Notifikasi</span></a>
+                                    <ul aria-expanded="false" class="collapse @yield('notifikasi-collapse-in')">
+                                        <li class="@yield('notifikasi-siswa')"><a href="{{ route('notifikasi.showSiswaNotifikasi') }}">Notifikasi Siswa</a></li>
+                                        <li class="@yield('notifikasi-pengajar')"><a href="{{ route('notifikasi.showPengajarNotifikasi') }}">Notifikasi Pengajar</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </nav>

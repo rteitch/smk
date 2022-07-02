@@ -126,6 +126,9 @@ Route::delete('/artikel/{artikel}/delete-permanent', [ArtikelController::class, 
 Route::resource('artikel', ArtikelController::class);
 
 //Route Notifikasi
+Route::get('/notifikasi/pengajar/' , [NotifikasiController::class, 'showPengajarNotifikasi'])->name('notifikasi.showPengajarNotifikasi');
+Route::get('/notifikasi/siswa/' , [NotifikasiController::class, 'showSiswaNotifikasi'])->name('notifikasi.showSiswaNotifikasi');
+
 Route::get('/notifikasi/user/' , [NotifikasiController::class, 'showUserPesan'])->name('notifikasi.showUserPesan');
 Route::get('/notifikasi/trash', [NotifikasiController::class, 'trash'])->name('notifikasi.trash');
 Route::post('/notifikasi/{notifikasi}/restore', [NotifikasiController::class, 'restore'])->name('notifikasi.restore');

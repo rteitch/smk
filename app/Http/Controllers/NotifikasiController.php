@@ -201,4 +201,17 @@ class NotifikasiController extends Controller
 
         return view('backend.notifikasi.show');
     }
+
+    public function showSiswaNotifikasi(){
+
+        $notifikasi = \App\Models\Notifikasi::paginate(10);
+
+        return view('backend.notifikasi.siswa', compact('notifikasi'));
+    }
+    public function showPengajarNotifikasi(){
+
+        $notifikasi = \App\Models\Notifikasi::paginate(10);
+
+        return view('backend.notifikasi.pengajar', compact('notifikasi'));
+    }
 }

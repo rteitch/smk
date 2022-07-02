@@ -4,6 +4,35 @@
     Detail Skill
 @endsection
 
+@section('ga-active')
+    active
+@endsection
+
+@section('ga-collapse-in')
+    in
+@endsection
+
+@section('ga-jobclass')
+    active
+@endsection
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Job Class</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Guild Adventure</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('jobclass.published') }}">Job Class</a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
     <div class="container col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         @if (session('status'))
@@ -17,7 +46,7 @@
         @endif
         <div>
             <div class="col-12 col-sm-12">
-                <h2>Jobclass Update</h2>
+                <h2>Jobclass Ready</h2>
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <hr class="my-3">
                 </div>
@@ -54,7 +83,7 @@
                                             @csrf
 
                                             <button type="submit" class="btn btn-danger btn-sm"><span
-                                                    class="oi oi-trash"></span></button>
+                                                    class="fa fa-trash"></span></button>
                                             {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm"> --}}
 
                                         </form>
