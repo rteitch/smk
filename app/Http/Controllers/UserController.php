@@ -325,7 +325,7 @@ class UserController extends Controller
 
     public function getLeaderboard(){
         $user_leaderboard = \App\Models\User::select('id', 'username', 'level', 'skor', 'roles')->where('roles', 'LIKE', json_encode(["2"]))->get();
-        return DataTables::of($user_leaderboard)->make(true);
+        return DataTables::of($user_leaderboard)->addIndexColumn()->toJson();
     }
 
     public function leaderboard(){
@@ -333,7 +333,8 @@ class UserController extends Controller
         return view('frontend.leaderboard');
     }
 
-    public function tampilanDummy(){
-        return view('dumy');
-    }
+    // public function tampilanDummy(){
+    //     return view('dumy');
+    // }
+
 }

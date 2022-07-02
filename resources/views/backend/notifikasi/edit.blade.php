@@ -4,84 +4,157 @@
     Edit Quest
 @endsection
 
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-notifikasi-active')
+    active
+@endsection
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Edit Notifikasi</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('notifikasi.index') }}">Manajemen Notifikasi</a>
+                    <li class="breadcrumb-item active"> <a
+                            href="{{ route('notifikasi.edit', [$notifikasi_to_edit->id]) }}">Edit Notifikasi :
+                            {{ $notifikasi_to_edit->title }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-10">
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
             @endif
-            <form enctype="multipart/form-data" method="POST" action="{{ route('notifikasi.update', [$notifikasi_to_edit->id]) }}"
-                class="p-3 shadow-sm bg-white">
+            <form enctype="multipart/form-data" method="POST"
+                action="{{ route('notifikasi.update', [$notifikasi_to_edit->id]) }}" class="p-3 shadow-sm bg-white">
 
                 @csrf
                 <input type="hidden" name="_method" value="PUT">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <label for="image">Image</label><br>
+                        <small class="text-muted">Current image</small><br>
+                        @if ($notifikasi_to_edit->image)
+                            <img src="{{ asset('storage/' . $notifikasi_to_edit->image) }}" width="96px" />
+                        @endif
+                        <br><br>
+                        <input type="file" class="form-control" name="image">
+                        <small class="text-muted">Kosongkan jika tidak ingin mengubah cover</small>
+                        <br><br>
+                    </div>
 
-                <label for="title">Judul Notifikasi</label> <br>
-                <input type="text" class="form-control" name="title" placeholder="Title Pesan"
-                    value="{{ $notifikasi_to_edit->title }}">
-                <br>
+                    <div class="col-lg-6 col-md-12">
+                        <label for="">Status</label>
+                        <select name="status" id="status" class="form-control">
+                            <option {{ $notifikasi_to_edit->status == 'PUBLISH' ? 'selected' : '' }} value="PUBLISH">
+                                PUBLISH
+                            </option>
+                            <option {{ $notifikasi_to_edit->status == 'DRAFT' ? 'selected' : '' }} value="DRAFT">DRAFT
+                            </option>
+                        </select>
+                        <br>
+                    </div>
 
-                <label for="slug">Slug <small>(tidak perlu diedit)</small></label><br>
-                <input disabled type="text" class="form-control" value="{{ $notifikasi_to_edit->slug }}" name="slug"
-                    placeholder="enter-a-slug" />
-                <br>
+                    <div class="col-lg-6 col-md-12">
+                        {{-- Form Pilih Role User --}}
+                        <label for="">Kirim Notifikasi Role</label>
+                        <br />
+                        <select class="form-control" name="jenis_roles" id="jenis_roles">
+                            <option {{ $notifikasi_to_edit->jenis_roles == 'SISWA' ? 'selected' : '' }} value="SISWA">
+                                Siswa
+                            </option>
+                            <option {{ $notifikasi_to_edit->jenis_roles == 'PENGAJAR' ? 'selected' : '' }}
+                                value="PENGAJAR">
+                                Pengajar
+                            </option>
+                        </select>
+                        <br>
+                    </div>
 
-                <label for="image">Image</label><br>
-                <small class="text-muted">Current image</small><br>
-                @if ($notifikasi_to_edit->image)
-                    <img src="{{ asset('storage/' . $notifikasi_to_edit->image) }}" width="96px" />
-                @endif
-                <br><br>
-                <input type="file" class="form-control" name="image">
-                <small class="text-muted">Kosongkan jika tidak ingin mengubah cover</small>
-                <br><br>
+                    <div class="col-lg-12 col-md-12">
+                        <label for="title">Judul Notifikasi</label> <br>
+                        <input type="text" class="form-control" name="title" placeholder="Title Pesan"
+                            value="{{ $notifikasi_to_edit->title }}">
+                        <br>
+                    </div>
 
-                {{-- Form Pilih Role User --}}
-                <label for="">Kirim Notifikasi Role</label>
-                <br />
-                <select class="form-control" name="jenis_roles" id="jenis_roles">
-                    <option {{ $notifikasi_to_edit->jenis_roles == 'SISWA' ? 'selected' : '' }} value="SISWA">Siswa</option>
-                    <option {{ $notifikasi_to_edit->jenis_roles == 'PENGAJAR' ? 'selected' : '' }} value="PENGAJAR">Pengajar
-                    </option>
-                </select>
-                <br>
 
-                <label for="pesan">Isi Pesan</label><br>
-                <textarea name="pesan" id="deskripsi" class="form-control" placeholder="Berikan Isi Notifikasi">{{ $notifikasi_to_edit->pesan }}</textarea>
-                <br>
+                    <div class="col-lg-12 col-md-12">
+                        <label for="pesan">Isi Pesan</label><br>
+                        <textarea name="pesan" id="deskripsi" class="form-control" placeholder="Berikan Isi Notifikasi">{{ $notifikasi_to_edit->pesan }}</textarea>
+                        <br>
+                    </div>
 
-                {{-- Form Status --}}
-                <label for="">Jenis Notifikasi <small class="text-danger">*Pilih Lagi Jenis Notifikasi yg ingin digunakan</small></label>
-                <br />
-                <select class="form-control" name="jenis_notifikasi" id="jenis_notifikasi" onchange="showDiv(this)">
-                    <option {{ $notifikasi_to_edit->jenis_notifikasi == 'PESAN' ? 'selected' : '' }} value="PESAN">PESAN</option>
-                    <option {{ $notifikasi_to_edit->jenis_notifikasi == 'REWARD' ? 'selected' : '' }}  value="REWARD">REWARD</option>
-                </select>
-                <br>
-                <div id="hiddenDiv" style="display: block;">
-                    {{-- Form Skor --}}
-                    <label for="skor">Bonus Skor</label>
-                    <input class="form-control" placeholder="skor" type="float" name="skor" id="skor"
-                        value="{{ $notifikasi_to_edit->skor }}">
-                    <br>
-                    {{-- Form EXP --}}
-                    <label for="exp">Bonus Exp</label>
-                    <input class="form-control" placeholder="exp" type="float" name="exp" id="exp"
-                        value="{{ $notifikasi_to_edit->skor }}">
-                    <br>
-                </div>
-                <label for="">Status</label>
-                <select name="status" id="status" class="form-control">
-                    <option {{ $notifikasi_to_edit->status == 'PUBLISH' ? 'selected' : '' }} value="PUBLISH">PUBLISH</option>
-                    <option {{ $notifikasi_to_edit->status == 'DRAFT' ? 'selected' : '' }} value="DRAFT">DRAFT</option>
-                </select>
-                <br>
+                    <div class="col-lg-6 col-md-12">
+                        {{-- Form Status --}}
+                        <label for="">Jenis Notifikasi <small class="text-danger">*Pilih Lagi Jenis Notifikasi yg
+                                ingin
+                                digunakan</small></label>
+                        <br />
+                        <select class="form-control" name="jenis_notifikasi" id="jenis_notifikasi" onchange="showDiv(this)">
+                            <option {{ $notifikasi_to_edit->jenis_notifikasi == 'PESAN' ? 'selected' : '' }}
+                                value="PESAN">
+                                PESAN</option>
+                            <option {{ $notifikasi_to_edit->jenis_notifikasi == 'REWARD' ? 'selected' : '' }}
+                                value="REWARD">
+                                REWARD</option>
+                        </select>
+                        <br>
+                    </div>
 
-                <button class="btn btn-primary" value="PUBLISH">Update</button>
+                    <div class="col-lg-6 col-md-12">
+                        <div id="hiddenDiv" style="display: block;">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+
+                                    {{-- Form Skor --}}
+                                    <label for="skor">Bonus Skor</label>
+                                    <input class="form-control" placeholder="skor" type="float" name="skor"
+                                        id="skor" value="{{ $notifikasi_to_edit->skor }}">
+                                    <br>
+                                </div>
+
+                                <div class="col-lg-6 col-md-12">
+
+                                    {{-- Form EXP --}}
+                                    <label for="exp">Bonus Exp</label>
+                                    <input class="form-control" placeholder="exp" type="float" name="exp"
+                                        id="exp" value="{{ $notifikasi_to_edit->skor }}">
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 text-right">
+
+                        <hr>
+                        <button class="btn btn-primary" value="PUBLISH">Update</button>
+
+                    </div>
             </form>
         </div>
+
+    </div>
     </div>
 @endsection
 

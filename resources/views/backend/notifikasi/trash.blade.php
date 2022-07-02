@@ -4,6 +4,37 @@
     Trashed notifikasi
 @endsection
 
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-notifikasi-active')
+    active
+@endsection
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Edit Notifikasi</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('notifikasi.index') }}">Manajemen Notifikasi</a>
+                    <li class="breadcrumb-item active"> <a href="{{ route('notifikasi.trash') }}">Trash</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -17,8 +48,8 @@
                     <form action="{{ route('notifikasi.index') }}">
 
                         <div class="input-group">
-                            <input name="keyword" type="text" value="{{ Request::get('keyword') }}" class="form-control"
-                                placeholder="Filter by title">
+                            <input name="keyword" type="text" value="{{ Request::get('keyword') }}"
+                                class="form-control" placeholder="Filter by title">
                             <div class="input-group-append">
                                 <input type="submit" value="Filter" class="btn btn-primary">
                             </div>
@@ -28,18 +59,17 @@
                 </div>
                 <div class="col-md-6">
                     <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item">
+                        <li class="nav-item text-white mr-3">
                             <a class="nav-link" href="{{ route('notifikasi.index') }}">All</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item text-white mr-3">
                             <a class="nav-link"
                                 href="{{ route('notifikasi.index', ['status' => 'publish']) }}">Publish</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link"
-                                href="{{ route('notifikasi.index', ['status' => 'draft']) }}">Draft</a>
+                        <li class="nav-item text-white mr-3">
+                            <a class="nav-link" href="{{ route('notifikasi.index', ['status' => 'draft']) }}">Draft</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item text-white mr-3">
                             <a class="nav-link {{ Request::path() == 'notifikasi/trash' ? 'active' : '' }}"
                                 href="{{ route('notifikasi.trash') }}">Trash</a>
                         </li>
@@ -48,11 +78,6 @@
             </div>
 
             <hr class="my-3">
-            <div class="row mb-3">
-                <div class="col-md-12 text-right">
-                    <a href="{{ route('notifikasi.create') }}" class="btn btn-primary">Create notifikasi</a>
-                </div>
-            </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-stripped">
                     <thead>
@@ -89,9 +114,9 @@
 
                                         <input type="submit" value="Restore" class="btn btn-success" />
                                     </form>
-                                    <form method="POST" action="{{ route('notifikasi.delete-permanent', [$notif->id]) }}"
-                                        class="d-inline"
-                                        onsubmit="return confirm('Delete this notifikasi permanently?')">
+                                    <form method="POST"
+                                        action="{{ route('notifikasi.delete-permanent', [$notif->id]) }}"
+                                        class="d-inline" onsubmit="return confirm('Delete this notifikasi permanently?')">
 
                                         @csrf
                                         <input type="hidden" name="_method" value="DELETE">

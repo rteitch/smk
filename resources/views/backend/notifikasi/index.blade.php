@@ -69,12 +69,6 @@
                                     </div>
 
                                     <div class="col-lg-12 col-md-12">
-                                        <label for="title">Judul Notifikasi</label> <br>
-                                        <input type="text" class="form-control" name="title" placeholder="Title Pesan">
-                                        <br>
-                                    </div>
-
-                                    <div class="col-lg-12 col-md-12">
                                         {{-- Form Pilih Role User --}}
                                         <label for="">Kirim Notifikasi Role</label>
                                         <br />
@@ -82,6 +76,12 @@
                                             <option value="SISWA">Siswa</option>
                                             <option value="PENGAJAR">Pengajar</option>
                                         </select>
+                                        <br>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <label for="title">Judul Notifikasi</label> <br>
+                                        <input type="text" class="form-control" name="title" placeholder="Title Pesan">
                                         <br>
                                     </div>
 
@@ -190,7 +190,7 @@
 
                         <!-- Trigger the modal with a button -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span
-                                class="fa fa-plus"></span> Tambah JobClass
+                                class="fa fa-plus"></span> Tambah Notifikasi
                         </button>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('notifikasi.edit', [$notif->id]) }}"
-                                            class="btn btn-info btn-sm"> Edit
+                                            class="btn btn-info btn-sm"> <i class="fa fa-edit"></i>
                                         </a>
                                         <form method="POST" class="d-inline"
                                             onsubmit="return confirm('Move quest to trash?')"
@@ -234,7 +234,8 @@
                                             @csrf
                                             <input type="hidden" value="DELETE" name="_method">
 
-                                            <input type="submit" value="Trash" class="btn btn-danger btn-sm">
+                                            <button type="submit" class="btn btn-danger btn-sm"><span
+                                                    class="fa fa-trash-o"></span></button>
 
                                         </form>
                                     </td>

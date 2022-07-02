@@ -12,4 +12,8 @@ class GlobalController extends Controller
     {
         return view("layouts.global");
     }
+
+    public function bukuPanduan(){
+        return view('frontend.buku-panduan');
+    }
 }

@@ -37,6 +37,7 @@ Route::get('/', function () {
     }
 });
 
+Route::get('/buku-panduan', [GlobalController::class, 'bukuPanduan'])->name('frontend.global');
 Route::get('/global', [GlobalController::class, 'index'])->name('layouts.global');
 
 Route::get('change-password', [ChangePasswordController::class, 'index']);
@@ -149,4 +150,5 @@ Route::resource('orderr', OrderRController::class);
 
 
 //route dummy template
-Route::get('/dumy', [UserController::class, 'tampilanDummy']);
+// Route::get('/dumy', [UserController::class, 'tampilanDummy']);
+
