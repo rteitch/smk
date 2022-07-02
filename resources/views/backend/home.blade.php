@@ -21,6 +21,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('content')
@@ -55,6 +56,3 @@
     </div>
 @endsection
 
-@section('footer-scripts')
-    <script src="{{ asset('iconic/dist/assets/vendor/toastr/toastr.js') }}"></script>
-@endsection

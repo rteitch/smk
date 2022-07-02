@@ -4,13 +4,13 @@ $(function() {
     $('.sparkbar').sparkline('html', { type: 'bar' });
 
     // notification popup
-    toastr.options.closeButton = true;
-    toastr.options.positionClass = 'toast-bottom-right';
-    toastr.options.showDuration = 1000;
-    toastr['info']('Hello, welcome to Iconic, a unique admin Template.');
+    // toastr.options.closeButton = true;
+    // toastr.options.positionClass = 'toast-bottom-right';
+    // toastr.options.showDuration = 1000;
+    // toastr['info']('Hello, welcome to Iconic, a unique admin Template.');
 
     // Patients Analytics Report
-    $(document).ready(function(){
+    $(document).ready(function() {
         var chart = c3.generate({
             bindto: '#Google-Analytics-Dashboard', // id of chart wrapper
             data: {
@@ -56,7 +56,7 @@ $(function() {
     });
 
     //  Use by Patients Age
-    $(document).ready(function(){
+    $(document).ready(function() {
         var chart = c3.generate({
             bindto: '#Use-by-PatientsAge', // id of chart wrapper
             data: {
@@ -82,8 +82,7 @@ $(function() {
                     'data4': '50-up',
                 }
             },
-            axis: {
-            },
+            axis: {},
             legend: {
                 show: true, //hide legend
             },
@@ -95,7 +94,7 @@ $(function() {
     });
 
     // Use by Gander
-    $(document).ready(function(){
+    $(document).ready(function() {
         var chart = c3.generate({
             bindto: '#Use-by-gander', // id of chart wrapper
             data: {
@@ -115,8 +114,7 @@ $(function() {
                     'data2': 'Female',
                 }
             },
-            axis: {
-            },
+            axis: {},
             legend: {
                 show: true, //hide legend
             },
@@ -128,7 +126,7 @@ $(function() {
     });
 
     // Patient history
-    $(document).ready(function(){
+    $(document).ready(function() {
         var chart = c3.generate({
             bindto: '#Patient-history', // id of chart wrapper
             data: {
@@ -136,11 +134,11 @@ $(function() {
                     // each columns data
                     ['data1', 11, 8, 15, 18, 19, 17, 11, 8, 15, 18, 19, 17],
                     ['data2', 12, 11, 8, 15, 18, 7, 7, 5, 7, 9, 19, 17],
-                    ['data3', 7, 7, 5, 7, 9, 12, 7, 7, 5, 7, 9, 12,],
+                    ['data3', 7, 7, 5, 7, 9, 12, 7, 7, 5, 7, 9, 12, ],
                 ],
                 type: 'bar', // default type of chart
                 groups: [
-                    [ 'data1', 'data2', 'data3']
+                    ['data1', 'data2', 'data3']
                 ],
                 colors: {
                     'data1': Iconic.colors["theme-cyan1"],
@@ -175,7 +173,7 @@ $(function() {
     });
 
     // workload by team
-    $(document).ready(function(){
+    $(document).ready(function() {
         var chart = c3.generate({
             bindto: '#Overall-Satisfaction', // id of chart wrapper
             data: {
