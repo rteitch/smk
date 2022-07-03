@@ -126,6 +126,10 @@ Route::delete('/artikel/{artikel}/delete-permanent', [ArtikelController::class, 
 Route::resource('artikel', ArtikelController::class);
 
 //Route Notifikasi
+
+
+Route::get('/get-notifikasi', [NotifikasiController::class, 'getNotifikasi']);
+
 Route::get('/notifikasi/pengajar/' , [NotifikasiController::class, 'showPengajarNotifikasi'])->name('notifikasi.showPengajarNotifikasi');
 Route::get('/notifikasi/siswa/' , [NotifikasiController::class, 'showSiswaNotifikasi'])->name('notifikasi.showSiswaNotifikasi');
 

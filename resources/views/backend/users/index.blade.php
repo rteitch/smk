@@ -119,6 +119,7 @@
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
+                        <img src="" alt="gbr-notifikasi">
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>

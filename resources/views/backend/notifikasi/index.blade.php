@@ -200,6 +200,7 @@
                         <thead>
                             <tr>
                                 <th scope="col"><b>#</b></th>
+                                <th scope="col"><b>Image</b></th>
                                 <th scope="col"><b>Title</b></th>
                                 <th scope="col"><b>Pesan</b></th>
                                 <th scope="col"><b>Dikirim ke</b></th>
@@ -212,6 +213,7 @@
                             @foreach ($notifikasi as $index => $notif)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
+                                    <td><img src="{{ asset('storage/' . $notif->image) }}" alt="" width="70px"></td>
                                     <td>{{ $notif->title }}</td>
                                     <td>{{ $notif->pesan }}</td>
                                     <td>{{ $notif->jenis_roles }}</td>

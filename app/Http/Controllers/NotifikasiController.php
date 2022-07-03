@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Response;
 
 class NotifikasiController extends Controller
 {
@@ -213,5 +214,24 @@ class NotifikasiController extends Controller
         $notifikasi = \App\Models\Notifikasi::paginate(10);
 
         return view('backend.notifikasi.pengajar', compact('notifikasi'));
+    }
+
+    public function getNotifikasi(){
+        $user_login = \Auth::user();
+        $user_roles = json_decode($user_login->roles);
+        $adminKode = array_intersect(['0']);
+        $PengajarKode = array_intersect(['1']);
+        $SiswaKode = array_intersect(['2']);
+        if($user_roles == $PengajarKode){
+            $user_roles_verif = 'PENGAJAR';
+            $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->get();
+            return Response::json($notifikasi);
+        } elseif($user_roles == $SiswaKode){
+            $user_roles_verif = 'SISWA';
+            $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->get();
+            return Response::json($notifikasi);
+        } else{
+            $notifikasi = \App\Models\Notifikasi::get();
+        }
     }
 }
