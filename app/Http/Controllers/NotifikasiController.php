@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Response;
@@ -198,40 +199,52 @@ class NotifikasiController extends Controller
         }
     }
 
-    public function showUserPesan(){
+    public function showUserPesan()
+    {
 
         return view('backend.notifikasi.show');
     }
 
-    public function showSiswaNotifikasi(){
+    public function showNotifikasiUser()
+    {
 
-        $notifikasi = \App\Models\Notifikasi::paginate(10);
-
-        return view('backend.notifikasi.siswa', compact('notifikasi'));
-    }
-    public function showPengajarNotifikasi(){
-
-        $notifikasi = \App\Models\Notifikasi::paginate(10);
-
-        return view('backend.notifikasi.pengajar', compact('notifikasi'));
-    }
-
-    public function getNotifikasi(){
         $user_login = \Auth::user();
         $user_roles = json_decode($user_login->roles);
         $adminKode = array_intersect(['0']);
         $PengajarKode = array_intersect(['1']);
         $SiswaKode = array_intersect(['2']);
-        if($user_roles == $PengajarKode){
+        if ($user_roles == $PengajarKode) {
+            $user_roles_verif = 'PENGAJAR';
+            $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->paginate(4);
+            return view('backend.notifikasi.user', compact('notifikasi'));
+        } elseif ($user_roles == $SiswaKode) {
+            $user_roles_verif = 'SISWA';
+            $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->paginate(4);
+            return view('backend.notifikasi.user', compact('notifikasi'));
+        } else {
+            $notifikasi = \App\Models\Notifikasi::get();
+            return view('backend.notifikasi.user', compact('notifikasi'));
+        }
+    }
+
+    public function getNotifikasi()
+    {
+        $user_login = \Auth::user();
+        $user_roles = json_decode($user_login->roles);
+        $adminKode = array_intersect(['0']);
+        $PengajarKode = array_intersect(['1']);
+        $SiswaKode = array_intersect(['2']);
+        if ($user_roles == $PengajarKode) {
             $user_roles_verif = 'PENGAJAR';
             $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->get();
             return Response::json($notifikasi);
-        } elseif($user_roles == $SiswaKode){
+        } elseif ($user_roles == $SiswaKode) {
             $user_roles_verif = 'SISWA';
             $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->get();
             return Response::json($notifikasi);
-        } else{
+        } else {
             $notifikasi = \App\Models\Notifikasi::get();
+            return Response::json($notifikasi);
         }
     }
 }

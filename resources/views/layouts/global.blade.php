@@ -69,7 +69,7 @@
                                                 </div>
                                             </a>
                                         </li> --}}
-                                        <li class="footer"><a href="javascript:void(0);" class="more">See all
+                                        <li class="footer"><a href="{{ route('notifikasi.showNotifikasiUser', \Auth::user()->id) }}" class="more">See all
                                                 notifications</a></li>
                                     </ul>
                                 </li>
@@ -240,16 +240,20 @@
     <script>
         var staticUrl = '{{ url('get-notifikasi') }}';
         $.getJSON(staticUrl, function(data) {
-            // console.log(data);
 
             document.getElementById("jumlahnotifikasi").innerHTML = data.length;
-            for (i = 0; i < data.length; i = i + 1) {
+            for (i = 0; i < 4; i = i + 1) {
                 const header = document.querySelector('.isi-notifikasi');
                 const myDiv1 = document.createElement('a');
+                var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                //parse date json ke format en-US
+                const json = JSON.stringify(data[i].created_at);
+                const date = new Date(JSON.parse(json));
+                const date_format = date.toLocaleDateString("en-US", options);
                 myDiv1.innerHTML =
                     "<div class='media'><a href='javascript:void(0);'><div class='media'><div class='media-left'> <i class='icon-envelope text-info'></i> </div><div class='media-body'><p><strong>" +
                     data[i].title + "</strong></p><p class='text'>" + data[i].pesan +
-                    "</p><span class='timestamp'>" + data[i].created_at + "</span></div></div></div>";
+                    "</p><span class='timestamp'>" + date_format + "</span></div></div></div>";
                 header.appendChild(myDiv1);
             }
         });

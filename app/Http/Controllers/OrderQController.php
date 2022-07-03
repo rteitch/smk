@@ -32,7 +32,7 @@ class OrderQController extends Controller
         // })->where('status','LIKE', "%$status%")->paginate(10);
         $orderq = \App\Models\OrderQ::with('user')->with(
             ['quest' => function ($query) {
-                $query->select('batas_waktu');
+                $query->select('batas_waktu', 'judul');
             }]
         )->whereHas('user', function ($query) use ($user_name) {
             $query->where('name', 'LIKE', "%$user_name%");

@@ -43,12 +43,8 @@
     @endif
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('orderr.index') }}">
+            <form action="{{ route('orderr.siswa', \Auth::user()->id) }}">
                 <div class="row">
-                    <div class="col-md-5">
-                        <input value="{{ Request::get('name') }}" name="name" type="text" class="form-control"
-                            placeholder="Search by buyer name">
-                    </div>
                     <div class="col-md-2">
                         <select name="status" class="form-control" id="status">
                             <option value="">ANY</option>

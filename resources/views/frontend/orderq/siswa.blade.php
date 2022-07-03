@@ -41,12 +41,8 @@
             {{ session('status') }}
         </div>
     @endif
-    <form action="{{ route('orderq.index') }}">
+    <form action="{{ route('orderq.siswa', \Auth::user()->id) }}">
         <div class="row">
-            <div class="col-md-5">
-                <input value="{{ Request::get('name') }}" name="name" type="text" class="form-control"
-                    placeholder="Search by buyer name">
-            </div>
             <div class="col-md-2">
                 <select name="status" class="form-control" id="status">
                     <option value="">ANY</option>
@@ -69,7 +65,7 @@
                 <table class="table table-stripped table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Quest Code</th>
+                            <th scope="col">Judul</th>
                             <th scope="col"><b>Status</b></th>
                             <th scope="col"><b>Siswa</b></th>
                             <th scope="col"><b>File Jawaban</b></th>
@@ -93,8 +89,8 @@
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
                                             <div class="modal-body">
-                                                <iframe src="{{ asset('storage/' . $order->file_jawab) }}" frameborder="0" width="100%"
-                                                    height="400px" type="application/pdf"></iframe>
+                                                <iframe src="{{ asset('storage/' . $order->file_jawab) }}" frameborder="0"
+                                                    width="100%" height="400px" type="application/pdf"></iframe>
 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default"
@@ -113,7 +109,7 @@
                                         <!-- Modal content-->
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h3 class="modal-title" id=""><small>{{ $order->quest_code }} -
+                                                <h3 class="modal-title" id=""><small>{{ $quests->judul }} -
                                                         {{ $quest->where('id', $quests->pivot->quest_id)->first()->jenis_soal }}
                                                         @if ($order->status == 'SUBMIT')
                                                             <span
@@ -254,9 +250,8 @@
                                     </div>
                                 </div>
             </div>
-            @endforeach
             <tr>
-                <td>{{ $order->quest_code }}</td>
+                <td>{{ $quests->judul }}</td>
                 <td>
                     @if ($order->status == 'SUBMIT')
                         <span class="badge bg-warning text-light">{{ $order->status }}</span>
@@ -283,9 +278,46 @@
                 </td>
                 <td>{{ $order->jawaban_pilgan }}</td>
                 <td>
-                    @foreach ($order->quest as $q)
-                        {{ $q->batas_waktu }}
-                    @endforeach()
+                    {{ $quests->batas_waktu }}
+                    {{-- <div id="countdown">
+                        <script>
+                            CountDownTimer('{{ $quests->created_at }}', 'countdown');
+
+                            function CountDownTimer(dt, id) {
+                                var end = new Date('{{ $quests->batas_waktu }}');
+                                var _second = 1000;
+                                var _minute = _second * 60;
+                                var _hour = _minute * 60;
+                                var _day = _hour * 24;
+                                var timer;
+
+                                function showRemaining() {
+                                    var now = new Date();
+                                    var distance = end - now;
+                                    if (distance < 0) {
+
+                                        clearInterval(timer);
+                                        document.getElementById(id).innerHTML =
+                                            '<span class="badge bg-danger text-light">Quest Telah Berakhir!</span> ';
+                                        return;
+                                    } else {
+                                        var days = Math.floor(distance / _day);
+                                        var hours = Math.floor((distance % _day) / _hour);
+                                        var minutes = Math.floor((distance % _hour) / _minute);
+                                        var seconds = Math.floor((distance % _minute) / _second);
+
+                                        document.getElementById(id).innerHTML = days + 'days ';
+                                        document.getElementById(id).innerHTML += hours + 'hrs ';
+                                        document.getElementById(id).innerHTML += minutes + 'mins ';
+                                        document.getElementById(id).innerHTML += seconds + 'secs';
+                                        document.getElementById(id).innerHTML +=
+                                            '<br><span class="badge bg-success text-light">Quest Tersedia!</span> ';
+
+                                    }
+                                }
+                                timer = setInterval(showRemaining, 1000);
+                            }
+                        </script> --}}
                 </td>
                 <td>
                     {{-- <a href="{{ route('orderq.edit', [$order->id]) }}" class="btn btn-success btn-sm">
@@ -313,6 +345,7 @@
 
             </tr>
             @endforeach
+            @endforeach
             </tbody>
             <tfoot>
                 <tr>
@@ -330,5 +363,4 @@
 @endsection
 
 @section('footer-scripts')
-    <script></script>
 @endsection

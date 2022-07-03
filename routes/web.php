@@ -130,8 +130,7 @@ Route::resource('artikel', ArtikelController::class);
 
 Route::get('/get-notifikasi', [NotifikasiController::class, 'getNotifikasi']);
 
-Route::get('/notifikasi/pengajar/' , [NotifikasiController::class, 'showPengajarNotifikasi'])->name('notifikasi.showPengajarNotifikasi');
-Route::get('/notifikasi/siswa/' , [NotifikasiController::class, 'showSiswaNotifikasi'])->name('notifikasi.showSiswaNotifikasi');
+Route::get('/notifikasi/user/{id}' , [NotifikasiController::class, 'showNotifikasiUser'])->name('notifikasi.showNotifikasiUser');
 
 Route::get('/notifikasi/user/' , [NotifikasiController::class, 'showUserPesan'])->name('notifikasi.showUserPesan');
 Route::get('/notifikasi/trash', [NotifikasiController::class, 'trash'])->name('notifikasi.trash');
