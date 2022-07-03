@@ -77,7 +77,7 @@
                     <tbody>
 
                         @foreach ($orderq as $order)
-                            @foreach ($order->quest as $quests)
+                            @foreach ($order->quest as $index => $quests)
                                 <!-- Modal View file jawab -->
                                 <div id="myModalFileJawab{{ $order->id }}" class="modal fade" role="dialog">
                                     <div class="modal-dialog modal-lg">
@@ -278,46 +278,11 @@
                 </td>
                 <td>{{ $order->jawaban_pilgan }}</td>
                 <td>
-                    {{ $quests->batas_waktu }}
-                    {{-- <div id="countdown">
-                        <script>
-                            CountDownTimer('{{ $quests->created_at }}', 'countdown');
 
-                            function CountDownTimer(dt, id) {
-                                var end = new Date('{{ $quests->batas_waktu }}');
-                                var _second = 1000;
-                                var _minute = _second * 60;
-                                var _hour = _minute * 60;
-                                var _day = _hour * 24;
-                                var timer;
-
-                                function showRemaining() {
-                                    var now = new Date();
-                                    var distance = end - now;
-                                    if (distance < 0) {
-
-                                        clearInterval(timer);
-                                        document.getElementById(id).innerHTML =
-                                            '<span class="badge bg-danger text-light">Quest Telah Berakhir!</span> ';
-                                        return;
-                                    } else {
-                                        var days = Math.floor(distance / _day);
-                                        var hours = Math.floor((distance % _day) / _hour);
-                                        var minutes = Math.floor((distance % _hour) / _minute);
-                                        var seconds = Math.floor((distance % _minute) / _second);
-
-                                        document.getElementById(id).innerHTML = days + 'days ';
-                                        document.getElementById(id).innerHTML += hours + 'hrs ';
-                                        document.getElementById(id).innerHTML += minutes + 'mins ';
-                                        document.getElementById(id).innerHTML += seconds + 'secs';
-                                        document.getElementById(id).innerHTML +=
-                                            '<br><span class="badge bg-success text-light">Quest Tersedia!</span> ';
-
-                                    }
-                                }
-                                timer = setInterval(showRemaining, 1000);
-                            }
-                        </script> --}}
+                    <div class="wrap-countdown mercado-countdown"
+                        data-expire="{{ Carbon\Carbon::parse($quests->batas_waktu)->format('Y/m/d h:i:s') }}"></div>
+                    {{-- {{ $quests->batas_waktu }} --}}
+                    {{-- <div id="countdown{{ $index }}"> --}}
                 </td>
                 <td>
                     {{-- <a href="{{ route('orderq.edit', [$order->id]) }}" class="btn btn-success btn-sm">
@@ -363,4 +328,73 @@
 @endsection
 
 @section('footer-scripts')
+    <script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
+    <script>
+        ;
+        (function($) {
+
+            var MERCADO_JS = {
+                init: function() {
+                    this.mercado_countdown();
+
+                },
+                mercado_countdown: function() {
+                    if ($(".mercado-countdown").length > 0) {
+                        $(".mercado-countdown").each(function(index, el) {
+                            var _this = $(this),
+                                _expire = _this.data('expire');
+                            _this.countdown(_expire, function(event) {
+
+                                $(this).html(event.strftime(
+                                    '<div class="badge bg-success text-light"><span><b>%D</b> Days</span> <span><b>%-H</b> Hrs</span> <span><b>%M</b> Mins</span> <span><b>%S</b> Secs</span></div>'
+                                ));
+                            });
+                        });
+                    }
+                },
+
+            }
+
+            window.onload = function() {
+                MERCADO_JS.init();
+            }
+
+        })(window.Zepto || window.jQuery, window, document);
+        // CountDownTimer('{{ $quests->created_at }}', 'countdown{{ $index }}');
+
+        // function CountDownTimer(dt, id) {
+        //     var end = new Date('{{ $quests->batas_waktu }}');
+        //     var _second = 1000;
+        //     var _minute = _second * 60;
+        //     var _hour = _minute * 60;
+        //     var _day = _hour * 24;
+        //     var timer;
+
+        //     function showRemaining() {
+        //         var now = new Date();
+        //         var distance = end - now;
+        //         if (distance < 0) {
+
+        //             clearInterval(timer);
+        //             document.getElementById(id).innerHTML =
+        //                 '<span class="badge bg-danger text-light">Quest Telah Berakhir!</span> ';
+        //             return;
+        //         } else {
+        //             var days = Math.floor(distance / _day);
+        //             var hours = Math.floor((distance % _day) / _hour);
+        //             var minutes = Math.floor((distance % _hour) / _minute);
+        //             var seconds = Math.floor((distance % _minute) / _second);
+
+        //             document.getElementById(id).innerHTML = days + 'days ';
+        //             document.getElementById(id).innerHTML += hours + 'hrs ';
+        //             document.getElementById(id).innerHTML += minutes + 'mins ';
+        //             document.getElementById(id).innerHTML += seconds + 'secs';
+        //             document.getElementById(id).innerHTML +=
+        //                 '<br><span class="badge bg-success text-light">Quest Tersedia!</span> ';
+
+        //         }
+        //     }
+        //     timer = setInterval(showRemaining, 1000);
+        // }
+    </script>
 @endsection
