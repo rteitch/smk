@@ -99,7 +99,7 @@
                                         <small class="text-info">Quest sudah ditambahkan</small>
                                     @else --}}
                                     <form
-                                        onsubmit="return confirm('Tambah this id {{ $quests->id }} Skill  {{ $quests->name }} ke user?')"
+                                        onsubmit="return confirm('Tambah this id {{ $quests->id }} Quest {{ $quests->name }} ke user?')"
                                         method="POST" action="{{ route('orderq.tambahOrderQuest', [$quests->id]) }}"
                                         class="d-inline">
 

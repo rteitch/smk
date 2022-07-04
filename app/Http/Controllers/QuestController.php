@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use LDAP\Result;
 use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class QuestController extends Controller
 {
@@ -258,12 +259,16 @@ class QuestController extends Controller
 
     public function published(Request $request)
     {
+        // $quest_user = \App\Models\OrderQ::with('quest')->where('user_id', \Auth::user()->id)->get();
+        $quest_user = \App\Models\Quest::whereHas('orderq', function($query){
+            $query->where('user_id', '=', \Auth::user()->id);
+        })->select('id')->get();
+        // $quest_data = \App\Models\Quest::whereNotIn('id', $quest_user)->get();
+        $quest = \App\Models\Quest::whereNotIn('id', $quest_user)->with('skill', 'orderq')->orderBy('judul', 'asc')->where('status', 'PUBLISH')->paginate(4);
 
-        $quest = \App\Models\Quest::with('skill', 'orderq')->orderBy('judul', 'asc')->where('status', 'PUBLISH')->paginate(4);
-
-        $id_user = \Auth::user()->id;
-        $orderq = \App\Models\OrderQ::paginate(4);
-        $user = \App\Models\User::paginate(4);
+        $user_login = \Auth::user();
+        $orderq = \App\Models\OrderQ::with('quest')->where('user_id', \Auth::user()->id)->get();
+        $user = \App\Models\User::select('id', 'name')->get();
 
         return view('backend.quest.published', compact('quest', 'user', 'orderq'));
     }

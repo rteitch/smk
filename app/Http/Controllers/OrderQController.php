@@ -142,10 +142,9 @@ class OrderQController extends Controller
     public function tambahOrderQuest(Request $request, $id)
     {
         $quest_order = new \App\Models\OrderQ();
-        // $quest = new \App\Models\Quest();
-        // dd($quest->orderq());
-        $quest_order->user_id = Auth::user()->id;
-        $quest_order->status = 'SUBMIT';
+        $quest = \App\Models\Quest::findOrfail($id);
+        $user_lama = Auth::user();
+        $quest_order->user_id = $user_lama->id;
         $quest_order->file_jawab = null;
         $quest_order->jawaban_pilgan = null;
         $quest_order->status = 'SUBMIT';

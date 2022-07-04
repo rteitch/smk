@@ -295,17 +295,6 @@
                     <button id="tombolup" type="button" class="btn btn-info btn-sm" data-toggle="modal"
                         data-target="#myModal{{ $order->id }}"><span class="fa fa-eye"></span> Upload
                     </button>
-
-                    <form onsubmit="return confirm('Membatalkan quest kode {{ $order->quest_code }}?')"
-                        class="d-inline" action="{{ route('orderq.destroy', [$order->id]) }}" method="POST">
-
-                        @csrf
-
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn- btn-danger btn-sm"><span class="fa fa-trash"></span></button>
-                        {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm"> --}}
-
-                    </form>
                     <br>
                 </td>
 
