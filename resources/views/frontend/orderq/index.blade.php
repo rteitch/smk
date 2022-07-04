@@ -47,7 +47,7 @@
                 <div class="row">
                     <div class="col-md-5">
                         <input value="{{ Request::get('name') }}" name="name" type="text" class="form-control"
-                            placeholder="Search by buyer name">
+                            placeholder="Cari nama siswa">
                     </div>
                     <div class="col-md-2">
                         <select name="status" class="form-control" id="status">
@@ -144,45 +144,8 @@
                             </td>
                             <td>{{ $quests->where('id', $quests->pivot->quest_id)->first()->jenis_soal }}</td>
                             <td>
-                                @foreach ($order->quest as $q)
-                                    <script>
-                                        CountDownTimer('{{ $q->created_at }}', 'countdown');
 
-                                        function CountDownTimer(dt, id) {
-                                            var end = new Date('{{ $q->batas_waktu }}');
-                                            var _second = 1000;
-                                            var _minute = _second * 60;
-                                            var _hour = _minute * 60;
-                                            var _day = _hour * 24;
-                                            var timer;
-
-                                            function showRemaining() {
-                                                var now = new Date();
-                                                var distance = end - now;
-                                                if (distance < 0) {
-
-                                                    clearInterval(timer);
-                                                    document.getElementById(id).innerHTML = '<b>Quest Telah Berakhir!</b> ';
-                                                    return;
-                                                }
-                                                var days = Math.floor(distance / _day);
-                                                var hours = Math.floor((distance % _day) / _hour);
-                                                var minutes = Math.floor((distance % _hour) / _minute);
-                                                var seconds = Math.floor((distance % _minute) / _second);
-
-                                                document.getElementById(id).innerHTML = days + 'days ';
-                                                document.getElementById(id).innerHTML += hours + 'hrs ';
-                                                document.getElementById(id).innerHTML += minutes + 'mins ';
-                                                document.getElementById(id).innerHTML += seconds + 'secs';
-                                                document.getElementById(id).innerHTML += '<h2>Quest Tersedia!</h2>';
-                                            }
-                                            timer = setInterval(showRemaining, 1000);
-                                        }
-                                    </script>
-                                    <div id="countdown">
-                                @endforeach
-                            </td>
-                            <td>
+                                <span class="btn" data-countdown="{{ $quests->batas_waktu }}"></span>
                             </td>
                             <td>
 
@@ -216,5 +179,20 @@
     </div>
 @endsection
 @section('footer-scripts')
-    <script></script>
+    <script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
+    <script>
+        $('[data-countdown]').each(function() {
+            var $this = $(this),
+                finalDate = $(this).data('countdown');
+            $this.countdown(finalDate, function(event) {
+                if (event.strftime('%D days %H:%M:%S') == event.strftime('00 days 00:00:00')) {
+                    $this.html('<span class="badge bg-danger text-light">Quest telah berakhir!</span>');
+                } else {
+                    $this.html(event.strftime(
+                        '<p class="badge bg-success text-light">Waktu Quest Masih Tersedia</p><br><span >%D days %H:%M:%S</span>'
+                        ));
+                }
+            });
+        });
+    </script>
 @endsection

@@ -114,7 +114,7 @@
                     <form action="{{ route('skill.index') }}">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Filter by Skill judul" name="judul">
+                            <input type="text" class="form-control" placeholder="Masukkan kata untuk mencari Skill" name="judul">
                             <div class="input-group-append">
                                 <input type="submit" value="Filter" class="btn btn-primary">
                             </div>

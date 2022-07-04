@@ -46,11 +46,11 @@
                     @endif
                     <div class="row">
                         <div class="col-md-6">
-                            <form action="{{ route('quest.index') }}">
+                            <form action="{{ route('quest.trash') }}">
 
                                 <div class="input-group">
                                     <input name="keyword" type="text" value="{{ Request::get('keyword') }}"
-                                        class="form-control" placeholder="Filter by title">
+                                        class="form-control" placeholder="Masukkan kata untuk mencari Quest">
                                     <div class="input-group-append">
                                         <input type="submit" value="Filter" class="btn btn-primary">
                                     </div>
@@ -79,11 +79,6 @@
                     </div>
 
                     <hr class="my-3">
-                    <div class="row mb-3">
-                        <div class="col-md-12 text-right">
-                            <a href="{{ route('quest.create') }}" class="btn btn-primary">Create Quest</a>
-                        </div>
-                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-stripped">
                             <thead>
@@ -91,9 +86,8 @@
                                     <th scope="col"><b>Image</b></th>
                                     <th scope="col"><b>Judul</b></th>
                                     <th scope="col"><b>Pembuat</b></th>
-                                    <th scope="col"><b>Skill</b></th>
+                                    <th scope="col"><b>Batas Waktu</b></th>
                                     <th scope="col"><b>Jenis Soal</b></th>
-                                    <th scope="col"><b>Kesulitan</b></th>
                                     <th scope="col"><b>Status</b></th>
                                     <th scope="col"><b>Action</b></th>
                                 </tr>
@@ -109,15 +103,9 @@
                                         <td>{{ $quest->judul }}</td>
                                         <td>{{ $quest->pembuat }}</td>
                                         <td>
-                                            <ul class="pl-3">
-                                                @foreach ($quest->skill as $skill)
-                                                    <li>{{ $skill->judul }}</li>
-                                                @endforeach
-                                            </ul>
+                                            <span class="btn" data-countdown="{{ $quest->batas_waktu }}"></span>
                                         </td>
                                         <td>{{ $quest->jenis_soal }}</td>
-                                        <td>{{ $quest->kesulitan }}
-                                        </td>
                                         <td>
                                             @if ($quest->status == 'DRAFT')
                                                 <span class="badge bg-dark text-white">{{ $quest->status }}</span>
@@ -154,4 +142,22 @@
             </div>
         </div>
     </div>
+@endsection
+@section('footer-scripts')
+    <script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
+    <script>
+        $('[data-countdown]').each(function() {
+            var $this = $(this),
+                finalDate = $(this).data('countdown');
+            $this.countdown(finalDate, function(event) {
+                if (event.strftime('%D days %H:%M:%S') == event.strftime('00 days 00:00:00')) {
+                    $this.html('<span class="badge bg-danger text-light">Quest telah berakhir!</span>');
+                } else {
+                    $this.html(event.strftime(
+                        '<p class="badge bg-success text-light">Waktu Quest Masih Tersedia</p><br><span >%D days %H:%M:%S</span>'
+                        ));
+                }
+            });
+        });
+    </script>
 @endsection

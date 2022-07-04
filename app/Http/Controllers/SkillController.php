@@ -157,10 +157,14 @@ class SkillController extends Controller
             ->with('status-delete', 'Skill Berhasil dipindah ke trash');
     }
 
-    public function trash()
+    public function trash(Request $request)
     {
         $deleted_skill = \App\Models\Skill::onlyTrashed()->paginate(8);
 
+        $filterKeyword = $request->get('judul');
+        if ($filterKeyword) {
+            $deleted_skill = \App\Models\Skill::onlyTrashed()->where("judul", "LIKE", "%$filterKeyword%")->paginate(8);
+        }
         return view('backend.skill.trash', ['skills' => $deleted_skill]);
     }
 
@@ -192,7 +196,8 @@ class SkillController extends Controller
         }
     }
 
-    public function ajaxSearch(Request $request){
+    public function ajaxSearch(Request $request)
+    {
         $keyword = $request->get('q');
         $skill = \App\Models\Skill::where("judul", "LIKE", "%$keyword%")->get();
 
@@ -215,7 +220,7 @@ class SkillController extends Controller
     {
         $id_user = \Auth::user()->id;
         $skill = \App\Models\Skill::paginate(4);
-        $user =\App\Models\User::findOrFail($id_user);
-        return view('backend.skill.published', compact('skill','user'));
+        $user = \App\Models\User::findOrFail($id_user);
+        return view('backend.skill.published', compact('skill', 'user'));
     }
 }

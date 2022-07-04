@@ -71,6 +71,7 @@
                             <th scope="col"><b>File Jawaban</b></th>
                             <th scope="col"><b>Jawaban Pilgan</b></th>
                             <th scope="col"><b>Batas Waktu</b></th>
+                            <th scope="col"><b>Waktu Upload</b></th>
                             <th scope="col"><b>Actions</b></th>
                         </tr>
                     </thead>
@@ -278,11 +279,10 @@
                 </td>
                 <td>{{ $order->jawaban_pilgan }}</td>
                 <td>
-
-                    <div class="wrap-countdown mercado-countdown"
-                        data-expire="{{ Carbon\Carbon::parse($quests->batas_waktu)->format('Y/m/d h:i:s') }}"></div>
-                    {{-- {{ $quests->batas_waktu }} --}}
-                    {{-- <div id="countdown{{ $index }}"> --}}
+                    <span class="btn" data-countdown="{{ $quests->batas_waktu }}"></span>
+                </td>
+                <td>
+                    {{ $order->updated_at }}
                 </td>
                 <td>
                     {{-- <a href="{{ route('orderq.edit', [$order->id]) }}" class="btn btn-success btn-sm">
@@ -291,8 +291,8 @@
 
                     <!-- Trigger the modal with a button -->
 
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                        data-target="#myModal{{ $order->id }}"><span class="fa fa-eye"></span> View
+                    <button id="tombolup" type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                        data-target="#myModal{{ $order->id }}"><span class="fa fa-eye"></span> Upload
                     </button>
 
                     <form onsubmit="return confirm('Membatalkan quest kode {{ $order->quest_code }}?')"
@@ -330,71 +330,19 @@
 @section('footer-scripts')
     <script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
     <script>
-        ;
-        (function($) {
-
-            var MERCADO_JS = {
-                init: function() {
-                    this.mercado_countdown();
-
-                },
-                mercado_countdown: function() {
-                    if ($(".mercado-countdown").length > 0) {
-                        $(".mercado-countdown").each(function(index, el) {
-                            var _this = $(this),
-                                _expire = _this.data('expire');
-                            _this.countdown(_expire, function(event) {
-
-                                $(this).html(event.strftime(
-                                    '<div class="badge bg-success text-light"><span><b>%D</b> Days</span> <span><b>%-H</b> Hrs</span> <span><b>%M</b> Mins</span> <span><b>%S</b> Secs</span></div>'
-                                ));
-                            });
-                        });
-                    }
-                },
-
-            }
-
-            window.onload = function() {
-                MERCADO_JS.init();
-            }
-
-        })(window.Zepto || window.jQuery, window, document);
-        // CountDownTimer('{{ $quests->created_at }}', 'countdown{{ $index }}');
-
-        // function CountDownTimer(dt, id) {
-        //     var end = new Date('{{ $quests->batas_waktu }}');
-        //     var _second = 1000;
-        //     var _minute = _second * 60;
-        //     var _hour = _minute * 60;
-        //     var _day = _hour * 24;
-        //     var timer;
-
-        //     function showRemaining() {
-        //         var now = new Date();
-        //         var distance = end - now;
-        //         if (distance < 0) {
-
-        //             clearInterval(timer);
-        //             document.getElementById(id).innerHTML =
-        //                 '<span class="badge bg-danger text-light">Quest Telah Berakhir!</span> ';
-        //             return;
-        //         } else {
-        //             var days = Math.floor(distance / _day);
-        //             var hours = Math.floor((distance % _day) / _hour);
-        //             var minutes = Math.floor((distance % _hour) / _minute);
-        //             var seconds = Math.floor((distance % _minute) / _second);
-
-        //             document.getElementById(id).innerHTML = days + 'days ';
-        //             document.getElementById(id).innerHTML += hours + 'hrs ';
-        //             document.getElementById(id).innerHTML += minutes + 'mins ';
-        //             document.getElementById(id).innerHTML += seconds + 'secs';
-        //             document.getElementById(id).innerHTML +=
-        //                 '<br><span class="badge bg-success text-light">Quest Tersedia!</span> ';
-
-        //         }
-        //     }
-        //     timer = setInterval(showRemaining, 1000);
-        // }
+        $('[data-countdown]').each(function() {
+            var $this = $(this),
+                finalDate = $(this).data('countdown');
+            $this.countdown(finalDate, function(event) {
+                if (event.strftime('%D days %H:%M:%S') == event.strftime('00 days 00:00:00')) {
+                    $this.html('<span class="badge bg-danger text-light">Quest telah berakhir!</span>');
+                    $('#tombolup').hide();
+                } else {
+                    $this.html(event.strftime(
+                        '<p class="badge bg-success text-light">Waktu Quest Masih Tersedia</p><br><span >%D days %H:%M:%S</span>'
+                        ));
+                }
+            });
+        });
     </script>
 @endsection

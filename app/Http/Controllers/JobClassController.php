@@ -148,9 +148,14 @@ class JobClassController extends Controller
             ->with('status-delete', 'Job Class Berhasil dipindah ke trash');
     }
 
-    public function trash()
+    public function trash(Request $request)
     {
+
         $deleted_job_class = \App\Models\JobClass::onlyTrashed()->paginate(10);
+        $filterKeyword = $request->get('name');
+        if ($filterKeyword) {
+            $deleted_job_class = \App\Models\JobClass::onlyTrashed()->where("name", "LIKE", "%$filterKeyword%")->paginate(10);
+        }
 
         return view('backend.jobclass.trash', ['jobclass' => $deleted_job_class]);
     }

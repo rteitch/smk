@@ -44,7 +44,7 @@
 
                                 <div class="input-group">
                                     <input name="keyword" type="text" value="{{ Request::get('keyword') }}"
-                                        class="form-control" placeholder="Filter by title">
+                                        class="form-control" placeholder="Masukkan kata untuk mencari Quest">
                                     <div class="input-group-append">
                                         <input type="submit" value="Filter" class="btn btn-primary">
                                     </div>
@@ -110,7 +110,9 @@
                                         </td>
                                         <td>{{ $quest->judul }}</td>
                                         <td>{{ $quest->pembuat }}</td>
-                                        <td>{{ $quest->batas_waktu }}</td>
+                                        <td>
+                                                <span class="btn" data-countdown="{{ $quest->batas_waktu }}"></span>
+                                        </td>
                                         <td>
                                             <ul class="pl-3">
                                                 @foreach ($quest->skill as $skill)
@@ -140,7 +142,7 @@
                                                 <input type="hidden" value="DELETE" name="_method">
 
                                                 <button type="submit" class="btn btn-danger btn-sm"><span
-                                                    class="fa fa-trash-o"></span></button>
+                                                        class="fa fa-trash-o"></span></button>
 
                                             </form>
                                         </td>
@@ -159,4 +161,22 @@
             </div>
         </div>
     </div>
+@endsection
+@section('footer-scripts')
+    <script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
+    <script>
+        $('[data-countdown]').each(function() {
+            var $this = $(this),
+                finalDate = $(this).data('countdown');
+            $this.countdown(finalDate, function(event) {
+                if (event.strftime('%D days %H:%M:%S') == event.strftime('00 days 00:00:00')) {
+                    $this.html('<span class="badge bg-danger text-light">Quest telah berakhir!</span>');
+                } else {
+                    $this.html(event.strftime(
+                        '<p class="badge bg-success text-light">Waktu Quest Masih Tersedia</p><br><span >%D days %H:%M:%S</span>'
+                        ));
+                }
+            });
+        });
+    </script>
 @endsection

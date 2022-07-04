@@ -50,11 +50,11 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 mt-3">
-                    <form action="{{ route('skill.index') }}">
+                    <form action="{{ route('skill.trash') }}">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Filter by Job Class name"
-                                value="{{ Request::get('name') }}" name="name">
+                            <input type="text" class="form-control" placeholder="Masukkan kata untuk mencari Skill"
+                                name="judul">
 
                             <div class="input-group-append">
                                 <input type="submit" value="Filter" class="btn btn-primary">

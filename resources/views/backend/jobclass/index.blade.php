@@ -99,7 +99,7 @@
                     <form action="{{ route('jobclass.index') }}">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Filter by Job Class name"
+                            <input type="text" class="form-control" placeholder="Masukkan kata untuk mencari Job Class"
                                 name="name">
                             <div class="input-group-append">
                                 <input type="submit" value="Filter" class="btn btn-primary">

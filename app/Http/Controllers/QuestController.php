@@ -215,9 +215,16 @@ class QuestController extends Controller
         return redirect()->route('quest.index')->with('status', 'Quest moved to trash');
     }
 
-    public function trash()
+    public function trash(Request $request)
     {
-        $quests = \App\Models\Quest::onlyTrashed()->paginate(10);
+        $status = $request->get('status');
+        $keyword = $request->get('keyword') ?: '';
+
+        if ($status) {
+            $quests = \App\Models\Quest::onlyTrashed()->where('judul', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
+        } else {
+            $quests = \App\Models\Quest::onlyTrashed()->where("judul", "LIKE", "%$keyword%")->paginate(10);
+        }
         return view('backend.quest.trash', ['quests' => $quests]);
     }
 
