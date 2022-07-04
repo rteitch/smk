@@ -39,11 +39,12 @@
         <div class="card-body">
             <form action="{{ route('orderr.index') }}">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-lg-6 col-md-12">
                         <input value="{{ Request::get('name') }}" name="name" type="text" class="form-control"
                             placeholder="Search by siswa name">
+                            <br>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-lg-3 col-md-12">
                         <select name="status" class="form-control" id="status">
                             <option value="">ANY</option>
                             <option {{ Request::get('status') == 'SUBMIT' ? 'selected' : '' }} value="SUBMIT">SUBMIT
@@ -53,8 +54,9 @@
                             <option {{ Request::get('status') == 'FINISH' ? 'selected' : '' }} value="FINISH">FINISH
                             </option>
                         </select>
+                        <br>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="submit" value="Filter" class="btn btn-primary">
                     </div>
                 </div>

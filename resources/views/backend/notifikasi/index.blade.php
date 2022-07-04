@@ -204,7 +204,6 @@
                                 <th scope="col"><b>Title</b></th>
                                 <th scope="col"><b>Pesan</b></th>
                                 <th scope="col"><b>Dikirim ke</b></th>
-                                <th scope="col"><b>Jenis Notifikasi</b></th>
                                 <th scope="col"><b>Status</b></th>
                                 <th scope="col"><b>Action</b></th>
                             </tr>
@@ -217,7 +216,6 @@
                                     <td>{{ $notif->title }}</td>
                                     <td>{{ $notif->pesan }}</td>
                                     <td>{{ $notif->jenis_roles }}</td>
-                                    <td>{{ $notif->jenis_notifikasi }}</td>
                                     <td>
                                         @if ($notif->status == 'DRAFT')
                                             <span class="badge bg-dark text-white">{{ $notif->status }}</span>

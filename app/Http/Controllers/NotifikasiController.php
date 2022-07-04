@@ -57,11 +57,7 @@ class NotifikasiController extends Controller
         $new_notif = new \App\Models\Notifikasi();
         $new_notif->title = $request->get('title');
         $new_notif->pesan = $request->get('pesan');
-        $new_notif->skor = $request->get('skor');
-        $new_notif->exp = $request->get('exp');
         $new_notif->jenis_roles = $request->get('jenis_roles');
-        //'PESAN', 'REWARD'
-        $new_notif->jenis_notifikasi = $request->get('jenis_notifikasi');
         $new_notif->user_id = \Auth::user()->id;
         $new_notif->created_by = \Auth::user()->id;
         $new_notif->status = $request->get('save_action');
@@ -125,13 +121,9 @@ class NotifikasiController extends Controller
         $slug = Str::slug($getJudul, '-');
         $notifikasi->slug = $slug;
         $notifikasi->pesan = $request->get('pesan');
-        $notifikasi->skor = $request->get('skor');
-        $notifikasi->exp = $request->get('exp');
         $notifikasi->jenis_roles = $request->get('jenis_roles');
         $notifikasi->user_id = \Auth::user()->id;
         $notifikasi->created_by = \Auth::user()->id;
-        //'PESAN', 'REWARD'
-        $notifikasi->jenis_notifikasi = $request->get('jenis_notifikasi');
 
         // file image
         $new_image = $request->file('image');
@@ -213,17 +205,18 @@ class NotifikasiController extends Controller
         $adminKode = array_intersect(['0']);
         $PengajarKode = array_intersect(['1']);
         $SiswaKode = array_intersect(['2']);
+        $user = \App\Models\User::select('id', 'name')->get();
         if ($user_roles == $PengajarKode) {
             $user_roles_verif = 'PENGAJAR';
             $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->paginate(4);
-            return view('backend.notifikasi.user', compact('notifikasi'));
+            return view('backend.notifikasi.user', compact('notifikasi', 'user'));
         } elseif ($user_roles == $SiswaKode) {
             $user_roles_verif = 'SISWA';
             $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->paginate(4);
-            return view('backend.notifikasi.user', compact('notifikasi'));
+            return view('backend.notifikasi.user', compact('notifikasi', 'user'));
         } else {
             $notifikasi = \App\Models\Notifikasi::get();
-            return view('backend.notifikasi.user', compact('notifikasi'));
+            return view('backend.notifikasi.user', compact('notifikasi', 'user'));
         }
     }
 
@@ -234,6 +227,7 @@ class NotifikasiController extends Controller
         $adminKode = array_intersect(['0']);
         $PengajarKode = array_intersect(['1']);
         $SiswaKode = array_intersect(['2']);
+        $user = \App\Models\User::select('id', 'name');
         if ($user_roles == $PengajarKode) {
             $user_roles_verif = 'PENGAJAR';
             $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->get();

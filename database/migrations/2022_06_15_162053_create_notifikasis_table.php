@@ -18,12 +18,9 @@ return new class extends Migration
             $table->string("title");
             $table->string("pesan");
             $table->string("slug")->unique();
-            $table->bigInteger('skor')->nullable();
-            $table->bigInteger('exp')->nullable();
             $table->enum('jenis_roles', ['SISWA', 'PENGAJAR']);
             $table->foreignId("user_id")->constrained();
             $table->string('image')->nullable();
-            $table->enum('jenis_notifikasi', ['PESAN', 'REWARD']);
             $table->enum('status', ['PUBLISH', 'DRAFT']);
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();

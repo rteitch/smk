@@ -104,47 +104,6 @@
                         <textarea name="pesan" id="deskripsi" class="form-control" placeholder="Berikan Isi Notifikasi">{{ $notifikasi_to_edit->pesan }}</textarea>
                         <br>
                     </div>
-
-                    <div class="col-lg-6 col-md-12">
-                        {{-- Form Status --}}
-                        <label for="">Jenis Notifikasi <small class="text-danger">*Pilih Lagi Jenis Notifikasi yg
-                                ingin
-                                digunakan</small></label>
-                        <br />
-                        <select class="form-control" name="jenis_notifikasi" id="jenis_notifikasi" onchange="showDiv(this)">
-                            <option {{ $notifikasi_to_edit->jenis_notifikasi == 'PESAN' ? 'selected' : '' }}
-                                value="PESAN">
-                                PESAN</option>
-                            <option {{ $notifikasi_to_edit->jenis_notifikasi == 'REWARD' ? 'selected' : '' }}
-                                value="REWARD">
-                                REWARD</option>
-                        </select>
-                        <br>
-                    </div>
-
-                    <div class="col-lg-6 col-md-12">
-                        <div id="hiddenDiv" style="display: block;">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-
-                                    {{-- Form Skor --}}
-                                    <label for="skor">Bonus Skor</label>
-                                    <input class="form-control" placeholder="skor" type="float" name="skor"
-                                        id="skor" value="{{ $notifikasi_to_edit->skor }}">
-                                    <br>
-                                </div>
-
-                                <div class="col-lg-6 col-md-12">
-
-                                    {{-- Form EXP --}}
-                                    <label for="exp">Bonus Exp</label>
-                                    <input class="form-control" placeholder="exp" type="float" name="exp"
-                                        id="exp" value="{{ $notifikasi_to_edit->skor }}">
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-12 col-md-12 text-right">
 
                         <hr>
@@ -163,14 +122,4 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
-    <script>
-        function showDiv(select) {
-            if (select.value == 'REWARD') {
-                document.getElementById('hiddenDiv').style.display = "block";
-            } else {
-                document.getElementById('hiddenDiv').style.display = "none";
-            }
-        }
-    </script>
 @endsection

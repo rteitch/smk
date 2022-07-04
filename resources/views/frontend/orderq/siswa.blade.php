@@ -43,7 +43,7 @@
     @endif
     <form action="{{ route('orderq.siswa', \Auth::user()->id) }}">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-8 col-md-8">
                 <select name="status" class="form-control" id="status">
                     <option value="">ANY</option>
                     <option {{ Request::get('status') == 'SUBMIT' ? 'selected' : '' }} value="SUBMIT">SUBMIT</option>
@@ -51,8 +51,9 @@
                     <option {{ Request::get('status') == 'FINISH' ? 'selected' : '' }} value="FINISH">FINISH</option>
                     <option {{ Request::get('status') == 'CANCEL' ? 'selected' : '' }} value="CANCEL">CANCEL</option>
                 </select>
+                <br>
             </div>
-            <div class="col-md-2">
+            <div class="col-lg-4 col-md-4">
                 <input type="submit" value="Filter" class="btn btn-primary">
             </div>
         </div>

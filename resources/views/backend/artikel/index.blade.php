@@ -40,7 +40,7 @@
                 <div class="col-md-12">
 
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-lg-6 col-md-12">
                             <form action="{{ route('artikel.index') }}">
 
                                 <div class="input-group">
@@ -53,7 +53,7 @@
                                 <br>
                             </form>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-lg-6 col-md-12">
                             <ul class="nav nav-pills card-header-pills">
                                 <li class="nav-item text-white mr-3">
                                     <a class="nav-link {{ Request::get('status') == null && Request::path() == 'artikel' ? 'active' : '' }}"

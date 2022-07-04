@@ -38,25 +38,6 @@
                 <textarea name="pesan" id="deskripsi" class="form-control" placeholder="Berikan Isi Notifikasi"></textarea>
                 <br>
 
-                {{-- Form Status --}}
-                <label for="">Jenis Notifikasi</label>
-                <br />
-                <select class="form-control" name="jenis_notifikasi" id="jenis_notifikasi" onchange="showDiv(this)">
-                    <option value="REWARD">REWARD</option>
-                    <option value="PESAN">PESAN</option>
-                </select>
-                <br>
-                <div id="hiddenDiv" style="display: block;">
-                    {{-- Form Skor --}}
-                    <label for="skor">Bonus Skor</label>
-                    <input class="form-control" placeholder="skor" type="float" name="skor" id="skor">
-                    <br>
-                    {{-- Form EXP --}}
-                    <label for="exp">Bonus Exp</label>
-                    <input class="form-control" placeholder="exp" type="float" name="exp" id="exp">
-                    <br>
-                </div>
-
                 <button class="btn btn-primary" name="save_action" value="PUBLISH">Publish</button>
 
                 <button class="btn btn-secondary" name="save_action" value="DRAFT">Save as draft</button>

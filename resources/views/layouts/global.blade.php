@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>GAWEB SMKN2SKA</title>
+    <title>SMKN2SKA - @yield('title')</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Iconic Bootstrap 4.5.0 Admin Template">

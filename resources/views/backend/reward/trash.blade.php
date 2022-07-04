@@ -46,20 +46,21 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-lg-6 col-md-12">
                             <form action="{{ route('reward.index') }}">
 
                                 <div class="input-group">
                                     <input name="keyword" type="text" value="{{ Request::get('keyword') }}"
-                                        class="form-control" placeholder="Filter by title">
+                                        class="form-control" placeholder="Masukkan kata untuk mencari Reward">
                                     <div class="input-group-append">
                                         <input type="submit" value="Filter" class="btn btn-primary">
                                     </div>
                                 </div>
 
                             </form>
+                            <br>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-lg-6 col-md-12">
                             <ul class="nav nav-pills card-header-pills">
                                 <li class="nav-item text-white mr-2">
                                     <a class="nav-link" href="{{ route('reward.index') }}">All</a>
