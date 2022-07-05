@@ -60,7 +60,7 @@
                         @foreach ($user->jobclass as $jobuser)
                             @if ($jobuser->id == $jobs->pivot->job_class_id)
                                 <!-- Modal Skill -->
-                                <div id="myModal" class="modal fade" role="dialog">
+                                <div id="myModal{{ $skills->id }}" class="modal fade" role="dialog">
                                     <div class="modal-dialog modal-lg">
 
                                         <!-- Modal content-->
@@ -72,7 +72,7 @@
                                             <div class="modal-body">
                                                 <img src="{{ asset('storage/' . $skills->image) }}" class="card-img"
                                                     alt="{{ $skills->judul }}">
-                                                <p><strong>JobClass : </strong>
+                                                <p><strong>JobClass : </strong> {{ $jobs->name }}
                                                 </p>
                                                 <p><strong>Syarat Lv : </strong> {{ $skills->syarat_lv }}
                                                 </p>
@@ -114,11 +114,7 @@
                                                 {{-- {{ route('artikel.lihatArtikel', [$skills->slug]) }}</a> --}}
                                                 <h5 class="card-title">{{ $skills->judul }}</h5>
                                                 <p class="card-text"><small class="text-muted">Creator Skill -
-                                                        @foreach ($skills->user as $users)
-                                                            @if ($users->id == $skills->created_by)
-                                                                {{ $users->name }}
-                                                            @endif
-                                                        @endforeach
+                                                        {{ $skills->pembuat }}
                                                     </small></p>
                                                 <p class="card-text"><small class="text-muted">Syarat Level
                                                         {{ $skills->syarat_lv }}</small>
@@ -128,7 +124,7 @@
                                                 <!-- Trigger the modal with a button -->
 
                                                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-                                                    data-target="#myModal"><span class="oi oi-eye"></span> Lihat Skill
+                                                    data-target="#myModal{{ $skills->id }}"><span class="oi oi-eye"></span> Lihat Skill
                                                 </button>
 
                                                 @if ($user->isHasSkill($skills->id))

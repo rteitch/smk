@@ -263,13 +263,17 @@ class QuestController extends Controller
         $quest_user = \App\Models\Quest::whereHas('orderq', function($query){
             $query->where('user_id', '=', \Auth::user()->id);
         })->select('id')->get();
+
+        // $skill_user = \App\Models\Skill::with('user')->get();
+
+        // dd($skill_user);
         // $quest_data = \App\Models\Quest::whereNotIn('id', $quest_user)->get();
-        $quest = \App\Models\Quest::whereNotIn('id', $quest_user)->with('skill', 'orderq')->orderBy('judul', 'asc')->where('status', 'PUBLISH')->paginate(4);
+        $quest = \App\Models\Quest::whereNotIn('id', $quest_user)->with('skill')->orderBy('judul', 'asc')->where('status', 'PUBLISH')->paginate(4);
 
         $user_login = \Auth::user();
         $orderq = \App\Models\OrderQ::with('quest')->where('user_id', \Auth::user()->id)->get();
         $user = \App\Models\User::select('id', 'name')->get();
 
-        return view('backend.quest.published', compact('quest', 'user', 'orderq'));
+        return view('backend.quest.published', compact('quest', 'user', 'orderq', 'user_login'));
     }
 }
