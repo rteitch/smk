@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Auth;
 use DataTables;
-
+use Yajra\DataTables\Contracts\DataTable;
 
 class UserController extends Controller
 {
@@ -298,8 +298,12 @@ class UserController extends Controller
         if ($hasJobclass) {
             return redirect()->route('jobclass.published')->with('info', 'Sudah ada di daftar Job Class');
         } else {
-            $auth_user->jobclass()->attach($id);
-            return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
+            if ($auth_user->level <= 30) {
+                return redirect()->route('jobclass.published')->with('info', 'Syarat untuk menambah jobclass ke-2 adalah memiliki level 30');
+            } else {
+                $auth_user->jobclass()->attach($id);
+                return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
+            }
         }
     }
     public function tambahSkill(Request $request, $id)
@@ -323,14 +327,48 @@ class UserController extends Controller
         return redirect()->route('jobclass.published', \Auth::user()->id)->with('status', 'JobClass berhasil dibatalkan');
     }
 
-    public function getLeaderboard(){
+    public function getLeaderboard()
+    {
         $user_leaderboard = \App\Models\User::select('id', 'username', 'level', 'skor', 'roles')->where('roles', 'LIKE', json_encode(["2"]))->get();
         return DataTables::of($user_leaderboard)->addIndexColumn()->toJson();
     }
 
-    public function leaderboard(){
-
+    public function leaderboard()
+    {
         return view('frontend.leaderboard');
+    }
+
+    public function anggota(Request $request)
+    {
+
+        // $user = \Auth::user()->roles;
+        // dd($user == json_encode(['0']));
+        // $adminKode = array_intersect(['0']);
+        // $PengajarKode = array_intersect(['1']);
+        // $SiswaKode = array_intersect(['2']);
+
+        return view('frontend.anggota');
+    }
+
+    public function getAnggota(Request $request)
+    {
+
+        $status = $request->get('status');
+        if ($status == "PENGAJAR") {
+            $status_db = json_encode(['1']);
+            $user = \App\Models\User::select('id', 'name', 'avatar','level')->where('roles', "LIKE", "%$status_db%")->get();
+        } elseif ($status == "SISWA") {
+            $status_db = json_encode(['2']);
+            $user = \App\Models\User::select('id', 'name', 'avatar','level')->where('roles', "LIKE", "%$status_db%")->get();
+        } else {
+            $status_db1 = json_encode(['1']);
+            $status_db2 = json_encode(['2']);
+            $user = \App\Models\User::select('id', 'name', 'avatar','level')->where('roles', "LIKE", "%$status_db1%")->orWhere('roles', "LIKE", "%$status_db2%")->get();
+        }
+
+        return DataTables::of($user)->addColumn('avatar_url', function($data){
+            return '<img src="storage/'.$data->avatar.'" width="40px" height="40px" class="rounded-circle"/>';
+        })->addIndexColumn()->rawColumns(['avatar_url'])->toJson();
     }
 
     // public function tampilanDummy(){

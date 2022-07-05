@@ -55,11 +55,11 @@
                 @foreach ($jobclass as $jobclasses)
                     <div class="card mb-3" style="max-width: 1080px;">
                         <div class="row no-gutters">
-                            <div class="col-md-4">
+                            <div class="col-md-3 p-3 text-center">
                                 <img src="{{ asset('storage/' . $jobclasses->image) }}" class="card-img"
                                     alt="{{ $jobclasses->name }}">
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-9">
                                 <div class="card-body">
                                     <h5 class="card-title"><a
                                             href="{{ route('jobclass.lihatJobClass', [$jobclasses->slug]) }}">{{ $jobclasses->name }}</a>
@@ -75,18 +75,24 @@
                                 <div class="card-footer">
                                     @if ($user->isHasJobclass($jobclasses->id))
                                         <small class="text-info">Job Class sudah ditambahkan</small>
-                                        <form
-                                            onsubmit="return confirm('Membatalkan quest kode {{ $jobclasses->name }}?')"
-                                            class="d-inline" action="{{ route('user.hapusUserJobClass', [$jobclasses->id]) }}"
-                                            method="POST">
+                                        @if (json_decode(\Auth::user()->roles) == array_intersect(['0']) || json_decode(\Auth::user()->roles) == array_intersect(['1']))
+                                            <form
+                                                onsubmit="return confirm('Membatalkan quest kode {{ $jobclasses->name }}?')"
+                                                class="d-inline"
+                                                action="{{ route('user.hapusUserJobClass', [$jobclasses->id]) }}"
+                                                method="POST">
 
-                                            @csrf
+                                                @csrf
 
-                                            <button type="submit" class="btn btn-danger btn-sm"><span
-                                                    class="fa fa-trash"></span></button>
-                                            {{-- <input type="submit" value="Delete" class="btn btn-danger btn-sm"> --}}
+                                                <button type="submit" class="btn btn-danger btn-sm"><span
+                                                        class="fa fa-trash"></span></button>
 
-                                        </form>
+                                            </form>
+                                        @elseif (json_decode(\Auth::user()->roles) == array_intersect(['2']))
+                                            <br>
+                                            <small>Jika ingin mengubah jobclass hubungi admin/guild master</small>
+                                        @endif
+                                        <br>
                                     @else
                                         <form
                                             onsubmit="return confirm('Tambah this id {{ $jobclasses->id }} jobclass  {{ $jobclasses->name }} ke user?')"
@@ -102,7 +108,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                    </div>
+                    <br>
                 @endforeach
             </div>
         </div>

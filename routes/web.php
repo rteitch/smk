@@ -37,7 +37,7 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/buku-panduan', [GlobalController::class, 'bukuPanduan'])->name('frontend.global');
+Route::get('/buku-panduan', [GlobalController::class, 'bukuPanduan'])->name('frontend.bukupanduan');
 Route::get('/global', [GlobalController::class, 'index'])->name('layouts.global');
 
 Route::get('change-password', [ChangePasswordController::class, 'index']);
@@ -56,8 +56,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //     $user = User::with('artikel')->find($id);
 //     return response()->json($user, 200);
 // });
-
-Route::get('/get-leaderboard', [UserController::class, 'getLeaderboard']);
+Route::get('/anggota', [UserController::class, 'anggota'])->name('frontend.anggota');
+Route::get('/get-anggota', [UserController::class, 'getAnggota'])->name('user.anggota');
+Route::get('/get-leaderboard', [UserController::class, 'getLeaderboard'])->name('user.leaderboard');
 Route::get('/leaderboard', [UserController::class, 'leaderboard'])->name('user.leaderboard');
 Route::post('/jobclass/published/{id}/batal', [UserController::class, 'hapusUserJobClass'])->name('user.hapusUserJobClass');
 Route::post('/quest/published/{id}/tambah', [UserController::class, 'tambahOrderQuest'])->name('user.tambahOrderQuest');

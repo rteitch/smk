@@ -96,7 +96,7 @@
                                         <ul class="sub-menu">
 
                                             <li class="menu-item @yield('ga-buku-panduan-active')"><a
-                                                    href="{{ route('frontend.global') }}">Buku Panduan</a></li>
+                                                    href="{{ route('frontend.bukupanduan') }}">Buku Panduan</a></li>
                                             <li class="menu-item @yield('ga-jobclass')"><a
                                                     href="{{ route('jobclass.published') }}">Job Class</a></li>
                                             <li class="menu-item @yield('ga-skill')"><a

@@ -24,7 +24,7 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
                     <li class="breadcrumb-item">Guild Adventure</li>
-                    <li class="breadcrumb-item active"> <a href="{{ route('frontend.global') }}">Buku Panduan</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('frontend.bukupanduan') }}">Buku Panduan</a> </li>
                 </ul>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">

@@ -93,12 +93,12 @@
                                                 @if (json_decode(\Auth::user()->roles) == array_intersect([0]))
                                                     <li class="menu-item @yield('dash-user-active')"><a
                                                             href="{{ route('users.index') }}">Manajemen User</a></li>
-                                                @endif
-                                                @if (json_decode(\Auth::user()->roles) == array_intersect([0]) || json_decode(\Auth::user()->roles) == array_intersect([1]))
                                                     <li class="menu-item @yield('dash-jobclass-active')"><a
                                                             href="{{ route('jobclass.index') }}">Manajemen Job
                                                             Class</a>
                                                     </li>
+                                                @endif
+                                                @if (json_decode(\Auth::user()->roles) == array_intersect([0]) || json_decode(\Auth::user()->roles) == array_intersect([1]))
                                                     <li class="menu-item @yield('dash-skill-active')"><a
                                                             href="{{ route('skill.index') }}">Manajemen Skill</a>
                                                     </li>
@@ -146,7 +146,9 @@
                                         <ul class="sub-menu">
 
                                             <li class="menu-item @yield('ga-buku-panduan-active')"><a
-                                                    href="{{ route('frontend.global') }}">Buku Panduan</a></li>
+                                                    href="{{ route('frontend.bukupanduan') }}">Buku Panduan</a></li>
+                                            <li class="menu-item @yield('ga-anggota-active')"><a
+                                                    href="{{ route('frontend.anggota') }}">Anggota</a></li>
                                             <li class="menu-item @yield('ga-jobclass')"><a
                                                     href="{{ route('jobclass.published') }}">Job Class</a></li>
                                             <li class="menu-item @yield('ga-skill')"><a

@@ -234,7 +234,7 @@
                                             class="fa fa-compass"></i><span>Guild
                                             Adventure</span></a>
                                     <ul aria-expanded="false" class="collapse @yield('ga-collapse-in')">
-                                        <li class="@yield('ga-buku-panduan-active')"><a href="{{ route('frontend.global') }}">Buku Panduan</a></li>
+                                        <li class="@yield('ga-buku-panduan-active')"><a href="{{ route('frontend.bukupanduan') }}">Buku Panduan</a></li>
                                         <li class="@yield('ga-jobclass')"><a href="{{ route('jobclass.published') }}">Job Class</a></li>
                                         <li class="@yield('ga-skill')"><a href="{{ route('skill.published') }}">Skill</a></li>
                                         <li class="@yield('ga-quest')"><a href="{{ route('quest.published') }}">Quest</a></li>
