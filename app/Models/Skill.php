@@ -15,7 +15,7 @@ class Skill extends Model
     use SoftDeletes;
 
     public function jobclass(){
-        return $this->belongsToMany(JobClass::class);
+        return $this->belongsToMany(JobClass::class)->withPivot('job_class_id', 'skill_id');
     }
 
     public function quest(){

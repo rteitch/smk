@@ -208,5 +208,7 @@ class JobClassController extends Controller
         return view('backend.jobclass.lihat-jobclass', ['jobclasses' => $jobclass]);
     }
 
-
+    // public function getSkillAtribut(){
+    //     return $this->skill();
+    // }
 }

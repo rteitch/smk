@@ -17,6 +17,6 @@ class JobClass extends Model
     }
 
     public function skill(){
-        return $this->belongsToMany(Skill::class);
+        return $this->belongsToMany(Skill::class)->withPivot('job_class_id', 'skill_id');
     }
 }

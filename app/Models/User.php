@@ -77,6 +77,10 @@ class User extends Authenticatable
         return $this->skill()->where('skill_id', $id)->exists();
     }
 
+    public function skillUser(){
+        return $this->hasManyThrough(Jobclass::class, Skill::class);
+    }
+
     // public function isHasOrderQ($id){
     //     return $this->orderq()->where('user_id', $id)->exists();
     // }
