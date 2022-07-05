@@ -141,6 +141,7 @@ class OrderQController extends Controller
 
     public function tambahOrderQuest(Request $request, $id)
     {
+        //syarat yang harus dipenuhi level harus sama dengan syarat quest atau dibawahnya
         $quest_order = new \App\Models\OrderQ();
         $quest = \App\Models\Quest::findOrfail($id);
         $user_lama = Auth::user();

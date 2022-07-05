@@ -71,6 +71,10 @@
                                         <div
                                             class="card-body text-center d-flex flex-row justify-content-between pt-4 mt-4">
                                             <div class="col text-align border-right border-left">
+                                                <h6 class="fw-bold m-0">{{ $quests->level }}</h6>
+                                                <small>Level</small>
+                                            </div>
+                                            <div class="col text-align border-right border-left">
                                                 <h6 class="fw-bold m-0">{{ $quests->skor }}</h6>
                                                 <small>Bonus Skor</small>
                                             </div>
