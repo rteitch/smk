@@ -298,11 +298,30 @@ class UserController extends Controller
         if ($hasJobclass) {
             return redirect()->route('jobclass.published')->with('info', 'Sudah ada di daftar Job Class');
         } else {
-            if ($auth_user->level <= 30) {
-                return redirect()->route('jobclass.published')->with('info', 'Syarat untuk menambah jobclass ke-2 adalah memiliki level 30');
-            } else {
+            //syarat jobclass ke-1
+            if(!$hasJobclass && $auth_user->jobclass->count() == 0){
                 $auth_user->jobclass()->attach($id);
-                return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class');
+                return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class ke-1');
+            }
+
+            //syarat jobclass ke-2
+            if ($auth_user->level < 30 && $auth_user->jobclass->count() == 1) {
+                return redirect()->route('jobclass.published')->with('info', 'Syarat untuk menambah jobclass ke-2 adalah memiliki level 30');
+            } elseif ($auth_user->level >= 30 && $auth_user->jobclass->count() == 1) {
+                $auth_user->jobclass()->attach($id);
+                return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class ke-2');
+            }
+
+            //syarat jobclass ke-3
+            if ($auth_user->level < 50 && $auth_user->jobclass->count() == 2) {
+                return redirect()->route('jobclass.published')->with('info', 'Syarat untuk menambah jobclass ke-3 adalah memiliki level 50');
+            } elseif ($auth_user->level >= 50 && $auth_user->jobclass->count() == 2) {
+                $auth_user->jobclass()->attach($id);
+                return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class ke-3');
+            }
+            //max jobclass adalah 3
+            if ($auth_user->jobclass->count() == 3){
+                return redirect()->route('jobclass.published')->with('info', 'Anda sudah memiliki 3 jobclass, tidak bisa menambah lagi');
             }
         }
     }
@@ -356,18 +375,18 @@ class UserController extends Controller
         $status = $request->get('status');
         if ($status == "PENGAJAR") {
             $status_db = json_encode(['1']);
-            $user = \App\Models\User::select('id', 'name', 'avatar','level')->where('roles', "LIKE", "%$status_db%")->get();
+            $user = \App\Models\User::select('id', 'name', 'avatar', 'level')->where('roles', "LIKE", "%$status_db%")->get();
         } elseif ($status == "SISWA") {
             $status_db = json_encode(['2']);
-            $user = \App\Models\User::select('id', 'name', 'avatar','level')->where('roles', "LIKE", "%$status_db%")->get();
+            $user = \App\Models\User::select('id', 'name', 'avatar', 'level')->where('roles', "LIKE", "%$status_db%")->get();
         } else {
             $status_db1 = json_encode(['1']);
             $status_db2 = json_encode(['2']);
-            $user = \App\Models\User::select('id', 'name', 'avatar','level')->where('roles', "LIKE", "%$status_db1%")->orWhere('roles', "LIKE", "%$status_db2%")->get();
+            $user = \App\Models\User::select('id', 'name', 'avatar', 'level')->where('roles', "LIKE", "%$status_db1%")->orWhere('roles', "LIKE", "%$status_db2%")->get();
         }
 
-        return DataTables::of($user)->addColumn('avatar_url', function($data){
-            return '<img src="storage/'.$data->avatar.'" width="40px" height="40px" class="rounded-circle"/>';
+        return DataTables::of($user)->addColumn('avatar_url', function ($data) {
+            return '<img src="storage/' . $data->avatar . '" width="40px" height="40px" class="rounded-circle"/>';
         })->addIndexColumn()->rawColumns(['avatar_url'])->toJson();
     }
 
