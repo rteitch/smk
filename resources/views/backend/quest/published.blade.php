@@ -52,7 +52,7 @@
                 @foreach ($quest as $index => $quests)
                     @foreach ($quests->skill as $qskill)
                         @foreach ($user_login->skill as $uskill)
-                            @if ($qskill->pivot->skill_id == $uskill->id)
+                            @if ($qskill->pivot->skill_id == $uskill->id && $user_login->level >= $quests->level )
                                 <div class="col-md-12 col-lg-4 mb-2">
                                     <div class="card">
                                         <div class="card-header bg-info text-center text-light border-0"

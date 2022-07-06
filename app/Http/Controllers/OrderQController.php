@@ -145,17 +145,21 @@ class OrderQController extends Controller
         $quest_order = new \App\Models\OrderQ();
         $quest = \App\Models\Quest::findOrfail($id);
         $user_lama = Auth::user();
-        $quest_order->user_id = $user_lama->id;
-        $quest_order->file_jawab = null;
-        $quest_order->jawaban_pilgan = null;
-        $quest_order->status = 'SUBMIT';
-        $CodeQuest = uniqid();
-        $quest_order->quest_code = substr(md5($CodeQuest), 6, 6);
-        $quest_order->save();
-        $quest_order->quest()->attach($id);
-        // $quest_id = \App\Models\OrderQ::findOrFail(\Auth::user()->id);
-        // $hasQuest = $
-        return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di quest order');
+        if($user_lama->level >= $quest->level){
+            $quest_order->user_id = $user_lama->id;
+            $quest_order->file_jawab = null;
+            $quest_order->jawaban_pilgan = null;
+            $quest_order->status = 'SUBMIT';
+            $CodeQuest = uniqid();
+            $quest_order->quest_code = substr(md5($CodeQuest), 6, 6);
+            $quest_order->save();
+            $quest_order->quest()->attach($id);
+            // $quest_id = \App\Models\OrderQ::findOrFail(\Auth::user()->id);
+            // $hasQuest = $
+            return redirect()->route('quest.published')->with('status', 'Berhasil mendaftarkan Quest di quest order');
+        } else{
+            return redirect()->route('quest.published')->with('status', 'Tidak bisa mengambil quest, level tidak mencukupi');
+        }
     }
 
     public function siswa(Request $request, $id)
