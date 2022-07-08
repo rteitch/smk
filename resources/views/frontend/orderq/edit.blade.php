@@ -4,6 +4,38 @@
     Edit order Quest
 @endsection
 
+
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-quest-siswa-active')
+    active
+@endsection
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Ubah Status Quest Siswa</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item"> <a href="{{ route('orderq.index') }}">Manajemen Quest Siswa</a>
+                    <li class="breadcrumb-item active"> <a href="{{ route('orderq.edit', [$order_q_s->id]) }}">Ubah Status Quest Siswa</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-8">
@@ -78,9 +110,9 @@
                 <label for="status">Status</label><br>
                 <select class="form-control" name="status" id="status">
                     <option {{ $order_q_s->status == 'SUBMIT' ? 'selected' : '' }} value="SUBMIT">SUBMIT</option>
-                    <option {{ $order_q_s->status == 'PROCESS' ? 'selected' : '' }} value="PROCESS">PROCESS</option>
-                    <option {{ $order_q_s->status == 'FINISH' ? 'selected' : '' }} value="FINISH">FINISH</option>
-                    <option {{ $order_q_s->status == 'CANCEL' ? 'selected' : '' }} value="CANCEL">CANCEL</option>
+                    <option {{ $order_q_s->status == 'PROSES' ? 'selected' : '' }} value="PROSES">PROSES</option>
+                    <option {{ $order_q_s->status == 'SELESAI' ? 'selected' : '' }} value="SELESAI">SELESAI</option>
+                    <option {{ $order_q_s->status == 'GAGAL' ? 'selected' : '' }} value="GAGAL">GAGAL</option>
                 </select>
                 <br>
 

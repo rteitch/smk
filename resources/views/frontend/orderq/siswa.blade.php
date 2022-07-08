@@ -47,9 +47,9 @@
                 <select name="status" class="form-control" id="status">
                     <option value="">ANY</option>
                     <option {{ Request::get('status') == 'SUBMIT' ? 'selected' : '' }} value="SUBMIT">SUBMIT</option>
-                    <option {{ Request::get('status') == 'PROCESS' ? 'selected' : '' }} value="PROCESS">PROCESS</option>
-                    <option {{ Request::get('status') == 'FINISH' ? 'selected' : '' }} value="FINISH">FINISH</option>
-                    <option {{ Request::get('status') == 'CANCEL' ? 'selected' : '' }} value="CANCEL">CANCEL</option>
+                    <option {{ Request::get('status') == 'PROSES' ? 'selected' : '' }} value="PROSES">PROSES</option>
+                    <option {{ Request::get('status') == 'SELESAI' ? 'selected' : '' }} value="SELESAI">SELESAI</option>
+                    <option {{ Request::get('status') == 'GAGAL' ? 'selected' : '' }} value="GAGAL">GAGAL</option>
                 </select>
                 <br>
             </div>
@@ -116,13 +116,13 @@
                                                         @if ($order->status == 'SUBMIT')
                                                             <span
                                                                 class="badge bg-warning text-light">{{ $order->status }}</span>
-                                                        @elseif($order->status == 'PROCESS')
+                                                        @elseif($order->status == 'PROSES')
                                                             <span
                                                                 class="badge bg-info text-light">{{ $order->status }}</span>
-                                                        @elseif($order->status == 'FINISH')
+                                                        @elseif($order->status == 'SELESAI')
                                                             <span
                                                                 class="badge bg-success text-light">{{ $order->status }}</span>
-                                                        @elseif($order->status == 'CANCEL')
+                                                        @elseif($order->status == 'GAGAL')
                                                             <span
                                                                 class="badge bg-dark text-light">{{ $order->status }}</span>
                                                         @endif
@@ -140,13 +140,13 @@
                                                     <br>
 
 
-                                                    @if ($order->status == 'PROCESS')
+                                                    @if ($order->status == 'PROSES')
                                                         <div>
                                                             <hr class="my-3">
                                                         </div>
                                                         <p>Jawaban mu telah terkirim, tunggu beberapa waktu untuk penilaian
                                                             dari pembuat quest</p>
-                                                    @elseif ($order->status == 'FINISH')
+                                                    @elseif ($order->status == 'SELESAI')
                                                         <div>
                                                             <hr class="my-3">
                                                         </div>
@@ -159,7 +159,7 @@
                                                             akan membutuhkan
                                                             bantuanmu lagi, semangat petualang!
                                                         </p>
-                                                    @elseif($order->status == 'CANCEL')
+                                                    @elseif($order->status == 'GAGAL')
                                                         <div>
                                                             <hr class="my-3">
                                                         </div>
@@ -257,11 +257,11 @@
                 <td>
                     @if ($order->status == 'SUBMIT')
                         <span class="badge bg-warning text-light">{{ $order->status }}</span>
-                    @elseif($order->status == 'PROCESS')
+                    @elseif($order->status == 'PROSES')
                         <span class="badge bg-info text-light">{{ $order->status }}</span>
-                    @elseif($order->status == 'FINISH')
+                    @elseif($order->status == 'SELESAI')
                         <span class="badge bg-success text-light">{{ $order->status }}</span>
-                    @elseif($order->status == 'CANCEL')
+                    @elseif($order->status == 'GAGAL')
                         <span class="badge bg-dark text-light">{{ $order->status }}</span>
                     @endif
                 </td>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('quest_code');
-            $table->enum('status', ['SUBMIT', 'PROCESS', 'FINISH', 'CANCEL']);
+            $table->enum('status', ['SUBMIT', 'PROSES', 'SELESAI', 'GAGAL']);
             $table->string('file_jawab')->nullable();
             $table->string('jawaban_pilgan')->nullable();
             $table->timestamps();

@@ -127,9 +127,6 @@
                                                 @endif
 
                                                 @if (json_decode(\Auth::user()->roles) == array_intersect([2]))
-                                                    <li class="menu-item @yield('dash-jobclass-saya-active')">
-                                                        <a href="#">JobClass Saya (progress)</a>
-                                                    </li>
                                                     <li class="menu-item @yield('dash-quest-saya-active')">
                                                         <a href="{{ route('orderq.siswa', \Auth::user()->id) }}">Quest
                                                             Saya</a>

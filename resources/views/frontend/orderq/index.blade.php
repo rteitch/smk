@@ -54,11 +54,11 @@
                             <option value="">ANY</option>
                             <option {{ Request::get('status') == 'SUBMIT' ? 'selected' : '' }} value="SUBMIT">SUBMIT
                             </option>
-                            <option {{ Request::get('status') == 'PROCESS' ? 'selected' : '' }} value="PROCESS">PROCESS
+                            <option {{ Request::get('status') == 'PROSES' ? 'selected' : '' }} value="PROSES">PROSES
                             </option>
-                            <option {{ Request::get('status') == 'FINISH' ? 'selected' : '' }} value="FINISH">FINISH
+                            <option {{ Request::get('status') == 'SELESAI' ? 'selected' : '' }} value="SELESAI">SELESAI
                             </option>
-                            <option {{ Request::get('status') == 'CANCEL' ? 'selected' : '' }} value="CANCEL">CANCEL
+                            <option {{ Request::get('status') == 'GAGAL' ? 'selected' : '' }} value="GAGAL">GAGAL
                             </option>
                         </select>
                     </div>
@@ -99,11 +99,11 @@
                                                 {{ $quests->where('id', $quests->pivot->quest_id)->first()->jenis_soal }}
                                                 @if ($order->status == 'SUBMIT')
                                                     <span class="badge bg-warning text-light">{{ $order->status }}</span>
-                                                @elseif($order->status == 'PROCESS')
+                                                @elseif($order->status == 'PROSES')
                                                     <span class="badge bg-info text-light">{{ $order->status }}</span>
-                                                @elseif($order->status == 'FINISH')
+                                                @elseif($order->status == 'SELESAI')
                                                     <span class="badge bg-success text-light">{{ $order->status }}</span>
-                                                @elseif($order->status == 'CANCEL')
+                                                @elseif($order->status == 'GAGAL')
                                                     <span class="badge bg-dark text-light">{{ $order->status }}</span>
                                                 @endif
                                             </small></h3>
@@ -130,11 +130,11 @@
                             <td>
                                 @if ($order->status == 'SUBMIT')
                                     <span class="badge bg-warning text-light">{{ $order->status }}</span>
-                                @elseif($order->status == 'PROCESS')
+                                @elseif($order->status == 'PROSES')
                                     <span class="badge bg-info text-light">{{ $order->status }}</span>
-                                @elseif($order->status == 'FINISH')
+                                @elseif($order->status == 'SELESAI')
                                     <span class="badge bg-success text-light">{{ $order->status }}</span>
-                                @elseif($order->status == 'CANCEL')
+                                @elseif($order->status == 'GAGAL')
                                     <span class="badge bg-dark text-light">{{ $order->status }}</span>
                                 @endif
                             </td>

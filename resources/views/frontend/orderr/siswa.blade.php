@@ -48,11 +48,9 @@
                     <div class="col-md-2">
                         <select name="status" class="form-control" id="status">
                             <option value="">ANY</option>
-                            <option {{ Request::get('status') == 'SUBMIT' ? 'selected' : '' }} value="SUBMIT">SUBMIT
+                            <option {{ Request::get('status') == 'PROSES' ? 'selected' : '' }} value="PROSES">PROSES
                             </option>
-                            <option {{ Request::get('status') == 'PROCESS' ? 'selected' : '' }} value="PROCESS">PROCESS
-                            </option>
-                            <option {{ Request::get('status') == 'DITERIMA' ? 'selected' : '' }} value="FINISH">FINISH
+                            <option {{ Request::get('status') == 'DITERIMA' ? 'selected' : '' }} value="DITERIMA">DITERIMA
                             </option>
                         </select>
                     </div>
@@ -80,7 +78,7 @@
                                     <td>
                                         @if ($order->status == 'SUBMIT')
                                             <span class="badge bg-warning text-light">{{ $order->status }}</span>
-                                        @elseif($order->status == 'PROCESS')
+                                        @elseif($order->status == 'PROSES')
                                             <span class="badge bg-info text-light">{{ $order->status }}</span>
                                         @elseif($order->status == 'DITERIMA')
                                             <span class="badge bg-success text-light">{{ $order->status }}</span>

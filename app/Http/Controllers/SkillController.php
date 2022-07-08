@@ -221,8 +221,8 @@ class SkillController extends Controller
         $auth_user = \Auth::user();
         // dd($auth_user->skill->count());
         $id_user = \Auth::user()->id;
-        $skill = \App\Models\Skill::with('jobclass')->paginate(4);
-        $user = \App\Models\User::with('jobclass')->findOrFail($id_user);
+        $skill = \App\Models\Skill::with('jobclass')->paginate(6);
+        $user = \App\Models\User::with('jobclass', 'skill')->findOrFail($id_user);
         return view('backend.skill.published', compact('skill', 'user'));
     }
 }

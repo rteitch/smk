@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('order_r_s', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->enum('status', ['SUBMIT', 'PROCESS', 'DITERIMA']);
+            $table->enum('status', ['PROSES', 'DITERIMA']);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
