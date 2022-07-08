@@ -200,7 +200,10 @@ class OrderQController extends Controller
 
                 $exp_lama = $user_login->exp;
                 $hitung_exp = $exp_lama + $quest_exp;
+                //logika update level ketika exp bertambah level dalam ga web max adalah 99
+                // if($hitung_exp <= 1000){
 
+                // }
                 //simpan ke field
                 $user_login->skor = $hitung_skor;
                 $user_login->exp = $hitung_exp;
