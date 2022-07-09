@@ -71,8 +71,7 @@
                                         </li> --}}
                                         <li class="footer"><a
                                                 href="{{ route('notifikasi.showNotifikasiUser', \Auth::user()->id) }}"
-                                                class="more">See all
-                                                notifications</a></li>
+                                                class="more">Lihat semua notifikasi</a></li>
                                     </ul>
                                 </li>
                             </ul>

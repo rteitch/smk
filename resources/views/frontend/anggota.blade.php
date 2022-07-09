@@ -67,6 +67,7 @@
                                 <th>Avatar</th>
                                 <th>Level</th>
                                 <th>Nama</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,6 +111,10 @@
                 {
                     data: 'name',
                     name: 'name',
+                },
+                {
+                    data: 'status',
+                    name: 'status',
                 }
             ]
         });

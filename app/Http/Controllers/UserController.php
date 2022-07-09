@@ -375,14 +375,14 @@ class UserController extends Controller
         $status = $request->get('status');
         if ($status == "PENGAJAR") {
             $status_db = json_encode(['1']);
-            $user = \App\Models\User::select('id', 'name', 'avatar', 'level')->where('roles', "LIKE", "%$status_db%")->get();
+            $user = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status')->where('roles', "LIKE", "%$status_db%")->get();
         } elseif ($status == "SISWA") {
             $status_db = json_encode(['2']);
-            $user = \App\Models\User::select('id', 'name', 'avatar', 'level')->where('roles', "LIKE", "%$status_db%")->get();
+            $user = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status')->where('roles', "LIKE", "%$status_db%")->get();
         } else {
             $status_db1 = json_encode(['1']);
             $status_db2 = json_encode(['2']);
-            $user = \App\Models\User::select('id', 'name', 'avatar', 'level')->where('roles', "LIKE", "%$status_db1%")->orWhere('roles', "LIKE", "%$status_db2%")->get();
+            $user = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status')->where('roles', "LIKE", "%$status_db1%")->orWhere('roles', "LIKE", "%$status_db2%")->get();
         }
 
         return DataTables::of($user)->addColumn('avatar_url', function ($data) {
