@@ -5,10 +5,10 @@
     <title>SMKN2SOLO Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Iconic Bootstrap 4.5.0 Admin Template">
-    <meta name="author" content="WrapTheme, design by: ThemeMakker.com">
+    <meta name="description" content="Guild Adventure SMK Negeri 2 Surakarta">
+    <meta name="author" content="SMKN2SKA">
 
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ asset('iconic/dist/fav-smkn2ska.png') }}" type="image/x-icon">
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
