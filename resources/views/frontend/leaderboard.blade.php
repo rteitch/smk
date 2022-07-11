@@ -4,10 +4,17 @@
     Leaderboard
 @endsection
 
-@section('leaderboard-active')
+@section('ga-active')
     active
 @endsection
 
+@section('ga-collapse-in')
+    in
+@endsection
+
+@section('ga-anggota-active')
+    active
+@endsection
 
 @section('breadcrumb')
     <div class="block-header">
@@ -16,7 +23,8 @@
                 <h2>Leaderboard</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
-                    <li class="breadcrumb-item">Leaderboard</li>
+                    <li class="breadcrumb-item">Guild Adventure</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('user.leaderboard') }}">Leaderboard</a> </li>
                 </ul>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -32,19 +40,31 @@
 @endsection
 
 @section('content')
-    <table id="table_id" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Username</th>
-                <th>Skor</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3>LEADERBOARD</h3>
+            </div>
+            <div class="card-body">
+                <div>
+                    <table id="table_id_anggota" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Avatar</th>
+                                <th>Level</th>
+                                <th>Nama</th>
+                                <th>Skor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
-
 @section('footer-scripts')
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
@@ -56,58 +76,31 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
     <script>
-        $('#table_id').DataTable({
+
+        $('#table_id_anggota').DataTable({
             responsive: true,
             "processing": true,
             "serverSide": true,
-            dom: 'Blfrtip',
-            buttons: [{
-                    extend: 'excel',
-                    text: 'Export to Excel',
-                    exportOptions: {
-                        modifier: {
-                            page: "current"
-                        }
-                    },
-                    className: 'btn btn-primary glyphicon glyphicon-list-alt mb-3'
-                },
-                {
-                    extend: 'pdf',
-                    customize: function(doc) {
-                        doc.content[1].table.widths =
-                            Array(doc.content[1].table.body[0].length + 1).join('*').split('');
-                    },
-                    text: 'Export to PDF',
-                    exportOptions: {
-                        modifier: {
-                            page: "current"
-                        }
-                    },
-                    className: 'btn btn-primary glyphicon glyphicon-file mb-3'
-                },
-                {
-                    extend: 'print',
-                    text: 'Print',
-                    exportOptions: {
-                        modifier: {
-                            page: "current"
-                        }
-                    },
-                    className: 'btn btn-primary glyphicon glyphicon-print mb-3'
-                },
-            ],
             "ajax": '{{ url('get-leaderboard') }}',
             "columns": [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 },
                 {
-                    data: 'username',
-                    name: 'username'
+                    data: 'avatar_url',
+                    name: 'avatar_url',
+                },
+                {
+                    data: 'level',
+                    name: 'level',
+                },
+                {
+                    data: 'name',
+                    name: 'name',
                 },
                 {
                     data: 'skor',
-                    name: 'skor'
+                    name: 'skor',
                 }
             ]
         });

@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Buku Panduan
+    Anggota
 @endsection
 
 @section('ga-active')

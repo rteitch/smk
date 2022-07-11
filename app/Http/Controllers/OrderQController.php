@@ -36,7 +36,7 @@ class OrderQController extends Controller
             }]
         )->whereHas('user', function ($query) use ($user_name) {
             $query->where('name', 'LIKE', "%$user_name%");
-        })->where('status', 'LIKE', "%$status%")->paginate(4);
+        })->where('status', 'LIKE', "%$status%")->paginate(10);
         return view('frontend.orderq.index', compact('orderq'));
     }
 

@@ -348,8 +348,11 @@ class UserController extends Controller
 
     public function getLeaderboard()
     {
-        $user_leaderboard = \App\Models\User::select('id', 'username', 'level', 'skor', 'roles')->where('roles', 'LIKE', json_encode(["2"]))->get();
-        return DataTables::of($user_leaderboard)->addIndexColumn()->toJson();
+        $status_db = json_encode(['2']);
+        $user_leaderboard = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status', 'skor')->where('roles', "LIKE", "%$status_db%")->orderBy('skor', 'asc')->get();
+        return DataTables::of($user_leaderboard)->addColumn('avatar_url', function ($data) {
+            return '<img src="storage/' . $data->avatar . '" width="40px" height="40px" class="rounded-circle"/>';
+        })->addIndexColumn()->rawColumns(['avatar_url'])->toJson();
     }
 
     public function leaderboard()
