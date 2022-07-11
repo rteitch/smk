@@ -42,14 +42,58 @@
                         <h3>Buku Panduan</h3>
                         <ul>
                             <li>Pengenalan</li>
+                            <p>Selamat datang di guild adventure smkn2 surakarta. Website ini berisi penugasan yang dikemas
+                                dalam bentuk quest, dan reward yang bisa diclaim oleh user siswa ketika telah menyelesaikan
+                                quest dan mendapatkan skor.</p>
                             <li>Istilah dalam Website</li>
-                            <li>Cara Menambah JobClass</li>
-                            <li>Cara Menambah Skill</li>
-                            <li>Cara Menambah Quest</li>
+                            <ul>
+                                <li><strong>Guild Adventure</strong> : Istilah lain dari Sekolah.</li>
+                                <li><strong>Job Class</strong> : Istilah lain dari Program Jurusan (ex: TKJ, RPL, TKR dst..)
+                                </li>
+                                <li><strong>Skill</strong> : Istilah lain Mata Pelajaran (ex: Komputer dan Jaringan Dasar,
+                                    Administrasi Sistem Jaringan dst..)</li>
+                                <li><strong>Quest</strong> : Istilah lain dari Penugasan/Misi yang berbentuk Laporan atau
+                                    pilihan ganda</li>
+                            </ul>
+                            <br>
+                            <li>Cara Mengambil JobClass</li>
+                            <p>1. Buka Menu Guild Adventure <br>
+                                2. Pilih Menu Job Class <br>
+                                3. Cari Job Class yang sesuai <br>
+                                4. Tekan Tombol Tambah, otomatis Job class sudah diambil</p>
+                            <li>Cara Mengambil Skill</li>
+                            <p>1. Buka Menu Guild Adventure <br>
+                                2. Pilih Menu Skill <br>
+                                3. Cari Skill yang sesuai
+                                4. Tekan tombol Lihat Skill untuk melihat skill <br>
+                                5. Pastikan syarat lv sesuai, tekan tombol Tambah, otomatis skill sudah diambil</p>
+                            <li>Cara Mengambil Quest</li>
+                            <p>1. Buka Menu Guild Adventure <br>
+                                2. Pilih Menu Quest <br>
+                                3. Cari quest yang diinginkan <br>
+                                4. Pastikan syarat lv sesuai, tekan tombol Tambah, otomatis quest sudah diambil</p>
                             <li>Cara Mengirim Quest</li>
+                            <p>1. Buka Dashboard <br>
+                                2. Pilih Menu Quest Saya <br>
+                                3. Cari Quest yang status masih Submit <br>
+                                4. Tekan tombol Upload, kemudian upload jawaban, jika jenis soal pilihan ganda maka pilih
+                                opsi jawaban, jika jenis soal laporan, upload laporan berupa file berupa pdf. <br>
+                                5. Jenis soal pilihan ganda secara otomatis akan terjawab, untuk jenis soal Laporan
+                                dibutuhkan waktu, untuk proses validasi jawaban</p>
                             <li>Cara Menaikan Skor, Level, Exp</li>
+                            <p>1. Selesaikan Quest sebanyak-banyaknya</p>
                             <li>Cara Menukar Skor dengan Reward</li>
-                            <li>Game Info</li>
+                            <p>1. Buka Guild Adventure <br>
+                                2. Pilih menu Reward <br>
+                                3. Cari reward yang diinginkan, pastikan skor mencukupi, jika tidak mencukupi anda tidak
+                                diizinkan menukar reward <br>
+                                4. Tekan Tombol Tukar, untuk menukar skor dengan reward, dibutuhkan untuk proses validasi
+                                reward dan proses pengiriman, reward akan dikirim lewat konfirmasi email / whatsapp nomor hp
+                                siswa</p>
+                            <li>Leaderboard</li>
+                            <p>Leaderboard atau papan peringkat berfungsi untuk melihat siapa yang memiliki skor tertinggi di guild adventure SMK Negeri 2 Surakarta.</p>
+                            <li>Web Info</li>
+                            <p>Web ini didevelop oleh Mahasiswa UNS atas nama Rizal Taufiq Hidayat, NIM K3518052, Prodi Pendidikan Teknik Informatika dan Komputer, dalam rangka menyelesaikan syarat mendapatkan gelar Sarjana. Mahasiswa tersebut adalah alumni dari SMK Negeri 2 Surakarta angkatan 2015-2018 dengan Jurusan Teknik Komputer dan Jaringan. Setelah kewajiban ini selesai, website akan diserahkan ke pihak sekolah untuk dikelola sendiri, dan hal ini merupakan kenang-kenangan dari alumni SMKN2SKA. </p>
                         </ul>
                     </div>
                 </div>

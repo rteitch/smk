@@ -283,7 +283,11 @@
                     <span class="btn" data-countdown="{{ $quests->batas_waktu }}"></span>
                 </td>
                 <td>
-                    {{ $order->updated_at }}
+                    @if ($order->status == 'SUBMIT')
+                        Belum Upload
+                    @elseif ($order->status == 'SELESAI' || $order->status == 'GAGAL')
+                        {{ $order->updated_at }}
+                    @endif
                 </td>
                 <td>
                     {{-- <a href="{{ route('orderq.edit', [$order->id]) }}" class="btn btn-success btn-sm">
@@ -293,7 +297,8 @@
                     <!-- Trigger the modal with a button -->
 
                     <button id="tombolup" type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                        data-target="#myModal{{ $order->id }}"><span class="fa fa-eye"></span> Upload
+                        data-target="#myModal{{ $order->id }}"><span class="fa fa-eye"></span>
+                        Upload
                     </button>
                     <br>
                 </td>
@@ -330,7 +335,7 @@
                 } else {
                     $this.html(event.strftime(
                         '<p class="badge bg-success text-light">Waktu Quest Masih Tersedia</p><br><span >%D days %H:%M:%S</span>'
-                        ));
+                    ));
                 }
             });
         });

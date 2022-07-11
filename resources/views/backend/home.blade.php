@@ -44,10 +44,10 @@
                                 @if (Auth::check())
                                     {{ Auth::user()->name }}
                                 @endif
-                            </strong> di Guild Adventure World! <br> Kamu
+                            </strong> di Guild Adventure! <br> Kamu
                             Sekarang berada di ibu kota SMK Negeri 2 Surakarta.</p>
                         <img src="img/smkn2solo.png" alt="smkn2solo-logo" srcset="" width="50%">
-                        <p>Silakan kunjungi <a href="#">Guild Adventure</a> Untuk mengecek progress harianmu!</p>
+                        <p>Silakan kunjungi <a href="#">Guild Adventure</a> Untuk mengecek quest terbaru!</p>
 
                     </div>
                 </div>

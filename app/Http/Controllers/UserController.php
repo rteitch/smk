@@ -262,7 +262,7 @@ class UserController extends Controller
         }
         $user->skill()->sync($request->get('skill'));
         $user->jobclass()->sync($request->get('jobclass'));
-        return redirect()->route('users.show', [$id])->with('status', 'User succesfully updated');
+        return redirect()->route('users.index', [$id])->with('status', 'User succesfully updated');
     }
 
     /**
@@ -299,7 +299,7 @@ class UserController extends Controller
             return redirect()->route('jobclass.published')->with('info', 'Sudah ada di daftar Job Class');
         } else {
             //syarat jobclass ke-1
-            if(!$hasJobclass && $auth_user->jobclass->count() == 0){
+            if (!$hasJobclass && $auth_user->jobclass->count() == 0) {
                 $auth_user->jobclass()->attach($id);
                 return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class ke-1');
             }
@@ -320,7 +320,7 @@ class UserController extends Controller
                 return redirect()->route('jobclass.published')->with('status', 'Berhasil mendaftarkan Job Class ke-3');
             }
             //max jobclass adalah 3
-            if ($auth_user->jobclass->count() == 3){
+            if ($auth_user->jobclass->count() == 3) {
                 return redirect()->route('jobclass.published')->with('info', 'Anda sudah memiliki 3 jobclass, tidak bisa menambah lagi');
             }
         }
@@ -329,11 +329,16 @@ class UserController extends Controller
     {
         $auth_user = \Auth::user();
         $hasSkill = $auth_user->skill()->where('skill_id', $id)->exists();
+        $skill = \App\Models\Skill::findOrFail($id);
         if ($hasSkill) {
             return redirect()->route('skill.published')->with('info', 'Sudah ada di daftar Skill');
         } else {
-            $auth_user->skill()->attach($id);
-            return redirect()->route('skill.published')->with('status', 'Berhasil mendaftarkan Skill');
+            if ($auth_user->level <= $skill->syarat_lv) {
+                return redirect()->route('skill.published')->with('info', 'Level tidak mencukupi untuk mengambil skill');
+            } else {
+                $auth_user->skill()->attach($id);
+                return redirect()->route('skill.published')->with('status', 'Berhasil mendaftarkan Skill');
+            }
         }
     }
 
@@ -349,7 +354,7 @@ class UserController extends Controller
     public function getLeaderboard()
     {
         $status_db = json_encode(['2']);
-        $user_leaderboard = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status', 'skor')->where('roles', "LIKE", "%$status_db%")->orderBy('skor', 'asc')->get();
+        $user_leaderboard = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status', 'skor')->where('roles', "LIKE", "%$status_db%")->orderBy('skor', 'desc')->get();
         return DataTables::of($user_leaderboard)->addColumn('avatar_url', function ($data) {
             return '<img src="storage/' . $data->avatar . '" width="40px" height="40px" class="rounded-circle"/>';
         })->addIndexColumn()->rawColumns(['avatar_url'])->toJson();

@@ -198,13 +198,13 @@
                                 </ul>
                             </div>
                             <div class="menu-foot">
-                                <div class="social">
+                                {{-- <div class="social">
                                     <a href="#" target="_blank"><i class="fa fa-facebook-f"></i></a>
                                     <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
                                     <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
                                     <a href="#" target="_blank"><i class="fa fa-instagram"></i></a>
                                     <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
-                                </div>
+                                </div> --}}
                                 <hr />
                                 <address class="text-center">
                                     <span class="email"><i class="icon-mail"></i> smkn2solo.online</span>
