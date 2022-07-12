@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("roles");
             $table->text("alamat")->nullable();
             // nomor induk siswa / pegawai (nis/nip)
-            $table->integer("nomor_induk")->nullable();
+            $table->string("nomor_induk")->nullable();
             $table->string("phone")->nullable();
             $table->string("tempat_lahir")->nullable();
             $table->date("tanggal_lahir")->nullable();

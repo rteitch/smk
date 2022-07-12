@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class RewardController extends Controller
 {
@@ -17,13 +18,16 @@ class RewardController extends Controller
 
         $status = $request->get('status');
         $keyword = $request->get('keyword') ?: '';
-
-        if ($status) {
-            $reward = \App\Models\Reward::where('title', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
+        if (Gate::allows('isPengajardanAdmin')) {
+            if ($status) {
+                $reward = \App\Models\Reward::where('title', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
+            } else {
+                $reward = \App\Models\Reward::where("title", "LIKE", "%$keyword%")->paginate(10);
+            }
+            return view('backend.reward.index', ['reward' => $reward]);
         } else {
-            $reward = \App\Models\Reward::where("title", "LIKE", "%$keyword%")->paginate(10);
+            return view("errors.403");
         }
-        return view('backend.reward.index', ['reward' => $reward]);
     }
 
     /**
@@ -33,7 +37,11 @@ class RewardController extends Controller
      */
     public function create()
     {
-        return view('backend.reward.create');
+        if (Gate::allows('isPengajardanAdmin')) {
+            return view('backend.reward.create');
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -44,6 +52,13 @@ class RewardController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = \Validator::make($request->all(), [
+            "title" => "required|min:1|max:300",
+            "deskripsi" => "required|min:1|max:300",
+            "syarat_skor" => "required",
+            "image" => "mimes:jpeg,jpg,png|max:1500",
+        ])->validate();
+
         $new_reward = new \App\Models\Reward();
         $new_reward->title = $request->get('title');
         $new_reward->deskripsi = $request->get('deskripsi');
@@ -91,7 +106,11 @@ class RewardController extends Controller
     public function edit($id)
     {
         $reward_to_edit = \App\Models\Reward::findOrFail($id);
-        return view('backend.reward.edit', ['reward' => $reward_to_edit]);
+        if (Gate::allows('isPengajardanAdmin')) {
+            return view('backend.reward.edit', ['reward' => $reward_to_edit]);
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -129,10 +148,12 @@ class RewardController extends Controller
         $reward->updated_by = \Auth::user()->id;
 
         $reward->status = $request->get('status');
-
-        $reward->save();
-
-        return redirect()->route('reward.edit', [$reward->id])->with('status', 'Reward successfully updated');
+        if (Gate::allows('isPengajardanAdmin')) {
+            $reward->save();
+            return redirect()->route('reward.edit', [$reward->id])->with('status', 'Reward successfully updated');
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -144,38 +165,55 @@ class RewardController extends Controller
     public function destroy($id)
     {
         $reward = \App\Models\Reward::findOrFail($id);
-        $reward->delete();
 
-        return redirect()->route('reward.index')->with('status', 'Reward moved to trash');
+        if (Gate::allows('isPengajardanAdmin')) {
+            $reward->delete();
+
+            return redirect()->route('reward.index')->with('status', 'Reward moved to trash');
+        } else {
+            return view("errors.403");
+        }
     }
 
     public function trash()
     {
         $reward = \App\Models\Reward::onlyTrashed()->paginate(10);
-        return view('backend.reward.trash', ['reward' => $reward]);
+        if (Gate::allows('isPengajardanAdmin')) {
+            return view('backend.reward.trash', ['reward' => $reward]);
+        } else {
+            return view("errors.403");
+        }
     }
 
     public function deletePermanent($id)
     {
         $reward = \App\Models\Reward::withTrashed()->findOrFail($id);
 
-        if (!$reward->trashed()) {
-            return redirect()->route('reward.trash')->with('status', 'Reward is not in trash!')->with('status_type', 'alert');
-        } else {
-            $reward->forceDelete();
+        if (Gate::allows('isPengajardanAdmin')) {
+            if (!$reward->trashed()) {
+                return redirect()->route('reward.trash')->with('status', 'Reward is not in trash!')->with('status_type', 'alert');
+            } else {
+                $reward->forceDelete();
 
-            return redirect()->route('reward.trash')->with('status', 'Reward permanently deleted!');
+                return redirect()->route('reward.trash')->with('status', 'Reward permanently deleted!');
+            }
+        } else {
+            return view("errors.403");
         }
     }
 
     public function restore($id)
     {
         $reward = \App\Models\Reward::withTrashed()->findOrFail($id);
-        if ($reward->trashed()) {
-            $reward->restore();
-            return redirect()->route('reward.trash')->with('status', 'Reward successfully restored');
+        if (Gate::allows('isPengajardanAdmin')) {
+            if ($reward->trashed()) {
+                $reward->restore();
+                return redirect()->route('reward.trash')->with('status', 'Reward successfully restored');
+            } else {
+                return redirect()->route('reward.trash')->with('status', 'Reward is not in trash');
+            }
         } else {
-            return redirect()->route('reward.trash')->with('status', 'Reward is not in trash');
+            return view("errors.403");
         }
     }
 

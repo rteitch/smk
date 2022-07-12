@@ -69,16 +69,28 @@
                             @csrf
 
                             <label>Job Class name</label><br>
-                            <input type="text" class="form-control" name="name" />
+                            <input value="{{ old('name') }}" type="text"
+                                class="form-control {{ $errors->first('name') ? 'is-invalid' : '' }}" name="name"
+                                placeholder="Nama Jobclass" />
+
+                            <div class="invalid-feedback">
+                                {{ $errors->first('name') }}
+                            </div>
                             <br>
 
                             <label>Deskripsi Job Class</label><br>
-                            <textarea name="deskripsi" class="form-control"></textarea>
+                            <textarea name="deskripsi" class="form-control {{ $errors->first('deskripsi') ? 'is-invalid' : '' }}">{{ old('deskripsi') }}</textarea>
+                            <div class="invalid-feedback">
+                                {{ $errors->first('deskripsi') }}
+                            </div>
                             <br>
 
                             <label>Job Class image</label>
-                            <input type="file" class="form-control" name="image" />
-
+                            <input value="{{ old('image') }}" type="file"
+                                class="form-control {{ $errors->first('image') ? 'is-invalid' : '' }}" name="image" />
+                            <div class="invalid-feedback">
+                                {{ $errors->first('image') }}
+                            </div>
                             <br>
 
                             <div class="modal-footer">

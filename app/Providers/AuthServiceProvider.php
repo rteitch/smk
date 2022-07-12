@@ -35,6 +35,10 @@ class AuthServiceProvider extends ServiceProvider
             return count(array_intersect(["2"], json_decode($user->roles)));
         });
 
+        Gate::define('isPengajardanAdmin', function($user){
+            return count(array_intersect(["0","1"], json_decode($user->roles)));
+        });
+
         // Gate::define('update-user', function($user){
         //     return $user->id;
         // });

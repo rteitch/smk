@@ -18,20 +18,38 @@
                 @csrf
 
                 <label for="title">Judul Reward</label> <br>
-                <input type="text" class="form-control" name="title" placeholder="Judul Reward">
+                <input value="{{ old('title') }}" type="text"
+                    class="form-control {{ $errors->first('title') ? 'is-invalid' : '' }}" name="title"
+                    placeholder="Judul Reward">
+                <div class="invalid-feedback">
+                    {{ $errors->first('title') }}
+                </div>
                 <br>
 
                 <label for="image">Image</label>
-                <input type="file" class="form-control" name="image">
+                <input value="{{ old('image') }}" type="file"
+                    class="form-control {{ $errors->first('image') ? 'is-invalid' : '' }}" name="image">
+                <div class="invalid-feedback">
+                    {{ $errors->first('image') }}
+                </div>
                 <br>
 
                 <label for="deskripsi">Deskripsi</label><br>
-                <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Berikan Deskripsi Quest"></textarea>
+                <textarea name="deskripsi" id="deskripsi" class="form-control {{ $errors->first('deskripsi') ? 'is-invalid' : '' }}"
+                    placeholder="Berikan Deskripsi Quest">{{ old('deskripsi') }}</textarea>
+                <div class="invalid-feedback">
+                    {{ $errors->first('deskripsi') }}
+                </div>
                 <br>
 
                 {{-- Form Skor --}}
                 <label for="syarat_skor">Syarat Skor</label>
-                <input class="form-control" placeholder="syarat skor" type="float" name="syarat_skor" id="skor">
+                <input value="{{ old('syarat_skor') }}"
+                    class="form-control {{ $errors->first('syarat_skor') ? 'is-invalid' : '' }}"
+                    placeholder="syarat skor" type="float" name="syarat_skor" id="skor">
+                <div class="invalid-feedback">
+                    {{ $errors->first('syarat_skor') }}
+                </div>
                 <br>
 
 

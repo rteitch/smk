@@ -25,13 +25,17 @@ class JobClassController extends Controller
     }
     public function index(Request $request)
     {
-        $jobclass = \App\Models\JobClass::orderBy('name', 'asc')->paginate(10);
+        if (Gate::allows('isAdmin')) {
+            $jobclass = \App\Models\JobClass::orderBy('name', 'asc')->paginate(10);
 
-        $filterKeyword = $request->get('name');
-        if ($filterKeyword) {
-            $jobclass = \App\Models\JobClass::where("name", "LIKE", "%$filterKeyword%")->paginate(10);
+            $filterKeyword = $request->get('name');
+            if ($filterKeyword) {
+                $jobclass = \App\Models\JobClass::where("name", "LIKE", "%$filterKeyword%")->paginate(10);
+            }
+            return view('backend.jobclass.index', ['jobclass' => $jobclass]);
+        } else {
+            return view('errors.403');
         }
-        return view('backend.jobclass.index', ['jobclass' => $jobclass]);
     }
 
     /**
@@ -41,7 +45,11 @@ class JobClassController extends Controller
      */
     public function create()
     {
-        return view('backend.jobclass.create');
+        if (Gate::allows('isAdmin')) {
+            return view('backend.jobclass.create');
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -52,6 +60,12 @@ class JobClassController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = \Validator::make($request->all(), [
+            "name" => "required|min:3|max:100",
+            "deskripsi" => "required|min:1|max:300",
+            "image" => "mimes:jpeg,jpg,png|max:1000",
+        ])->validate();
+
         $name = $request->get('name');
         $new_jobclass = new \App\Models\JobClass;
         $new_jobclass->name = $name;
@@ -69,9 +83,14 @@ class JobClassController extends Controller
 
         $new_jobclass->slug = Str::slug($name, '-');
 
-        $new_jobclass->save();
+        if(Gate::allows('isAdmin')){
 
-        return redirect()->route('jobclass.index')->with('status', 'Job Class baru Berhasil ditambahkan');
+            $new_jobclass->save();
+
+            return redirect()->route('jobclass.index')->with('status', 'Job Class baru Berhasil ditambahkan');
+        } else {
+            return view('errors.403');
+        }
     }
 
     /**
@@ -97,7 +116,11 @@ class JobClassController extends Controller
     {
         $jobclass_to_edit = \App\Models\JobClass::findOrFail($id);
 
-        return view('backend.jobclass.edit', ['jobclass' => $jobclass_to_edit]);
+        if (Gate::allows('isAdmin')) {
+            return view('backend.jobclass.edit', ['jobclass' => $jobclass_to_edit]);
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -128,9 +151,12 @@ class JobClassController extends Controller
 
             $jobclass->image = $new_image;
         }
-
-        $jobclass->save();
-        return redirect()->route('jobclass.index', [$id])->with('status', 'Job Class Berhasil diupdate');
+        if (Gate::allows('isAdmin')) {
+            $jobclass->save();
+            return redirect()->route('jobclass.index', [$id])->with('status', 'Job Class Berhasil diupdate');
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -143,9 +169,13 @@ class JobClassController extends Controller
     {
         $jobclass = \App\Models\JobClass::findOrFail($id);
 
-        $jobclass->delete();
-        return redirect()->route('jobclass.index')
-            ->with('status-delete', 'Job Class Berhasil dipindah ke trash');
+        if (Gate::allows('isAdmin')) {
+            $jobclass->delete();
+            return redirect()->route('jobclass.index')
+                ->with('status-delete', 'Job Class Berhasil dipindah ke trash');
+        } else {
+            return view("errors.403");
+        }
     }
 
     public function trash(Request $request)
@@ -153,39 +183,54 @@ class JobClassController extends Controller
 
         $deleted_job_class = \App\Models\JobClass::onlyTrashed()->paginate(10);
         $filterKeyword = $request->get('name');
-        if ($filterKeyword) {
-            $deleted_job_class = \App\Models\JobClass::onlyTrashed()->where("name", "LIKE", "%$filterKeyword%")->paginate(10);
-        }
 
-        return view('backend.jobclass.trash', ['jobclass' => $deleted_job_class]);
+        if (Gate::allows('isAdmin')) {
+            if ($filterKeyword) {
+                $deleted_job_class = \App\Models\JobClass::onlyTrashed()->where("name", "LIKE", "%$filterKeyword%")->paginate(10);
+            }
+
+            return view('backend.jobclass.trash', ['jobclass' => $deleted_job_class]);
+        } else {
+            return view("errors.403");
+        }
     }
 
     public function restore($id)
     {
         $jobclass = \App\Models\JobClass::withTrashed()->findOrFail($id);
+        if (Gate::allows('isAdmin')) {
+            if ($jobclass->trashed()) {
+                $jobclass->restore();
+            } else {
+                return redirect()->route('jobclass.index')
+                    ->with('status', 'Job CLass is not in trash');
+            }
 
-        if ($jobclass->trashed()) {
-            $jobclass->restore();
-        } else {
             return redirect()->route('jobclass.index')
-                ->with('status', 'Job CLass is not in trash');
-        }
-
-        return redirect()->route('jobclass.index')
-            ->with('status', 'Job CLass successfully restored');
-    }
-
-    public function deletePermanent($id){
-        $jobclass = \App\Models\JobClass::withTrashed()->findOrFail($id);
-        if(!$jobclass->trashed()){
-            return redirect()->route('jobclass.index')->with('status', 'Can not delete permanent active job class');
+                ->with('status', 'Job CLass successfully restored');
         } else {
-            $jobclass->forceDelete();
-            return redirect()->route('jobclass.index')->with('status', 'Job Class Permanently deleted');
+            return view("errors.403");
         }
     }
 
-    public function ajaxSearch(Request $request){
+    public function deletePermanent($id)
+    {
+        $jobclass = \App\Models\JobClass::withTrashed()->findOrFail($id);
+
+        if (Gate::allows('isAdmin')) {
+            if (!$jobclass->trashed()) {
+                return redirect()->route('jobclass.index')->with('status', 'Can not delete permanent active job class');
+            } else {
+                $jobclass->forceDelete();
+                return redirect()->route('jobclass.index')->with('status', 'Job Class Permanently deleted');
+            }
+        } else {
+            return view("errors.403");
+        }
+    }
+
+    public function ajaxSearch(Request $request)
+    {
         $keyword = $request->get('q');
         $jobclass = \App\Models\JobClass::where("name", "LIKE", "%$keyword%")->get();
 
@@ -196,8 +241,8 @@ class JobClassController extends Controller
     {
         $id_user = \Auth::user()->id;
         $jobclass = \App\Models\JobClass::with('user', 'user.skill')->paginate(4);
-        $user =\App\Models\User::findOrFail($id_user);
-        return view('backend.jobclass.published', compact('jobclass','user'));
+        $user = \App\Models\User::findOrFail($id_user);
+        return view('backend.jobclass.published', compact('jobclass', 'user'));
     }
 
     public function lihatJobClass($slug)

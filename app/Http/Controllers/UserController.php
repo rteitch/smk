@@ -89,11 +89,11 @@ class UserController extends Controller
             "password_confirmation" => "required|same:password",
             "alamat" => "required|min:1|max:300",
             "roles" => "required",
-            // "level" => "required|digits_between:0,999",
+            "level" => "required|digits_between:0,100",
             // "skor" => "required",
             // "exp" => "required",
-            // "avatar" => "required",
-            // "background" => "required",
+            "avatar" => "mimes:jpeg,jpg,png|max:2000",
+            "background" => "mimes:jpeg,jpg,png|max:3000",
             // "jobclass" => "required"
 
         ])->validate();
@@ -125,11 +125,15 @@ class UserController extends Controller
             $new_user->background = $file;
         }
 
-        $new_user->save();
+        if (Gate::allows('isAdmin')) {
+            $new_user->save();
 
-        $new_user->skill()->attach($request->get('skill'));
-        $new_user->jobclass()->attach($request->get('jobclass'));
-        return redirect()->route('users.index')->with('status', 'Berhasil Membuat User Baru.');
+            $new_user->skill()->attach($request->get('skill'));
+            $new_user->jobclass()->attach($request->get('jobclass'));
+            return redirect()->route('users.index')->with('status', 'Berhasil Membuat User Baru.');
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -221,6 +225,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        \Validator::make($request->all(),[
+            "name" => "required|min:3|max:100",
+            "nomorInduk" => "required",
+            "phone" => "required|digits_between:6,20",
+            "tempatLahir" => "required|min:3|max:100",
+            "tanggalLahir" => "required",
+            "email" => 'required|email|unique:users',
+            "gender" => 'required',
+            "username" => "required|min:3|max:20|unique:users",
+            "password" => "required",
+            "password_confirmation" => "required|same:password",
+            "alamat" => "required|min:1|max:300",
+            "roles" => "required",
+            "level" => "required|digits_between:0,100",
+            // "skor" => "required",
+            // "exp" => "required",
+            "avatar" => "mimes:jpeg,jpg,png|max:2000",
+            "background" => "mimes:jpeg,jpg,png|max:3000",
+            // "jobclass" => "required"
+        ])->validate();
+
         $user = \App\Models\User::findOrFail($id);
         $user->name = $request->get('name');
         $user->nomor_induk = $request->get('nomorInduk');
@@ -274,9 +300,18 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = \App\Models\User::findOrFail($id);
-        $user->delete();
 
-        return redirect()->route('users.index')->with('status', 'User successfully deleted');
+        Gate::allows('isAdmin');
+
+        $userAuthRoles = json_decode(Auth::user()->roles);
+        $adminKode = array_intersect(['0']);
+        if($userAuthRoles == $adminKode){
+            $user->delete();
+            return redirect()->route('users.index')->with('status', 'User successfully deleted');
+        } else{
+            return view('errors.403');
+        }
+
     }
 
     // public function jumlahSkill(){

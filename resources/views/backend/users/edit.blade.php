@@ -59,16 +59,25 @@
                 {{-- Form Name --}}
                 <div class="col-lg-4 col-md-12">
                     <label for="name">Nama</label>
-                    <input value="{{ $user->name }}" class="form-control" placeholder="Full Name" type="text"
-                        name="name" id="name" />
+                    <input value="{{ old('name') ? old('name') : $user->name }}"
+                        class="form-control {{ $errors->first('name') ? 'is-invalid' : '' }}" placeholder="Full Name"
+                        type="text" name="name" id="name" />
+
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
                     <br>
                 </div>
 
                 {{-- Form Nomor Induk --}}
                 <div class="col-lg-4 col-md-12">
                     <label for="nomorInduk">Nomor Induk (NIS / NIP)</label>
-                    <input value="{{ $user->nomor_induk }}" class="form-control" placeholder="Nomor Induk (NIS / NIP)"
-                        type="text" name="nomorInduk" id="nomorInduk" />
+                    <input value="{{ old('nomorInduk') ? old('nomorInduk') : $user->nomor_induk }}"
+                        class="form-control {{ $errors->first('nomorInduk') ? 'is-invalid' : '' }}"
+                        placeholder="Nomor Induk (NIS / NIP)" type="text" name="nomorInduk" id="nomorInduk" />
+                    <div class="invalid-feedback">
+                        {{ $errors->first('nomorInduk') }}
+                    </div>
                     <br>
                 </div>
 
@@ -76,57 +85,84 @@
                 <div class="col-lg-4 col-md-12">
                     <label for="phone">Nomor Hp</label>
                     <br>
-                    <input type="text" name="phone" class="form-control" value="{{ $user->phone }}">
+                    <input type="text" name="phone"
+                        class="form-control {{ $errors->first('phone') ? 'is-invalid' : '' }}"
+                        value="{{ old('phone') ? old('phone') : $user->phone }}">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('phone') }}
+                    </div>
                     <br>
                 </div>
 
                 {{-- Form Tempat Lahir --}}
                 <div class="col-lg-4 col-md-12">
                     <label for="tempatLahir">Tempat Lahir</label>
-                    <input class="form-control" placeholder="Tempat Lahir" type="text" name="tempatLahir"
-                        id="tempatLahir" value="{{ $user->tempat_lahir }}">
+                    <input class="form-control {{ $errors->first('tempatLahir') ? 'is-invalid' : '' }}"
+                        placeholder="Tempat Lahir" type="text" name="tempatLahir" id="tempatLahir"
+                        value="{{ old('tempatLahir') ? old('tempatLahir') : $user->tempat_lahir }}">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tempatLahir') }}
+                    </div>
                     <br>
                 </div>
 
                 {{-- Form Tanggal Lahir --}}
                 <div class="col-lg-4 col-md-12">
                     <label for="tanggalLahir">Tanggal Lahir</label>
-                    <input class="form-control" placeholder="Tanggal Lahir" type="date" name="tanggalLahir"
-                        id="tanggalLahir" value="{{ $user->tanggal_lahir }}">
+                    <input class="form-control {{ $errors->first('tanggalLahir') ? 'is-invalid' : '' }}"
+                        placeholder="Tanggal Lahir" type="date" name="tanggalLahir" id="tanggalLahir"
+                        value="{{ old('tanggalLahir') ? old('tanggalLahir') : $user->tanggal_lahir }}">
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tanggalLahir') }}
+                    </div>
                     <br>
                 </div>
 
                 {{-- Form Gender --}}
                 <div class="col-lg-4 col-md-12">
                     <label>Jenis Kelamin</label>
-                    <select class="form-control" name="gender">
+                    <select class="form-control {{ $errors->first('gender') ? 'is-invalid' : '' }}" name="gender">
                         <option value="Laki-Laki" {{ $user->gender == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
                         <option value="Perempuan" {{ $user->gender == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                     </select>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('gender') }}
+                    </div>
                     <br>
                 </div>
 
                 {{-- Form Username --}}
                 <div class="col-lg-6 col-md-12">
                     <label for="username">Username</label>
-                    <input value="{{ $user->username }}" disabled class="form-control" placeholder="username"
+                    <input value="{{ old('username') ? old('username') : $user->username }}" disabled
+                        class="form-control {{ $errors->first('username') ? 'is-invalid' : '' }}" placeholder="username"
                         type="text" name="username" id="username" />
+                    <div class="invalid-feedback">
+                        {{ $errors->first('username') }}
+                    </div>
                     <br>
                 </div>
 
                 {{-- Form Email --}}
                 <div class="col-lg-6 col-md-12">
                     <label for="email">Email</label>
-                    <input value="{{ $user->email }}" disabled class="form-control" placeholder="user@mail.com"
-                        type="text" name="email" id="email" />
+                    <input value="{{ old('email') ? old('email') : $user->email }}" disabled
+                        class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}"
+                        placeholder="user@mail.com" type="text" name="email" id="email" />
+                    <div class="invalid-feedback">
+                        {{ $errors->first('email') }}
+                    </div>
                     <br>
                 </div>
 
                 {{-- Form Alamat --}}
                 <div class="col-lg-12 col-md-12">
                     <label for="alamat">Alamat</label>
-                    <textarea name="alamat" id="alamat" class="form-control">{{ $user->alamat }}
+                    <textarea name="alamat" id="alamat" class="form-control {{ $errors->first('alamat') ? 'is-invalid' : '' }}">{{ old('alamat') ? old('alamat') : $user->alamat }}
                 </textarea>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('alamat') }}
+                    </div>
                     <br>
                 </div>
 
@@ -136,8 +172,7 @@
                     <label for="avatar">Avatar image</label>
                     <br>
                     @if ($user->avatar)
-
-                    <small class="text-muted">Current avatar</small><br>
+                        <small class="text-muted">Current avatar</small><br>
                         <img src="{{ asset('storage/' . $user->avatar) }}" width="120px" />
                         <br>
                     @else

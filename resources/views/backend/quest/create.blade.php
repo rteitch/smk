@@ -54,29 +54,43 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
                         <label for="image">Image</label>
-                        <input type="file" class="form-control" name="image">
+                        <input value="{{ old('image') }}" type="file"
+                            class="form-control {{ $errors->first('image') ? 'is-invalid' : '' }}" name="image">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('image') }}
+                        </div>
                         <br>
                     </div>
 
                     <div class="col-lg-6 col-md-12">
                         <label for="file">File Pendukung <small class="text-danger">*upload file jika
                                 diperlukan</small></label>
-                        <input type="file" class="form-control" name="file_pendukung">
+                        <input value="{{ old('file_pendukung') }}" type="file"
+                            class="form-control {{ $errors->first('file_pendukung') ? 'is-invalid' : '' }}"
+                            name="file_pendukung">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('file_pendukung') }}
+                        </div>
                         <br>
                     </div>
 
                     <div class="col-lg-6 col-md-12">
                         {{-- Skill Choice --}}
                         <label for="skill">Skill <small class="text-danger">*sesuaikan skill</small></label><br>
-                        <select class="form-control" name="skill[]" multiple id="skill">
+                        <select class="form-control {{ $errors->first('skill') ? 'is-invalid' : '' }}" name="skill[]"
+                            multiple id="skill">
                         </select>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('skill') }}
+                        </div>
                         <br><br>
                     </div>
 
                     <div class="col-lg-6 col-md-12">
                         {{-- Form Tingkat Kesulitan --}}
                         <label for="tingkat_kesulitan">Tingkat Kesulitan : </label>
-                        <select class="form-control" name="tingkat_kesulitan" id="tingkat_kesulitan">
+                        <select class="form-control {{ $errors->first('tingkat_kesulitan') ? 'is-invalid' : '' }}"
+                            name="tingkat_kesulitan" id="tingkat_kesulitan">
                             <option disabled class="text-center">== Pilih Tingkat Kesulitan ==</option>
                             <option value="Event">Event</option>
                             <option value="SSSPlus">SSS+</option>
@@ -89,18 +103,30 @@
                             <option value="D">D</option>
                             <option value="E">E</option>
                         </select>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('tingkat_kesulitan') }}
+                        </div>
                         <br>
                     </div>
 
                     <div class="col-lg-12 col-md-12">
                         <label for="judul">Judul Utama Quest</label> <br>
-                        <input type="text" class="form-control" name="judul" placeholder="Judul Quest">
+                        <input value="{{ old('judul') }}" type="text"
+                            class="form-control {{ $errors->first('judul') ? 'is-invalid' : '' }}" name="judul"
+                            placeholder="Judul Quest">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('judul') }}
+                        </div>
                         <br>
                     </div>
 
                     <div class="col-lg-12 col-md-12">
                         <label for="deskripsi">Deskripsi Quest / Pertanyaan</label><br>
-                        <textarea name="deskripsi" id="deskripsi" class="form-control" placeholder="Berikan Deskripsi Quest/Soal"></textarea>
+                        <textarea name="deskripsi" id="deskripsi" class="form-control {{ $errors->first('deskripsi') ? 'is-invalid' : '' }}"
+                            placeholder="Berikan Deskripsi Quest/Soal">{{ old('deskripsi') }}</textarea>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('deskripsi') }}
+                        </div>
                         <br>
                     </div>
 
@@ -108,10 +134,14 @@
                         {{-- Form Status --}}
                         <label for="">Jenis Soal</label>
                         <br />
-                        <select class="form-control" name="jenis_soal" id="jenis_soal" onchange="showDiv(this)">
+                        <select class="form-control {{ $errors->first('jenis_soal') ? 'is-invalid' : '' }}"
+                            name="jenis_soal" id="jenis_soal" onchange="showDiv(this)">
                             <option value="PILGANDA">PILGANDA</option>
                             <option value="LAPORAN">LAPORAN</option>
                         </select>
+                        <div class="invalid-feedback">
+                            {{ $errors->first('jenis_soal') }}
+                        </div>
                         <br>
                     </div>
 
@@ -155,29 +185,48 @@
                     <div class="col-lg-6 col-md-12">
                         {{-- Form Batas Waktu Pengerjaan --}}
                         <label for="batas_waktu">Batas Waktu Pengerjaan</label>
-                        <input class="form-control" placeholder="Batas Waktu" type="datetime-local" name="batas_waktu"
-                            id="batas_waktu">
+                        <input value="{{ old('batas_waktu') }}"
+                            class="form-control {{ $errors->first('batas_waktu') ? 'is-invalid' : '' }}"
+                            placeholder="Batas Waktu" type="datetime-local" name="batas_waktu" id="batas_waktu">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('batas_waktu') }}
+                        </div>
                         <br>
                     </div>
 
                     <div class="col-lg-2 col-md-12">
                         {{-- Form Level --}}
                         <label for="level">Syarat Level</label>
-                        <input class="form-control" placeholder="level" type="integer" name="level" id="level">
+                        <input value="{{ old('level') }}"
+                            class="form-control {{ $errors->first('level') ? 'is-invalid' : '' }}" placeholder="level"
+                            type="integer" name="level" id="level">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('level') }}
+                        </div>
                         <br>
                     </div>
 
                     <div class="col-lg-2 col-md-12">
                         {{-- Form Skor --}}
                         <label for="skor">Bonus Skor</label>
-                        <input class="form-control" placeholder="skor" type="float" name="skor" id="skor">
+                        <input value="{{ old('skor') }}"
+                            class="form-control {{ $errors->first('skor') ? 'is-invalid' : '' }}" placeholder="skor"
+                            type="float" name="skor" id="skor">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('skor') }}
+                        </div>
                         <br>
                     </div>
 
                     <div class="col-lg-2 col-md-12">
                         {{-- Form EXP --}}
                         <label for="exp">Bonus Exp</label>
-                        <input class="form-control" placeholder="exp" type="float" name="exp" id="exp">
+                        <input value="{{ old('exp') }}"
+                            class="form-control {{ $errors->first('exp') ? 'is-invalid' : '' }}" placeholder="exp"
+                            type="float" name="exp" id="exp">
+                        <div class="invalid-feedback">
+                            {{ $errors->first('exp') }}
+                        </div>
                         <br>
                     </div>
                 </div>

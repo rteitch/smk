@@ -59,7 +59,7 @@
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
 
-                <!-- Modal Create jobclass-->
+                <!-- Modal Create Skill-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title" id=""><small>Tambah Skill
@@ -73,11 +73,17 @@
                             @csrf
 
                             <label>Judul Skill</label><br>
-                            <input type="text" class="form-control" name="judul" />
+                            <input value="{{ old('judul') }}" type="text" class="form-control {{ $errors->first('judul') ? 'is-invalid' : '' }}" name="judul" />
+                            <div class="invalid-feedback">
+                                {{ $errors->first('judul') }}
+                            </div>
                             <br>
 
                             <label>Deskripsi Skill</label><br>
-                            <textarea name="deskripsi" class="form-control"></textarea>
+                            <textarea name="deskripsi" class="form-control {{ $errors->first('deskripsi') ? 'is-invalid' : '' }}">{{ old('deskripsi') }}</textarea>
+                            <div class="invalid-feedback">
+                                {{ $errors->first('deskripsi') }}
+                            </div>
                             <br>
 
                             {{-- Job Class Choice --}}
@@ -88,12 +94,17 @@
                             <br><br>
 
                             <label>Syarat Level Player</label><br>
-                            <input type="number" name="syarat_lv" class="form-control">
+                            <input value="{{ old('syarat_lv') }}" type="number" name="syarat_lv" class="form-control  {{ $errors->first('syarat_lv') ? 'is-invalid' : '' }}">
+                            <div class="invalid-feedback">
+                                {{ $errors->first('syarat_lv') }}
+                            </div>
                             <br>
 
                             <label>Skill image</label>
-                            <input type="file" class="form-control" name="image" />
-
+                            <input value="{{ old('image') }}" type="file" class="form-control {{ $errors->first('image') ? 'is-invalid' : '' }}" name="image" />
+                            <div class="invalid-feedback">
+                                {{ $errors->first('image') }}
+                            </div>
                             <br>
 
                             <div class="modal-footer">

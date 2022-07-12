@@ -66,7 +66,7 @@
                     <label for="nomorInduk">Nomor Induk (NIS / NIP)</label>
                     <input value="{{ old('nomorInduk') }}"
                         class="form-control {{ $errors->first('nomorInduk') ? 'is-invalid' : '' }}"
-                        placeholder="Nomor Induk (NIS / NIP)" type="integer" name="nomorInduk" id="nomorInduk">
+                        placeholder="Nomor Induk (NIS / NIP)" type="text" name="nomorInduk" id="nomorInduk">
                     <div class="invalid-feedback">
                         {{ $errors->first('nomorInduk') }}
                     </div>
@@ -92,7 +92,7 @@
                         class="form-control {{ $errors->first('tempatLahir') ? 'is-invalid' : '' }}"
                         placeholder="Tempat Lahir" type="text" name="tempatLahir" id="tempatLahir">
                     <div class="invalid-feedback">
-                        {{ $errors->first('phone') }}
+                        {{ $errors->first('tempatLahir') }}
                     </div>
                     <br>
                 </div>
@@ -104,7 +104,7 @@
                         class="form-control {{ $errors->first('tanggalLahir') ? 'is-invalid' : '' }}"
                         placeholder="Tanggal Lahir" type="date" name="tanggalLahir" id="tanggalLahir">
                     <div class="invalid-feedback">
-                        {{ $errors->first('phone') }}
+                        {{ $errors->first('tanggalLahir') }}
                     </div>
                     <br>
                 </div>
@@ -117,7 +117,7 @@
                         <option value="Perempuan">Perempuan</option>
                     </select>
                     <div class="invalid-feedback">
-                        {{ $errors->first('phone') }}
+                        {{ $errors->first('gender') }}
                     </div>
                     <br>
                 </div>
@@ -129,10 +129,10 @@
                     <input value="{{ old('username') }}"
                         class="form-control {{ $errors->first('username') ? 'is-invalid' : '' }}" placeholder="username"
                         type="text" name="username" id="username" />
-                    <br>
                     <div class="invalid-feedback">
                         {{ $errors->first('username') }}
                     </div>
+                    <br>
                 </div>
 
                 {{-- Form Password --}}
@@ -168,7 +168,7 @@
                         class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}" placeholder="user@..."
                         type="text" name="email" id="email" />
                     <div class="invalid-feedback">
-                        {{ $errors->first('username') }}
+                        {{ $errors->first('email') }}
                     </div>
                     <br>
                 </div>
@@ -203,7 +203,7 @@
                     <label for="alamat">Alamat</label>
                     <textarea name="alamat" id="alamat" class="form-control {{ $errors->first('alamat') ? 'is-invalid' : '' }}">{{ old('alamat') }}</textarea>
                     <div class="invalid-feedback">
-                        {{ $errors->first('password_confirmation') }}
+                        {{ $errors->first('alamat') }}
                     </div>
                     <br>
                 </div>
@@ -263,7 +263,7 @@
                         class="form-control {{ $errors->first('level') ? 'is-invalid' : '' }}" placeholder="level"
                         type="integer" name="level" id="level">
                     <div class="invalid-feedback">
-                        {{ $errors->first('roles') }}
+                        {{ $errors->first('level') }}
                     </div>
                     <br>
                 </div>

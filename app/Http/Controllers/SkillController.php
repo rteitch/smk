@@ -26,13 +26,16 @@ class SkillController extends Controller
     public function index(Request $request)
     {
         $skill = \App\Models\Skill::orderBy('judul', 'asc')->paginate(8);
+        if (Gate::allows('isPengajardanAdmin')) {
+            $filterKeyword = $request->get('judul');
+            if ($filterKeyword) {
+                $skill = \App\Models\Skill::where("judul", "LIKE", "%$filterKeyword%")->paginate(8);
+            }
 
-        $filterKeyword = $request->get('judul');
-        if ($filterKeyword) {
-            $skill = \App\Models\Skill::where("judul", "LIKE", "%$filterKeyword%")->paginate(8);
+            return view('backend.skill.index', ['skill' => $skill]);
+        } else {
+            return view("errors.403");
         }
-
-        return view('backend.skill.index', ['skill' => $skill]);
     }
 
     /**
@@ -42,7 +45,11 @@ class SkillController extends Controller
      */
     public function create()
     {
-        return view('backend.skill.create');
+        if (Gate::allows('isPengajardanAdmin')) {
+            return view('backend.skill.create');
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -53,6 +60,14 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validation = \Validator::make($request->all(), [
+            "judul" => "required|min:3|max:100",
+            "deskripsi" => "required|min:1|max:300",
+            "image" => "mimes:jpeg,jpg,png|max:1500",
+            "syarat_lv" => "required|digits_between:0,100"
+        ])->validate();
+
         $judul = $request->get('judul');
         $new_skill = new \App\Models\Skill;
         $new_skill->judul = $judul;
@@ -100,9 +115,12 @@ class SkillController extends Controller
      */
     public function edit($id)
     {
-        $skill_to_edit = \App\Models\Skill::findOrFail($id);
-
-        return view('backend.skill.edit', ['skills' => $skill_to_edit]);
+        if (Gate::allows('isPengajardanAdmin')) {
+            $skill_to_edit = \App\Models\Skill::findOrFail($id);
+            return view('backend.skill.edit', ['skills' => $skill_to_edit]);
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -135,11 +153,14 @@ class SkillController extends Controller
 
             $skill->image = $new_image;
         }
+        if (Gate::allows('isPengajardanAdmin')) {
+            $skill->save();
+            $skill->jobclass()->sync($request->get('jobclass'));
 
-        $skill->save();
-        $skill->jobclass()->sync($request->get('jobclass'));
-
-        return redirect()->route('skill.index', [$id])->with('status', 'Skill Berhasil diupdate');
+            return redirect()->route('skill.index', [$id])->with('status', 'Skill Berhasil diupdate');
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -152,47 +173,62 @@ class SkillController extends Controller
     {
         $skill = \App\Models\Skill::findOrFail($id);
 
-        $skill->delete();
-        return redirect()->route('skill.index')
-            ->with('status-delete', 'Skill Berhasil dipindah ke trash');
+        if (Gate::allows('isPengajardanAdmin')) {
+            $skill->delete();
+            return redirect()->route('skill.index')
+                ->with('status-delete', 'Skill Berhasil dipindah ke trash');
+        } else {
+            return view("errors.403");
+        }
     }
 
     public function trash(Request $request)
     {
         $deleted_skill = \App\Models\Skill::onlyTrashed()->paginate(8);
 
-        $filterKeyword = $request->get('judul');
-        if ($filterKeyword) {
-            $deleted_skill = \App\Models\Skill::onlyTrashed()->where("judul", "LIKE", "%$filterKeyword%")->paginate(8);
+        if (Gate::allows('isPengajardanAdmin')) {
+            $filterKeyword = $request->get('judul');
+            if ($filterKeyword) {
+                $deleted_skill = \App\Models\Skill::onlyTrashed()->where("judul", "LIKE", "%$filterKeyword%")->paginate(8);
+            }
+            return view('backend.skill.trash', ['skills' => $deleted_skill]);
+        } else {
+            return view("errors.403");
         }
-        return view('backend.skill.trash', ['skills' => $deleted_skill]);
     }
 
     public function restore($id)
     {
         $skill = \App\Models\Skill::withTrashed()->findOrFail($id);
 
-        if ($skill->trashed()) {
-            $skill->restore();
-        } else {
-            return redirect()->route('skill.index')
-                ->with('status', 'Skill is not in trash');
-        }
+        if (Gate::allows('isPengajardanAdmin')) {
+            if ($skill->trashed()) {
+                $skill->restore();
+            } else {
+                return redirect()->route('skill.index')
+                    ->with('status', 'Skill is not in trash');
+            }
 
-        return redirect()->route('skill.index')
-            ->with('status', 'Skill successfully restored');
+            return redirect()->route('skill.index')
+                ->with('status', 'Skill successfully restored');
+        } else {
+            return view("errors.403");
+        }
     }
 
     public function deletePermanent($id)
     {
         $skill = \App\Models\Skill::withTrashed()->findOrFail($id);
-
-        if (!$skill->trashed()) {
-            return redirect()->route('skill.trash')->with('status', 'Can not delete permanent active skill');
+        if (Gate::allows('isPengajardanAdmin')) {
+            if (!$skill->trashed()) {
+                return redirect()->route('skill.trash')->with('status', 'Can not delete permanent active skill');
+            } else {
+                $skill->jobclass()->detach();
+                $skill->forceDelete();
+                return redirect()->route('skill.index')->with('status', 'Skill Permanently deleted');
+            }
         } else {
-            $skill->jobclass()->detach();
-            $skill->forceDelete();
-            return redirect()->route('skill.index')->with('status', 'Skill Permanently deleted');
+            return view("errors.403");
         }
     }
 

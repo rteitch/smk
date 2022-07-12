@@ -30,13 +30,16 @@ class QuestController extends Controller
     {
         $status = $request->get('status');
         $keyword = $request->get('keyword') ?: '';
-
-        if ($status) {
-            $quests = \App\Models\Quest::where('judul', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
+        if (Gate::allows('isPengajardanAdmin')) {
+            if ($status) {
+                $quests = \App\Models\Quest::where('judul', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
+            } else {
+                $quests = \App\Models\Quest::where("judul", "LIKE", "%$keyword%")->paginate(10);
+            }
+            return view('backend.quest.index', ['quests' => $quests]);
         } else {
-            $quests = \App\Models\Quest::where("judul", "LIKE", "%$keyword%")->paginate(10);
+            return view("errors.403");
         }
-        return view('backend.quest.index', ['quests' => $quests]);
     }
 
     /**
@@ -46,7 +49,11 @@ class QuestController extends Controller
      */
     public function create()
     {
-        return view('backend.quest.create');
+        if (Gate::allows('isPengajardanAdmin')) {
+            return view('backend.quest.create');
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -57,6 +64,24 @@ class QuestController extends Controller
      */
     public function store(Request $request)
     {
+        $validation = \Validator::make($request->all(), [
+            "judul" => "required|min:1|max:300",
+            "deskripsi" => "required|min:1|max:300",
+            "level" => "required|digits_between:0,100",
+            "skor" => "required",
+            "exp" => "required",
+            "batas_waktu" => "required",
+            "pil_A" => "required",
+            "pil_B" => "required",
+            "pil_C" => "required",
+            "pil_D" => "required",
+            "pil_E" => "required",
+            "tingkat_kesulitan" => "required",
+            "jenis_soal" => "required",
+            "file_pendukung" => "required|max:10000|mimes:doc,docx,pdf,excel",
+            "image" => "mimes:jpeg,jpg,png|max:1500",
+
+        ])->validate();
         $new_quest = new \App\Models\Quest();
         $new_quest->judul = $request->get('judul');
         $new_quest->deskripsi = $request->get('deskripsi');
@@ -130,7 +155,11 @@ class QuestController extends Controller
     public function edit($id)
     {
         $quest_to_edit = \App\Models\Quest::findOrFail($id);
-        return view('backend.quest.edit', ['quests' => $quest_to_edit]);
+        if (Gate::allows('isPengajardanAdmin')) {
+            return view('backend.quest.edit', ['quests' => $quest_to_edit]);
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -194,12 +223,15 @@ class QuestController extends Controller
         $quest->updated_by = \Auth::user()->id;
 
         $quest->status = $request->get('status');
+        if (Gate::allows('isPengajardanAdmin')) {
+            $quest->save();
 
-        $quest->save();
+            $quest->skill()->sync($request->get('skill'));
 
-        $quest->skill()->sync($request->get('skill'));
-
-        return redirect()->route('quest.edit', [$quest->id])->with('status', 'Quest successfully updated');
+            return redirect()->route('quest.edit', [$quest->id])->with('status', 'Quest successfully updated');
+        } else {
+            return view("errors.403");
+        }
     }
 
     /**
@@ -211,9 +243,13 @@ class QuestController extends Controller
     public function destroy($id)
     {
         $quests = \App\Models\Quest::findOrFail($id);
-        $quests->delete();
+        if (Gate::allows('isPengajardanAdmin')) {
+            $quests->delete();
 
-        return redirect()->route('quest.index')->with('status', 'Quest moved to trash');
+            return redirect()->route('quest.index')->with('status', 'Quest moved to trash');
+        } else {
+            return view("errors.403");
+        }
     }
 
     public function trash(Request $request)
@@ -221,12 +257,16 @@ class QuestController extends Controller
         $status = $request->get('status');
         $keyword = $request->get('keyword') ?: '';
 
-        if ($status) {
-            $quests = \App\Models\Quest::onlyTrashed()->where('judul', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
+        if (Gate::allows('isPengajardanAdmin')) {
+            if ($status) {
+                $quests = \App\Models\Quest::onlyTrashed()->where('judul', "LIKE", "%$keyword%")->where('status', strtoupper($status))->paginate(10);
+            } else {
+                $quests = \App\Models\Quest::onlyTrashed()->where("judul", "LIKE", "%$keyword%")->paginate(10);
+            }
+            return view('backend.quest.trash', ['quests' => $quests]);
         } else {
-            $quests = \App\Models\Quest::onlyTrashed()->where("judul", "LIKE", "%$keyword%")->paginate(10);
+            return view("errors.403");
         }
-        return view('backend.quest.trash', ['quests' => $quests]);
     }
 
     public function deletePermanent($id)
@@ -235,32 +275,41 @@ class QuestController extends Controller
         // $orderq = \App\Models\OrderQ::findOrFail($id);
         // $orderq->delete();
 
-        if (!$quest->trashed()) {
-            return redirect()->route('quest.trash')->with('status', 'Can not delete permanent active quest');
-        } else {
-            $quest->orderq()->delete();
-            $quest->skill()->detach();
-            $quest->forceDelete();
+        if (Gate::allows('isPengajardanAdmin')) {
+            if (!$quest->trashed()) {
+                return redirect()->route('quest.trash')->with('status', 'Can not delete permanent active quest');
+            } else {
+                $quest->orderq()->delete();
+                $quest->skill()->detach();
+                $quest->forceDelete();
 
-            return redirect()->route('quest.trash')->with('status', 'Quest Permanently deleted');
+                return redirect()->route('quest.trash')->with('status', 'Quest Permanently deleted');
+            }
+        } else {
+            return view("errors.403");
         }
     }
 
     public function restore($id)
     {
         $quests = \App\Models\Quest::withTrashed()->findOrFail($id);
-        if ($quests->trashed()) {
-            $quests->restore();
-            return redirect()->route('quest.trash')->with('status', 'Quest successfully restored');
+
+        if (Gate::allows('isPengajardanAdmin')) {
+            if ($quests->trashed()) {
+                $quests->restore();
+                return redirect()->route('quest.trash')->with('status', 'Quest successfully restored');
+            } else {
+                return redirect()->route('quest.trash')->with('status', 'Quest is not in trash');
+            }
         } else {
-            return redirect()->route('quest.trash')->with('status', 'Quest is not in trash');
+            return view("errors.403");
         }
     }
 
     public function published(Request $request)
     {
         // $quest_user = \App\Models\OrderQ::with('quest')->where('user_id', \Auth::user()->id)->get();
-        $quest_user = \App\Models\Quest::whereHas('orderq', function($query){
+        $quest_user = \App\Models\Quest::whereHas('orderq', function ($query) {
             $query->where('user_id', '=', \Auth::user()->id);
         })->select('id')->get();
 
