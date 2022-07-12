@@ -283,7 +283,7 @@
     <script>
         $('#skill').select2({
             ajax: {
-                url: 'http://127.0.0.1:8000/ajax/skill/search',
+                url: 'http://ga-smkn2solo.online/ajax/skill/search',
                 processResults: function(data) {
                     return {
                         results: data.map(function(item) {
