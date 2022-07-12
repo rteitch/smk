@@ -11,7 +11,6 @@
     <link rel="icon" href="{{ asset('iconic/dist/fav-smkn2ska.png') }}" type="image/x-icon">
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('iconic/dist/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('iconic/dist/assets/css/main.css') }}">
