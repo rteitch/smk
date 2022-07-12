@@ -4225,9 +4225,9 @@ select.form-control:not([size]):not([multiple]) {
     width: 100%;
     height: 100%;
     z-index: -2;
-    background: url(../../assets/images/auth_bg_login_gaweb2.png);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #f8f8f8;
+    /* background-repeat: no-repeat;
+    background-size: cover; */
 }
 
 .auth-main .card {
@@ -4239,11 +4239,11 @@ select.form-control:not([size]):not([multiple]) {
     width: 380px;
     height: auto;
     margin-left: auto;
-    margin-right: 130px;
+    margin-right: auto;
 }
 
 .auth-box .top img {
-    width: 130px
+    width: 100%;
 }
 
 .auth-box .form-auth-small .element-left {

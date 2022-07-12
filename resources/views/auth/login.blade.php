@@ -25,7 +25,8 @@
             <div class="vertical-align-middle auth-main">
                 <div class="auth-box">
                     <div class="top">
-                        <h4 class="text-white"> <strong>SMKN2 SURAKARTA</strong></h4>
+                        <img src="{{ asset('iconic/dist/assets/images/smkn2solo.png') }}" alt="smkn2solo-logo" srcset="" >
+                        {{-- <h4 class="text-white"> <strong>SMKN2 SURAKARTA</strong></h4> --}}
                     </div>
                     <div class="card">
                         <div class="header">
@@ -77,7 +78,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="footer text-center mt-3 mb-3 text-white">
+                    <div class="footer text-center mt-3 mb-3">
                         Copyright © SMKN2 Surakarta. All Rights Reserved.
                     </div>
                 </div>
