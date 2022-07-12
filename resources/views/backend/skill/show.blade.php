@@ -65,13 +65,13 @@
 
                     <div class="row m-2">
                         <div class="col-lg-4 col-md-12">
-                            <a href="#" class="btn btn-block btn-danger" style="">Quest</a>
+                            <a href="{{ route('skill.showQuestBySkill', $skills->id) }}" class="btn btn-block btn-danger" style="">Quest</a>
                         </div>
                         <div class="col-lg-4 col-md-12">
-                            <a href="#" class="btn btn-block btn-primary">Siswa</a>
+                            <a href="{{ route('skill.showSiswaBySkill', $skills->id) }}" class="btn btn-block btn-primary">Siswa</a>
                         </div>
                         <div class="col-lg-4 col-md-12">
-                            <a href="#" class="btn btn-block btn-info">Pengajar</a>
+                            <a href="{{ route('skill.showPengajarBySkill', $skills->id) }}" class="btn btn-block btn-info">Pengajar</a>
                         </div>
                     </div>
                 </div>

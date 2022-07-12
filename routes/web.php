@@ -70,6 +70,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('jobclass', JobClassController::class);
 
     //Route Skill
+
+    Route::get('/skill/{id}/pengajar', [SkillController::class, 'showPengajarBySkill'])->name('skill.showPengajarBySkill');
+    Route::get('/skill/{id}/siswa', [SkillController::class, 'showSiswaBySkill'])->name('skill.showSiswaBySkill');
+    Route::get('/skill/{id}/quest', [SkillController::class, 'showQuestBySkill'])->name('skill.showQuestBySkill');
     Route::get('/artikel/skill/{skill:slug}', [SkillController::class, 'skill'])->name('artikel.skill');
 
     Route::get('/skill/published', [SkillController::class, 'published'])->name('skill.published');

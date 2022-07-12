@@ -261,4 +261,31 @@ class SkillController extends Controller
         $user = \App\Models\User::with('jobclass', 'skill')->findOrFail($id_user);
         return view('backend.skill.published', compact('skill', 'user'));
     }
+
+    public function showQuestBySkill(Request $request, $id){
+
+        $skills = \App\Models\Skill::findOrFail($id);
+        $user = \App\Models\User::select('id', 'name')->get();
+        $quest = \App\Models\Quest::get();
+        return view('backend.skill.quest-by-skill', compact('skills', 'quest', 'user'));
+    }
+
+    public function showSiswaBySkill(Request $request, $id){
+
+        $skills = \App\Models\Skill::findOrFail($id);
+        $user = \App\Models\User::select('id', 'name', 'avatar')->where('roles', json_encode(['2']))->paginate(8);
+        $quest = \App\Models\Quest::get();
+
+        $orderq = \App\Models\OrderQ::with('quest')->get();
+        return view('backend.skill.siswa-by-skill', compact('skills', 'quest', 'user', 'orderq'));
+    }
+    public function showPengajarBySkill(Request $request, $id){
+
+        $skills = \App\Models\Skill::findOrFail($id);
+        $user = \App\Models\User::select('id', 'name', 'avatar')->where('roles', json_encode(['1']))->paginate(8);
+        $quest = \App\Models\Quest::get();
+
+        $orderq = \App\Models\OrderQ::with('quest')->get();
+        return view('backend.skill.siswa-by-skill', compact('skills', 'quest', 'user', 'orderq'));
+    }
 }

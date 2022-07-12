@@ -46,6 +46,7 @@
                         </div>
                     </div>
                     <nav class="box-menu">
+
                         <div class="menu-container">
                             <div class="menu-head">
                                 <h4 class="text-left mb-0">Menu</h4>
@@ -55,40 +56,54 @@
                                     <li class="menu-item menu-item-has-children @yield('dashboard-active')">
                                         <a href="#"><i class="fa fa-dashboard"></i> Dashboard</a>
                                         <ul class="sub-menu">
-                                            <li class="menu-item @yield('dash-user-active')"><a
-                                                    href="{{ route('users.index') }}">Manajemen User</a></li>
-                                            <li class="menu-item @yield('dash-jobclass-active')"><a
-                                                    href="{{ route('jobclass.index') }}">Manajemen Job Class</a>
-                                            </li>
-                                            <li class="menu-item @yield('dash-skill-active')"><a
-                                                    href="{{ route('skill.index') }}">Manajemen Skill</a></li>
-                                            <li class="menu-item @yield('dash-quest-active')"><a
-                                                    href="{{ route('quest.index') }}">Manajemen Quest</a></li>
-                                            <li class="menu-item @yield('dash-quest-siswa-active')"><a
-                                                    href="{{ route('orderq.index') }}">Manajemen Quest Siswa</a>
-                                            </li>
-                                            <li class="menu-item @yield('dash-reward-active')"><a
-                                                    href="{{ route('reward.index') }}">Manajemen Reward</a></li>
-                                            <li class="menu-item @yield('dash-reward-siswa-active')"><a
-                                                    href="{{ route('orderr.index') }}">Manajemen Reward Siswa</a>
-                                            </li>
-                                            <li class="menu-item @yield('dash-artikel-active')"><a
-                                                    href="{{ route('artikel.index') }}">Manajemen Artikel</a></li>
-                                            <li class="menu-item @yield('dash-notifikasi-active')"><a
-                                                    href="{{ route('notifikasi.index') }}">Manajemen Notifikasi</a>
-                                            </li>
-                                            <hr width="50%">
-                                            <li class="menu-item @yield('dash-jobclass-saya-active')">
-                                                <a href="#">JobClass Saya (progress)</a>
-                                            </li>
-                                            <li class="menu-item @yield('dash-quest-saya-active')">
-                                                <a href="{{ route('orderq.siswa', \Auth::user()->id) }}">Quest
-                                                    Saya</a>
-                                            </li>
-                                            <li class="menu-item @yield('dash-reward-saya-active')">
-                                                <a href="{{ route('orderr.siswa', \Auth::user()->id) }}">Reward
-                                                    Saya</a>
-                                            </li>
+
+                                            @if (\Auth::user())
+                                                @if (json_decode(\Auth::user()->roles) == array_intersect([0]))
+                                                    <li class="menu-item @yield('dash-user-active')"><a
+                                                            href="{{ route('users.index') }}">Manajemen User</a></li>
+                                                    <li class="menu-item @yield('dash-jobclass-active')"><a
+                                                            href="{{ route('jobclass.index') }}">Manajemen Job
+                                                            Class</a>
+                                                    </li>
+                                                @endif
+                                                @if (json_decode(\Auth::user()->roles) == array_intersect([0]) || json_decode(\Auth::user()->roles) == array_intersect([1]))
+                                                    <li class="menu-item @yield('dash-skill-active')"><a
+                                                            href="{{ route('skill.index') }}">Manajemen Skill</a>
+                                                    </li>
+                                                    <li class="menu-item @yield('dash-quest-active')"><a
+                                                            href="{{ route('quest.index') }}">Manajemen Quest</a>
+                                                    </li>
+                                                    <li class="menu-item @yield('dash-quest-siswa-active')"><a
+                                                            href="{{ route('orderq.index') }}">Manajemen Quest
+                                                            Siswa</a>
+                                                    </li>
+                                                    <li class="menu-item @yield('dash-reward-active')"><a
+                                                            href="{{ route('reward.index') }}">Manajemen Reward</a>
+                                                    </li>
+                                                    <li class="menu-item @yield('dash-reward-siswa-active')"><a
+                                                            href="{{ route('orderr.index') }}">Manajemen Reward
+                                                            Siswa</a>
+                                                    </li>
+                                                    <li class="menu-item @yield('dash-artikel-active')"><a
+                                                            href="{{ route('artikel.index') }}">Manajemen Artikel</a>
+                                                    </li>
+                                                    <li class="menu-item @yield('dash-notifikasi-active')"><a
+                                                            href="{{ route('notifikasi.index') }}">Manajemen
+                                                            Notifikasi</a>
+                                                    </li>
+                                                    <hr width="50%">
+                                                @endif
+
+                                                @if (json_decode(\Auth::user()->roles) == array_intersect([2]))
+                                                    <li class="menu-item @yield('dash-quest-saya-active')">
+                                                        <a href="{{ route('orderq.siswa', \Auth::user()->id) }}">Quest
+                                                            Saya</a>
+                                                    </li>
+                                                    <li class="menu-item @yield('dash-reward-saya-active')">
+                                                        <a href="{{ route('orderr.siswa', \Auth::user()->id) }}">Reward
+                                                            Saya</a>
+                                                    </li>
+                                                @endif
                                         </ul>
                                     </li>
                                     <li class="menu-item menu-item-has-children @yield('ga-active')">
@@ -97,6 +112,8 @@
 
                                             <li class="menu-item @yield('ga-buku-panduan-active')"><a
                                                     href="{{ route('frontend.bukupanduan') }}">Buku Panduan</a></li>
+                                            <li class="menu-item @yield('ga-anggota-active')"><a
+                                                    href="{{ route('frontend.anggota') }}">Anggota</a></li>
                                             <li class="menu-item @yield('ga-jobclass')"><a
                                                     href="{{ route('jobclass.published') }}">Job Class</a></li>
                                             <li class="menu-item @yield('ga-skill')"><a
@@ -115,49 +132,37 @@
                                         <a href="{{ route('artikel.published') }}"><i class="fa fa-rss"></i>
                                             <span>Berita</span></a>
                                     </li>
-                                    {{-- <li class="menu-item menu-item-has-children">
-                                        <a href="#">Notifikasi</a>
+                                    <li class="menu-item menu-item-has-children li_right_side">
+                                        <a href="#"><i class="fa fa-user"></i>
+                                            {{ Auth::user()->name }}</a>
                                         <ul class="sub-menu">
-                                            <li class="menu-item @yield('notifikasi-siswa')"><a
-                                                    href="{{ route('notifikasi.showSiswaNotifikasi') }}">Siswa</a>
+                                            <li class="menu-item"><a
+                                                    href="{{ route('users.show', \Auth::user()->id) }}">Profile
+                                                </a>
                                             </li>
-                                            <li class="menu-item @yield('notifikasi-pengajar')"><a
-                                                    href="{{ route('notifikasi.showPengajarNotifikasi') }}">Pengajar</a>
+                                            <li>
+
+                                                <form onsubmit="return confirm('Yakin ingin logout?')"
+                                                    action="{{ route('logout') }}" method="POST">
+                                                    @csrf
+                                                    <button class="dropdown-item "
+                                                        style="cursor: pointer;">Keluar</button>
+                                                </form>
                                             </li>
                                         </ul>
-                                    </li> --}}
-                                    @if (Auth::user())
-                                        <li class="menu-item menu-item-has-children li_right_side">
-                                            <a href="#"><i class="fa fa-user"></i>
-                                                {{ Auth::user()->name }}</a>
-                                            <ul class="sub-menu">
-                                                <li class="menu-item"><a
-                                                        href="{{ route('users.show', \Auth::user()->id) }}">Profile
-                                                    </a>
-                                                </li>
-                                                <li>
-
-                                                    <form onsubmit="return confirm('Yakin ingin logout?')"
-                                                        action="{{ route('logout') }}" method="POST">
-                                                        @csrf
-                                                        <button class="dropdown-item "
-                                                            style="cursor: pointer;">Keluar</button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                    </li>
                                     @endif
                                     <li class="line"></li>
                                 </ul>
                             </div>
                             <div class="menu-foot">
-                                <div class="social">
+                                {{-- <div class="social">
                                     <a href="#" target="_blank"><i class="fa fa-facebook-f"></i></a>
                                     <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
                                     <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
                                     <a href="#" target="_blank"><i class="fa fa-instagram"></i></a>
                                     <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
-                                </div>
+                                </div> --}}
                                 <hr />
                                 <address class="text-center">
                                     <span class="email"><i class="icon-mail"></i> smkn2solo.online</span>
