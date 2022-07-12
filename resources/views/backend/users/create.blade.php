@@ -314,7 +314,7 @@
     <script>
         $('#jobclass').select2({
             ajax: {
-                url: 'http://ga-smkn2solo.online/ajax/jobclass/search',
+                url: 'https://ga-smkn2solo.online/ajax/jobclass/search',
                 processResults: function(data) {
                     return {
                         results: data.map(function(item) {
@@ -330,7 +330,7 @@
 
         $('#skill').select2({
             ajax: {
-                url: 'http://ga-smkn2solo.online/ajax/skill/search',
+                url: 'https://ga-smkn2solo.online/ajax/skill/search',
                 processResults: function(data) {
                     return {
                         results: data.map(function(item) {
