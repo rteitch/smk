@@ -32,7 +32,7 @@ class AdminSeeder extends Seeder
         $admin->level = 100;
         $admin->exp = 134700;
         $admin->skor = 0;
-        $admin->nomor_induk = 100;
+        $admin->nomor_induk = "100";
         $admin->save();
         $this->command->info("User admin berhasil ditambahkan");
     }
