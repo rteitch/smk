@@ -16,8 +16,8 @@
                 <h2>Artikel</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
-                    <li class="breadcrumb-item">Artikel</li>
-                    <li class="breadcrumb-item active">{{ $artikel->title }}</li>
+                    <li class="breadcrumb-item"><a href="{{ route('artikel.published') }}"></a> Artikel</li>
+                    <li class="breadcrumb-item active"><a href="{{ route('artikel.lihatArtikel', [$artikels->slug]) }}">{{ $artikel->title }}</a></li>
                 </ul>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
