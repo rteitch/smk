@@ -71,15 +71,15 @@ class QuestController extends Controller
             "skor" => "required",
             "exp" => "required",
             "batas_waktu" => "required",
-            "pil_A" => "required",
-            "pil_B" => "required",
-            "pil_C" => "required",
-            "pil_D" => "required",
-            "pil_E" => "required",
+            // "pil_A" => "required",
+            // "pil_B" => "required",
+            // "pil_C" => "required",
+            // "pil_D" => "required",
+            // "pil_E" => "required",
             "tingkat_kesulitan" => "required",
-            "jenis_soal" => "required",
-            "file_pendukung" => "required|max:10000|mimes:doc,docx,pdf,excel",
-            "image" => "mimes:jpeg,jpg,png|max:1500",
+            // "jenis_soal" => "required",
+            // "file_pendukung" => "required|max:10000|mimes:doc,docx,pdf,excel",
+            "image" => "mimes:jpeg,jpg,png",
 
         ])->validate();
         $new_quest = new \App\Models\Quest();
