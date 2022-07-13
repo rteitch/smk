@@ -310,6 +310,11 @@ class UserController extends Controller
         $adminKode = array_intersect(['0']);
         if($userAuthRoles == $adminKode){
             $user->delete();
+            $user->jobclass()->detach();
+            $user->skill()->detach();
+            $user->reward()->detach();
+            $user->orderq()->detach();
+            $user->orderr()->detach();
             return redirect()->route('users.index')->with('status', 'User successfully deleted');
         } else{
             return view('errors.403');
