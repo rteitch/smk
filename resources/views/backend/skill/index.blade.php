@@ -73,7 +73,8 @@
                             @csrf
 
                             <label>Judul Skill</label><br>
-                            <input value="{{ old('judul') }}" type="text" class="form-control {{ $errors->first('judul') ? 'is-invalid' : '' }}" name="judul" />
+                            <input value="{{ old('judul') }}" type="text"
+                                class="form-control {{ $errors->first('judul') ? 'is-invalid' : '' }}" name="judul" />
                             <div class="invalid-feedback">
                                 {{ $errors->first('judul') }}
                             </div>
@@ -94,14 +95,16 @@
                             <br><br>
 
                             <label>Syarat Level Player</label><br>
-                            <input value="{{ old('syarat_lv') }}" type="number" name="syarat_lv" class="form-control  {{ $errors->first('syarat_lv') ? 'is-invalid' : '' }}">
+                            <input value="{{ old('syarat_lv') }}" type="number" name="syarat_lv"
+                                class="form-control  {{ $errors->first('syarat_lv') ? 'is-invalid' : '' }}">
                             <div class="invalid-feedback">
                                 {{ $errors->first('syarat_lv') }}
                             </div>
                             <br>
 
                             <label>Skill image</label>
-                            <input value="{{ old('image') }}" type="file" class="form-control {{ $errors->first('image') ? 'is-invalid' : '' }}" name="image" />
+                            <input value="{{ old('image') }}" type="file"
+                                class="form-control {{ $errors->first('image') ? 'is-invalid' : '' }}" name="image" />
                             <div class="invalid-feedback">
                                 {{ $errors->first('image') }}
                             </div>
@@ -125,7 +128,8 @@
                     <form action="{{ route('skill.index') }}">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Masukkan kata untuk mencari Skill" name="judul">
+                            <input type="text" class="form-control" placeholder="Masukkan kata untuk mencari Skill"
+                                name="judul">
                             <div class="input-group-append">
                                 <input type="submit" value="Filter" class="btn btn-primary">
                             </div>
@@ -166,10 +170,12 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th scope="col"><b>Image</b></th>
                             <th scope="col"><b>Judul</b></th>
                             {{-- <th scope="col"><b>Slug</b></th>
                                 <th scope="col"><b>Deskripsi</b></th> --}}
-                            <th scope="col"><b>Image</b></th>
+                            <th scope="col"><b>Syarat Level</b></th>
+                            <th scope="col"><b>Job Class</b></th>
                             <th scope="col"><b>Actions</b></th>
                         </tr>
                     </thead>
@@ -177,9 +183,6 @@
                     <tbody>
                         @foreach ($skill as $skills)
                             <tr>
-                                <td>{{ $skills->judul }}</td>
-                                {{-- <td>{{ $skills->slug }}</td>
-                                    <td>{{ Str::limit($skills->deskripsi, 100) }}</td> --}}
                                 <td>
                                     @if ($skills->image)
                                         <img src="{{ asset('storage/' . $skills->image) }}" width="48px" />
@@ -187,11 +190,21 @@
                                         No image
                                     @endif
                                 </td>
+                                <td>{{ $skills->judul }}</td>
+                                <td>{{ $skills->syarat_lv }}</td>
+                                <td>
+                                    @foreach ($skills->jobclass as $jobc)
+                                        {{ $jobc->name }}
+                                    @endforeach
+                                </td>
+                                {{-- <td>{{ $skills->slug }}</td>
+                                    <td>{{ Str::limit($skills->deskripsi, 100) }}</td> --}}
                                 <td>
                                     <a href="{{ route('skill.show', [$skills->id]) }}" class="btn btn-primary btn-sm">
                                         <span class="fa fa-eye"></span></a>
 
-                                    <a class="btn btn-info btn-sm" href="{{ route('skill.edit', [$skills->id]) }}"><span
+                                    <a class="btn btn-info btn-sm"
+                                        href="{{ route('skill.edit', [$skills->id]) }}"><span
                                             class="fa fa-edit"></span></a>
 
                                     <form class="d-inline" action="{{ route('skill.destroy', [$skills->id]) }}"

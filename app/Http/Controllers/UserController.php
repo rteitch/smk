@@ -114,6 +114,7 @@ class UserController extends Controller
         $new_user->level = $request->get('level');
         $new_user->skor = $request->get('skor');
         $new_user->exp = $request->get('exp');
+
         if ($request->file('avatar')) {
             $file = $request->file('avatar')->store('avatars', 'public');
 
