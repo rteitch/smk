@@ -279,8 +279,9 @@
             </div>
             @endif
 
-
-            <input class="btn btn-primary" type="submit" value="Save" />
+            <div class="col-lg-12 col-md-12 text-right">
+                <input class="btn btn-primary" type="submit" value="Save" />
+            </div>
         </form>
     </div>
 @endsection
