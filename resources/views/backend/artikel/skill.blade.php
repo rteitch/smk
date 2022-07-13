@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Detail Skill
+    Artikel by Skill
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
             </div>
         @endif
         <div>
-            <div class="col-12 col-sm-12">
+            <div class="col-12 col-sm-12 mt-4">
                 @foreach ($skill as $skills)
                     <h2>Artikel Skill : {{ $skills->judul }}</h2>
                 @endforeach
@@ -35,7 +35,8 @@
                                         <h5 class="card-title"><a
                                                 href="{{ route('artikel.lihatArtikel', [$artikels->slug]) }}">{{ $artikels->title }}</a>
                                         </h5>
-                                        <p class="card-text"><small class="text-muted">Published By {{ $artikels->user->name }}</small></p>
+                                        <p class="card-text"><small class="text-muted">Published By
+                                                {{ $artikels->user->name }}</small></p>
                                         <p class="card-text">{!! Str::words($artikels->konten, 30, '...') !!}</p>
                                         <p class="card-text"><small class="text-muted">Posted at
                                                 {{ $artikels->created_at }}</small>
