@@ -309,12 +309,19 @@ class UserController extends Controller
         $userAuthRoles = json_decode(Auth::user()->roles);
         $adminKode = array_intersect(['0']);
         if($userAuthRoles == $adminKode){
-            $user->delete();
+
+            // $user->orderq()->delete();
+            // $user->skill()->detach();
+            // $user->orderr()->delete();
+            // $user->notifikasi()->delete();
+            // $user->jobclass()->delete();
             $user->jobclass()->detach();
             $user->skill()->detach();
-            $user->reward()->detach();
-            $user->orderq()->detach();
-            $user->orderr()->detach();
+            $user->orderq()->delete();
+            $user->orderr()->delete();
+            $user->artikel()->delete();
+            $user->notifikasi()->delete();
+            $user->delete();
             return redirect()->route('users.index')->with('status', 'User successfully deleted');
         } else{
             return view('errors.403');
