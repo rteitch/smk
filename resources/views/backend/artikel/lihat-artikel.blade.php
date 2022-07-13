@@ -1,7 +1,29 @@
 @extends('layouts.global')
 
 @section('title')
-    Detail Skill
+    Detail Artikel
+@endsection
+
+@section('artikel-active')
+    active
+@endsection
+
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Artikel</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Artikel</li>
+                    <li class="breadcrumb-item active">{{ $artikel->title }}</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('content')
@@ -11,9 +33,9 @@
                 {{ session('status') }}
             </div>
         @endif
-        <a class="btn btn-info mt-3" href="{{ route('artikel.published') }}">
+        {{-- <a class="btn btn-info mt-3" href="{{ route('artikel.published') }}">
             < Kembali</a>
-                <br><br>
+                <br><br> --}}
                 <div class="mb-2">
                     <div class="card bg-white border-0 shadow-sm">
                         <div class="card-header bg-white border-light">
