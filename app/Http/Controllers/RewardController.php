@@ -150,7 +150,7 @@ class RewardController extends Controller
         $reward->status = $request->get('status');
         if (Gate::allows('isPengajardanAdmin')) {
             $reward->save();
-            return redirect()->route('reward.edit', [$reward->id])->with('status', 'Reward successfully updated');
+            return redirect()->route('reward.index', [$reward->id])->with('status', 'Reward successfully updated');
         } else {
             return view("errors.403");
         }
