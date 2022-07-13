@@ -92,8 +92,8 @@ class UserController extends Controller
             "level" => "required|digits_between:0,100",
             // "skor" => "required",
             // "exp" => "required",
-            "avatar" => "mimes:jpeg,jpg,png|max:2000",
-            "background" => "mimes:jpeg,jpg,png|max:3000",
+            "avatar" => "mimes:jpeg,jpg,png",
+            "background" => "mimes:jpeg,jpg,png",
             // "jobclass" => "required"
 
         ])->validate();
@@ -242,8 +242,8 @@ class UserController extends Controller
             "level" => "required|digits_between:0,100",
             // "skor" => "required",
             // "exp" => "required",
-            "avatar" => "mimes:jpeg,jpg,png|max:2000",
-            "background" => "mimes:jpeg,jpg,png|max:3000",
+            "avatar" => "mimes:jpeg,jpg,png",
+            "background" => "mimes:jpeg,jpg,png",
             // "jobclass" => "required"
         ])->validate();
 
