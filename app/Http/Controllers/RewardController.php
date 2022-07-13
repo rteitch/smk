@@ -107,7 +107,7 @@ class RewardController extends Controller
     {
         $reward_to_edit = \App\Models\Reward::findOrFail($id);
         if (Gate::allows('isPengajardanAdmin')) {
-            return view('backend.reward.edit', ['reward' => $reward_to_edit]);
+            return view('backend.reward.index', ['reward' => $reward_to_edit]);
         } else {
             return view("errors.403");
         }

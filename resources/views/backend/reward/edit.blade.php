@@ -1,7 +1,37 @@
 @extends('layouts.global')
 
 @section('title')
-    Edit Quest
+    Edit Reward
+@endsection
+
+@section('dashboard-active')
+    active
+@endsection
+
+@section('da-collapse-in')
+    in
+@endsection
+
+@section('dash-reward-active')
+    active
+@endsection
+
+@section('breadcrumb')
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Manajemen Reward</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('reward.index') }}">Manajemen Reward</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('reward.edit', $rewards->id) }}">Manajemen Reward</a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('content')
