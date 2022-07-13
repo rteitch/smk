@@ -134,24 +134,18 @@
                 {{-- Form Username --}}
                 <div class="col-lg-6 col-md-12">
                     <label for="username">Username</label>
-                    <input value="{{ old('username') ? old('username') : $user->username }}" disabled
-                        class="form-control {{ $errors->first('username') ? 'is-invalid' : '' }}" placeholder="username"
+                    <input value="{{ $user->username }}" disabled
+                        class="form-control" placeholder="username"
                         type="text" name="username" id="username" />
-                    <div class="invalid-feedback">
-                        {{ $errors->first('username') }}
-                    </div>
                     <br>
                 </div>
 
                 {{-- Form Email --}}
                 <div class="col-lg-6 col-md-12">
                     <label for="email">Email</label>
-                    <input value="{{ old('email') ? old('email') : $user->email }}" disabled
+                    <input value="{{ $user->email }}" disabled
                         class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}"
                         placeholder="user@mail.com" type="text" name="email" id="email" />
-                    <div class="invalid-feedback">
-                        {{ $errors->first('email') }}
-                    </div>
                     <br>
                 </div>
 
