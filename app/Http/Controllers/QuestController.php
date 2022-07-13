@@ -321,7 +321,7 @@ class QuestController extends Controller
 
         $user_login = \Auth::user();
         $orderq = \App\Models\OrderQ::with('quest')->where('user_id', \Auth::user()->id)->get();
-        $user = \App\Models\User::select('id', 'name')->get();
+        $user = \App\Models\User::select('id', 'name', 'avatar')->get();
 
         return view('backend.quest.published', compact('quest', 'user', 'orderq', 'user_login'));
     }
