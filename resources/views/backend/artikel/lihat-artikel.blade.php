@@ -11,7 +11,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        <a class="btn btn-info" href="{{ route('artikel.published') }}">
+        <a class="btn btn-info mt-3" href="{{ route('artikel.published') }}">
             < Kembali</a>
                 <br><br>
                 <div class="mb-2">
