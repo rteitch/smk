@@ -231,16 +231,16 @@ class UserController extends Controller
             "name" => "required|min:3|max:100",
             "nomorInduk" => "required",
             "phone" => "required|digits_between:6,20",
-            "tempatLahir" => "required|min:3|max:100",
-            "tanggalLahir" => "required",
+            // "tempatLahir" => "required|min:3|max:100",
+            // "tanggalLahir" => "required",
             // "email" => 'required|email|unique:users',
-            "gender" => 'required',
+            // "gender" => 'required',
             // "username" => "required|min:3|max:20|unique:users",
             // "password" => "required",
             // "password_confirmation" => "required|same:password",
-            "alamat" => "required|min:1|max:300",
-            "roles" => "required",
-            "level" => "required|digits_between:0,100",
+            // "alamat" => "required|min:1|max:300",
+            // "roles" => "required",
+            // "level" => "required|digits_between:0,100",
             // "skor" => "required",
             // "exp" => "required",
             "avatar" => "mimes:jpeg,jpg,png",
@@ -286,10 +286,12 @@ class UserController extends Controller
         if ($userAuthRoles == $adminKode) {
             $user->skill()->sync($request->get('skill'));
             $user->jobclass()->sync($request->get('jobclass'));
+            return redirect()->route('users.index', [$id])->with('status', 'User succesfully updated');
+        } else {
+            $user->skill()->sync($request->get('skill'));
+            $user->jobclass()->sync($request->get('jobclass'));
+            return redirect()->route('users.edit', [$id])->with('status', 'User succesfully updated');
         }
-        $user->skill()->sync($request->get('skill'));
-        $user->jobclass()->sync($request->get('jobclass'));
-        return redirect()->route('users.index', [$id])->with('status', 'User succesfully updated');
     }
 
     /**
