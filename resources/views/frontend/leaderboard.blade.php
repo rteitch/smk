@@ -52,9 +52,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Avatar</th>
-                                <th>Level</th>
                                 <th>Nama</th>
                                 <th>Skor</th>
+                                <th>Level</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,7 +85,6 @@
 
         $('#table_id_anggota').DataTable({
             responsive: true,
-
             rowReorder: {
                 dataSrc: 0,
                 snapX: true,
@@ -103,16 +102,16 @@
                     name: 'avatar_url',
                 },
                 {
-                    data: 'level',
-                    name: 'level',
-                },
-                {
                     data: 'name',
                     name: 'name',
                 },
                 {
                     data: 'skor',
                     name: 'skor',
+                },
+                {
+                    data: 'level',
+                    name: 'level',
                 }
             ]
         });

@@ -65,9 +65,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Avatar</th>
-                                <th>Level</th>
                                 <th>Nama</th>
                                 <th>Status</th>
+                                <th>Level</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,16 +116,16 @@
                     name: 'avatar_url',
                 },
                 {
-                    data: 'level',
-                    name: 'level',
-                },
-                {
                     data: 'name',
                     name: 'name',
                 },
                 {
                     data: 'status',
                     name: 'status',
+                },
+                {
+                    data: 'level',
+                    name: 'level',
                 }
             ]
         });
