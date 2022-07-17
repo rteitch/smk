@@ -74,11 +74,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.css" rel="stylesheet"
+        type="text/css" />
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
+    <link href="https://cdn.datatables.net/rowreorder/1.2.6/css/rowReorder.dataTables.css" rel="stylesheet"
+        type="text/css" />
+    <script src="https://cdn.datatables.net/rowreorder/1.2.6/js/dataTables.rowReorder.js"></script>
 
     <script>
 
         $('#table_id_anggota').DataTable({
             responsive: true,
+
+            rowReorder: {
+                dataSrc: 0,
+                snapX: true,
+                enable: true
+            },
             "processing": true,
             "serverSide": true,
             "ajax": '{{ url('get-leaderboard') }}',
