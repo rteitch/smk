@@ -91,45 +91,6 @@
                                         <br>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12">
-                                        {{-- Form Status --}}
-                                        <label for="">Jenis Notifikasi</label>
-                                        <br />
-                                        <select class="form-control" name="jenis_notifikasi" id="jenis_notifikasi"
-                                            onchange="showDiv(this)">
-                                            <option value="REWARD">REWARD</option>
-                                            <option value="PESAN">PESAN</option>
-                                        </select>
-                                        <br>
-                                    </div>
-
-                                    <div class="col-lg-12 col-md-12">
-                                        <div id="hiddenDiv" style="display: block;">
-                                            <div class="row">
-
-                                                <div class="col-lg-6 col-md-12">
-                                                    {{-- Form Skor --}}
-                                                    <label for="skor">Bonus Skor</label>
-                                                    <input class="form-control" placeholder="skor" type="float"
-                                                        name="skor" id="skor">
-                                                    <br>
-                                                </div>
-
-                                                <div class="col-lg-6 col-md-12">
-                                                    {{-- Form EXP --}}
-                                                    <label for="exp">Bonus Exp</label>
-                                                    <input class="form-control" placeholder="exp" type="float"
-                                                        name="exp" id="exp">
-                                                    <br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-
-
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" name="save_action" value="PUBLISH">Publish</button>
@@ -212,7 +173,8 @@
                             @foreach ($notifikasi as $index => $notif)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td><img src="{{ asset('storage/' . $notif->image) }}" alt="" width="70px"></td>
+                                    <td><img src="{{ asset('storage/' . $notif->image) }}" alt=""
+                                            width="70px"></td>
                                     <td>{{ $notif->title }}</td>
                                     <td>{{ $notif->pesan }}</td>
                                     <td>{{ $notif->jenis_roles }}</td>
