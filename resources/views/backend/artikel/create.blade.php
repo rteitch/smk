@@ -71,7 +71,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col">
-                                            <label for="image">Image Utama</label>
+                                            <label for="image">Image Utama <small class="btn-danger">*Upload image ukuran kurang dari 1mb</small> </label>
                                             <input type="file" class="form-control" name="image">
                                         </div>
                                         <div class="col">
