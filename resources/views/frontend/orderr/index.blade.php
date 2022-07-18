@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Orders list
+    Manajemen Reward Siswa
 @endsection
 
 @section('dashboard-active')

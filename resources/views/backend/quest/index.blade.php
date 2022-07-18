@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Quest List
+    Manajemen Quest
 @endsection
 
 @section('dashboard-active')

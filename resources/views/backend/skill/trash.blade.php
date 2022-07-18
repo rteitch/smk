@@ -100,7 +100,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('skill.restore', [$skill->id]) }}"
-                                            class="btn btn-success">Restore</a>
+                                            class="btn btn-success"><span class="fa fa-undo"> Restore</span> </a>
                                         <form class="d-inline"
                                             action="{{ route('skill.delete-permanent', [$skill->id]) }}" method="POST"
                                             onsubmit="return confirm('Delete this skill {{ $skill->judul }} permanently?')">

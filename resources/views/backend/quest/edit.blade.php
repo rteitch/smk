@@ -20,7 +20,7 @@
     <div class="block-header">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <h2>Manajemen Quest</h2>
+                <h2>Edit Quest</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
                     <li class="breadcrumb-item">Dashboard</li>

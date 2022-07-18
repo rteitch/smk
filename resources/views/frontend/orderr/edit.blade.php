@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Edit order Reward
+    Ubah Status Reward Siswa
 @endsection
 
 

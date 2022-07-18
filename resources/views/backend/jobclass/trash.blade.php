@@ -94,10 +94,10 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('jobclass.restore', [$jobc->id]) }}"
-                                            class="btn btn-success">Restore</a>
+                                            class="btn btn-success"><span class="fa fa-undo"> Restore</span></a>
                                         <form class="d-inline"
                                             action="{{ route('jobclass.delete-permanent', [$jobc->id]) }}" method="POST"
-                                            onsubmit="return confirm('Delete this jobclass {{ $jobc->name }} permanently?')">
+                                            onsubmit="return confirm('Anda yakin ingin menghapus jobclass {{ $jobc->name }} secara permanent?')">
 
                                             @csrf
 

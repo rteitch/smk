@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Skill list
+    Manajemen Skill
 @endsection
 
 @section('dashboard-active')

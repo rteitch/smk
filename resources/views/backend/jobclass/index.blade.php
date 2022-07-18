@@ -242,7 +242,7 @@
                                 data-target="#myModalEdit{{ $jobc->id }}"><span class="fa fa-edit"></span>
                             </button>
                             <form class="d-inline" action="{{ route('jobclass.destroy', [$jobc->id]) }}"
-                                method="POST" onsubmit="return confirm('Move Job Class {{ $jobc->name }} to trash?')">
+                                method="POST" onsubmit="return confirm('Yakin ingin memindahkan jobclass dengan nama {{ $jobc->name }} ke Trash?')">
 
                                 @csrf
 

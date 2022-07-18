@@ -115,7 +115,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('quest.restore', [$quest->id]) }}"
-                                                class="btn btn-success">Restore</a>
+                                                class="btn btn-success"><span class="fa fa-undo"> Restore</span></a>
 
                                             <form method="POST"
                                                 action="{{ route('quest.delete-permanent', [$quest->id]) }}"
@@ -124,7 +124,6 @@
 
                                                 @csrf
                                                 <input type="hidden" name="_method" value="DELETE">
-
                                                 <input type="submit" value="Delete" class="btn btn-danger btn-sm">
                                             </form>
                                         </td>

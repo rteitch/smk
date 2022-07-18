@@ -230,7 +230,7 @@ class UserController extends Controller
         \Validator::make($request->all(),[
             "name" => "required|min:3|max:100",
             "nomorInduk" => "required",
-            "phone" => "required|digits_between:6,20",
+            "phone" => "required|digits_between:3,20",
             // "tempatLahir" => "required|min:3|max:100",
             // "tanggalLahir" => "required",
             // "email" => 'required|email|unique:users',
@@ -264,7 +264,314 @@ class UserController extends Controller
             $user->status = $request->get('status');
             $user->level = $request->get('level');
             $user->skor = $request->get('skor');
-            $user->exp = $request->get('exp');
+            $exp_user = $request->get('exp');
+            $user->exp = $exp_user;
+            //logika update level ketika exp bertambah level dalam ga web max adalah 99
+            switch ($exp_user) {
+                case ($exp_user - 0) <= 700:
+                    $user->level = 1;
+                    break;
+                case ($exp_user - 2100) <= 2100:
+                    $user->level = 2;
+                    break;
+                case ($exp_user - 3500) <= 3500:
+                    $user->level = 3;
+                    break;
+                case ($exp_user - 4900) <= 4900:
+                    $user->level = 4;
+                    break;
+                case ($exp_user - 6300) <= 6300:
+                    $user->level = 5;
+                    break;
+                case ($exp_user - 7700) <= 7700:
+                    $user->level = 6;
+                    break;
+                case ($exp_user - 9100) <= 9100:
+                    $user->level = 7;
+                    break;
+                case ($exp_user - 10500) <= 10500:
+                    $user->level = 8;
+                    break;
+                case ($exp_user - 11900) <= 11900:
+                    $user->level = 9;
+                    break;
+                case ($exp_user - 13300) <= 13300:
+                    $user->level = 10;
+                    break;
+                case ($exp_user - 14700) <= 14700:
+                    $user->level = 11;
+                    break;
+                case ($exp_user - 16100) <= 16100:
+                    $user->level = 12;
+                    break;
+                case ($exp_user - 17500) <= 17500:
+                    $user->level = 13;
+                    break;
+                case ($exp_user - 18900) <= 18900:
+                    $user->level = 14;
+                    break;
+                case ($exp_user - 20300) <= 20300:
+                    $user->level = 15;
+                    break;
+                case ($exp_user - 21700) <= 21700:
+                    $user->level = 16;
+                    break;
+                case ($exp_user - 23100) <= 23100:
+                    $user->level = 17;
+                    break;
+                case ($exp_user - 24500) <= 24500:
+                    $user->level = 18;
+                    break;
+                case ($exp_user - 25900) <= 25900:
+                    $user->level = 19;
+                    break;
+                case ($exp_user - 27300) <= 27300:
+                    $user->level = 20;
+                    break;
+                case ($exp_user - 28700) <= 28700:
+                    $user->level = 21;
+                    break;
+                case ($exp_user - 30100) <= 30100:
+                    $user->level = 22;
+                    break;
+                case ($exp_user - 31500) <= 31500:
+                    $user->level = 23;
+                    break;
+                case ($exp_user - 32900) <= 32900:
+                    $user->level = 24;
+                    break;
+                case ($exp_user - 34300) <= 34300:
+                    $user->level = 25;
+                    break;
+                case ($exp_user - 35700) <= 35700:
+                    $user->level = 26;
+                    break;
+                case ($exp_user - 37100) <= 37100:
+                    $user->level = 27;
+                    break;
+                case ($exp_user - 38500) <= 38500:
+                    $user->level = 28;
+                    break;
+                case ($exp_user - 39900) <= 39900:
+                    $user->level = 29;
+                    break;
+                case ($exp_user - 41300) <= 41300:
+                    $user->level = 30;
+                    break;
+                case ($exp_user - 42700) <= 42700:
+                    $user->level = 31;
+                    break;
+                case ($exp_user - 44100) <= 44100:
+                    $user->level = 32;
+                    break;
+                case ($exp_user - 45500) <= 45500:
+                    $user->level = 33;
+                    break;
+                case ($exp_user - 46900) <= 46900:
+                    $user->level = 34;
+                    break;
+                case ($exp_user - 48300) <= 48300:
+                    $user->level = 35;
+                    break;
+                case ($exp_user - 49700) <= 49700:
+                    $user->level = 36;
+                    break;
+                case ($exp_user - 51100) <= 51100:
+                    $user->level = 37;
+                    break;
+                case ($exp_user - 52500) <= 52500:
+                    $user->level = 38;
+                    break;
+                case ($exp_user - 53900) <= 53900:
+                    $user->level = 39;
+                    break;
+                case ($exp_user - 55300) <= 55300:
+                    $user->level = 40;
+                    break;
+                case ($exp_user - 56700) <= 56700:
+                    $user->level = 41;
+                    break;
+                case ($exp_user - 58100) <= 58100:
+                    $user->level = 42;
+                    break;
+                case ($exp_user - 59500) <= 59500:
+                    $user->level = 43;
+                    break;
+                case ($exp_user - 60900) <= 60900:
+                    $user->level = 44;
+                    break;
+                case ($exp_user - 62300) <= 62300:
+                    $user->level = 45;
+                    break;
+                case ($exp_user - 63700) <= 63700:
+                    $user->level = 46;
+                    break;
+                case ($exp_user - 65100) <= 65100:
+                    $user->level = 47;
+                    break;
+                case ($exp_user - 66500) <= 66500:
+                    $user->level = 48;
+                    break;
+                case ($exp_user - 67900) <= 67900:
+                    $user->level = 49;
+                    break;
+                case ($exp_user - 69300) <= 69300:
+                    $user->level = 50;
+                    break;
+                case ($exp_user - 70700) <= 70700:
+                    $user->level = 51;
+                    break;
+                case ($exp_user - 72100) <= 72100:
+                    $user->level = 52;
+                    break;
+                case ($exp_user - 73500) <= 73500:
+                    $user->level = 53;
+                    break;
+                case ($exp_user - 74900) <= 74900:
+                    $user->level = 54;
+                    break;
+                case ($exp_user - 76300) <= 76300:
+                    $user->level = 55;
+                    break;
+                case ($exp_user - 77700) <= 77700:
+                    $user->level = 56;
+                    break;
+                case ($exp_user - 79100) <= 79100:
+                    $user->level = 57;
+                    break;
+                case ($exp_user - 80500) <= 80500:
+                    $user->level = 58;
+                    break;
+                case ($exp_user - 81900) <= 81900:
+                    $user->level = 59;
+                    break;
+                case ($exp_user - 83300) <= 83300:
+                    $user->level = 60;
+                    break;
+                case ($exp_user - 84700) <= 84700:
+                    $user->level = 61;
+                    break;
+                case ($exp_user - 86100) <= 86100:
+                    $user->level = 62;
+                    break;
+                case ($exp_user - 87500) <= 87500:
+                    $user->level = 63;
+                    break;
+                case ($exp_user - 88900) <= 88900:
+                    $user->level = 64;
+                    break;
+                case ($exp_user - 90300) <= 90300:
+                    $user->level = 65;
+                    break;
+                case ($exp_user - 91700) <= 91700:
+                    $user->level = 66;
+                    break;
+                case ($exp_user - 93100) <= 93100:
+                    $user->level = 67;
+                    break;
+                case ($exp_user - 94500) <= 94500:
+                    $user->level = 68;
+                    break;
+                case ($exp_user - 95900) <= 95900:
+                    $user->level = 69;
+                    break;
+                case ($exp_user - 97300) <= 97300:
+                    $user->level = 70;
+                    break;
+                case ($exp_user - 98700) <= 98700:
+                    $user->level = 71;
+                    break;
+                case ($exp_user - 100100) <= 100100:
+                    $user->level = 72;
+                    break;
+                case ($exp_user - 101500) <= 101500:
+                    $user->level = 73;
+                    break;
+                case ($exp_user - 102900) <= 102900:
+                    $user->level = 74;
+                    break;
+                case ($exp_user - 104300) <= 104300:
+                    $user->level = 75;
+                    break;
+                case ($exp_user - 105700) <= 105700:
+                    $user->level = 76;
+                    break;
+                case ($exp_user - 107100) <= 107100:
+                    $user->level = 77;
+                    break;
+                case ($exp_user - 108500) <= 108500:
+                    $user->level = 78;
+                    break;
+                case ($exp_user - 109900) <= 109900:
+                    $user->level = 79;
+                    break;
+                case ($exp_user - 111300) <= 111300:
+                    $user->level = 80;
+                    break;
+                case ($exp_user - 112700) <= 112700:
+                    $user->level = 81;
+                    break;
+                case ($exp_user - 114100) <= 114100:
+                    $user->level = 82;
+                    break;
+                case ($exp_user - 115500) <= 115500:
+                    $user->level = 83;
+                    break;
+                case ($exp_user - 116900) <= 116900:
+                    $user->level = 84;
+                    break;
+                case ($exp_user - 118300) <= 118300:
+                    $user->level = 85;
+                    break;
+                case ($exp_user - 119700) <= 119700:
+                    $user->level = 86;
+                    break;
+                case ($exp_user - 121100) <= 121100:
+                    $user->level = 87;
+                    break;
+                case ($exp_user - 122500) <= 122500:
+                    $user->level = 88;
+                    break;
+                case ($exp_user - 123900) <= 123900:
+                    $user->level = 89;
+                    break;
+                case ($exp_user - 125300) <= 125300:
+                    $user->level = 90;
+                    break;
+                case ($exp_user - 126700) <= 126700:
+                    $user->level = 91;
+                    break;
+                case ($exp_user - 128100) <= 128100:
+                    $user->level = 92;
+                    break;
+                case ($exp_user - 129500) <= 129500:
+                    $user->level = 93;
+                    break;
+                case ($exp_user - 130900) <= 130900:
+                    $user->level = 94;
+                    break;
+                case ($exp_user - 132300) <= 132300:
+                    $user->level = 95;
+                    break;
+                case ($exp_user - 133700) <= 133700:
+                    $user->level = 96;
+                    break;
+                case ($exp_user - 135100) <= 135100:
+                    $user->level = 97;
+                    break;
+                case ($exp_user - 136500) <= 136500:
+                    $user->level = 98;
+                    break;
+                case ($exp_user - 137900) <= 137900:
+                    $user->level = 99;
+                    break;
+                case ($exp_user - 139300) <= 139300:
+                    $user->level = 100;
+                    break;
+                case ($exp_user - 139300) > 139300:
+                    $user->level = 100;
+                    break;
+            }
         }
         if ($request->file('avatar')) {
             if ($user->avatar && file_exists(storage_path('app/public/' . $user->avatar))) {

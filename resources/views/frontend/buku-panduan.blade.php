@@ -82,6 +82,10 @@
                                 dibutuhkan waktu, untuk proses validasi jawaban</p>
                             <li>Cara Menaikan Skor, Level, Exp</li>
                             <p>1. Selesaikan Quest sebanyak-banyaknya</p>
+                            <li>System Level</li>
+                            <p>- Level : 1-99 <br>
+                               - Syarat Ambil JobClass ke-2 : Level 30 <br>
+                               - Syarat Ambil JobClass ke-3 : Level 50 </p>
                             <li>Cara Menukar Skor dengan Reward</li>
                             <p>1. Buka Guild Adventure <br>
                                 2. Pilih menu Reward <br>

@@ -21,7 +21,7 @@
     <div class="block-header">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <h2>Manajemen User</h2>
+                <h2>Edit User</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
                     <li class="breadcrumb-item">Dashboard</li>
@@ -252,7 +252,9 @@
                             {{ $errors->first('roles') }}
                         </div>
                     </div>
-
+                    <div class="col-lg-12 col-md-12">
+                        <small>Jika ingin mengubah level, pastikan exp dan level sesuai dengan syarat, syarat level 30 memiliki exp 82.600, level 50 memiliki exp 138.600, level 100 memiliki exp 278.600</small>
+                    </div>
                     {{-- Form Level --}}
                     <div class="col-lg-4 col-md-12">
                         <label for="level">Level</label>

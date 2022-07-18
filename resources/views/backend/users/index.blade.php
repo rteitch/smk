@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Users list
+    Manajemen User
 @endsection
 
 @section('dashboard-active')
@@ -151,7 +151,7 @@
                                             href="{{ route('users.edit', [$user->id]) }}"><span
                                                 class="fa fa-edit"></span></a>
                                         <form
-                                            onsubmit="return confirm('Delete this user atas nama {{ $user->name }} permanently?')"
+                                            onsubmit="return confirm('Apakah anda yakin ingin menghapus user atas nama {{ $user->name }} secara permanent?')"
                                             class="d-inline" action="{{ route('users.destroy', [$user->id]) }}"
                                             method="POST">
 

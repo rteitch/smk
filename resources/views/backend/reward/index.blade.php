@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Reward List
+    Manajemen Reward
 @endsection
 
 @section('dashboard-active')

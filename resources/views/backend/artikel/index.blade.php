@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Quest List
+    Manajemen Artikel
 @endsection
 
 @section('dashboard-active')
@@ -24,7 +24,7 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item active"> <a href="{{ route('quest.trash') }}">Manajemen Artikel</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('artikel.index') }}">Manajemen Artikel</a> </li>
                 </ul>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -34,6 +34,21 @@
 @endsection
 
 @section('content')
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    @if (session('status-delete'))
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning">
+                    {{ session('status-delete') }}
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -178,7 +193,8 @@
 
                                             <!-- Trigger the modal with a button -->
                                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                                data-target="#myModal{{ $artikels->id }}"><span class="fa fa-eye"></span>
+                                                data-target="#myModal{{ $artikels->id }}"><span
+                                                    class="fa fa-eye"></span>
                                             </button>
                                             <a href="{{ route('artikel.edit', [$artikels->id]) }}"
                                                 class="btn btn-info btn-sm">

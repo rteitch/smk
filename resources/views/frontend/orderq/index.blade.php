@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Orders list
+    Manajemen Quest Siswa
 @endsection
 
 @section('dashboard-active')

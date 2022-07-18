@@ -313,11 +313,14 @@ class QuestController extends Controller
             $query->where('user_id', '=', \Auth::user()->id);
         })->select('id')->get();
 
+        // $skill_user = \App\Models\Skill::whereHas('user', function($query){
+        //     $query->where('user_id', '=', \Auth::user()->id);
+        // })->select('id')->get();
         // $skill_user = \App\Models\Skill::with('user')->get();
 
         // dd($skill_user);
         // $quest_data = \App\Models\Quest::whereNotIn('id', $quest_user)->get();
-        $quest = \App\Models\Quest::whereNotIn('id', $quest_user)->with('skill')->orderBy('judul', 'asc')->where('status', 'PUBLISH')->paginate(4);
+        $quest = \App\Models\Quest::whereNotIn('id', $quest_user)->with('skill')->orderBy('judul', 'asc')->where('status', 'PUBLISH')->paginate(10);
 
         $user_login = \Auth::user();
         $orderq = \App\Models\OrderQ::with('quest')->where('user_id', \Auth::user()->id)->get();

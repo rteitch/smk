@@ -1,6 +1,6 @@
 @extends('layouts.global')
 @section('title')
-    - Create User
+    Tambah User
 @endsection
 
 @section('dashboard-active')
@@ -256,6 +256,9 @@
                     <br>
                 </div>
 
+                <div class="col-lg-12 col-md-12">
+                    <small>Jika ingin mengubah level, pastikan exp dan level sesuai dengan syarat, syarat level 30 memiliki exp 82.600, level 50 memiliki exp 138.600, level 100 memiliki exp 278.600</small>
+                </div>
                 <div class="form-group col-lg-4 col-md-12">
                     {{-- Form Level --}}
                     <label for="level">Level</label>

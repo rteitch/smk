@@ -24,7 +24,7 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item active"> <a href="{{ route('quest.trash') }}">Manajemen Artikel</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('artikel.index') }}">Manajemen Artikel</a> </li>
                     <li class="breadcrumb-item active"> <a href="{{ route('artikel.edit', [$artikel->id]) }}">Edit Artikel
                             : {{ $artikel->title }}</a> </li>
                 </ul>

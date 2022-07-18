@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Create Category
+    Menambah Artikel
 @endsection
 
 @section('dashboard-active')
@@ -20,11 +20,11 @@
     <div class="block-header">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <h2>Manajemen Artikel</h2>
+                <h2>Menambah Artikel</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
                     <li class="breadcrumb-item">Dashboard</li>
-                    <li class="breadcrumb-item active"> <a href="{{ route('quest.trash') }}">Manajemen Artikel</a> </li>
+                    <li class="breadcrumb-item active"> <a href="{{ route('artikel.index') }}">Manajemen Artikel</a> </li>
                     <li class="breadcrumb-item active"> <a href="{{ route('artikel.create') }}">Tambah Artikel</a> </li>
                 </ul>
             </div>

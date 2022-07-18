@@ -1,7 +1,7 @@
 @extends('layouts.global')
 
 @section('title')
-    Edit order Quest
+    Ubah Status Quest Siswa
 @endsection
 
 
