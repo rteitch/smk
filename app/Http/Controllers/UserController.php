@@ -90,8 +90,8 @@ class UserController extends Controller
             "alamat" => "required|min:1|max:300",
             "roles" => "required",
             "level" => "required|digits_between:0,100",
-            // "skor" => "required",
-            // "exp" => "required",
+            "skor" => "required",
+            "exp" => "required",
             "avatar" => "mimes:jpeg,jpg,png",
             "background" => "mimes:jpeg,jpg,png",
             // "jobclass" => "required"
