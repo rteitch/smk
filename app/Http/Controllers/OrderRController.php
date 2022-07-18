@@ -120,7 +120,7 @@ class OrderRController extends Controller
         if ($user_lama->skor < $syarat_skor) {
             return redirect()->route('reward.published')->with('info', 'Anda tidak diizinkan menukar reward, skor tidak cukup');
         } else {
-            $tukar_reward->status = 'PROCESS';
+            $tukar_reward->status = 'PROSES';
             $tukar_reward->save();
             $tukar_reward->reward()->attach($id);
             return redirect()->route('reward.published')->with('status', 'Berhasil menukar Reward, reward sedang di proses');
