@@ -111,6 +111,9 @@ class OrderQController extends Controller
             $total_skor = $user_lama->skor = $tambah_skor;
             //logika update level ketika exp bertambah level dalam ga web max adalah 99
             switch ($total_exp) {
+                case $total_exp == 0:
+                    $user_lama->level = 1;
+                    break;
                 case ($total_exp - 0) <= 700:
                     $user_lama->level = 1;
                     break;
@@ -509,6 +512,9 @@ class OrderQController extends Controller
                 $hitung_exp = $exp_lama + $quest_exp;
                 //logika update level ketika exp bertambah level dalam ga web max adalah 99
                 switch ($hitung_exp) {
+                    case $hitung_exp == 0:
+                        $user_login->level = 1;
+                        break;
                     case ($hitung_exp - 0) <= 700:
                         $user_login->level = 1;
                         break;
