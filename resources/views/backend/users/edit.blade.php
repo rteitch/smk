@@ -133,7 +133,7 @@
 
                 {{-- Form Username --}}
                 <div class="col-lg-6 col-md-12">
-                    <label for="username">Username</label>
+                    <label for="username">Username <small class="text-danger">*tidak bisa diubah</small></label>
                     <input value="{{ $user->username }}" disabled
                         class="form-control" placeholder="username"
                         type="text" name="username" id="username" />
@@ -142,7 +142,7 @@
 
                 {{-- Form Email --}}
                 <div class="col-lg-6 col-md-12">
-                    <label for="email">Email</label>
+                    <label for="email">Email <small class="text-danger">*tidak bisa diubah</small></label>
                     <input value="{{ $user->email }}" disabled
                         class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}"
                         placeholder="user@mail.com" type="text" name="email" id="email" />
