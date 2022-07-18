@@ -113,7 +113,7 @@
                         <br>
 
                         <div class="">
-                            <label for="image">Image Utama</label>
+                            <label for="image">Image Utama <small class="btn-danger">*Upload image ukuran kurang dari 1mb</small></label>
                             <input type="file" class="form-control" name="image">
                             <small class="text-muted">Kosongkan jika tidak ingin mengubah image</small>
                             <br><br>
