@@ -122,7 +122,7 @@
     @else
     @endif
 
-    <div>
+    <div style="overflow-x:auto;">
         <table class="table table-border">
             <tr>
                 <td>

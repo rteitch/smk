@@ -97,7 +97,8 @@
                                                             Class</a>
                                                     </li>
                                                 @endif
-                                                @if (json_decode(\Auth::user()->roles) == array_intersect([0]) || json_decode(\Auth::user()->roles) == array_intersect([1]))
+                                                @if (json_decode(\Auth::user()->roles) == array_intersect([0]) ||
+                                                    json_decode(\Auth::user()->roles) == array_intersect([1]))
                                                     <li class="menu-item @yield('dash-skill-active')"><a
                                                             href="{{ route('skill.index') }}">Manajemen Skill</a>
                                                     </li>
@@ -258,7 +259,7 @@
         $.getJSON(staticUrl, function(data) {
 
             document.getElementById("jumlahnotifikasi").innerHTML = data.length;
-            for (i = 0; i < 4; i = i + 1) {
+            for (i = 0; i < data.length; i = i + 1) {
                 const header = document.querySelector('.isi-notifikasi');
                 const myDiv1 = document.createElement('a');
                 var options = {
@@ -267,7 +268,9 @@
                     month: 'long',
                     day: 'numeric'
                 };
+
                 //parse date json ke format en-US
+
                 const json = JSON.stringify(data[i].created_at);
                 const date = new Date(JSON.parse(json));
                 const date_format = date.toLocaleDateString("en-US", options);

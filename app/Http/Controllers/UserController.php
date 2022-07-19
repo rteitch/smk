@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Auth;
-use DataTables;
-use Yajra\DataTables\Contracts\DataTable;
+// use DataTables;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
@@ -404,10 +404,22 @@ class UserController extends Controller
     public function getLeaderboard()
     {
         $status_db = json_encode(['2']);
-        $user_leaderboard = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status', 'skor')->where('roles', "LIKE", "%$status_db%")->orderBy('skor', 'desc')->get();
+        $user_leaderboard = \App\Models\User::select('name', 'avatar', 'level', 'status', 'skor')->where('roles', "LIKE", "%$status_db%")->orderBy('skor', 'desc')->get();
         return DataTables::of($user_leaderboard)->addColumn('avatar_url', function ($data) {
             return '<img src="storage/' . $data->avatar . '" width="40px" height="40px" class="rounded-circle"/>';
-        })->addIndexColumn()->rawColumns(['avatar_url'])->toJson();
+        })->addIndexColumn()->rawColumns(['avatar_url'])->filter(function ($query) {
+            if (request()->has('name')) {
+                $query->where('name', 'like', "%" . request('name') . "%");
+            }
+
+            if (request()->has('level')) {
+                $query->where('level', 'like', "%" . request('level') . "%");
+            }
+
+            if (request()->has('skor')) {
+                $query->where('skor', 'like', "%" . request('skor') . "%");
+            }
+        }, true)->toJson();
     }
 
     public function leaderboard()

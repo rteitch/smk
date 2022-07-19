@@ -98,22 +98,25 @@
     <script>
         let currentLocation = window.location.search;
         $('#table_id_anggota').DataTable({
+            searching: true,
             responsive: true,
             rowReorder: {
                 dataSrc: 0,
                 snapX: true,
                 enable: true
             },
-            "processing": true,
-            "serverSide": true,
-            "ajax": '{{ url('get-anggota') }}' + currentLocation,
-            "columns": [{
+            // processing: true,
+            serverSide: true,
+            ajax: '{{ url('get-anggota') }}' + currentLocation,
+            columns: [{
                     data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
+                    name: 'DT_RowIndex',
+                    "searchable": false
                 },
                 {
                     data: 'avatar_url',
                     name: 'avatar_url',
+                    "searchable": false
                 },
                 {
                     data: 'name',

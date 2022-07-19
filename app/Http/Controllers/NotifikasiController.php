@@ -230,14 +230,14 @@ class NotifikasiController extends Controller
         $user = \App\Models\User::select('id', 'name');
         if ($user_roles == $PengajarKode) {
             $user_roles_verif = 'PENGAJAR';
-            $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->get();
+            $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->orderBy('created_at', 'DESC')->limit(4)->get();
             return Response::json($notifikasi);
         } elseif ($user_roles == $SiswaKode) {
             $user_roles_verif = 'SISWA';
-            $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->get();
+            $notifikasi = \App\Models\Notifikasi::where('jenis_roles', $user_roles_verif)->orderBy('created_at', 'DESC')->limit(4)->get();
             return Response::json($notifikasi);
         } else {
-            $notifikasi = \App\Models\Notifikasi::get();
+            $notifikasi = \App\Models\Notifikasi::orderBy('created_at', 'DESC')->limit(4)->get();
             return Response::json($notifikasi);
         }
     }

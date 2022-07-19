@@ -74,6 +74,7 @@
                             <tr>
                                 <th>#</th>
                                 <th class="scope">Pengirim</th>
+                                <th class="scope">Tanggal</th>
                                 <th class="scope">Judul</th>
                                 <th class="col">Pesan</th>
                             </tr>
@@ -83,6 +84,7 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $user->where('id', $notif->created_by)->first()->name }} </td>
+                                    <td><small>{{ $notif->created_at }}</small></td>
                                     <td>{{ $notif->title }} </td>
                                     <td>{{ $notif->pesan }} </td>
                                 </tr>
