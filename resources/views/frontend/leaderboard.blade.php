@@ -84,7 +84,7 @@
 
     <script>
         $('#table_id_anggota').DataTable({
-            searching: true,
+            searching: false,
             responsive: true,
             rowReorder: {
                 dataSrc: 0,
