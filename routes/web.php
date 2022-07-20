@@ -49,6 +49,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('backend.home');
 
         //Route User
+
+        Route::get('/user/export_excel', [App\Http\Controllers\UserController::class, 'export_excel']);
+        Route::post('/user/import_excel', [App\Http\Controllers\UserController::class, 'import_excel']);
         Route::get('/anggota', [UserController::class, 'anggota'])->name('frontend.anggota');
         Route::get('/get-anggota', [UserController::class, 'getAnggota'])->name('user.anggota');
         Route::get('/get-leaderboard', [UserController::class, 'getLeaderboard'])->name('user.leaderboard');

@@ -88,9 +88,9 @@
                     @foreach ($orderq as $order)
                         @foreach ($order->quest as $quests)
                             <small class="text-muted" id="judul_file2"></small>
-                            <br>
                             <!-- Modal -->
                             <div id="myModal{{ $order->id }}" class="modal fade" role="dialog">
+                                <br>
                                 <div class="modal-dialog modal-lg">
 
                                     <!-- Modal content-->

@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Auth;
+use Session;
+use App\Models\User;
+use App\Exports\ExportUsers;
+use App\Imports\ImportUsers;
+use Maatwebsite\Excel\Facades\Excel;
 // use DataTables;
 use Yajra\DataTables\DataTables;
 
@@ -463,5 +468,36 @@ class UserController extends Controller
     // public function tampilanDummy(){
     //     return view('dumy');
     // }
+
+    public function export_excel()
+    {
+        return Excel::download(new ExportUsers, 'user.xlsx');
+    }
+
+    public function import_excel(Request $request)
+    {
+        // validasi
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        // menangkap file excel
+        $file = $request->file('file');
+
+        // membuat nama file unik
+        $nama_file = rand() . $file->getClientOriginalName();
+
+        // upload ke folder file_user di dalam folder public
+        $file->move('file_user', $nama_file);
+
+        // import data
+        Excel::import(new ImportUsers, public_path('/file_user/' . $nama_file));
+
+        // notifikasi dengan session
+        Session::flash('sukses', 'Data User Berhasil Diimport!');
+
+        // alihkan halaman kembali
+        return redirect('/users');
+    }
 
 }

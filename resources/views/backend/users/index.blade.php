@@ -39,6 +39,23 @@
             {{ session('status') }}
         </div>
     @endif
+    {{-- notifikasi form validasi --}}
+    @if ($errors->has('file'))
+        <span class="invalid-feedback" role="alert">
+            {{-- <strong>{{ $errors->first('file') }}</strong> --}}
+            @foreach ($errors->all() as $error)
+                {{ $error }}
+            @endforeach
+        </span>
+    @endif
+    {{-- notifikasi sukses --}}
+    @if ($sukses = Session::get('sukses'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $sukses }}</strong>
+        </div>
+    @endif
+
     <div class="container col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="card">
             <div class="card-body">
@@ -96,9 +113,40 @@
                     <hr class="my-3">
                 </div>
                 <div class="row">
-                    <div class="col-md-12 text-right mb-2">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary"> <span class="fa fa-plus"> Tambah
-                                user</span> </a>
+                    <div class="col-md-12 mb-2">
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#importExcel">
+                            <i class="fa fa-file"> </i> IMPORT EXCEL
+                        </button>
+                        <!-- Import Excel -->
+                        <div class="modal fade" id="importExcel" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <form method="post" action="/user/import_excel" enctype="multipart/form-data">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            {{ csrf_field() }}
+
+                                            <label>Pilih file excel</label>
+                                            <div class="form-group">
+                                                <input type="file" name="file" required="required">
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Import</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <a href="/user/export_excel" class="btn btn-success my-3" target="_blank"> <i class="fa fa-download"></i> EXPORT EXCEL</a>
+                        <a href="{{ route('users.create') }}" class="btn btn-primary"> <i class="fa fa-plus"> TAMBAH USER</i> </a>
                     </div>
                     <hr class="my-3">
                 </div>
