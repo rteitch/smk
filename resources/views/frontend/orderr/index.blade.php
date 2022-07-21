@@ -42,7 +42,7 @@
                     <div class="col-lg-6 col-md-12">
                         <input value="{{ Request::get('name') }}" name="name" type="text" class="form-control"
                             placeholder="Search by siswa name">
-                            <br>
+                        <br>
                     </div>
                     <div class="col-lg-3 col-md-12">
                         <select name="status" class="form-control" id="status">
@@ -96,8 +96,14 @@
                                         {{ $order->user->phone }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('orderr.edit', [$order->id]) }}" class="btn btn-info btn-sm">
+                                        <a href="{{ route('orderr.edit', [$order->id]) }}" class="btn btn-info btn-sm"> <i
+                                                class="fa fa-edit"></i>
                                             Edit Status</a>
+
+                                        <a class="btn btn-primary text-white" style="cursor:pointer"
+                                            onclick="window.open('{{ route('orderr.cetakInvoice', [$order->id]) }}','nama window','width=1000,height=500,toolbar=no,location=no,directories=no,status=yes,menubar=no, scrollbars=no,resizable=yes,copyhistory=no')"><i
+                                                class="fa fa-eye"></i> View
+                                            Invoice</a>
                                     </td>
                                 </tr>
                             @endforeach

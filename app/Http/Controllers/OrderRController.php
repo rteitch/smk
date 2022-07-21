@@ -116,6 +116,8 @@ class OrderRController extends Controller
         // dd($quest->orderq());
         $user_lama = Auth::user();
         $tukar_reward->user_id = $user_lama->id;
+        $RewardCode = uniqid();
+        $tukar_reward->reward_code = substr(md5($RewardCode), 7, 7);
         $syarat_skor = $reward->syarat_skor;
         if ($user_lama->skor < $syarat_skor) {
             return redirect()->route('reward.published')->with('info', 'Anda tidak diizinkan menukar reward, skor tidak cukup');
@@ -142,5 +144,13 @@ class OrderRController extends Controller
         $reward = \App\Models\Reward::select('id', 'title', 'deskripsi', 'syarat_skor', 'image', 'pembuat', 'status')->get();
 
         return view('frontend.orderr.siswa', compact('orderr', 'reward', 'user'));
+    }
+
+    public function cetakInvoice(Request $request, $id){
+        // $user = \App\Models\User::with('orderr')->select('name', 'id', 'phone')->get();
+        $orderr = \App\Models\OrderR::with('user')->findOrFail($id);
+        $reward = \App\Models\Reward::select('id', 'title', 'deskripsi', 'syarat_skor', 'image', 'pembuat', 'status')->get();
+
+        return view('frontend.orderr.cetak-invoice-reward', compact('orderr','reward'));
     }
 }

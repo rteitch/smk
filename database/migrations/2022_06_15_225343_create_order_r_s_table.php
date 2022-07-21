@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('order_r_s', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('reward_code');
             $table->enum('status', ['PROSES', 'DITERIMA']);
             $table->timestamps();
 

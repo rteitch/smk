@@ -128,7 +128,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         //Route reward
 
         Route::get('/reward/published', [RewardController::class, 'published'])->name('reward.published');
-
         Route::get('/reward/trash', [RewardController::class, 'trash'])->name('reward.trash');
         Route::post('/reward/{reward}/restore', [RewardController::class, 'restore'])->name('reward.restore');
         Route::delete('/reward/{reward}/delete-permanent', [RewardController::class, 'deletePermanent'])->name('reward.delete-permanent');
@@ -136,6 +135,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         //Route OrderR
 
+        Route::get('/reward/siswa/{id}/cetak-invoice-reward', [OrderRController::class, 'cetakInvoice'])->name('orderr.cetakInvoice');
         Route::get('/reward/siswa/{id}/order', [OrderRController::class, 'siswa'])->name('orderr.siswa');
         Route::post('/reward/published/orderr/{id}/tukar', [OrderRController::class, 'tukarOrderReward'])->name('orderr.tukarOrderReward');
         Route::resource('orderr', OrderRController::class);

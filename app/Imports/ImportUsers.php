@@ -62,27 +62,5 @@ class ImportUsers implements ToModel, WithHeadingRow, WithCalculatedFormulas
     //         'email' => 'unique:users,email'
     //     ];
     // }
-    public function headings(): array
-    {
-        return [
-            'No',
-            'name',
-            'email',
-            'password',
-            'username',
-            'roles',
-            'alamat',
-            'nomor_induk',
-            'phone',
-            'tempat_lahir',
-            'tanggal_lahir',
-            'level',
-            'skor',
-            'exp',
-            'gender',
-            'avatar',
-            'background',
-            'status',
-        ];
-    }
+    
 }
