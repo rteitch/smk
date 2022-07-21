@@ -72,8 +72,8 @@
             </form>
             <hr class="my-3">
 
-            <div class="table table-stripped table-bordered">
-                <table>
+            <div class="table-responsive">
+                <table class="table table-stripped table-bordered">
                     <thead>
                         <tr>
                             <th class="scope">#</th>
