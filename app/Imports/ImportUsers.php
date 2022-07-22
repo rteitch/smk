@@ -30,7 +30,7 @@ class ImportUsers implements ToModel, WithHeadingRow, WithCalculatedFormulas
                 'email' => $row['email'],
                 'password' => \Hash::make('password'),
                 'username' => $row['username'],
-                'roles' => json_encode([$row['roles']]),
+                'roles' => $row['roles'],
                 'alamat' => $row['alamat'],
                 'nomor_induk' => $row['nomor_induk'],
                 'phone' => $row['phone'],
@@ -62,5 +62,5 @@ class ImportUsers implements ToModel, WithHeadingRow, WithCalculatedFormulas
     //         'email' => 'unique:users,email'
     //     ];
     // }
-    
+
 }
