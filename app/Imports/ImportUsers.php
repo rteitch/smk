@@ -28,7 +28,7 @@ class ImportUsers implements ToModel, WithHeadingRow, WithCalculatedFormulas
             return new User([
                 'name' => $row['name'],
                 'email' => $row['email'],
-                'password' => \Hash::make('password'),
+                'password' => \Hash::make($row['password']),
                 'username' => $row['username'],
                 'roles' => $row['roles'],
                 'alamat' => $row['alamat'],
