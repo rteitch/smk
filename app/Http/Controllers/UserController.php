@@ -184,7 +184,7 @@ class UserController extends Controller
             // otoritas admin & pengajar
         } elseif ($user == $adminPengajarKode) {
             Gate::allows('isPengajardanAdmin');
-            if ($userAuthRoles == $adminPengajarKode) {
+            if ($userAuthRoles == $adminPengajarKode or $userAuthRoles == $adminKode) {
                 return view('backend.users.edit', ['user' => $userDB]);
             } else {
                 return view('errors.403');
