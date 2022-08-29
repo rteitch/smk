@@ -172,6 +172,7 @@ class UserController extends Controller
         $adminKode = array_intersect(['0']);
         $PengajarKode = array_intersect(['1']);
         $SiswaKode = array_intersect(['2']);
+        $adminPengajarKode = array_intersect(['0', '1']);
         //jika data user id role = role kode
         if ($user == $adminKode) {
             Gate::allows('isAdmin');
@@ -180,8 +181,17 @@ class UserController extends Controller
             } else {
                 return view('errors.403');
             }
-            // otoritas pengajar
-        } elseif ($user == $PengajarKode) {
+            // otoritas admin & pengajar
+        } elseif ($user == $adminPengajarKode) {
+            Gate::allows('isPengajardanAdmin');
+            if ($userAuthRoles == $adminPengajarKode) {
+                return view('backend.users.edit', ['user' => $userDB]);
+            } else {
+                return view('errors.403');
+            }
+        }
+        // otoritas pengajar
+        elseif ($user == $PengajarKode) {
             Gate::allows('isPengajar');
             if ($userAuthRoles == $PengajarKode && $userDB->id == Auth::user()->id) {
                 return view('backend.users.edit', ['user' => $userDB]);
@@ -499,5 +509,4 @@ class UserController extends Controller
         // alihkan halaman kembali
         return redirect('/users');
     }
-
 }
