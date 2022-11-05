@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <style>
         td {
             word-break: break-all !important;
@@ -66,11 +66,43 @@
                                 <th>No</th>
                                 <th>Avatar</th>
                                 <th>Nama</th>
+                                <th>Roles</th>
                                 <th>Status</th>
                                 <th>Level</th>
+                                {{-- <th hidden>Roles</th> --}}
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($users as $index => $user)
+                                @if ($user->roles != json_encode(['0']))
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>
+                                            @if ($user->avatar)
+                                                <img src="{{ asset('storage/' . $user->avatar) }}"
+                                                    alt="avatar_{{ $user->name }}" width="40px" height="40px"
+                                                    class="rounded-circle">
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->roles }}</td>
+                                        <td>
+                                            @if ($user->status == 'on')
+                                                <span class="badge badge-success p-2">
+                                                    {{ $user->status }}
+                                                </span>
+                                            @else
+                                                <span class="badge badge-danger p-2">
+                                                    {{ $user->status }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $user->level }}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -79,7 +111,9 @@
     </div>
 @endsection
 @section('footer-scripts')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    {{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -92,45 +126,12 @@
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
     <link href="https://cdn.datatables.net/rowreorder/1.2.6/css/rowReorder.dataTables.css" rel="stylesheet"
         type="text/css" />
-    <script src="https://cdn.datatables.net/rowreorder/1.2.6/js/dataTables.rowReorder.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.2.6/js/dataTables.rowReorder.js"></script> --}}
 
 
     <script>
-        let currentLocation = window.location.search;
         $('#table_id_anggota').DataTable({
-            searching: true,
-            responsive: true,
-            rowReorder: {
-                dataSrc: 0,
-                snapX: true,
-                enable: true
-            },
-            // processing: true,
-            serverSide: true,
-            ajax: '{{ url('get-anggota') }}' + currentLocation,
-            columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex',
-                    "searchable": false
-                },
-                {
-                    data: 'avatar_url',
-                    name: 'avatar_url',
-                    "searchable": false
-                },
-                {
-                    data: 'name',
-                    name: 'name',
-                },
-                {
-                    data: 'status',
-                    name: 'status',
-                },
-                {
-                    data: 'level',
-                    name: 'level',
-                }
-            ]
+
         });
     </script>
 @endsection

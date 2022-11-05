@@ -92,6 +92,8 @@
                                                 @if (json_decode(\Auth::user()->roles) == array_intersect([0]))
                                                     <li class="menu-item @yield('dash-user-active')"><a
                                                             href="{{ route('users.index') }}">Manajemen User</a></li>
+                                                    <li class="menu-item @yield('dash-statistik-active')"><a
+                                                            href="{{ route('user.statistik') }}">Statistik</a></li>
                                                     <li class="menu-item @yield('dash-jobclass-active')"><a
                                                             href="{{ route('jobclass.index') }}">Manajemen Job
                                                             Class</a>

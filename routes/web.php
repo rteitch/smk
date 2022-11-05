@@ -54,12 +54,14 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::post('/user/import_excel', [App\Http\Controllers\UserController::class, 'import_excel']);
         Route::get('/anggota', [UserController::class, 'anggota'])->name('frontend.anggota');
         Route::get('/get-anggota', [UserController::class, 'getAnggota'])->name('user.anggota');
-        Route::get('/get-leaderboard', [UserController::class, 'getLeaderboard'])->name('user.leaderboard');
+        // Route::get('/get-leaderboard', [UserController::class, 'getLeaderboard'])->name('user.leaderboard');
+        Route::get('/get-user', [UserController::class, 'getUser'])->name('user.index');
         Route::get('/leaderboard', [UserController::class, 'leaderboard'])->name('user.leaderboard');
         Route::post('/jobclass/published/{id}/batal', [UserController::class, 'hapusUserJobClass'])->name('user.hapusUserJobClass');
         Route::post('/quest/published/{id}/tambah', [UserController::class, 'tambahOrderQuest'])->name('user.tambahOrderQuest');
         Route::post('/jobclass/published/{id}/tambah', [UserController::class, 'tambahJobClass'])->name('user.tambahJobClass');
         Route::post('/skill/published/{id}/tambah', [UserController::class, 'tambahSkill'])->name('user.tambahSkill');
+        Route::get('/statistik', [UserController::class, 'statistik'])->name('user.statistik');
         Route::resource('users', UserController::class);
 
         //Route Job Class

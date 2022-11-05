@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Gate;
 use Auth;
 use Session;
 use App\Models\User;
+use View;
 use App\Exports\ExportUsers;
 use App\Imports\ImportUsers;
 use Maatwebsite\Excel\Facades\Excel;
@@ -35,24 +36,43 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if (Gate::allows('isAdmin')) {
-            $users = \App\Models\User::orderBy('name', 'asc')->paginate(10);
-            $optionFilter = $request->get('optionFilter');
-            $filterKeyword = $request->get('keyword');
+            $users = \App\Models\User::query();
+            // $optionFilter = $request->get('optionFilter');
+            // $filterKeyword = $request->get('keyword');
             // dd($filterKeyword);
-            $status = $request->get('status');
+            // $status = $request->get('status');
 
-            if ($filterKeyword) {
-                if ($status && $optionFilter) {
-                    $users = \App\Models\User::where("$optionFilter", 'LIKE', "%$filterKeyword%")
-                        ->where('status', $status)
-                        ->paginate(10);
-                } else {
-                    $users = \App\Models\User::where("$optionFilter", 'LIKE', "%$filterKeyword%")
-                        ->paginate(10);
-                }
-            }
+            // if ($filterKeyword) {
+            //     if ($status && $optionFilter) {
+            //         $users->where("$optionFilter", 'LIKE', "%$filterKeyword%")
+            //             ->where('status', $status);
+            //     } else {
+            //         $users->where("$optionFilter", 'LIKE', "%$filterKeyword%");
+            //     }
+            // }
 
-            return view('backend.users.index', ['users' => $users]);
+            $users = $users->with('jobclass')->orderBy('name', 'asc')->select(
+                'id',
+                'name',
+                'email',
+                'username',
+                'roles',
+                'alamat',
+                'nomor_induk',
+                'phone',
+                'tempat_lahir',
+                'tanggal_lahir',
+                'level',
+                'skor',
+                'exp',
+                'gender',
+                'avatar',
+                'background',
+                'status',
+            )->get();
+
+            return View::make('backend.users.index', compact('users'));
+            // return view('backend.users.index', ['users' => $users]);
         } else {
             return view('errors.403');
         }
@@ -437,9 +457,27 @@ class UserController extends Controller
         }, true)->toJson();
     }
 
+    // public function getUser(){
+
+    // }
+
     public function leaderboard()
     {
-        return view('frontend.leaderboard');
+        $users = \App\Models\User::query();
+        $users = $users->orderBy('skor', 'desc')->select(
+            'name',
+            'avatar',
+            'level',
+            'skor',
+            'status',
+        )->get();
+
+        return View::make('frontend.leaderboard', compact('users'));
+    }
+
+    public function statistik()
+    {
+        return view('frontend.statistik.index');
     }
 
     public function anggota(Request $request)
@@ -451,29 +489,50 @@ class UserController extends Controller
         // $PengajarKode = array_intersect(['1']);
         // $SiswaKode = array_intersect(['2']);
 
-        return view('frontend.anggota');
-    }
-
-    public function getAnggota(Request $request)
-    {
-
+        $users = \App\Models\User::query();
         $status = $request->get('status');
         if ($status == "PENGAJAR") {
             $status_db = json_encode(['1']);
-            $user = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status')->where('roles', "LIKE", "%$status_db%")->get();
+            $users = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status', 'roles')->where('roles', "LIKE", "%$status_db%");
         } elseif ($status == "SISWA") {
             $status_db = json_encode(['2']);
-            $user = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status')->where('roles', "LIKE", "%$status_db%")->get();
+            $users = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status', 'roles')->where('roles', "LIKE", "%$status_db%");
         } else {
-            $status_db1 = json_encode(['1']);
-            $status_db2 = json_encode(['2']);
-            $user = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status')->where('roles', "LIKE", "%$status_db1%")->orWhere('roles', "LIKE", "%$status_db2%")->get();
+            // $status_db1 = json_encode(['1']);
+            // $status_db2 = json_encode(['2']);
+            $users = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status', 'roles');
         }
+        $users = $users->orderBy('name', 'asc')->get();
 
-        return DataTables::of($user)->addColumn('avatar_url', function ($data) {
-            return '<img src="storage/' . $data->avatar . '" width="40px" height="40px" class="rounded-circle"/>';
-        })->addIndexColumn()->rawColumns(['avatar_url'])->toJson();
+        return View::make('frontend.anggota', compact('users'));
+
+
+        // return view('frontend.anggota');
     }
+
+    // public function getAnggota(Request $request)
+    // {
+
+    //     $users = \App\Models\User::query();
+    //     $status = $request->get('status');
+    //     if ($status == "PENGAJAR") {
+    //         $status_db = json_encode(['1']);
+    //         $users = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status')->where('roles', "LIKE", "%$status_db%");
+    //     } elseif ($status == "SISWA") {
+    //         $status_db = json_encode(['2']);
+    //         $users = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status')->where('roles', "LIKE", "%$status_db%");
+    //     } else {
+    //         $status_db1 = json_encode(['1']);
+    //         $status_db2 = json_encode(['2']);
+    //         $users = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status')->where('roles', "LIKE", "%$status_db1%")->orWhere('roles', "LIKE", "%$status_db2%");
+    //     }
+    //     $user = $users->orderBy('name', 'asc')->get();
+
+    //     return View::make('frontend.anggota', compact('user'));
+    //     return DataTables::of($user)->addColumn('avatar_url', function ($data) {
+    //         return '<img src="storage/' . $data->avatar . '" width="40px" height="40px" class="rounded-circle"/>';
+    //     })->addIndexColumn()->rawColumns(['avatar_url'])->toJson();
+    // }
 
     // public function tampilanDummy(){
     //     return view('dumy');
