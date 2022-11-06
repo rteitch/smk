@@ -74,7 +74,6 @@
                         </thead>
                         <tbody>
                             @foreach ($users as $index => $user)
-                                @if ($user->roles != json_encode(['0']))
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>
@@ -87,7 +86,13 @@
                                             @endif
                                         </td>
                                         <td>{{ $user->name }}</td>
-                                        <td>{{ $user->roles }}</td>
+                                        <td>
+                                            @if ($user->roles == json_encode(['1']))
+                                                Pengajar
+                                            @elseif ($user->roles == json_encode(['2']))
+                                                Siswa
+                                            @endif
+                                        </td>
                                         <td>
                                             @if ($user->status == 'on')
                                                 <span class="badge badge-success p-2">
@@ -101,7 +106,6 @@
                                         </td>
                                         <td>{{ $user->level }}</td>
                                     </tr>
-                                @endif
                             @endforeach
                         </tbody>
                     </table>

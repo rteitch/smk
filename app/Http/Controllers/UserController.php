@@ -436,26 +436,26 @@ class UserController extends Controller
         return redirect()->route('jobclass.published', \Auth::user()->id)->with('status', 'JobClass berhasil dibatalkan');
     }
 
-    public function getLeaderboard()
-    {
-        $status_db = json_encode(['2']);
-        $user_leaderboard = \App\Models\User::select('name', 'avatar', 'level', 'status', 'skor')->where('roles', "LIKE", "%$status_db%")->orderBy('skor', 'desc')->get();
-        return DataTables::of($user_leaderboard)->addColumn('avatar_url', function ($data) {
-            return '<img src="storage/' . $data->avatar . '" width="40px" height="40px" class="rounded-circle"/>';
-        })->addIndexColumn()->rawColumns(['avatar_url'])->filter(function ($query) {
-            if (request()->has('name')) {
-                $query->where('name', 'like', "%" . request('name') . "%");
-            }
+    // public function getLeaderboard()
+    // {
+    //     $status_db = json_encode(['2']);
+    //     $user_leaderboard = \App\Models\User::select('name', 'avatar', 'level', 'status', 'skor')->where('roles', "LIKE", "%$status_db%")->orderBy('skor', 'desc')->get();
+    //     return DataTables::of($user_leaderboard)->addColumn('avatar_url', function ($data) {
+    //         return '<img src="storage/' . $data->avatar . '" width="40px" height="40px" class="rounded-circle"/>';
+    //     })->addIndexColumn()->rawColumns(['avatar_url'])->filter(function ($query) {
+    //         if (request()->has('name')) {
+    //             $query->where('name', 'like', "%" . request('name') . "%");
+    //         }
 
-            if (request()->has('level')) {
-                $query->where('level', 'like', "%" . request('level') . "%");
-            }
+    //         if (request()->has('level')) {
+    //             $query->where('level', 'like', "%" . request('level') . "%");
+    //         }
 
-            if (request()->has('skor')) {
-                $query->where('skor', 'like', "%" . request('skor') . "%");
-            }
-        }, true)->toJson();
-    }
+    //         if (request()->has('skor')) {
+    //             $query->where('skor', 'like', "%" . request('skor') . "%");
+    //         }
+    //     }, true)->toJson();
+    // }
 
     // public function getUser(){
 
@@ -470,7 +470,8 @@ class UserController extends Controller
             'level',
             'skor',
             'status',
-        )->get();
+            'roles',
+        )->where('roles', json_encode(["2"]))->get();
 
         return View::make('frontend.leaderboard', compact('users'));
     }
@@ -500,7 +501,7 @@ class UserController extends Controller
         } else {
             // $status_db1 = json_encode(['1']);
             // $status_db2 = json_encode(['2']);
-            $users = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status', 'roles');
+            $users = \App\Models\User::select('id', 'name', 'avatar', 'level', 'status', 'roles')->where('roles', json_encode(["1"]))->orWhere('roles', json_encode(["2"]));
         }
         $users = $users->orderBy('name', 'asc')->get();
 

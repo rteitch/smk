@@ -65,11 +65,12 @@
                         <tbody>
                             @foreach ($users as $index => $user)
                                 <tr>
-                                    <td>{{ $index +1 }}</td>
+                                    <td>{{ $index + 1 }}</td>
                                     <td>
                                         @if ($user->avatar)
                                             <img src="{{ asset('storage/' . $user->avatar) }}"
-                                                alt="avatar_{{ $user->name }}" width="40px" height="40px" class="rounded-circle">
+                                                alt="avatar_{{ $user->name }}" width="40px" height="40px"
+                                                class="rounded-circle">
                                         @else
                                             N/A
                                         @endif
