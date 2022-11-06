@@ -362,9 +362,6 @@
                 serverSide: true,
                 responsive: true,
                 ordering: false,
-                processing: true,
-                ajax: 'scripts/server_processing.php',
-                deferLoading: 57,
                 // autoWidth: false,
                 buttons: [{
                     extend: 'excelHtml5',
