@@ -55,6 +55,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('/anggota', [UserController::class, 'anggota'])->name('frontend.anggota');
         Route::get('/get-anggota', [UserController::class, 'getAnggota'])->name('user.anggota');
         // Route::get('/get-leaderboard', [UserController::class, 'getLeaderboard'])->name('user.leaderboard');
+        // Route::get('/get-userjson', [UserController::class, 'getUserJson'])->name('user.getUserJson');
         Route::get('/get-user', [UserController::class, 'getUser'])->name('user.index');
         Route::get('/leaderboard', [UserController::class, 'leaderboard'])->name('user.leaderboard');
         Route::post('/jobclass/published/{id}/batal', [UserController::class, 'hapusUserJobClass'])->name('user.hapusUserJobClass');

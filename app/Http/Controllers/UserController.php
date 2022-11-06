@@ -13,6 +13,9 @@ use View;
 use App\Exports\ExportUsers;
 use App\Imports\ImportUsers;
 use Maatwebsite\Excel\Facades\Excel;
+
+use Facade\FlareClient\Http\Response;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 // use DataTables;
 use Yajra\DataTables\DataTables;
 
@@ -435,6 +438,31 @@ class UserController extends Controller
 
         return redirect()->route('jobclass.published', \Auth::user()->id)->with('status', 'JobClass berhasil dibatalkan');
     }
+
+    // public function getUserJson()
+    // {
+    //     $users = \App\Models\User::query();
+    //     $users = $users->with('jobclass')->orderBy('name', 'asc')->select(
+    //         'id',
+    //         'name',
+    //         'email',
+    //         'username',
+    //         'roles',
+    //         'alamat',
+    //         'nomor_induk',
+    //         'phone',
+    //         'tempat_lahir',
+    //         'tanggal_lahir',
+    //         'level',
+    //         'skor',
+    //         'exp',
+    //         'gender',
+    //         'avatar',
+    //         'background',
+    //         'status',
+    //     )->get();
+    //     return response()->json($users, HttpFoundationResponse::HTTP_CREATED);
+    // }
 
     // public function getLeaderboard()
     // {
