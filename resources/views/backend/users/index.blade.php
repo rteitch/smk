@@ -33,9 +33,6 @@
     </div>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
-    <style>
-
-    </style>
 @endsection
 
 @section('content')
@@ -357,8 +354,6 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-
 
     <script>
         $(document).ready(function() {
@@ -367,7 +362,6 @@
                 ServerSide: true,
                 responsive: true,
                 ordering: false,
-
                 // autoWidth: false,
                 buttons: [{
                     extend: 'excelHtml5',
@@ -375,17 +369,7 @@
                     sheetName: 'Exported data',
                     text: ' <span class="fa fa-download"></span> Export Excel By Filter',
                     // className : 'btn btn-primary text-white'
-                }],
-
-                // scrollY: "600px",
-                scrollX: true,
-                scrollCollapse: true,
-                // paging: false,
-                columnDefs: [{
-                    width: '20%',
-                    targets: 0
-                }],
-                // fixedColumns: true,
+                }]
             });
         });
     </script>
