@@ -171,7 +171,7 @@
                                 <th hidden>id</th>
                                 <th>Nama</th>
                                 <th>Avatar</th>
-                                <th>Email</th>
+                                <th hidden>Email</th>
                                 <th>Jobclass</th>
                                 <th hidden>Username</th>
                                 <th>Roles</th>
@@ -202,7 +202,7 @@
                                             N/A
                                         @endif
                                     </td>
-                                    <td>{{ $user->email }}</td>
+                                    <td hidden>{{ $user->email }}</td>
                                     <td>
                                         @foreach ($user->jobclass as $jobc)
                                             @if ($user->jobclass->count() == 1)
