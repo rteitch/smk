@@ -172,7 +172,7 @@
                         <thead>
                             <tr>
                                 <th hidden>id</th>
-                                <th data-priority="1">Nama</th>
+                                <th>Nama</th>
                                 <th>Avatar</th>
                                 <th hidden>Email</th>
                                 <th>Jobclass</th>
@@ -188,8 +188,8 @@
                                 <th hidden>Exp</th>
                                 <th hidden>Gender</th>
                                 <th hidden>Background</th>
-                                <th data-priority="2">Status</th>
-                                <th data-priority="3">Action</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -365,7 +365,10 @@
             $('#userr').DataTable({
                 dom: 'Bfrtip',
                 ServerSide: true,
+                responsive: true,
                 ordering: false,
+
+                // autoWidth: false,
                 buttons: [{
                     extend: 'excelHtml5',
                     autoFilter: true,
@@ -373,8 +376,16 @@
                     text: ' <span class="fa fa-download"></span> Export Excel By Filter',
                     // className : 'btn btn-primary text-white'
                 }],
+
+                // scrollY: "600px",
                 scrollX: true,
-                responsive: true,
+                scrollCollapse: true,
+                // paging: false,
+                columnDefs: [{
+                    width: '20%',
+                    targets: 0
+                }],
+                // fixedColumns: true,
             });
         });
     </script>
