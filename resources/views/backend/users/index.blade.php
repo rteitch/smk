@@ -33,6 +33,9 @@
     </div>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+    <style>
+
+    </style>
 @endsection
 
 @section('content')
@@ -169,7 +172,7 @@
                         <thead>
                             <tr>
                                 <th hidden>id</th>
-                                <th>Nama</th>
+                                <th data-priority="1">Nama</th>
                                 <th>Avatar</th>
                                 <th hidden>Email</th>
                                 <th>Jobclass</th>
@@ -185,8 +188,8 @@
                                 <th hidden>Exp</th>
                                 <th hidden>Gender</th>
                                 <th hidden>Background</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th data-priority="2">Status</th>
+                                <th data-priority="3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -354,20 +357,36 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+
 
     <script>
         $(document).ready(function() {
             $('#userr').DataTable({
                 dom: 'Bfrtip',
                 ServerSide: true,
-                responsive: true,
+                ordering: false,
                 buttons: [{
                     extend: 'excelHtml5',
                     autoFilter: true,
                     sheetName: 'Exported data',
                     text: ' <span class="fa fa-download"></span> Export Excel By Filter',
                     // className : 'btn btn-primary text-white'
-                }]
+                }],
+                responsive: true,
+                columnDefs: [{
+                        responsivePriority: 1,
+                        targets: 0
+                    },
+                    {
+                        responsivePriority: 2,
+                        targets: -1
+                    },
+                    {
+                        responsivePriority: 3,
+                        targets: -2
+                    }
+                ]
             });
         });
     </script>
