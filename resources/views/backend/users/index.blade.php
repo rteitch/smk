@@ -359,7 +359,7 @@
         $(document).ready(function() {
             $('#userr').DataTable({
                 dom: 'Bfrtip',
-                serverSide: true,
+                ServerSide: true,
                 responsive: true,
                 ordering: false,
                 // autoWidth: false,
